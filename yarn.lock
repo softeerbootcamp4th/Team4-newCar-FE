@@ -4974,6 +4974,7 @@ __metadata:
     "@types/react-dom": "npm:^18.3.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.16.1"
     "@typescript-eslint/parser": "npm:^7.16.1"
+    autoprefixer: "npm:^10.4.19"
     eslint: "npm:8.57.0"
     eslint-config-airbnb: "npm:^19.0.4"
     eslint-config-airbnb-typescript: "npm:^18.0.0"
@@ -4986,12 +4987,14 @@ __metadata:
     eslint-plugin-react: "npm:^7.35.0"
     eslint-plugin-react-hooks: "npm:^4.6.2"
     eslint-plugin-react-refresh: "npm:^0.4.7"
+    postcss: "npm:^8.4.39"
     prettier: "npm:^3.3.3"
     prettier-plugin-tailwindcss: "npm:^0.6.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     react-router-dom: "npm:^6.25.1"
     tailwind-merge: "npm:^2.4.0"
+    tailwindcss: "npm:^3.4.6"
     typescript: "npm:^5.2.2"
   languageName: unknown
   linkType: soft

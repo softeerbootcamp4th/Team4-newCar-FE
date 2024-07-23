@@ -26,6 +26,7 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint', 'react'],
 	rules: {
+		'react/require-default-props': 'off',
 		'object-curly-newline': 'off',
 		'import/extensions': 'off',
 		'react/react-in-jsx-scope': 'off',
@@ -54,7 +55,7 @@ module.exports = {
 		indent: ['error', 'tab'],
 		'react/jsx-indent': 'off',
 		'react/jsx-indent-props': 'off',
-		'@typescript-eslint/indent': ['error', 'tab'],
+		'@typescript-eslint/indent': 'off',
 		'no-tabs': 'off',
 	},
 };

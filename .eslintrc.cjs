@@ -1,0 +1,55 @@
+module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'airbnb',
+    'airbnb/hooks',
+    'airbnb-typescript',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
+  overrides: [
+    {
+      env: { node: true },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: { sourceType: 'script' },
+    },
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint', 'react'],
+  rules: {
+    'import/extensions': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
+    'react/react-in-jsx-scope': 'off',
+    'import/no-unresolved': 'off',
+    'react/prop-types': 'off',
+    'no-confusing-arrow': ['error', { allowParens: true, onlyOneSimpleParam: true }],
+    'implicit-arrow-linebreak': 'off',
+    'function-paren-newline': 'off',
+    'consistent-return': 'off',
+    'no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: true,
+        variables: true,
+        allowNamedExports: false,
+      },
+    ],
+    'react/jsx-indent': [2, 'tab'],
+    'global-require': 'off',
+    '@typescript-eslint/indent': 'off',
+    'no-tabs': 'off',
+  },
+};

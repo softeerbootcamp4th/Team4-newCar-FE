@@ -20,7 +20,7 @@ function SideBar({ isChecked } : SideBarProps) {
 			<AccordionTrigger>{route.name}</AccordionTrigger>
 			<AccordionContent>
 				{route.subRoutes.map((subRoute) => (
-					<div key={subRoute.id}>
+					<div key={subRoute.id} className="cursor-pointer hover:underline">
 						{subRoute.name}
 					</div>
                       ))}

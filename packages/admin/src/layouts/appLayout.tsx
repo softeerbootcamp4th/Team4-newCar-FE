@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import Sidebar from 'src/components/appLayout/SideBar';
+import SideBarContainer from 'src/components/appLayout/SideBarContainer';
 
 export default function AppLayout() {
   return (
 	<div className="max-w-[1200px] w-full flex mx-auto">
-		<Sidebar />
+		<SideBarContainer />
 		<Outlet />
 	</div>
   );

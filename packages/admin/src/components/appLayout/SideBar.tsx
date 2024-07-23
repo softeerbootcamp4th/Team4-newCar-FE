@@ -3,9 +3,16 @@ import {
 } from 'src/components/ui/accordion';
 import SideBarRoutes from 'src/constants/sideBarRoutes';
 
-function Sidebar() {
+interface SideBarProps {
+	isChecked: boolean;
+}
+
+function SideBar({ isChecked } : SideBarProps) {
   return (
-	<div className="min-w-fit p-5">
+	<div className={`absolute w-[300px] m-[-100px_0_0_-100px] p-[50px] pt-[125px] list-none font-sans antialiased origin-[0%_0%] transform transition-transform duration-500 ease-[cubic-bezier(0.77,0.2,0.05,1.0)] ${
+        isChecked ? 'translate-x-0 ' : '-translate-x-full '
+      }`}
+	>
 		{SideBarRoutes.map((route) => (
         route.subRoutes ? (
 	<Accordion type="single" collapsible>
@@ -21,7 +28,7 @@ function Sidebar() {
 		</AccordionItem>
 	</Accordion>
         ) : (
-	<div key={route.id} className="border-b py-4">
+	<div key={route.id} className="border-b py-4 hover:cursor-pointer hover:underline">
 		{route.name}
 	</div>
         )
@@ -30,4 +37,4 @@ function Sidebar() {
 );
 }
 
-export default Sidebar;
+export default SideBar;

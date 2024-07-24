@@ -33,6 +33,8 @@
 	font-style: normal;
 }
 
+/* shadcn ui */
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;

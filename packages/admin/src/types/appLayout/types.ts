@@ -1,5 +1,5 @@
 interface NavTitle {
-	navTitleid: number;
+	navTitleId: number;
 	navTitle: string;
 }
 

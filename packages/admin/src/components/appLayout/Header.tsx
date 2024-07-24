@@ -14,8 +14,8 @@ function Header({ headerTitle, navTitles }: HeaderProps) {
 			<h2 className={`${h2Styled}`}>{headerTitle}</h2>
 
 			<ul className="flex gap-2 rounded-sm bg-slate-200">
-				{navTitles.map((navTitle) => (
-					<li key={navTitle.navTitleid}>{navTitle.navTitle}</li>
+				{navTitles.map(navTitle => (
+					<li key={navTitle.navTitleId}>{navTitle.navTitle}</li>
 				))}
 			</ul>
 		</div>

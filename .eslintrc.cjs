@@ -30,7 +30,7 @@ module.exports = {
 		'object-curly-newline': 'off',
 		'import/extensions': 'off',
 		'react/react-in-jsx-scope': 'off',
-		'arrow-parens': ['error', 'as-needed'],
+		'arrow-parens': 'off',
 		'no-confusing-arrow': ['error', { allowParens: true, onlyOneSimpleParam: true }],
 		'implicit-arrow-linebreak': 'off',
 		'function-paren-newline': 'off',
@@ -59,5 +59,6 @@ module.exports = {
 		'no-tabs': 'off',
 		'global-require': 'off',
 		'react/jsx-wrap-multilines': 'off',
+		'react/jsx-one-expression-per-line': 'off',
 	},
 };

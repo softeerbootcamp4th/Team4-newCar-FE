@@ -6,7 +6,7 @@ export default function App() {
 	return (
 		<AppProviders>
 			{/* TODO: create global loading component */}
-        	<RouterProvider router={router} fallbackElement={<>loading...</>} />
+			<RouterProvider router={router} fallbackElement={<>loading...</>} />
 		</AppProviders>
 	);
 }

@@ -11,11 +11,13 @@ import {
 interface AlertProps {
 	openTrigger: React.ReactElement;
 	actionTrigger: React.ReactElement;
+	showCancelButton?: boolean;
 }
 
 export default function Alert({
 	openTrigger,
 	actionTrigger,
+	showCancelButton = true,
 	children,
 }: PropsWithChildren<AlertProps>) {
 	return (
@@ -24,7 +26,7 @@ export default function Alert({
 			<AlertDialogContent>
 				{children}
 				<AlertDialogFooter>
-					<AlertDialogCancel>취소</AlertDialogCancel>
+					{showCancelButton && <AlertDialogCancel>취소</AlertDialogCancel>}
 					<AlertDialogAction asChild>{actionTrigger}</AlertDialogAction>
 				</AlertDialogFooter>
 			</AlertDialogContent>

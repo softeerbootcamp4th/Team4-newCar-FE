@@ -3,7 +3,7 @@ import path from 'path';
 import { defineConfig, InlineConfig, UserConfig } from 'vite';
 
 interface VitestConfigExport extends UserConfig {
-  test: InlineConfig;
+	test: InlineConfig;
 }
 
 export default defineConfig({
@@ -11,10 +11,10 @@ export default defineConfig({
 	server: { port: 3000 },
 	cacheDir: './.yarn/.vite',
 	test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './vitest.setup.ts',
-  },
+		globals: true,
+		environment: 'jsdom',
+		setupFiles: './vitest.setup.ts',
+	},
 	resolve: {
 		alias: {
 			src: path.resolve(__dirname, './src'),

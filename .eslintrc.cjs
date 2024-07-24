@@ -47,7 +47,7 @@ module.exports = {
         allowNamedExports: false,
       },
     ],
-    'react/jsx-indent': [2, 'tab'],
+    'react/jsx-indent': [8, 'tab'],
     'global-require': 'off',
     '@typescript-eslint/indent': 'off',
     'no-tabs': 'off',

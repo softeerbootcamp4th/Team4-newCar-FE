@@ -57,5 +57,7 @@ module.exports = {
 		'react/jsx-indent-props': 'off',
 		'@typescript-eslint/indent': 'off',
 		'no-tabs': 'off',
+		'global-require': 'off',
+		'react/jsx-wrap-multilines': 'off',
 	},
 };

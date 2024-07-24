@@ -8,7 +8,7 @@ const routes: RouteObject[] = [
 		path: RoutePaths.HOME,
 		element: <AppLayout />,
 		children: [
-			{ path: RoutePaths.EVENTS, element: <EventPage /> },
+			{ index: true, element: <EventPage /> },
 			/* 페이지 컴포넌트 추가 */
 		],
 	},

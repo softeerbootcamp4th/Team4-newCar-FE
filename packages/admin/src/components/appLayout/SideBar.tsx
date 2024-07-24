@@ -1,9 +1,4 @@
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from 'src/components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'src/components/ui/accordion';
 import SideBarRoutes from 'src/constants/sideBarRoutes';
 
 interface SideBarProps {
@@ -32,10 +27,7 @@ function SideBar({ isChecked }: SideBarProps) {
 						</AccordionItem>
 					</Accordion>
 				) : (
-					<div
-						key={route.id}
-						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
-					>
+					<div key={route.id} className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline">
 						{route.name}
 					</div>
 				),

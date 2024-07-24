@@ -1,6 +1,6 @@
 const RoutePaths = {
 	HOME: '/',
-	FASTEST_WINNER_DRAW: '/fastestWinnerDraw',
+	QUIZ_WINNER_DRAW: '/quizWinnerDraw',
 };
 
 export default RoutePaths;

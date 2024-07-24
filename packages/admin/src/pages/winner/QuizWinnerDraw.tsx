@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
 
-function FastestWinnerDraw() {
+function QuizWinnerDraw() {
 	const [rankList, setRankList] = useState<{ rank: number; winnerCount: string }[]>([]);
 
 	const generateRankItem = () => ({
@@ -77,4 +77,4 @@ function FastestWinnerDraw() {
 		</div>
 	);
 }
-export default FastestWinnerDraw;
+export default QuizWinnerDraw;

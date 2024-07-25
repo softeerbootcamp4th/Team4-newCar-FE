@@ -2,14 +2,14 @@ import { useState } from 'react';
 import CommonPagination from 'src/components/common/CommonPagination';
 import ResultTable from 'src/components/table/ResultTable';
 import { Button } from 'src/components/ui/button';
+import TabName from 'src/constants/TabName';
 
 // function QuizResult() {}
 
 // function RaceResult() {}
 
 function WinnerResult() {
-	// const [rankList, setRankList] = useState<{ rank: number; winnerCount: string }[]>([]);
-	const [tabName, setTabName] = useState('');
+	const [tabName, setTabName] = useState(TabName.QUIZ);
 	const [pageIndex, setPageIndex] = useState(0);
 	const handleTab = (_tabName: string) => {
 		setTabName(_tabName);
@@ -18,19 +18,11 @@ function WinnerResult() {
 	return (
 		<div className="flex w-[600px] flex-col gap-2">
 			<div className="flex flex-row">
-				<Button
-					id="fastestTab"
-					disabled={tabName === 'fastestTab'}
-					onClick={() => handleTab('fastestTab')}
-				>
-					fastestTab
+				<Button disabled={tabName === TabName.QUIZ} onClick={() => handleTab(TabName.QUIZ)}>
+					{TabName.QUIZ}
 				</Button>
-				<Button
-					id="racingTab"
-					disabled={tabName === 'racingTab'}
-					onClick={() => handleTab('racingTab')}
-				>
-					racingTab
+				<Button disabled={tabName === TabName.RACE} onClick={() => handleTab(TabName.RACE)}>
+					{TabName.RACE}
 				</Button>
 			</div>
 			<ResultTable

@@ -14,7 +14,7 @@ const routes: RouteObject[] = [
 			{
 				path: RoutePaths.QUIZ_WINNER_DRAW,
 				element: <QuizWinnerDraw />,
-			},g
+			},
 			{
 				path: RoutePaths.WINNER_RESULT,
 				element: <WinnerResult />,

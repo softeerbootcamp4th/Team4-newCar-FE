@@ -2,6 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
+/* font */
+
+@font-face {
+	font-family: 'Tenada';
+	src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2')
+		format('woff2');
+	font-weight: 800;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hyundai Sans Head KR Bold';
+	src: url('/fonts/HyundaiSansHeadKRBold.woff2.ttf') format('ttf');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hyundai Sans Head KR Medium';
+	src: url('/fonts/HyundaiSansHeadKRMedium.woff2.ttf') format('ttf');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Hyundai Sans Head KR';
+	src: url('/fonts/HyundaiSansHeadKR.woff2.ttf') format('ttf');
+	font-weight: 400;
+	font-style: normal;
+}
+
+/** default typography */
+
+body {
+	@apply font-normal;
+}
+
+h1 {
+	@apply text-heading-1 font-extrabold;
+}
+
+h2 {
+	@apply text-heading-2 font-bold;
+}
+
+h3 {
+	@apply text-heading-3 font-bold;
+}
+
+h4 {
+	@apply text-heading-4 font-bold;
+}
+
+h5 {
+	@apply text-heading-5 font-bold;
+}
+
+h6 {
+	@apply text-heading-6 font-bold;
+}
+
+p {
+	@apply text-body-1 font-normal;
+}
+/* shadcn ui */
+
 @layer base {
 	body {
 		@apply bg-background text-foreground font-normal;

@@ -1,10 +1,10 @@
-- 제목 : feat(issue 번호): 기능명
-    ex [Feature]: pull request template 작성
+- 제목 : [Feature][Task-N] pull request template 작성
   (확인 후 지워주세요)
 
 ## 🔘Part
 
-- [x] FE
+- 이벤트 페이지
+- 어드민 페이지
 
   <br/>
 

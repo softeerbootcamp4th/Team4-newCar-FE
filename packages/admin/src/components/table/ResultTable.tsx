@@ -21,7 +21,9 @@ function ResultTable({ headers, rows }: ResultTableProps) {
 			<TableHeader>
 				<TableRow>
 					{headers.map((header, headerIndex) => (
-						<TableHead key={headerIndex} className={`w-[${header.width}px]`}>{header.text}</TableHead>
+						<TableHead key={headerIndex} className={`w-[${header.width}px]`}>
+							{header.text}
+						</TableHead>
 					))}
 				</TableRow>
 			</TableHeader>
@@ -29,7 +31,9 @@ function ResultTable({ headers, rows }: ResultTableProps) {
 				{rows.map((row, rowIndex) => (
 					<TableRow key={`row-${row.join()}`} key={rowIndex}>
 						{row.map((item, colIndex) => (
-							<TableCell className="font-medium" key={colIndex}>{item}</TableCell>
+							<TableCell className="font-medium" key={colIndex}>
+								{item}
+							</TableCell>
 						))}
 					</TableRow>
 				))}

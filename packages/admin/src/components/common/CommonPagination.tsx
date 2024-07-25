@@ -15,7 +15,6 @@ interface CommonPaginationProps {
 
 function CommonPagination({ pageIndex, setPageIndex, total }: CommonPaginationProps) {
 	const listItemCount = 10;
-	// total%listItemCount
 	const minPageIndex = 0;
 	const maxPageIndex = Math.ceil(total / listItemCount) - 1;
 	const pageList = new Array(maxPageIndex + 1).fill(0).map((_, index) => index);
@@ -40,6 +39,7 @@ function CommonPagination({ pageIndex, setPageIndex, total }: CommonPaginationPr
 				</PaginationItem>
 				{pageList.map((pageNum) => (
 					<PaginationItem
+						key={pageNum}
 						className="cursor-pointer"
 						onClick={() => {
 							handleClick(pageNum);

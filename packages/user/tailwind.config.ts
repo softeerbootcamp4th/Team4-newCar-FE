@@ -1,6 +1,8 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { Config } from 'tailwindcss';
 
+/* colors */
 const colors = {
 	skyblue: {
 		100: '#CCEEF6',
@@ -73,6 +75,17 @@ const colors = {
 	foreground: '#ffffff',
 };
 
+const backgroundImage = {
+	'gradient-lineBanner': 'linear-gradient(to right, #2589FF, #232AA3)',
+	'gradient-cards1': 'linear-gradient(to right, #FD7A4D, #000000)',
+	'gradient-cards2': 'linear-gradient(to right, #939393, #000000)',
+	'gradient-gauge1': 'linear-gradient(to right, #5D85D2, #8093BB, #60E9FB)',
+	'gradient-gauge2': 'linear-gradient(to right, #E0A64F, #FFF59E, #FFE500)',
+	'gradient-gauge3': 'linear-gradient(to right, #D25C7F, #E37D9B, #FF3C76)',
+};
+
+/* typography */
+
 const fontFamily = {
 	extrabold: ['Tenada', 'sans-serif'],
 	bold: ['"Hyundai Sans Head KR Bold"', 'sans-serif'],
@@ -80,7 +93,18 @@ const fontFamily = {
 	normal: ['"Hyundai Sans Head KR"', 'sans-serif'],
 };
 
-const fontSize = {
+type FontSize = {
+	[key: string]: [
+		fontSize: string,
+		configuration: Partial<{
+			lineHeight: string;
+			letterSpacing: string;
+			fontWeight: string | number;
+		}>,
+	];
+};
+
+const fontSize: FontSize = {
 	'heading-1': ['96px', { lineHeight: '120px', letterSpacing: '-1.92px' }],
 	'heading-2': ['54px', { lineHeight: '70px', letterSpacing: '-1.08px' }],
 	'heading-3': ['50px', { lineHeight: '60px', letterSpacing: '-1px' }],
@@ -109,23 +133,18 @@ const fontWeight = {
 	regular: '400',
 };
 
-/** @type {import('tailwindcss').Config} */
-export default {
+const config: Config = {
 	content: ['./src/**/*.{ts,tsx}'],
 	theme: {
 		extend: {
 			fontFamily,
 			fontSize,
 			fontWeight,
-      colors,
-			backgroundImage: {
-				'gradient-lineBanner': 'linear-gradient(to right, #2589FF, #232AA3)',
-				'gradient-cards1': 'linear-gradient(to right, #FD7A4D, #000000)',
-				'gradient-cards2': 'linear-gradient(to right, #939393, #000000)',
-				'gradient-gauge1': 'linear-gradient(to right, #5D85D2, #8093BB, #60E9FB)',
-				'gradient-gauge2': 'linear-gradient(to right, #E0A64F, #FFF59E, #FFE500)',
-				'gradient-gauge3': 'linear-gradient(to right, #D25C7F, #E37D9B, #FF3C76)',
+			colors,
+			backgroundImage,
 		},
+		plugins: [require('tailwindcss-animate')],
 	},
-	plugins: [require('tailwindcss-animate')],
 };
+
+export default config;

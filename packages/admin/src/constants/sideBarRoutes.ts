@@ -1,12 +1,16 @@
+import RoutePaths from 'src/constants/routePath';
+
 interface Route {
 	id: number;
 	name: string;
+	path?: string
 	subRoutes?: Route[];
 }
 const SideBarRoutes: Route[] = [
 	{
 		id: 1,
 		name: '이벤트 관리',
+		path: '/',
 	},
 	{
 		id: 2,
@@ -15,16 +19,19 @@ const SideBarRoutes: Route[] = [
 			{
 				id: 1,
 				name: '추첨하기',
+				path: RoutePaths.QUIZ_WINNER_DRAW,
 			},
 			{
 				id: 2,
 				name: '당첨자 목록',
+				path: RoutePaths.WINNER_RESULT,
 			},
 		],
 	},
 	{
 		id: 3,
 		name: '기대평 관리',
+		path: '/',
 	},
 ];
 

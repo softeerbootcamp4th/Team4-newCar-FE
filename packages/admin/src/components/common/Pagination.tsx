@@ -1,19 +1,19 @@
 import {
-	Pagination,
 	PaginationContent,
 	PaginationItem,
 	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
+	Pagination as ShadcnPagination,
 } from 'src/components/ui/pagination';
 
-interface CommonPaginationProps {
+interface PaginationProps {
 	pageIndex: number;
 	total: number;
 	setPageIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function CommonPagination({ pageIndex, setPageIndex, total }: CommonPaginationProps) {
+function Pagination({ pageIndex, setPageIndex, total }: PaginationProps) {
 	const listItemCount = 10;
 	const minPageIndex = 0;
 	const maxPageIndex = Math.ceil(total / listItemCount) - 1;
@@ -32,7 +32,7 @@ function CommonPagination({ pageIndex, setPageIndex, total }: CommonPaginationPr
 		setPageIndex(index);
 	};
 	return (
-		<Pagination>
+		<ShadcnPagination>
 			<PaginationContent>
 				<PaginationItem className="cursor-pointer">
 					<PaginationPrevious onClick={handlePrevious} />
@@ -53,8 +53,8 @@ function CommonPagination({ pageIndex, setPageIndex, total }: CommonPaginationPr
 					<PaginationNext onClick={handleNext} />
 				</PaginationItem>
 			</PaginationContent>
-		</Pagination>
+		</ShadcnPagination>
 	);
 }
 
-export default CommonPagination;
+export default Pagination;

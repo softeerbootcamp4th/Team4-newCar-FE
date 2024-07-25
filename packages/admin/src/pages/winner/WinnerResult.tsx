@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import CommonPagination from 'src/components/common/CommonPagination';
-import CommonTab from 'src/components/common/CommonTab';
+import Pagination from 'src/components/common/Pagination';
+import Tab from 'src/components/common/Tab';
 import ResultTable from 'src/components/table/ResultTable';
 import TabName from 'src/constants/TabName';
 
@@ -46,13 +46,13 @@ function WinnerResult() {
 
 	return (
 		<div className="flex w-[600px] flex-col gap-2">
-			<CommonTab
+			<Tab
 				tabNames={[TabName.QUIZ, TabName.RACE]}
 				setSelectedTabName={setTabName}
 				selectedTabName={tabName}
 			/>
 			{renderTab()}
-			<CommonPagination pageIndex={pageIndex} setPageIndex={setPageIndex} total={21} />
+			<Pagination pageIndex={pageIndex} setPageIndex={setPageIndex} total={21} />
 		</div>
 	);
 }

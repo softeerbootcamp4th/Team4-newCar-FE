@@ -6,7 +6,7 @@ interface CommonTabProps {
 	setSelectedTabName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function CommonTab({ selectedTabName, setSelectedTabName, tabNames }: CommonTabProps) {
+function Tab({ selectedTabName, setSelectedTabName, tabNames }: CommonTabProps) {
 	const handleSelect = (tabname: string) => {
 		setSelectedTabName(tabname);
 	};
@@ -24,4 +24,4 @@ function CommonTab({ selectedTabName, setSelectedTabName, tabNames }: CommonTabP
 		</div>
 	);
 }
-export default CommonTab;
+export default Tab;

@@ -66,6 +66,16 @@ module.exports = {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 			},
+			transformOrigin: {
+				custom: '4px 0px',
+			},
+			transitionTimingFunction: {
+				'custom-bezier': 'cubic-bezier(0.77, 0.2, 0.05, 1.0)',
+			},
+			transitionDuration: {
+				500: '500ms',
+				550: '550ms',
+			},
 		},
 	},
 	plugins: [require('tailwindcss-animate')],

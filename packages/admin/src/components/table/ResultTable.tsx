@@ -20,16 +20,16 @@ function ResultTable({ headers, rows }: ResultTableProps) {
 		<Table>
 			<TableHeader>
 				<TableRow>
-					{headers.map((header) => (
-						<TableHead className={`w-[${header.width}px]`}>{header.text}</TableHead>
+					{headers.map((header, headerIndex) => (
+						<TableHead key={headerIndex} className={`w-[${header.width}px]`}>{header.text}</TableHead>
 					))}
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{rows.map((row) => (
-					<TableRow>
-						{row.map((item) => (
-							<TableCell className="font-medium">{item}</TableCell>
+				{rows.map((row, rowIndex) => (
+					<TableRow key={`row-${row.join()}`} key={rowIndex}>
+						{row.map((item, colIndex) => (
+							<TableCell className="font-medium" key={colIndex}>{item}</TableCell>
 						))}
 					</TableRow>
 				))}

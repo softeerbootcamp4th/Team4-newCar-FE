@@ -31,7 +31,6 @@ function SideBar({ isChecked }: SideBarProps) {
 										key={subRoute.id}
 										className="cursor-pointer hover:underline"
 										onClick={() => {
-											console.log(subRoute);
 											hnadleClick(subRoute.path);
 										}}
 									>

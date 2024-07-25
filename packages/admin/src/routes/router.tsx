@@ -7,25 +7,18 @@ import WinnerResult from 'src/pages/winner/WinnerResult';
 
 const routes: RouteObject[] = [
 	{
-		path: RoutePaths.HOME,
+		path: RoutePaths.ROOT,
 		element: <AppLayout />,
 		children: [
 			{ index: true, element: <EventPage /> },
-			/* 페이지 컴포넌트 추가 */
-		],
-	},
-	{
-		path: RoutePaths.QUIZ_WINNER_DRAW,
-		element: <AppLayout />,
-		children: [
-			{ index: true, element: <QuizWinnerDraw /> },
-		],
-	},
-	{
-		path: RoutePaths.WINNER_RESULT,
-		element: <AppLayout />,
-		children: [
-			{ index: true, element: <WinnerResult /> },
+			{
+				path: RoutePaths.QUIZ_WINNER_DRAW,
+				element: <QuizWinnerDraw />,
+			},g
+			{
+				path: RoutePaths.WINNER_RESULT,
+				element: <WinnerResult />,
+			},
 		],
 	},
 ];

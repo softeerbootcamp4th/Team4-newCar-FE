@@ -1,5 +1,5 @@
 const RoutePaths = {
-	HOME: '/',
+	ROOT: '/',
 	QUIZ_WINNER_DRAW: '/quizWinnerDraw',
 	FASTEST_WINNER_DRAW: '/fastestWinnerDraw',
 	WINNER_RESULT: '/winnerResult',

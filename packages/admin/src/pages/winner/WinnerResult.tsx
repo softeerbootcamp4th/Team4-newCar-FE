@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Pagination from 'src/components/common/Pagination';
 import Tab from 'src/components/common/Tab';
 import ResultTable from 'src/components/table/ResultTable';
-import TabName from 'src/constants/TabName';
 
 function QuizResult({ pageIndex }: { pageIndex: number }) {
 	const dummyData = new Array(200).fill(0).map((_, index) => new Array(5).fill(index * 2));
@@ -36,6 +35,10 @@ function RaceResult({ pageIndex }: { pageIndex: number }) {
 }
 
 function WinnerResult() {
+	const TabName = {
+		QUIZ: 'QUIZ',
+		RACE: 'RACE',
+	};
 	const [tabName, setTabName] = useState(TabName.QUIZ);
 	const [pageIndex, setPageIndex] = useState(0);
 

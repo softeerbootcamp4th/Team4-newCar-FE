@@ -133,6 +133,21 @@ const fontWeight = {
 	regular: '400',
 };
 
+/* spacing */
+
+const spacing = {
+	1: '2px',
+	2: '4px',
+	3: '8px',
+	4: '12px',
+	5: '16px',
+	6: '20px',
+	7: '24px',
+	8: '28px',
+	9: '32px',
+	10: '36px',
+};
+
 const config: Config = {
 	content: ['./src/**/*.{ts,tsx}'],
 	theme: {
@@ -141,6 +156,7 @@ const config: Config = {
 			fontSize,
 			fontWeight,
 			colors,
+			spacing,
 			backgroundImage,
 		},
 		plugins: [require('tailwindcss-animate')],

@@ -8,7 +8,7 @@ interface SideBarProps {
 
 function SideBar({ isChecked }: SideBarProps) {
 	const navigate = useNavigate();
-	const hnadleClick = (path: string | undefined) => {
+	const handleClick = (path: string | undefined) => {
 		if (path) {
 			navigate(path);
 		}

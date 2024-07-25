@@ -16,11 +16,17 @@ const routes: RouteObject[] = [
 	},
 	{
 		path: RoutePaths.QUIZ_WINNER_DRAW,
-		element: <QuizWinnerDraw />,
+		element: <AppLayout />,
+		children: [
+			{ index: true, element: <QuizWinnerDraw /> },
+		],
 	},
 	{
 		path: RoutePaths.WINNER_RESULT,
-		element: <WinnerResult />,
+		element: <AppLayout />,
+		children: [
+			{ index: true, element: <WinnerResult /> },
+		],
 	},
 ];
 

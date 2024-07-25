@@ -31,7 +31,7 @@ function SideBar({ isChecked }: SideBarProps) {
 										key={subRoute.id}
 										className="cursor-pointer hover:underline"
 										onClick={() => {
-											hnadleClick(subRoute.path);
+											handleClick(subRoute.path);
 										}}
 									>
 										{subRoute.name}
@@ -46,7 +46,7 @@ function SideBar({ isChecked }: SideBarProps) {
 						key={route.id}
 						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
 						onClick={() => {
-							hnadleClick(route.path);
+							handleClick(route.path);
 						}}
 					>
 						{route.name}

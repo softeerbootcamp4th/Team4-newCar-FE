@@ -23,13 +23,19 @@ function SideBarContainer() {
 
 				<span
 					className={`${spanStyled} ${
-						isChecked ? 'translate-x-[-2px] translate-y-[-1px] rotate-45 transform bg-slate-500' : ''
+						isChecked
+							? 'translate-x-[-2px] translate-y-[-1px] rotate-45 transform bg-slate-500'
+							: ''
 					}`}
 				/>
-				<span className={` ${spanStyled} ${isChecked ? 'rotate-0 scale-[0.2,0.2] transform opacity-0' : ''}`} />
+				<span
+					className={` ${spanStyled} ${isChecked ? 'rotate-0 scale-[0.2,0.2] transform opacity-0' : ''}`}
+				/>
 				<span
 					className={`${spanStyled} ${
-						isChecked ? 'translate-x-[-2px translate-y-[-1px] rotate-[-45deg] transform bg-slate-500' : ''
+						isChecked
+							? 'translate-x-[-2px translate-y-[-1px] rotate-[-45deg] transform bg-slate-500'
+							: ''
 					}`}
 				/>
 

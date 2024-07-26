@@ -7,4 +7,5 @@ module.exports = {
 	plugins: [require.resolve('prettier-plugin-tailwindcss')],
 	tailwindConfig: './tailwind.config.cjs',
 	tailwindAttributes: ['className'],
+	tailwindFunctions: ['clsx'],
 };

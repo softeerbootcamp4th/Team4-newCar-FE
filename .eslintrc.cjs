@@ -26,6 +26,7 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint', 'react'],
 	rules: {
+		'operator-linebreak': 'off',
 		'react/require-default-props': 'off',
 		'object-curly-newline': 'off',
 		'import/extensions': 'off',

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import RoutePaths from 'src/constants/routePath';
 import AppLayout from 'src/layouts/appLayout';
-import EventPage from 'src/pages/events/eventPage';
+import EventPage from 'src/pages/events/EventPage';
 import QuizWinnerDraw from 'src/pages/winner/QuizWinnerDraw';
 import WinnerResult from 'src/pages/winner/WinnerResult';
 

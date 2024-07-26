@@ -9,13 +9,12 @@ const buttonVariants = clsx(
 	'focus-visible:ring focus-visible:ring-1 focus-visible:ring-offset-1',
 );
 
-const EventButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>(
+/** 기대평 보내기 버튼 */
+const SubmitCommentButton = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>(
 	({ className, type = 'button', ...props }, ref) => (
 		// eslint-disable-next-line react/button-has-type
 		<button className={clsx(buttonVariants, className)} ref={ref} type={type} {...props} />
 	),
 );
 
-EventButton.displayName = 'EventButton';
-
-export default EventButton;
+export default SubmitCommentButton;

@@ -138,6 +138,7 @@ const fontWeight = {
 const spacing = {
 	1: '2px',
 	2: '4px',
+	2.5: '4px',
 	3: '8px',
 	4: '12px',
 	5: '16px',
@@ -157,6 +158,8 @@ const config: Config = {
 			fontWeight,
 			colors,
 			spacing,
+			borderRadius: spacing,
+			padding: spacing,
 			backgroundImage,
 		},
 		plugins: [require('tailwindcss-animate')],

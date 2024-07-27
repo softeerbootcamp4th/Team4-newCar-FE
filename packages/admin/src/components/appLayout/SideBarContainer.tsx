@@ -34,7 +34,7 @@ function SideBarContainer() {
 				<span
 					className={`${spanStyled} ${
 						isChecked
-							? 'translate-x-[-2px translate-y-[-1px] rotate-[-45deg] transform bg-slate-500'
+							? 'translate-x-[-2px] translate-y-[-1px] rotate-[-45deg] transform bg-slate-500'
 							: ''
 					}`}
 				/>

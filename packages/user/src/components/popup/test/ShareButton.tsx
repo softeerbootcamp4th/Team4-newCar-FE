@@ -19,7 +19,7 @@ const buttonVariants = cva(clsx(buttonStyles, defaultStyles), {
 	},
 });
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 	VariantProps<typeof buttonVariants>;
 
 /** 유형 검사 팝업 내 링크 공유 버튼  */

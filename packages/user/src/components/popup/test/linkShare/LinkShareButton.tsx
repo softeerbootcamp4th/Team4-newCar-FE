@@ -23,10 +23,12 @@ const buttonVariants = cva(clsx(buttonStyles, defaultStyles), {
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>;
 
 /** 유형 검사 팝업 내 링크 공유 버튼  */
-const ShareButton = forwardRef<HTMLButtonElement, ButtonProps>(
+const LinkShareButton = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, variants, ...props }, ref) => (
-		<button className={cn(buttonVariants({ variants, className }))} ref={ref} {...props} />
+		<button className={cn(buttonVariants({ variants, className }))} ref={ref} {...props}>
+			공유하기
+		</button>
 	),
 );
 
-export default ShareButton;
+export default LinkShareButton;

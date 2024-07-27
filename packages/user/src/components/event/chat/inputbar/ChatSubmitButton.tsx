@@ -16,7 +16,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 /** 기대평 등록 버튼 */
 const ChatSubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, ...props }, ref) => (
-		<button className={cn(buttonStyles, styles, className)} ref={ref} {...props} />
+		<button type="submit" className={cn(buttonStyles, styles, className)} ref={ref} {...props}>보내기</button>
 	),
 );
 

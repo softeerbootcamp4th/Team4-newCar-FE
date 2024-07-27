@@ -12,6 +12,7 @@ const spacing = {
 	10: '36px',
 	11: '40px',
 	12: '44px',
+	15: '70px',
 };
 
 const colors = {

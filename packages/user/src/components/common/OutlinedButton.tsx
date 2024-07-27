@@ -13,13 +13,11 @@ const styles = clsx(
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-/** 기대평 등록 버튼 */
-const ChatSubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(
+/** 기대평 등록, 랜딩 페이지 링크 공유 버튼 */
+const OutlinedButton = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, ...props }, ref) => (
-		<button type="submit" className={cn(buttonStyles, styles, className)} ref={ref} {...props}>
-			보내기
-		</button>
+		<button className={cn(buttonStyles, styles, className)} ref={ref} {...props} />
 	),
 );
 
-export default ChatSubmitButton;
+export default OutlinedButton;

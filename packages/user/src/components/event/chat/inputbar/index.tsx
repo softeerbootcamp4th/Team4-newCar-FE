@@ -1,6 +1,6 @@
 import { useRef } from 'react';
+import OutlinedButton from 'src/components/common/OutlinedButton';
 import ChatInput from 'src/components/event/chat/inputbar/ChatInput';
-import ChatSubmitButton from 'src/components/event/chat/inputbar/ChatSubmitButton';
 
 export default function ChatInputbar() {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -13,7 +13,7 @@ export default function ChatInputbar() {
 	return (
 		<form className="flex items-center gap-4" onSubmit={handleSubmit}>
 			<ChatInput ref={inputRef} name="input" required />
-			<ChatSubmitButton type="submit" />
+			<OutlinedButton type="submit">보내기</OutlinedButton>
 		</form>
 	);
 }

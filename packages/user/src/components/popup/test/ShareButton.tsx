@@ -14,7 +14,7 @@ const buttonVariants = cva(clsx(buttonStyles, defaultStyles), {
 			pet: 'bg-yellow-200 text-cream-800 disabled:bg-yellow-200/10',
 			place: 'bg-khaki-700 text-khaki-100 disabled:bg-khaki-700/10 disabled:text-khaki-600',
 			travel: 'bg-orange-200 text-orange-900 disabled:bg-orange-200/10',
-			leisure: 'bg-gray-400 text-gray-200 disabled:bg-gray-400/10 disabled:text-gray-600',
+			leisure: 'bg-neutral-400 text-neutral-200 disabled:bg-neutral-400/10 disabled:text-neutral-600',
 		},
 	},
 });

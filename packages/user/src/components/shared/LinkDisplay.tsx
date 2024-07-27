@@ -4,17 +4,16 @@ import { forwardRef } from 'react';
 import inputStyles from 'src/styles/input';
 import cn from 'src/utils/cn';
 
-const defaultStyles =
-	'placeholder:text-neutral-300 text-neutral-400 flex h-[52px] w-[461px] rounded-[5px] bg-neutral-600 px-5';
+const defaultStyles = 'flex px-5';
 
 const categoryStyles =
-	'rounded-[10px] w-[380px] bg-neutral-400 text-neutral-200 disabled:bg-neutral-400/10 disabled:text-neutral-600';
+	'rounded-[10px] w-[380px] h-[48px] bg-neutral-400 text-neutral-200 disabled:bg-neutral-400/10 disabled:text-neutral-600';
 const opacityCategoryStyles = clsx('opacity-50', categoryStyles);
 
 const inputVariants = cva(clsx(defaultStyles, inputStyles), {
 	variants: {
 		variants: {
-			default: 'text-neutral-300',
+			default: 'bg-neutral-600 text-neutral-300 h-[54px] w-[461px] rounded-[5px]',
 			pet: categoryStyles,
 			travel: opacityCategoryStyles,
 			place: opacityCategoryStyles,
@@ -29,7 +28,7 @@ const inputVariants = cva(clsx(defaultStyles, inputStyles), {
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & VariantProps<typeof inputVariants>;
 
 /** 유저 별 이벤트 공유 링크 */
-const ShareLink = forwardRef<HTMLInputElement, InputProps>(
+const LinkDisplay = forwardRef<HTMLInputElement, InputProps>(
 	({ className, variants, ...props }, ref) => (
 		<input
 			type="text"
@@ -41,4 +40,4 @@ const ShareLink = forwardRef<HTMLInputElement, InputProps>(
 	),
 );
 
-export default ShareLink;
+export default LinkDisplay;

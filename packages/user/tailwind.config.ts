@@ -19,7 +19,6 @@ const config: Config = {
 		fontWeight,
 		backgroundImage,
 		extend: {
-			padding: spacing,
 			fontSize,
 			colors,
 			borderRadius: spacing,

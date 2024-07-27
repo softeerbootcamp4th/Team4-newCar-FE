@@ -90,9 +90,9 @@ const colors = {
 
 const fontFamily = {
 	extrabold: ['Tenada', 'sans-serif'],
-	bold: ['"Hyundai Sans Head KR Bold"', 'sans-serif'],
-	medium: ['"Hyundai Sans Head KR Medium"', 'sans-serif'],
-	normal: ['"Hyundai Sans Head KR"', 'sans-serif'],
+	bold: ['Hyundai Sans Head KR', 'sans-serif'],
+	medium: ['Hyundai Sans Head KR', 'sans-serif'],
+	normal: ['Hyundai Sans Head KR', 'sans-serif'],
 };
 
 type FontSize = {

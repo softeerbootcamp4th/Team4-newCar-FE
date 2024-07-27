@@ -14,14 +14,8 @@ const styles = clsx(
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** 팝업 퀴즈 선택지 버튼 */
-const OptionButton = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, ...props }, ref) => (
-		<button
-			className={cn(buttonStyles, styles, className)}
-			ref={ref}
-			{...props}
-		/>
-	),
-);
+const OptionButton = forwardRef<HTMLButtonElement, ButtonProps>(({ className, ...props }, ref) => (
+	<button className={cn(buttonStyles, styles, className)} ref={ref} {...props} />
+));
 
 export default OptionButton;

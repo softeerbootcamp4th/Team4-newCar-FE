@@ -10,7 +10,7 @@ export default function User() {
 	return (
 		<div className="flex items-center gap-2">
 			{user ? (
-				<p>{user.name}님 반갑습니다</p>
+				<p className='text-detail-1'>김보민님 반갑습니다</p>
 			) : (
 				<>
 					<SpeechBubble />

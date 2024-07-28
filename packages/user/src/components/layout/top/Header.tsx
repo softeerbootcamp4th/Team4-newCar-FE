@@ -1,5 +1,3 @@
 export default function Header() {
-	return (
-		<header className="container h-[65px] bg-background">header</header>
-	);
+	return <header className="bg-background container h-[65px]">header</header>;
 }

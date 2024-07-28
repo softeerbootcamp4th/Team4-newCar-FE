@@ -8,12 +8,12 @@ const AuthContext = createContext({});
 
 const useAuth = () => useContext(AuthContext);
 
-function AuthProvider({ children }:PropsWithChildren) {
+function AuthProvider({ children }: PropsWithChildren) {
 	const [user, setUser] = useUserStorage();
 
 	const navigate = useNavigate();
 
-	const login = async ({ userData }:{ userData:User }) => {
+	const login = async ({ userData }: { userData: User }) => {
 		setUser(userData);
 		navigate(RoutePaths.Home, { replace: true });
 	};

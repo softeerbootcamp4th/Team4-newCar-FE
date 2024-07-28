@@ -19,6 +19,13 @@ const config: Config = {
 		fontWeight,
 		backgroundImage,
 		extend: {
+			container: {
+				center: true,
+				padding: '2rem',
+				screens: {
+					'2xl': '1920px',
+				},
+			},
 			fontSize,
 			colors,
 			borderRadius: spacing,

@@ -7,7 +7,7 @@ import TopSectionContainer from 'src/components/layout/top/TopSectionContainer';
 
 export default function Layout() {
 	return (
-		<div className="flex min-h-screen flex-col min-w-max">
+		<div className="flex min-h-screen min-w-max flex-col">
 			<TopSectionContainer>
 				<Header />
 				<Banner />

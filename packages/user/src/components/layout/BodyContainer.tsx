@@ -1,4 +1,6 @@
-export default function BodyContainer({ children }: React.PropsWithChildren) {
+import { PropsWithChildren } from 'react';
+
+export default function BodyContainer({ children }: PropsWithChildren) {
 	return (
 		<main className="container flex-grow">
 			{children}

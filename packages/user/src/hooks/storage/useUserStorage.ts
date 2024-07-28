@@ -3,7 +3,7 @@ import { User } from 'src/types/user';
 
 const USER_STORAGE_KEY = 'user';
 
-const useUserStorage = (initialVal: User | null) =>
-	useStorage<User | null>(USER_STORAGE_KEY, initialVal);
+const useUserStorage = () =>
+	useStorage<User | null>(USER_STORAGE_KEY, null);
 
 export default useUserStorage;

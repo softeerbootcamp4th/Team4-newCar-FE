@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import Layout from 'src/components/layout';
 import RoutePaths from 'src/constants/routePath';
-import { AuthProvider } from 'src/hooks/useAuth';
+import AuthProvider from 'src/context/auth';
 
 const routes: RouteObject[] = [
 	{

@@ -7,9 +7,9 @@ export default function Logo() {
 	const handleClick = () => navigate(RoutePaths.Home);
 
 	return (
-		<button type="button" onClick={handleClick} className="flex gap-7 items-center">
+		<button type="button" onClick={handleClick} className="flex items-center gap-7">
 			<LogoIcon />
-			<p className="text-heading-12">CASPER Electric</p>
+			<p className="text-heading-12 font-medium">CASPER Electric</p>
 		</button>
 	);
 }

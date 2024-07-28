@@ -60,5 +60,6 @@ module.exports = {
 		'no-tabs': 'off',
 		'global-require': 'off',
 		'react/jsx-wrap-multilines': 'off',
+		"react/jsx-one-expression-per-line": ['enabled', { "allow": "single-child" }]
 	},
 };

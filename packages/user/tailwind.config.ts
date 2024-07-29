@@ -1,6 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-restricted-imports */
 import { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
 import {

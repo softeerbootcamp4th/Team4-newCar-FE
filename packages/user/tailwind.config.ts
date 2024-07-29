@@ -1,8 +1,8 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-restricted-imports */
-
 import { Config } from 'tailwindcss';
+import tailwindAnimate from 'tailwindcss-animate';
 import {
 	backgroundImage,
 	colors,
@@ -21,6 +21,9 @@ const config: Config = {
 		colors,
 		fontSize,
 		borderRadius: spacing,
+		boxShadow: {
+			md: 'rgba(255,255,255, 0.35) 0px 5px 15px',
+		},
 		extend: {
 			spacing,
 			container: {
@@ -31,8 +34,8 @@ const config: Config = {
 				},
 			},
 		},
-		plugins: [require('tailwindcss-animate')],
 	},
+	plugins: [tailwindAnimate],
 };
 
 export default config;

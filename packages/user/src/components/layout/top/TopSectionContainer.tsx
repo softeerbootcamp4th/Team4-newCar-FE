@@ -1,9 +1,5 @@
 import { PropsWithChildren } from 'react';
 
-export default function TopSectionContainer({ children }:PropsWithChildren) {
-	return (
-		<div className="bg-white sticky top-0">
-			{children}
-		</div>
-	);
+export default function TopSectionContainer({ children }: PropsWithChildren) {
+	return <div className="sticky top-0">{children}</div>;
 }

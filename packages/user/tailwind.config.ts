@@ -18,7 +18,11 @@ const config: Config = {
 		fontFamily,
 		fontWeight,
 		backgroundImage,
+		colors,
+		fontSize,
+		borderRadius: spacing,
 		extend: {
+			spacing,
 			container: {
 				center: true,
 				padding: '2rem',
@@ -26,10 +30,6 @@ const config: Config = {
 					'2xl': '1920px',
 				},
 			},
-			fontSize,
-			colors,
-			borderRadius: spacing,
-			spacing,
 		},
 		plugins: [require('tailwindcss-animate')],
 	},

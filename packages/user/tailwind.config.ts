@@ -22,7 +22,7 @@ const config: Config = {
 		fontSize,
 		borderRadius: spacing,
 		boxShadow: {
-			md: 'rgba(255,255,255, 0.35) 0px 5px 15px',
+			md: 'rgba(255,255,255, 0.15) 0px 5px 15px 0px',
 		},
 		extend: {
 			spacing,

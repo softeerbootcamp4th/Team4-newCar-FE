@@ -1,10 +1,26 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import Layout from 'src/components/layout';
 import RoutePaths from 'src/constants/routePath';
+import { AuthProvider } from 'src/hooks/useAuth';
 
 const routes: RouteObject[] = [
 	{
-		path: RoutePaths.HOME,
-		element: <>home</>,
+		path: RoutePaths.Index,
+		element: (
+			<AuthProvider>
+				<Layout />
+			</AuthProvider>
+		),
+		children: [
+			{
+				index: true,
+				element: <>home</>,
+			},
+			{
+				path: RoutePaths.Event,
+				element: <>event</>,
+			},
+		],
 	},
 ];
 

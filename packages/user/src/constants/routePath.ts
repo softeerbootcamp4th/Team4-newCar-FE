@@ -1,5 +1,7 @@
 const RoutePaths = {
-	HOME: '/',
+	Index: '/',
+	Home: '/',
+	Event: '/event',
 };
 
 export default RoutePaths;

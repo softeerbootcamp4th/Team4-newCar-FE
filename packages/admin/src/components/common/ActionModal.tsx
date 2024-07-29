@@ -4,13 +4,13 @@ import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components
 import { useModal } from 'src/store/provider/ModalProvider';
 
 export default function ActionModal() {
-	const { isOpen, content, actionCallback, closeModal } = useModal();
+	const { isModalOpen, content, actionCallback, closeModal } = useModal();
 	const handleSubmit = () => {
 		closeModal();
 		actionCallback();
 	};
 	return (
-		<Dialog open={isOpen}>
+		<Dialog open={isModalOpen}>
 			<DialogContent className="w-auto max-w-fit">
 				<div className="flexcol flex min-h-[100px] w-full">{content}</div>
 				<DialogTitle />

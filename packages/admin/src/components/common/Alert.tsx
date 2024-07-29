@@ -1,33 +1,25 @@
-import { PropsWithChildren } from 'react';
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogFooter,
-	AlertDialogTrigger,
-} from 'src/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogContent, AlertDialogFooter } from 'src/components/ui/alert-dialog';
+import { Button } from 'src/components/ui/button';
+import { useModal } from 'src/store/provider/ModalProvider';
 
-interface AlertProps {
-	openTrigger: React.ReactElement;
-	actionTrigger: React.ReactElement;
-	showCancelButton?: boolean;
-}
-
-export default function Alert({
-	openTrigger,
-	actionTrigger,
-	showCancelButton = true,
-	children,
-}: PropsWithChildren<AlertProps>) {
+export default function Alert() {
+	const { isAlertOpen, actionCallback, alertText, alertType, closeAlert } = useModal();
+	const showCancelButton = alertType === 'confirm';
+	const handleSubmit = () => {
+		if (showCancelButton) {
+			actionCallback();
+		}
+		closeAlert();
+	};
 	return (
-		<AlertDialog>
-			<AlertDialogTrigger asChild>{openTrigger}</AlertDialogTrigger>
+		<AlertDialog open={isAlertOpen}>
 			<AlertDialogContent>
-				{children}
+				<div>{alertText}</div>
 				<AlertDialogFooter>
-					{showCancelButton && <AlertDialogCancel>취소</AlertDialogCancel>}
-					<AlertDialogAction asChild>{actionTrigger}</AlertDialogAction>
+					<div className="flex flex-row justify-end">
+						{showCancelButton && <Button>취소</Button>}
+						<Button onClick={handleSubmit}>확인</Button>
+					</div>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

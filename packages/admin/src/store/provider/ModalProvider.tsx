@@ -7,48 +7,83 @@ import {
 	useState,
 } from 'react';
 
+type AlertType = 'error' | 'confirm';
+
 interface ModalContextProps {
-	isOpen: boolean;
+	isModalOpen: boolean;
+	isAlertOpen: boolean;
 	content: ReactElement;
+	alertText: string;
+	alertType: AlertType;
 	actionCallback: () => void;
-	closeModal: () => void;
 	openModal: (newContent: ReactElement, actionCallback: () => void) => void;
+	openAlert: (newAlertText: string, newAlertType: AlertType, newActionCallback: () => void) => void;
+	closeModal: () => void;
+	closeAlert: () => void;
 }
 
 const ModalContext = createContext<ModalContextProps>({
-	isOpen: false,
+	isAlertOpen: false,
+	isModalOpen: false,
 	content: <div />,
+	alertText: '',
+	alertType: 'confirm',
 	actionCallback: () => {},
-	closeModal: () => {},
 	openModal: () => {},
+	openAlert: () => {},
+	closeModal: () => {},
+	closeAlert: () => {},
 });
 
 export const useModal = () => useContext(ModalContext);
 
 export function ModalProvider({ children }: PropsWithChildren) {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isAlertOpen, setIsAlertOpen] = useState(false);
+	const [alertType, setAlertType] = useState<AlertType>('confirm');
 	const [content, setContent] = useState<ReactElement>(<div />);
+	const [alertText, setAlertText] = useState('');
 	const [actionCallback, setActionCallback] = useState<() => void>(() => {});
 
 	const openModal = (newContent: ReactElement, newActionCallback: () => void) => {
 		setContent(newContent);
 		setActionCallback(() => newActionCallback);
-		setIsOpen(true);
+		setIsModalOpen(true);
+	};
+
+	const openAlert = (
+		newAlertText: string,
+		newAlertType: AlertType,
+		newActionCallback: () => void = () => {},
+	) => {
+		setAlertText(newAlertText);
+		setAlertType(newAlertType);
+		setActionCallback(() => newActionCallback);
+		setIsAlertOpen(true);
 	};
 
 	const closeModal = () => {
-		setIsOpen(false);
+		setIsModalOpen(false);
+	};
+
+	const closeAlert = () => {
+		setIsAlertOpen(false);
 	};
 
 	const context = useMemo(
 		() => ({
-			isOpen,
+			isModalOpen,
+			isAlertOpen,
 			content,
+			alertText,
+			alertType,
 			actionCallback,
 			openModal,
+			openAlert,
 			closeModal,
+			closeAlert,
 		}),
-		[isOpen, content, actionCallback],
+		[isModalOpen, isAlertOpen, content, alertText, alertType, actionCallback],
 	);
 
 	return <ModalContext.Provider value={context}>{children}</ModalContext.Provider>;

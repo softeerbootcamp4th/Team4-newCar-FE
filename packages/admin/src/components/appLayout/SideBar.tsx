@@ -42,12 +42,17 @@ function SideBar({ isChecked }: SideBarProps) {
 					</Accordion>
 				) : (
 					<div
+<<<<<<< HEAD
 						role="presentation"
 						key={route.id}
 						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
 						onClick={() => {
 							hnadleClick(route.path);
 						}}
+=======
+						key={route.id}
+						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
+>>>>>>> main
 					>
 						{route.name}
 					</div>

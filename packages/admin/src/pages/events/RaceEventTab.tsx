@@ -1,4 +1,6 @@
+import RaceEventEditor from 'src/components/editor/RaceEventEditor';
 import { Button } from 'src/components/ui/button';
+import { useModal } from 'src/store/provider/ModalProvider';
 
 interface Weight {
 	name: string;
@@ -16,12 +18,12 @@ interface Quiz {
 }
 
 function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
-	// const { openModal } = useModal();
-	// const handleTest = () => {
-	// 	openModal(<div>aaa</div>, () => {
-	// 		console.log('Action Callback');
-	// 	});
-	// };
+	const { openModal } = useModal();
+	const handleTest = () => {
+		openModal(<RaceEventEditor />, () => {
+			console.log('Action Callback');
+		});
+	};
 	return (
 		<div>
 			<div>{quizIndex + 1}</div>
@@ -45,7 +47,7 @@ function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
 					</div>
 				))}
 				<div className="flex justify-end">
-					<Button>수정</Button>
+					<Button onClick={handleTest}>수정</Button>
 				</div>
 			</div>
 		</div>

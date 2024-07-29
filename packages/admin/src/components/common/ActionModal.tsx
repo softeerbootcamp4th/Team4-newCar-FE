@@ -6,24 +6,26 @@ import { useModal } from 'src/store/provider/ModalProvider';
 export default function ActionModal() {
 	const { isOpen, content, actionCallback, closeModal } = useModal();
 	const handleSubmit = () => {
-		actionCallback();
 		closeModal();
+		actionCallback();
 	};
 	return (
 		<Dialog open={isOpen}>
-			<DialogContent>
-				<div className="flexcol flex min-h-[100px]">{content}</div>
+			<DialogContent className="w-auto max-w-fit">
+				<div className="flexcol flex min-h-[100px] w-full">{content}</div>
 				<DialogTitle />
-				<DialogFooter>
-					<DialogClose asChild onClick={closeModal}>
-						<Button type="button" variant="secondary">
-							취소
+				<div className="flex w-full flex-row justify-end">
+					<DialogFooter>
+						<DialogClose asChild onClick={closeModal}>
+							<Button type="button" variant="secondary">
+								취소
+							</Button>
+						</DialogClose>
+						<Button type="button" variant="default" onClick={handleSubmit}>
+							확인
 						</Button>
-					</DialogClose>
-					<Button type="button" variant="default" onClick={handleSubmit}>
-						확인
-					</Button>
-				</DialogFooter>
+					</DialogFooter>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);

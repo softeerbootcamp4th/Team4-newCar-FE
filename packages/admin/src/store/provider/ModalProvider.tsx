@@ -38,8 +38,6 @@ export function ModalProvider({ children }: PropsWithChildren) {
 
 	const closeModal = () => {
 		setIsOpen(false);
-		setContent(<div />);
-		setActionCallback(() => {});
 	};
 
 	const context = useMemo(

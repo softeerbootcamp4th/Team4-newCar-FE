@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import BodyContainer from 'src/components/layout/BodyContainer';
-import Footer from 'src/components/layout/Footer';
 import Banner from 'src/components/layout/top/Banner';
+import Footer from 'src/components/layout/top/footer';
 import Header from 'src/components/layout/top/header';
 import TopSectionContainer from 'src/components/layout/top/TopSectionContainer';
 

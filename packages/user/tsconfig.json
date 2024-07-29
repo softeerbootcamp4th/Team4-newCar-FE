@@ -7,6 +7,6 @@
 			"src/*": ["src/*"]
 		}
 	},
-	"include": ["src"],
+	"include": ["src/**/*"],
 	"extends": "../../tsconfig.json"
 }

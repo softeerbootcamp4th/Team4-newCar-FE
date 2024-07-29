@@ -1,7 +1,8 @@
-import { Toast, ToastDescription, ToastProvider, ToastViewport } from 'src/components/ui/toast';
-import { useToast } from 'src/components/ui/use-toast';
+import { ToastViewport } from '@radix-ui/react-toast';
+import { Toast, ToastDescription, ToastProvider } from 'src/components/common/toast/Toast';
+import useToast from 'src/hooks/useToast';
 
-export function Toaster() {
+export default function ToasterStack() {
 	const { toasts } = useToast();
 
 	return (

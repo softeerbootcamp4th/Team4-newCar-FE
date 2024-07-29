@@ -1,7 +1,7 @@
-// Inspired by react-hot-toast library
-import * as React from 'react';
+// https://ui.shadcn.com/docs/components/toast
+import React from 'react';
 
-import type { ToastActionElement, ToastProps } from 'src/components/ui/toast';
+import type { ToastActionElement, ToastProps } from 'src/components/common/toast/Toast';
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
@@ -163,7 +163,7 @@ function toast({ ...props }: Toast) {
 	};
 }
 
-function useToast() {
+export default function useToast() {
 	const [state, setState] = React.useState<State>(memoryState);
 
 	React.useEffect(() => {
@@ -182,5 +182,3 @@ function useToast() {
 		dismiss: (toastId?: string) => dispatch({ type: 'DISMISS_TOAST', toastId }),
 	};
 }
-
-export { toast, useToast };

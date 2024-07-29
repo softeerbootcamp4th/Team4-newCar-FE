@@ -1,8 +1,9 @@
-import { EventGuidelines } from 'src/components/home';
+import { EventGuidelines, EventPrizes } from 'src/components/home';
 
 export default function HomePage() {
 	return (
 		<>
+			<EventPrizes />
 			<EventGuidelines />
 		</>
 	);

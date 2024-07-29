@@ -1,4 +1,4 @@
-import PrizeCard from 'src/components/home/prizes/PrizeCard';
+import PrizeCard from 'src/components/home/eventPrizes/PrizeCard';
 
 const EVENT_PRIZES = [
 	{

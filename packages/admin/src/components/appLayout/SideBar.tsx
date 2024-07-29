@@ -1,5 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'src/components/ui/accordion';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from 'src/components/ui/accordion';
 import SideBarRoutes from 'src/constants/sideBarRoutes';
 
 interface SideBarProps {
@@ -20,7 +25,7 @@ function SideBar({ isChecked }: SideBarProps) {
 			}`}
 		>
 			{SideBarRoutes.map((route) =>
-				(route.subRoutes ? (
+				route.subRoutes ? (
 					<Accordion type="single" collapsible>
 						<AccordionItem value={String(route.id)}>
 							<AccordionTrigger>{route.name}</AccordionTrigger>
@@ -42,21 +47,16 @@ function SideBar({ isChecked }: SideBarProps) {
 					</Accordion>
 				) : (
 					<div
-<<<<<<< HEAD
 						role="presentation"
 						key={route.id}
 						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
 						onClick={() => {
 							hnadleClick(route.path);
 						}}
-=======
-						key={route.id}
-						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
->>>>>>> main
 					>
 						{route.name}
 					</div>
-				)),
+				),
 			)}
 		</div>
 	);

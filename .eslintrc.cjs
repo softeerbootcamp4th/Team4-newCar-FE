@@ -53,7 +53,7 @@ module.exports = {
 			},
 		],
 		'react/jsx-props-no-spreading': 'off',
-		indent: ['error', 'tab'],
+		indent: 'off',
 		'react/jsx-indent': 'off',
 		'react/jsx-indent-props': 'off',
 		'@typescript-eslint/indent': 'off',

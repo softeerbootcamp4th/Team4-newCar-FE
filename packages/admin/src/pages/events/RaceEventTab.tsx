@@ -1,4 +1,4 @@
 function RaceEventTab() {
-	return <div>Hi3</div>;
+	return <div>레이싱</div>;
 }
 export default RaceEventTab;

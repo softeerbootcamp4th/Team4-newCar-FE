@@ -13,12 +13,6 @@ interface QuizObj {
 function QuizEventEditor() {
 	const { isModalOpen, addModalCallback } = useModal();
 	const { addAlertCallback, openAlert } = useAlert();
-
-	// const [name, setname] = useState('');
-	// const [winnerCount, setwinnerCount] = useState(0);
-	// const [options, setoptions] = useState<string[]>(['', '', '', '']);
-	// const [answerIndex, setanswerIndex] = useState<number>(0);
-
 	const [quizObj, setQuizObj] = useState<QuizObj>({
 		name: '',
 		winnerCount: 0,

@@ -1,6 +1,7 @@
 import OutlinedButton from 'src/components/common/OutlinedButton';
 import LinkShareButton from 'src/components/popup/test/linkShare/LinkShareButton';
 import LinkDisplay from 'src/components/shared/LinkDisplay';
+import { toast } from 'src/hooks/useToast';
 import { Category } from 'src/types/user';
 
 // TODO: 추후 이벤트 도메인으로 변경
@@ -33,8 +34,9 @@ export default function LinkShare({ url = DOMAIN, category }: LinkShareProps) {
 		try {
 			await copyToClipboard(url);
 		} catch (error) {
-			// TODO: custom error toast로 변경
-			alert(`복사가 정상적으로 이루어지지 않았습니다. 관리자에게 문의 바랍니다.\n${error}`);
+			toast({
+				description: `복사가 정상적으로 이루어지지 않았습니다. 관리자에게 문의 바랍니다.\n${error}`,
+			});
 		}
 	};
 

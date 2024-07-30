@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
-import useEvent, { CommonEvent } from 'src/hooks/useEvent';
+import useEvent from 'src/hooks/useEvent';
+import { CommonEvent } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
 import { getPickerTimeFromUtc } from 'src/utils/time';
 

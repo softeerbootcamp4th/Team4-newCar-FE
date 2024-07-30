@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { API } from 'src/constants/api';
 import { Response } from 'src/services/api/types/apiType';
 import fetchData from 'src/utils/fetchData';
+
 const useEvent = () => {
 	const commonEventResult = useQuery<Response[API.COMMON_EVENT]>({
 		queryFn: async () => {

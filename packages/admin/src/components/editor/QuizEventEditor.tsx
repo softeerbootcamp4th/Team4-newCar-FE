@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
+import { Quiz } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
 import { AlertType, useModal } from 'src/store/provider/ModalProvider';
 
@@ -10,14 +11,18 @@ interface QuizObj {
 	answerIndex: number;
 }
 
-function QuizEventEditor() {
+interface QuizEventEditorProps {
+	quiz: Quiz
+}
+
+function QuizEventEditor({ quiz }: QuizEventEditorProps) {
 	const { isModalOpen, addModalCallback } = useModal();
 	const { addAlertCallback, openAlert } = useAlert();
 	const [quizObj, setQuizObj] = useState<QuizObj>({
-		name: '',
-		winnerCount: 0,
-		options: ['', '', '', ''],
-		answerIndex: 0,
+		name: quiz.question,
+		winnerCount: quiz.winnerCount,
+		options: [quiz.choice1, quiz.choice2, quiz.choice3, quiz.choice4],
+		answerIndex: quiz.correctAnswer,
 	});
 
 	const getAlertPayload = (): [string, AlertType] => {

@@ -1,10 +1,10 @@
 import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 import { AlertDialog, AlertDialogContent, AlertDialogFooter } from 'src/components/ui/alert-dialog';
 import { Button } from 'src/components/ui/button';
-import { useModal } from 'src/store/provider/ModalProvider';
+import { useAlert } from 'src/store/provider/AlertProvider';
 
 export default function Alert() {
-	const { isAlertOpen, alertCallback, alertContent, alertType, closeAlert } = useModal();
+	const { isAlertOpen, alertCallback, alertContent, alertType, closeAlert } = useAlert();
 	const showCancelButton = alertType === 'confirm';
 	const handleSubmit = () => {
 		if (showCancelButton) {

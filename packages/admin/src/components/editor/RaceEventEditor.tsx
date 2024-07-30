@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
+import { useAlert } from 'src/store/provider/AlertProvider';
 import { AlertType, useModal } from 'src/store/provider/ModalProvider';
 
 const categories = ['펫 프렌들리', '여행의 정석', '공간활용의 기술', '레저의 정석'];
 function RaceEventEditor() {
-	const { isModalOpen, addModalCallback, addAlertCallback, openAlert } = useModal();
+	const { isModalOpen, addModalCallback } = useModal();
+	const { addAlertCallback, openAlert } = useAlert();
 	const [title, setTitle] = useState('문제 입니다~~~~~~~~~~~~');
 	const [answers, setAnswers] = useState<[string, string]>(['질문 1번 답', '질문 2번 답']);
 	const [scores, setScores] = useState<number[][]>([

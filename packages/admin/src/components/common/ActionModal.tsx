@@ -4,7 +4,7 @@ import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components
 import { useModal } from 'src/store/provider/ModalProvider';
 
 export default function ActionModal() {
-	const { isModalOpen, content, modalCallback, closeModal } = useModal();
+	const { isModalOpen, modalContent, modalCallback, closeModal } = useModal();
 	const handleSubmit = () => {
 		closeModal();
 		modalCallback();
@@ -12,7 +12,7 @@ export default function ActionModal() {
 	return (
 		<Dialog open={isModalOpen}>
 			<DialogContent className="w-auto max-w-fit">
-				<div className="flexcol flex min-h-[100px] w-full">{content}</div>
+				<div className="flexcol flex min-h-[100px] w-full">{modalContent}</div>
 				<DialogTitle />
 				<div className="flex w-full flex-row justify-end">
 					<DialogFooter>

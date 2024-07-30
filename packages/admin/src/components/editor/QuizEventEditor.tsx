@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
+import { useAlert } from 'src/store/provider/AlertProvider';
 import { AlertType, useModal } from 'src/store/provider/ModalProvider';
 
 function QuizEventEditor() {
-	const { isModalOpen, addModalCallback, addAlertCallback, openAlert } = useModal();
+	const { isModalOpen, addModalCallback } = useModal();
+	const { addAlertCallback, openAlert } = useAlert();
+
 	const [quizName, setQuizName] = useState('');
 	const [quizWinnerCount, setQuizWinnerCount] = useState(0);
 	const [quizOptions, setQuizOptions] = useState<string[]>(['', '', '', '']);

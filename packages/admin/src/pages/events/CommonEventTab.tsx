@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
-import { useModal } from 'src/store/provider/ModalProvider';
+import { useAlert } from 'src/store/provider/AlertProvider';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
@@ -17,7 +17,7 @@ function CommonEventItem({ description, element }: { description: string; elemen
 }
 
 function CommonEventBox() {
-	const { openAlert, addAlertCallback } = useModal();
+	const { openAlert, addAlertCallback } = useAlert();
 	const [managerName, setManagerName] = useState('');
 	const [startDate, setsStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');

@@ -51,10 +51,8 @@ export default function EventGuidelines() {
 							<h6 className="text-detail-2">{title}</h6>
 							<ul className="flex flex-col">
 								{details.map((detail) => (
-									<li>
-										<p key={detail} className="text-detail-2 text-neutral-200">
-											{detail}
-										</p>
+									<li key={detail}>
+										<p className="text-detail-2 text-neutral-200">{detail}</p>
 									</li>
 								))}
 							</ul>

@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import useEvent, { CommonEvent } from 'src/hooks/useEvent';
 import { useAlert } from 'src/store/provider/AlertProvider';
+import { getPickerTimeFromUtc } from 'src/utils/time';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
 		<div className="w-1/2 p-1">
 			<div className="flex rounded-sm border-[1px] border-black">
-				<div className="flex w-32 items-center justify-center border-r-[1px] border-black">
+				<div className="flex w-32 items-center justify-center border-r-[1px] border-black min-h-[40px]">
 					{description}
 				</div>
 				<div className="flex w-full items-center justify-center">{element}</div>
@@ -16,12 +19,17 @@ function CommonEventItem({ description, element }: { description: string; elemen
 	);
 }
 
-function CommonEventBox() {
+function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 	const { openAlert, addAlertCallback } = useAlert();
+	const [startTime, setStartTime] = useState('');
+	const [endTime, setEndTime] = useState('');
 
-	const [managerName, setManagerName] = useState('');
-	const [startDate, setsStartDate] = useState('');
-	const [endDate, setEndDate] = useState('');
+	useEffect(() => {
+		if (commonEvent) {
+			setStartTime(getPickerTimeFromUtc(commonEvent.startTime));
+			setEndTime(getPickerTimeFromUtc(commonEvent.endTime));
+		}
+	}, [commonEvent]);
 
 	const getDurationDiff = (start: string, end: string) => {
 		const tmpDiff = new Date(end).getTime() - new Date(start).getTime();
@@ -36,18 +44,18 @@ function CommonEventBox() {
 	};
 
 	const saveStartDate = (date: string) => {
-		if (validateDate(date, endDate)) {
-			setsStartDate(date);
+		if (validateDate(date, endTime)) {
+			setStartTime(date);
 		} else {
-			openAlert('올바르지 않은 기간입니다.', 'alert');
+			toast('올바르지 않은 기간입니다.');
 		}
 	};
 
 	const saveEndDate = (date: string) => {
-		if (validateDate(startDate, date)) {
-			setEndDate(date);
+		if (validateDate(startTime, date)) {
+			setEndTime(date);
 		} else {
-			openAlert('올바르지 않은 기간입니다.', 'alert');
+			toast('올바르지 않은 기간입니다.');
 		}
 	};
 
@@ -60,19 +68,15 @@ function CommonEventBox() {
 
 	return (
 		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
-			<CommonEventItem description="이벤트 명" element={<div>이벤트명</div>} />
-			<CommonEventItem description="상태" element={<div>상태입니다</div>} />
+			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
+			<CommonEventItem description="상태" element={<div>{commonEvent.status}</div>} />
 			<CommonEventItem
 				description="담당자"
 				element={
-					<Input
-						className="w-full"
-						placeholder=""
-						value={managerName}
-						onChange={(e) => {
-							setManagerName(e.target.value);
-						}}
-					/>
+					<div>
+						{commonEvent.eventManager}
+					</div>
+
 				}
 			/>
 			<CommonEventItem
@@ -81,7 +85,7 @@ function CommonEventBox() {
 					<>
 						<Input
 							type="date"
-							value={startDate}
+							value={startTime}
 							onChange={(e) => {
 								saveStartDate(e.target.value);
 							}}
@@ -89,7 +93,7 @@ function CommonEventBox() {
 						~
 						<Input
 							type="date"
-							value={endDate}
+							value={endTime}
 							onChange={(e) => {
 								saveEndDate(e.target.value);
 							}}
@@ -103,11 +107,11 @@ function CommonEventBox() {
 }
 
 function CommonEventTab() {
+	const { commonEvent } = useEvent();
+
 	return (
 		<div className="mt-4 flex flex-col gap-2">
-			<CommonEventBox />
-			<CommonEventBox />
-			<CommonEventBox />
+			{commonEvent && <CommonEventBox commonEvent={commonEvent} />}
 		</div>
 	);
 }

@@ -15,7 +15,6 @@ function QuizEventBox({ index }: { index: number }) {
 	const handleFix = () => {
 		openModal(<QuizEventEditor />);
 	};
-
 	return (
 		<AccordionItem value={String(index)}>
 			<div className="flex h-20 w-full gap-2 border-[1px] border-black p-1">

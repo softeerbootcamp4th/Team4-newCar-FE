@@ -71,6 +71,18 @@ p > strong {
 	@apply text-primary;
 }
 
+
+/** scroll snap */
+
+main {
+	@apply overflow-auto snap-y snap-proximity;
+}
+
+section,footer {
+	@apply snap-start;
+}
+
+
 /* shadcn ui */
 
 @layer base {

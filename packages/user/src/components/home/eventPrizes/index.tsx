@@ -32,6 +32,7 @@ const EVENT_PRIZES = [
 	},
 ];
 
+/** 이벤트 경품(캐스퍼 레이싱) 섹션 */
 export default function EventPrizes() {
 	return (
 		<section className="gap-15 mt-[80px] flex flex-col items-center">

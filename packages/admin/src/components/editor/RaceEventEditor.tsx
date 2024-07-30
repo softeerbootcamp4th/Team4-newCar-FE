@@ -15,15 +15,22 @@ function RaceEventEditor() {
 	]);
 
 	const getAlertPayload = (): [string, AlertType] => {
+		// 복잡한 condition 따로 분리
 		const answersEmpty = answers.find((answer) => answer === '') !== undefined;
 		const titleEmpty = title.length === 0;
 		const scoresEmpty = scores.flat(1).length !== 8;
+
+		// switch도 좋지만 early return 방식이 짧음
 		if (answersEmpty || titleEmpty || scoresEmpty) return ['모든 정보값을 입력해주세요', 'alert'];
+
 		if (title.length > 50) return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
+
 		if (title.length > 50) return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
+
 		if (answers[0].length > 20 || answers[1].length > 20) {
 			return ['보기는 공백 포함 20자까지 입력 가능합니다.', 'alert'];
 		}
+
 		return ['유형검사 내용을 수정할까요?', 'confirm'];
 	};
 

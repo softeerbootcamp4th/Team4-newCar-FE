@@ -48,8 +48,7 @@ interface Hint {
 }
 
 export default function HintCards() {
-	
-  /* utils */
+	/* utils */
 
 	const getHintElements = (hint: Hint): [ReactElement, ReactElement] => {
 		const {
@@ -64,7 +63,7 @@ export default function HintCards() {
 			/>
 		);
 
-		const image = <img src={imageSrc} className="h-full object-contain" alt="힌트" />;
+		const image = <img src={imageSrc} className="h-full w-full object-cover" alt="힌트" />;
 
 		return [infoBox, image];
 	};

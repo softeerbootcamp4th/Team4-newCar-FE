@@ -12,6 +12,9 @@ export default function Alert() {
 		}
 		closeAlert();
 	};
+	const handleClose = () => {
+		closeAlert();
+	};
 	return (
 		<AlertDialog open={isAlertOpen}>
 			<AlertDialogTitle />
@@ -20,7 +23,7 @@ export default function Alert() {
 				<AlertDialogFooter>
 					<div className="flex flex-row justify-end">
 						{showCancelButton && (
-							<Button variant="secondary" className="mr-2">
+							<Button variant="secondary" className="mr-2" onClick={handleClose}>
 								취소
 							</Button>
 						)}

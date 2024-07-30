@@ -7,15 +7,15 @@ import TopSectionContainer from './TopSectionContainer';
 
 export default function Layout() {
 	return (
-		<div className="flex min-h-screen min-w-max flex-col">
+		<div className="flex h-screen min-w-max flex-col overflow-hidden">
 			<TopSectionContainer>
 				<Header />
 				<Banner />
 			</TopSectionContainer>
 			<BodyContainer>
 				<Outlet />
+				<Footer />
 			</BodyContainer>
-			<Footer />
 		</div>
 	);
 }

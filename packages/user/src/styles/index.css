@@ -44,7 +44,7 @@ h1 {
 }
 
 h2 {
-	@apply text-heading-2 font-bold;
+	@apply text-heading-2 font-extrabold;
 }
 
 h3 {
@@ -66,6 +66,11 @@ h6 {
 p {
 	@apply text-body-1 font-normal;
 }
+
+p > strong {
+	@apply text-primary;
+}
+
 /* shadcn ui */
 
 @layer base {

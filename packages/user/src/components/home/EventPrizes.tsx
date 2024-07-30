@@ -1,4 +1,5 @@
-import PrizeCard from 'src/components/home/prizes/PrizeCard';
+import Chip from 'src/components/common/Chip';
+import PrizeCard from 'src/components/home/PrizeCard';
 
 const EVENT_PRIZES = [
 	{
@@ -6,7 +7,7 @@ const EVENT_PRIZES = [
 		imageUrl: '/src/assets/images/gifts-1.png',
 		description: (
 			<>
-				CASPER <strong className="text-primary">Electric</strong>
+				CASPER <strong>Electric</strong>
 			</>
 		),
 	},
@@ -32,6 +33,7 @@ const EVENT_PRIZES = [
 	},
 ];
 
+/** 이벤트 경품(캐스퍼 레이싱) 섹션 */
 export default function EventPrizes() {
 	return (
 		<section className="gap-15 mt-[80px] flex flex-col items-center">
@@ -39,7 +41,11 @@ export default function EventPrizes() {
 			<h5 className="text-heading-10">캐스퍼 레이싱</h5>
 			<div className="mb-8 flex gap-3">
 				{EVENT_PRIZES.map(({ drawCount, imageUrl, description }) => (
-					<PrizeCard drawCount={drawCount} key={drawCount} imageUrl={imageUrl}>
+					<PrizeCard
+						key={drawCount}
+						badge={<Chip variants="secondary">{drawCount}명</Chip>}
+						imageUrl={imageUrl}
+					>
 						{description}
 					</PrizeCard>
 				))}

@@ -7,6 +7,7 @@ import {
 } from 'src/components/ui/accordion';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import useEvent from 'src/hooks/useEvent';
 import { useModal } from 'src/store/provider/ModalProvider';
 
 function QuizEventBox({ index }: { index: number }) {
@@ -54,6 +55,8 @@ function QuizEventBox({ index }: { index: number }) {
 }
 
 function QuizEventTab() {
+	const { quizEvent } = useEvent();
+	console.log(quizEvent);
 	return (
 		<div className="mt-4 flex flex-col gap-2">
 			<Accordion type="single" collapsible>

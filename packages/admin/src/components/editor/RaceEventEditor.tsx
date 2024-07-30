@@ -1,14 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
+import { AlertType, useModal } from 'src/store/provider/ModalProvider';
 
 const categories = ['펫 프렌들리', '여행의 정석', '공간활용의 기술', '레저의 정석'];
 function RaceEventEditor() {
+	const { isModalOpen, addModalCallback, addAlertCallback, openAlert } = useModal();
 	const [title, setTitle] = useState('문제 입니다~~~~~~~~~~~~');
-	const [answers, setAnswers] = useState<string[]>(['질문 1번 답', '질문 2번 답']);
+	const [answers, setAnswers] = useState<[string, string]>(['질문 1번 답', '질문 2번 답']);
 	const [scores, setScores] = useState<number[][]>([
 		[1, 2, 3, 4],
 		[1, 2, 3, 4],
 	]);
+
+	const getAlertPayload = (): [string, AlertType] => {
+		const answersEmpty = answers.find((answer) => answer === '') !== undefined;
+		const titleEmpty = title.length === 0;
+		const scoresEmpty = scores.flat(1).length !== 8;
+		if (answersEmpty || titleEmpty || scoresEmpty) return ['모든 정보값을 입력해주세요', 'alert'];
+		if (title.length > 50) return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
+		if (title.length > 50) return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
+		if (answers[0].length > 20 || answers[1].length > 20) {
+			return ['보기는 공백 포함 20자까지 입력 가능합니다.', 'alert'];
+		}
+		return ['유형검사 내용을 수정할까요?', 'confirm'];
+	};
+
+	useEffect(() => {
+		addModalCallback(() => {
+			addAlertCallback(() => {
+				console.log('저장 완료');
+			});
+			openAlert(...getAlertPayload());
+		});
+	}, [isModalOpen, title, answers, scores]);
 
 	return (
 		<div className="flex w-[800px] flex-col">

@@ -18,15 +18,15 @@ interface Quiz {
 }
 
 function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
-	const { openModal, openAlert } = useModal();
+	const { openModal } = useModal();
 
-	const handleSave = () => {
-		openAlert('hi', 'confirm', () => {
-			console.log('h9');
-		});
-	};
+	// const handleSave = () => {
+	// 	openAlert('hi', 'confirm', () => {
+	// 		console.log('h9');
+	// 	});
+	// };
 	const handleTest = () => {
-		openModal(<RaceEventEditor />, handleSave);
+		openModal(<RaceEventEditor />);
 	};
 	return (
 		<div>

@@ -4,10 +4,10 @@ import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components
 import { useModal } from 'src/store/provider/ModalProvider';
 
 export default function ActionModal() {
-	const { isModalOpen, content, actionCallback, closeModal } = useModal();
+	const { isModalOpen, content, modalCallback, closeModal } = useModal();
 	const handleSubmit = () => {
 		closeModal();
-		actionCallback();
+		modalCallback();
 	};
 	return (
 		<Dialog open={isModalOpen}>

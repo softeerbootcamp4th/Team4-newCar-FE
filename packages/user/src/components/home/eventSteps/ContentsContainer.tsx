@@ -5,11 +5,13 @@ export default function ContentsContainer({ children }: PropsWithChildren) {
 	const contents = Children.toArray(children);
 
 	return (
-		<div className="flex items-center gap-5 p-10 border border-primary">
-			{contents.map((content, index) => (<Fragment key={index}>
+		<div className="flex items-center gap-5 p-10">
+			{contents.map((content, index) => (
+				<Fragment key={index}>
 					{content}
 					{index < contents.length - 1 && <StepArrow />}
-				</Fragment>))}
+				</Fragment>
+			))}
 		</div>
 	);
 }

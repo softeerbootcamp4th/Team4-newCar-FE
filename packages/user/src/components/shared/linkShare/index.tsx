@@ -1,6 +1,7 @@
 import OutlinedButton from 'src/components/common/OutlinedButton';
-import LinkShareButton from 'src/components/popup/test/linkShare/LinkShareButton';
 import LinkDisplay from 'src/components/shared/LinkDisplay';
+import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton';
+import useAuth from 'src/hooks/useAuth';
 import { toast } from 'src/hooks/useToast';
 import { Category } from 'src/types/user';
 
@@ -9,11 +10,13 @@ const DOMAIN = 'https://hyundai.com';
 
 interface LinkShareProps {
 	category?: Category | null;
-	url?: string;
 }
-export default function LinkShare({ url = DOMAIN, category }: LinkShareProps) {
+export default function LinkShare({  category }: LinkShareProps) {
 	const variants = category ?? 'default';
+	const {user}=useAuth()
 
+	const url=user ? user.shareUrl : DOMAIN
+	
 	function copyToClipboard(text: string) {
 		if (navigator.clipboard) {
 			/** HTTPS 환경에서만 작동 */

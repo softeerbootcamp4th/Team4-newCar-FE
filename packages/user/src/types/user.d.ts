@@ -5,6 +5,7 @@ interface User {
 	id: number;
 	name: string;
 	category: Category;
+	shareUrl:string
 }
 
 export type { Category, User };

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import QuizEventEditor from 'src/components/editor/QuizEventEditor';
 import {
 	Accordion,
@@ -12,7 +11,6 @@ import { useModal } from 'src/store/provider/ModalProvider';
 
 function QuizEventBox({ index }: { index: number }) {
 	const { openModal } = useModal();
-	const [date, setDate] = useState('');
 
 	const handleFix = () => {
 		openModal(<QuizEventEditor />);
@@ -20,39 +18,35 @@ function QuizEventBox({ index }: { index: number }) {
 
 	return (
 		<AccordionItem value={String(index)}>
-			<div className="flex w-full gap-2 border-[1px] border-black p-4">
+			<div className="flex h-20 w-full gap-2 border-[1px] border-black p-1">
 				<div className="w-1/4 border-[1px] border-black p-4">1</div>
-				<AccordionTrigger value={String(index)} className="w-1/4 border-[1px] border-black p-4">
-					<div>질문 1</div>
-				</AccordionTrigger>
-
-				<div className="w-1/4 border-[1px] border-black p-4">
-					<Input
-						type="date"
-						value={date}
-						onChange={(event) => {
-							setDate(event.target.value);
-						}}
-					/>
+				<div role="presentation" className="flex-grow-1 flex w-full border-[1px] border-black">
+					<AccordionTrigger aria-expanded value={String(index)}>
+						<div className="p-4">질문 12222</div>
+					</AccordionTrigger>
 				</div>
-				<div className="w-1/4 border-[1px] border-black p-4">
-					<Button onClick={handleFix}>수정</Button>
+				<div className="flex w-1/4 items-center justify-between border-[1px] border-black p-4">
+					YYYY.MM.DD <Button onClick={handleFix}>수정</Button>
 				</div>
 			</div>
 
 			<AccordionContent>
-				<div className="w-full">
-					<div className="flex">
-						<Input type="checkbox" value="1번" checked />
+				<div className="mt-4 w-full border-4 border-gray-500">
+					<div className="flex items-center p-4">
+						<Input className="mr-4 w-4" type="checkbox" value="1번" />
+						<h1>질문 1번입니다.</h1>
 					</div>
-					<div className="flex">
-						<Input type="checkbox" value="1번" />
+					<div className="flex items-center p-4">
+						<Input className="mr-4 w-4" type="checkbox" value="2번" />
+						<h1>질문 2번입니다.</h1>
 					</div>
-					<div className="flex">
-						<Input type="checkbox" value="1번" />
+					<div className="flex items-center p-4">
+						<Input className="mr-4 w-4" type="checkbox" value="3번" />
+						<h1>질문 3번입니다.</h1>
 					</div>
-					<div className="flex">
-						<Input type="checkbox" value="1번" />
+					<div className="flex items-center p-4">
+						<Input className="mr-4 w-4" type="checkbox" value="4번" />
+						<h1>질문 4번입니다.</h1>
 					</div>
 				</div>
 			</AccordionContent>

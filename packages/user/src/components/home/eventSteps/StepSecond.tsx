@@ -1,11 +1,7 @@
 import ContentCard from './ContentCard';
 import ContentsContainer from './ContentsContainer';
 
-
-const CONTENTS = [
-	'내 캐스퍼 유형의 버튼 클릭!',
-	'버튼 클릭 수에 따라 실시간 순위 변동',
-];
+const CONTENTS = ['내 캐스퍼 유형의 버튼 클릭!', '버튼 클릭 수에 따라 실시간 순위 변동'];
 
 export default function StepSecond() {
 	return (

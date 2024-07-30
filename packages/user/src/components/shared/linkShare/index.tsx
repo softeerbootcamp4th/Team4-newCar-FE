@@ -11,12 +11,12 @@ const DOMAIN = 'https://hyundai.com';
 interface LinkShareProps {
 	category?: Category | null;
 }
-export default function LinkShare({  category }: LinkShareProps) {
+export default function LinkShare({ category }: LinkShareProps) {
 	const variants = category ?? 'default';
-	const {user}=useAuth()
+	const { user } = useAuth();
 
-	const url=user ? user.shareUrl : DOMAIN
-	
+	const url = user ? user.shareUrl : DOMAIN;
+
 	function copyToClipboard(text: string) {
 		if (navigator.clipboard) {
 			/** HTTPS 환경에서만 작동 */

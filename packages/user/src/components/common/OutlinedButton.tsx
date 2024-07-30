@@ -5,7 +5,7 @@ import buttonStyles from 'src/styles/button';
 import cn from 'src/utils/cn';
 
 const styles = clsx(
-	'border border-primary text-primary text-body-2 font-normal rounded-2.5 gap-[10px] py-[10px] px-7',
+	'border-primary text-primary text-body-2 rounded-2.5 gap-[10px] border px-7 py-[10px] font-normal',
 	'disabled:border-neutral-400 disabled:text-neutral-400',
 	'hover:border-skyblue-700 hover:text-skyblue-700',
 	'active:border-primary active:text-primary',
@@ -13,11 +13,11 @@ const styles = clsx(
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-/** 기대평 등록 버튼 */
-const ChatSubmitButton = forwardRef<HTMLButtonElement, ButtonProps>(
+/** 기대평 등록, 랜딩 페이지 링크 공유 버튼 */
+const OutlinedButton = forwardRef<HTMLButtonElement, ButtonProps>(
 	({ className, ...props }, ref) => (
 		<button className={cn(buttonStyles, styles, className)} ref={ref} {...props} />
 	),
 );
 
-export default ChatSubmitButton;
+export default OutlinedButton;

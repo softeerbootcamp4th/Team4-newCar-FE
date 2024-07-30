@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import EventTag from 'src/assets/icons/event-tab-tag.svg?react';
-import NavigateTab from 'src/components/layout/top/header/tab/NavigateTab';
-import SelectedTabIndicator from 'src/components/layout/top/header/tab/SelectedTabIndicator';
 import RoutePaths from 'src/constants/routePath';
+import NavigateTab from './NavigateTab';
+import SelectedTabIndicator from './SelectedTabIndicator';
 
 type Tab = keyof typeof RoutePaths;
 

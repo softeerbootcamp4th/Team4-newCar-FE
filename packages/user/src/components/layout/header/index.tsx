@@ -1,6 +1,6 @@
-import Logo from 'src/components/layout/top/header/Logo';
-import NavigateTabs from 'src/components/layout/top/header/tab';
-import User from 'src/components/layout/top/header/user';
+import Logo from './Logo';
+import NavigateTabs from './tab';
+import User from './user';
 
 export default function Header() {
 	return (

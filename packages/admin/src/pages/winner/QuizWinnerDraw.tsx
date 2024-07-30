@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import { useModal } from 'src/store/provider/ModalProvider';
 
 function QuizWinnerDraw() {
+	const { openAlert, addAlertCallback } = useModal();
 	const [rankList, setRankList] = useState<{ rank: number; winnerCount: string }[]>([]);
 
 	const generateRankItem = () => ({
@@ -26,7 +28,22 @@ function QuizWinnerDraw() {
 		});
 	};
 
-	const handleDraw = () => {};
+	const handleDraw = () => {
+		addAlertCallback(() => {
+			console.log('당첨자 추첨');
+		});
+		openAlert(
+			<div>
+				<p>당첨자 추첨을 진행할까요?</p>
+				<p className="text-xs text-red-600">
+					ⓘ 재추첨 시 기존 당첨자 목록은 초기화됩니다.
+					<br />
+					추첨 전 목록을 다운로드 받아주세요.
+				</p>
+			</div>,
+			'confirm',
+		);
+	};
 
 	const handleChangeWinnerCount = ({ target }: ChangeEvent<HTMLInputElement>, index: number) => {
 		setRankList((pre) => {

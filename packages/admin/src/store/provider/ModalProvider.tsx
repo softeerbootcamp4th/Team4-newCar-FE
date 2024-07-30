@@ -13,14 +13,14 @@ interface ModalContextProps {
 	isModalOpen: boolean;
 	isAlertOpen: boolean;
 	content: ReactElement;
-	alertText: string;
+	alertContent: ReactElement;
 	alertType: AlertType;
 	modalCallback: VoidFunction;
 	addModalCallback: (newmodalCallback: VoidFunction) => void;
 	alertCallback: VoidFunction;
 	addAlertCallback: (newAlertCallback: VoidFunction) => void;
 	openModal: (newContent: ReactElement) => void;
-	openAlert: (newAlertText: string, newAlertType: AlertType) => void;
+	openAlert: (newAlertContent: ReactElement, newAlertType: AlertType) => void;
 	closeModal: VoidFunction;
 	closeAlert: VoidFunction;
 }
@@ -29,7 +29,7 @@ const ModalContext = createContext<ModalContextProps>({
 	isAlertOpen: false,
 	isModalOpen: false,
 	content: <div />,
-	alertText: '',
+	alertContent: <div />,
 	alertType: 'confirm',
 	modalCallback: () => {},
 	addModalCallback: () => {},
@@ -48,7 +48,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
 	const [isAlertOpen, setIsAlertOpen] = useState(false);
 	const [alertType, setAlertType] = useState<AlertType>('confirm');
 	const [content, setContent] = useState<ReactElement>(<div />);
-	const [alertText, setAlertText] = useState('');
+	const [alertContent, setAlertContent] = useState<ReactElement>(<div />);
 	const [modalCallback, setmodalCallback] = useState<() => void>(() => {});
 	const [alertCallback, setAlertCallback] = useState<() => void>(() => {});
 
@@ -57,8 +57,8 @@ export function ModalProvider({ children }: PropsWithChildren) {
 		setIsModalOpen(true);
 	};
 
-	const openAlert = (newAlertText: string, newAlertType: AlertType) => {
-		setAlertText(newAlertText);
+	const openAlert = (newAlertContent: ReactElement, newAlertType: AlertType) => {
+		setAlertContent(newAlertContent);
 		setAlertType(newAlertType);
 		setIsAlertOpen(true);
 	};
@@ -84,7 +84,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
 			isModalOpen,
 			isAlertOpen,
 			content,
-			alertText,
+			alertContent,
 			alertType,
 			modalCallback,
 			addModalCallback,
@@ -95,7 +95,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
 			closeModal,
 			closeAlert,
 		}),
-		[isModalOpen, isAlertOpen, content, alertText, alertType, modalCallback],
+		[isModalOpen, isAlertOpen, content, alertContent, alertType, modalCallback],
 	);
 
 	return <ModalContext.Provider value={context}>{children}</ModalContext.Provider>;

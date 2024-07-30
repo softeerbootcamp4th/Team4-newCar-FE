@@ -4,7 +4,7 @@ import { Button } from 'src/components/ui/button';
 import { useModal } from 'src/store/provider/ModalProvider';
 
 export default function Alert() {
-	const { isAlertOpen, alertCallback, alertText, alertType, closeAlert } = useModal();
+	const { isAlertOpen, alertCallback, alertContent, alertType, closeAlert } = useModal();
 	const showCancelButton = alertType === 'confirm';
 	const handleSubmit = () => {
 		if (showCancelButton) {
@@ -16,7 +16,7 @@ export default function Alert() {
 		<AlertDialog open={isAlertOpen}>
 			<AlertDialogTitle />
 			<AlertDialogContent>
-				<div>{alertText}</div>
+				<div>{alertContent}</div>
 				<AlertDialogFooter>
 					<div className="flex flex-row justify-end">
 						{showCancelButton && (

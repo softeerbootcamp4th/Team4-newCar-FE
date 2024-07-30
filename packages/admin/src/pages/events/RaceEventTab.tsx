@@ -20,14 +20,10 @@ interface Quiz {
 function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
 	const { openModal } = useModal();
 
-	// const handleSave = () => {
-	// 	openAlert('hi', 'confirm', () => {
-	// 		console.log('h9');
-	// 	});
-	// };
-	const handleTest = () => {
+	const handleFix = () => {
 		openModal(<RaceEventEditor />);
 	};
+
 	return (
 		<div>
 			<div>{quizIndex + 1}</div>
@@ -51,7 +47,7 @@ function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
 					</div>
 				))}
 				<div className="flex justify-end">
-					<Button onClick={handleTest}>수정</Button>
+					<Button onClick={handleFix}>수정</Button>
 				</div>
 			</div>
 		</div>

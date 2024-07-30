@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import QuizEventEditor from 'src/components/editor/QuizEventEditor';
 import {
 	Accordion,
 	AccordionContent,
@@ -7,9 +8,16 @@ import {
 } from 'src/components/ui/accordion';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import { useModal } from 'src/store/provider/ModalProvider';
 
 function QuizEventBox({ index }: { index: number }) {
+	const { openModal } = useModal();
 	const [date, setDate] = useState('');
+
+	const handleFix = () => {
+		openModal(<QuizEventEditor />);
+	};
+
 	return (
 		<AccordionItem value={String(index)}>
 			<div className="flex w-full gap-2 border-[1px] border-black p-4">
@@ -28,7 +36,7 @@ function QuizEventBox({ index }: { index: number }) {
 					/>
 				</div>
 				<div className="w-1/4 border-[1px] border-black p-4">
-					<Button>수정</Button>
+					<Button onClick={handleFix}>수정</Button>
 				</div>
 			</div>
 

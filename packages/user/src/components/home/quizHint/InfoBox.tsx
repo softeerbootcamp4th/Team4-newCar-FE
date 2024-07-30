@@ -1,7 +1,7 @@
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 interface InfoBoxProps {
-	title: string | ReactElement;
+	title: ReactNode;
 	details: string;
 }
 export default function InfoBox({ title, details }: InfoBoxProps) {

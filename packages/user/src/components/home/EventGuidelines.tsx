@@ -44,11 +44,11 @@ export default function EventGuidelines() {
 	return (
 		<section className="container flex justify-center py-[66px]">
 			<div className="flex flex-col gap-7">
-				<h5 className="text-heading-10">유의사항</h5>
+				<h6 className="text-heading-10">유의사항</h6>
 				<ul className="flex flex-col gap-7">
 					{EVENT_GUIDELINES.map(({ title, details }) => (
 						<li key={title} className="flex flex-col">
-							<h6 className="text-detail-2">{title}</h6>
+							<p className="text-detail-2">{title}</p>
 							<ul className="flex flex-col">
 								{details.map((detail) => (
 									<li key={detail}>

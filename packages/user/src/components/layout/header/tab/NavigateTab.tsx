@@ -15,7 +15,7 @@ export default function NavigateTab({
 			type="button"
 			onClick={onSelect}
 			className={clsx(
-				'text-body-3 flex w-[230px] flex-col items-center font-medium transition-all duration-100',
+				'text-body-3 flex w-[230px] flex-1 grow flex-col items-center font-medium transition-all duration-100',
 				isSelected ? 'opacity-100' : 'opacity-70',
 			)}
 		>

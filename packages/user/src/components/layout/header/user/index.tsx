@@ -1,6 +1,6 @@
 import UserIcon from 'src/assets/icons/user.svg?react';
-import SpeechBubble from 'src/components/layout/top/header/user/SpeechBubble';
 import useAuth from 'src/hooks/useAuth';
+import SpeechBubble from './SpeechBubble';
 
 export default function User() {
 	const { user } = useAuth();

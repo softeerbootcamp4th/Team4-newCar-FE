@@ -1,4 +1,4 @@
-import ScrollToQuizButton from 'src/components/layout/top/ScrollToQuizButton';
+import ScrollToQuizButton from './ScrollToQuizButton';
 
 export default function Banner() {
 	return (

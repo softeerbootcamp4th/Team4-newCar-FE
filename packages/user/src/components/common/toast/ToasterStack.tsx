@@ -4,7 +4,7 @@ import {
 	ToastProvider,
 	ToastViewport,
 } from 'src/components/common/toast/Toast';
-import useToast from 'src/hooks/useToast';
+import { useToast } from 'src/hooks/useToast';
 
 export default function ToasterStack() {
 	const { toasts } = useToast();

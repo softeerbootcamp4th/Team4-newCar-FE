@@ -19,14 +19,14 @@ function QuizEventBox({ index }: { index: number }) {
 	return (
 		<AccordionItem value={String(index)}>
 			<div className="flex h-20 w-full gap-2 border-[1px] border-black p-1">
-				<div className="w-1/4 border-[1px] border-black p-4">1</div>
+				<p className="w-1/4 border-[1px] border-black p-4">1</p>
 				<div role="presentation" className="flex-grow-1 flex w-full border-[1px] border-black">
 					<AccordionTrigger aria-expanded value={String(index)}>
-						<div className="p-4">질문 12222</div>
+						<p className="p-4">질문 12222</p>
 					</AccordionTrigger>
 				</div>
 				<div className="flex w-1/4 items-center justify-between border-[1px] border-black p-4">
-					YYYY.MM.DD <Button onClick={handleFix}>수정</Button>
+					<p>YYYY.MM.DD</p> <Button onClick={handleFix}>수정</Button>
 				</div>
 			</div>
 
@@ -34,19 +34,19 @@ function QuizEventBox({ index }: { index: number }) {
 				<div className="mt-4 w-full border-4 border-gray-500">
 					<div className="flex items-center p-4">
 						<Input className="mr-4 w-4" type="checkbox" value="1번" />
-						<h1>질문 1번입니다.</h1>
+						<p>질문 1번입니다.</p>
 					</div>
 					<div className="flex items-center p-4">
 						<Input className="mr-4 w-4" type="checkbox" value="2번" />
-						<h1>질문 2번입니다.</h1>
+						<p>질문 2번입니다.</p>
 					</div>
 					<div className="flex items-center p-4">
 						<Input className="mr-4 w-4" type="checkbox" value="3번" />
-						<h1>질문 3번입니다.</h1>
+						<p>질문 3번입니다.</p>
 					</div>
 					<div className="flex items-center p-4">
 						<Input className="mr-4 w-4" type="checkbox" value="4번" />
-						<h1>질문 4번입니다.</h1>
+						<p>질문 4번입니다.</p>
 					</div>
 				</div>
 			</AccordionContent>

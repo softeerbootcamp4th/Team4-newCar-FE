@@ -5,6 +5,7 @@ import { useAlert } from 'src/store/provider/AlertProvider';
 
 function QuizWinnerDraw() {
 	const { openAlert, addAlertCallback } = useAlert();
+
 	const [rankList, setRankList] = useState<{ rank: number; winnerCount: string }[]>([]);
 
 	const generateRankItem = () => ({
@@ -61,9 +62,9 @@ function QuizWinnerDraw() {
 					key={rankData.rank}
 					className="flex flex-row justify-start rounded-sm border-2 border-black"
 				>
-					<div className="mr-2 flex w-[100px] items-center justify-center border-r-2 border-black">
+					<p className="mr-2 flex w-[100px] items-center justify-center border-r-2 border-black">
 						{rankData.rank}등
-					</div>
+					</p>
 					<div className="flex w-full flex-row justify-between p-2">
 						<div>
 							<Input

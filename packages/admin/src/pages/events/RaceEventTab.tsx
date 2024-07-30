@@ -27,6 +27,7 @@ function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
 	return (
 		<div>
 			<div>{quizIndex + 1}</div>
+			{/* map 사용시 key값은 서버에서 주는 primary key로 추가 */}
 			<div className="flex flex-col gap-8 bg-[#EFEFEF] p-4">
 				<div className="font-bold">Q. {quiz.title}</div>
 				{quiz.answer.map((answer, answerIndex) => (

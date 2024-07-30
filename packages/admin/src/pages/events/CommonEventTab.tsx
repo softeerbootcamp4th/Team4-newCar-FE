@@ -18,6 +18,7 @@ function CommonEventItem({ description, element }: { description: string; elemen
 
 function CommonEventBox() {
 	const { openAlert, addAlertCallback } = useAlert();
+
 	const [managerName, setManagerName] = useState('');
 	const [startDate, setsStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');

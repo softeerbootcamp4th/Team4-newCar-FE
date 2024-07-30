@@ -1,4 +1,4 @@
-import ContentCard from 'src/components/home/eventSteps/ContentCard';
+import ContentCard from './ContentCard';
 import ContentsContainer from './ContentsContainer';
 
 const CONTENTS = [

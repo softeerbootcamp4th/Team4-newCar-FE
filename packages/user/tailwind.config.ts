@@ -23,6 +23,9 @@ const config: Config = {
 		borderRadius: spacing,
 		extend: {
 			spacing,
+			boxShadow: {
+				lg: '0px 0px 20px 0px #ffffffD0', // popup
+			},
 			container: {
 				center: true,
 				padding: '2rem',

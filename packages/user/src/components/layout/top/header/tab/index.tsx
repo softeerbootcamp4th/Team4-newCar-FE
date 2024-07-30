@@ -27,8 +27,8 @@ export default function NavigateTabs() {
 	};
 
 	return (
-		<div className="h-full">
-			<div className="flex h-full items-center">
+		<div className="flex h-full flex-col">
+			<div className="flex flex-shrink-0 grow items-center">
 				{tabs.map(({ label, tab }) => (
 					<NavigateTab
 						key={tab}

@@ -10,17 +10,19 @@ interface ContentCardProps {
 export default function ContentCard({
 	step,
 	imageUrl,
-	size: { width, height },
+	size,
 	children,
 }: PropsWithChildren<ContentCardProps>) {
+
 	return (
 		<div
-			className={`w-[${width}] h-[${height}] relative top-5 flex flex-col items-center justify-center gap-5 rounded-[10px] bg-neutral-700 py-10`}
+		style={size}
+			className={`relative top-5 flex flex-col items-center justify-center gap-5 rounded-[10px] bg-neutral-700 py-10`}
 		>
 			<div className="absolute -top-5">
 				<Chip variants="secondary">{step}</Chip>
 			</div>
-			<div className="flex h-[calc(100%-72px)] w-full items-center justify-center">
+			<div className="flex h-[calc(100%-72px)] items-center justify-center">
 				<img
 					alt="이벤트 참여 방법 세부 단계"
 					className="max-h-full object-contain"

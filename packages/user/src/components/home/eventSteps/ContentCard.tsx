@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import Chip from 'src/components/common/Chip';
 
 interface ContentCardProps {
-	step: number;
+	step?: number;
 	imageUrl: string;
 	size: { width: string; height: string };
 }
@@ -13,15 +13,16 @@ export default function ContentCard({
 	size,
 	children,
 }: PropsWithChildren<ContentCardProps>) {
-
 	return (
 		<div
-		style={size}
+			style={size}
 			className={`relative top-5 flex flex-col items-center justify-center gap-5 rounded-[10px] bg-neutral-700 py-10`}
 		>
-			<div className="absolute -top-5">
-				<Chip variants="secondary">{step}</Chip>
-			</div>
+			{step && (
+				<div className="absolute -top-5">
+					<Chip variants="secondary">{step}</Chip>
+				</div>
+			)}
 			<div className="flex h-[calc(100%-72px)] items-center justify-center">
 				<img
 					alt="이벤트 참여 방법 세부 단계"

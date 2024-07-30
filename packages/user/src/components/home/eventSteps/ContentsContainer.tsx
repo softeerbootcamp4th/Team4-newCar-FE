@@ -1,11 +1,18 @@
 import { Children, Fragment, PropsWithChildren } from 'react';
 import StepArrow from 'src/assets/icons/step-arrow.svg?react';
+import { spacing } from 'src/styles/theme';
 
-export default function ContentsContainer({ children }: PropsWithChildren) {
+interface ContentsContainerProps {
+	gap?: keyof typeof spacing;
+}
+export default function ContentsContainer({
+	gap = 5,
+	children,
+}: PropsWithChildren<ContentsContainerProps>) {
 	const contents = Children.toArray(children);
 
 	return (
-		<div className="flex items-center gap-5 p-10">
+		<div style={{ gap: spacing[gap] }} className="flex items-center p-10">
 			{contents.map((content, index) => (
 				<Fragment key={index}>
 					{content}

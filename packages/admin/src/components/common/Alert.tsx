@@ -19,7 +19,11 @@ export default function Alert() {
 				<div>{alertText}</div>
 				<AlertDialogFooter>
 					<div className="flex flex-row justify-end">
-						{showCancelButton && <Button>취소</Button>}
+						{showCancelButton && (
+							<Button variant="secondary" className="mr-2">
+								취소
+							</Button>
+						)}
 						<Button onClick={handleSubmit}>확인</Button>
 					</div>
 				</AlertDialogFooter>

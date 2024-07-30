@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import { useModal } from 'src/store/provider/ModalProvider';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
@@ -16,6 +17,7 @@ function CommonEventItem({ description, element }: { description: string; elemen
 }
 
 function CommonEventBox() {
+	const { openAlert, addAlertCallback } = useModal();
 	const [managerName, setManagerName] = useState('');
 	const [startDate, setsStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');
@@ -36,7 +38,7 @@ function CommonEventBox() {
 		if (validateDate(date, endDate)) {
 			setsStartDate(date);
 		} else {
-			// warnning need popup
+			openAlert('올바르지 않은 기간입니다.', 'alert');
 		}
 	};
 
@@ -44,12 +46,15 @@ function CommonEventBox() {
 		if (validateDate(startDate, date)) {
 			setEndDate(date);
 		} else {
-			// warnning need popup
+			openAlert('올바르지 않은 기간입니다.', 'alert');
 		}
 	};
 
 	const handleSave = () => {
-		console.log('SAVE!!');
+		addAlertCallback(() => {
+			console.log('수정완료');
+		});
+		openAlert('이벤트를 수정할까요?', 'confirm');
 	};
 
 	return (

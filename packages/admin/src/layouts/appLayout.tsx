@@ -11,7 +11,7 @@ export default function AppLayout() {
 		<div className="mx-auto mt-5 flex h-screen w-full max-w-[1200px] gap-10">
 			<SideBarContainer />
 			<SystemContainer />
-			<div className="mt-8 flex w-full flex-col">
+			<div className="mt-8 flex w-full flex-col gap-4">
 				<Header headerTitle={headerTitle} />
 				<Outlet />
 			</div>

@@ -22,8 +22,8 @@ const config: Config = {
 		},
 		borderRadius: spacing,
 		gap: spacing,
-		margin:spacing,
-		padding:spacing,
+		margin: spacing,
+		padding: spacing,
 		extend: {
 			spacing,
 			boxShadow: {

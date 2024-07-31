@@ -10,8 +10,8 @@ export default function WebLinks() {
 	return (
 		<ul className="flex items-center gap-11 border-b border-neutral-300 px-[10px] py-[8px]">
 			{WEB_LINKS.map(({ text, url }) => (
-				<li>
-					<a target="_blank" key={text} href={url}>
+				<li key={text}>
+					<a target="_blank" href={url}>
 						{text}
 					</a>
 				</li>

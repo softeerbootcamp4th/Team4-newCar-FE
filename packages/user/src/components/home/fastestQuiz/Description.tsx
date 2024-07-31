@@ -1,6 +1,6 @@
 export default function Description() {
 	return (
-		<div className="bg-background flex flex-col items-center rounded-[10px] px-[110px] py-[30px]">
+		<div className="bg-background flex w-full max-w-[1040px] flex-col items-center rounded-[10px] px-[110px] py-[30px]">
 			<p className="font-medium">
 				매일 <strong>오후 3시 15분</strong> 깜짝 스피드 퀴즈가 진행됩니다.
 			</p>

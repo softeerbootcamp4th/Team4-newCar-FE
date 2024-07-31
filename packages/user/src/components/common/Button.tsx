@@ -10,12 +10,12 @@ const defaultStyles = 'text-black gap-[10px] py-4 px-12';
 const buttonVariants = cva(clsx(buttonStyles, defaultStyles), {
 	variants: {
 		variants: {
-			primary: 'bg-primary hover:bg-skyblue-700 active:bg-primary',
+			primary: 'bg-primary hover:bg-skyblue-700 active:bg-primary text-background',
 			secondary: 'bg-foreground/25 hover:bg-foreground/50 active:bg-foreground/25',
 		},
 		size: {
 			default: 'rounded-[30px] text-body-2 font-normal disabled:bg-foreground/10',
-			lg: 'rounded-[34px] text-heading-9 font-medium',
+			lg: 'rounded-[34px] text-heading-9 font-medium ',
 		},
 	},
 	defaultVariants: {

@@ -5,21 +5,22 @@ interface HeaderTitle {
 	title: string;
 	navTitles?: NavTitle[];
 }
+
 const HeaderTitles: HeaderTitle[] = [
 	{
 		id: 1,
 		title: '이벤트 관리',
 		navTitles: [
 			{
-				navTitleid: 1,
+				navTitleId: 1,
 				navTitle: '이벤트 공통',
 			},
 			{
-				navTitleid: 2,
+				navTitleId: 2,
 				navTitle: '선착순 퀴즈',
 			},
 			{
-				navTitleid: 1,
+				navTitleId: 1,
 				navTitle: '캐스퍼 레이싱',
 			},
 		],
@@ -29,7 +30,7 @@ const HeaderTitles: HeaderTitle[] = [
 		title: '추첨하기',
 		navTitles: [
 			{
-				navTitleid: 1,
+				navTitleId: 1,
 				navTitle: '캐스퍼 레이싱 당첨자',
 			},
 		],
@@ -39,11 +40,11 @@ const HeaderTitles: HeaderTitle[] = [
 		title: '당첨자 목록',
 		navTitles: [
 			{
-				navTitleid: 1,
+				navTitleId: 1,
 				navTitle: '선착순 퀴즈 당첨자',
 			},
 			{
-				navTitleid: 2,
+				navTitleId: 2,
 				navTitle: '캐스퍼 레이싱 당첨자',
 			},
 		],

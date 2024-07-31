@@ -9,6 +9,7 @@ function Header({ headerTitle, navTitles }: HeaderProps) {
 	const h2Styled = 'font-bold text-3xl';
 
 	if (!navTitles) return <h2 className={`${h2Styled}`}>{headerTitle}</h2>;
+
 	return (
 		<div className="flex flex-col">
 			<h2 className={`${h2Styled}`}>{headerTitle}</h2>

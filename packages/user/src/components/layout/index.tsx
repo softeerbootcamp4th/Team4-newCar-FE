@@ -1,21 +1,21 @@
 import { Outlet } from 'react-router-dom';
-import BodyContainer from 'src/components/layout/BodyContainer';
-import Banner from 'src/components/layout/top/Banner';
-import Footer from 'src/components/layout/top/footer';
-import Header from 'src/components/layout/top/header';
-import TopSectionContainer from 'src/components/layout/top/TopSectionContainer';
+import Banner from './banner';
+import BodyContainer from './BodyContainer';
+import Footer from './footer';
+import Header from './header';
+import TopSectionContainer from './TopSectionContainer';
 
 export default function Layout() {
 	return (
-		<div className="flex min-h-screen min-w-max flex-col">
+		<div className="flex h-screen min-w-max flex-col overflow-hidden">
 			<TopSectionContainer>
 				<Header />
 				<Banner />
 			</TopSectionContainer>
 			<BodyContainer>
 				<Outlet />
+				<Footer />
 			</BodyContainer>
-			<Footer />
 		</div>
 	);
 }

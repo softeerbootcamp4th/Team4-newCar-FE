@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { PropsWithChildren } from 'react';
 import cn from 'src/utils/cn';
 
-const defaultStyles = 'rounded-[17px] px-3 py-[5px] font-medium text-detail-1';
+const defaultStyles = 'rounded-[17px] px-4 py-2 font-medium text-detail-1';
 
 const chipVariants = cva(defaultStyles, {
 	variants: {

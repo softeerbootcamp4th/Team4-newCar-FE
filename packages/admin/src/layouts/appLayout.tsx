@@ -8,12 +8,14 @@ export default function AppLayout() {
 	const { headerTitle } = useHeader();
 
 	return (
-		<div className="mx-auto mt-5 flex h-screen w-full max-w-[1200px] gap-10">
+		<div className="mx-auto flex h-screen w-screen min-w-[1200px] bg-gradient-to-r from-orange-500 to-indigo-600">
 			<SideBarContainer />
-			<SystemContainer />
-			<div className="mt-8 flex w-full flex-col gap-4">
-				<Header headerTitle={headerTitle} />
-				<Outlet />
+			<div className="mx-auto flex h-screen w-full max-w-[1200px] gap-10">
+				<SystemContainer />
+				<div className="flex w-full flex-col p-4 pb-8 pt-8">
+					<Header headerTitle={headerTitle} />
+					<Outlet />
+				</div>
 			</div>
 		</div>
 	);

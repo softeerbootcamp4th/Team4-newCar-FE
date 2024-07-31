@@ -1,5 +1,5 @@
 import Chip from 'src/components/common/Chip';
-import PrizeCard from 'src/components/home/PrizeCard';
+import PrizeCard from 'src/components/shared/PrizeCard';
 
 const EVENT_PRIZES = [
 	{
@@ -33,10 +33,10 @@ const EVENT_PRIZES = [
 	},
 ];
 
-/** 이벤트 경품(캐스퍼 레이싱) 섹션 */
+/** 이벤트(캐스퍼 레이싱) 경품 섹션 */
 export default function EventPrizes() {
 	return (
-		<section className="gap-15 mt-[80px] flex flex-col items-center">
+		<section className="gap-15 flex flex-col items-center pt-[80px]">
 			<h2>이벤트 경품</h2>
 			<h6 className="text-heading-10">캐스퍼 레이싱</h6>
 			<div className="mb-8 flex gap-3">

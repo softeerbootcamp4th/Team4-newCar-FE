@@ -17,10 +17,13 @@ const config: Config = {
 		backgroundImage,
 		colors,
 		fontSize,
-		borderRadius: spacing,
 		boxShadow: {
 			md: 'rgba(255,255,255, 0.15) 0px 5px 15px 0px',
 		},
+		borderRadius: spacing,
+		gap: spacing,
+		margin: spacing,
+		padding: spacing,
 		extend: {
 			spacing,
 			boxShadow: {

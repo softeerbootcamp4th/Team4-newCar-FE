@@ -1,5 +1,5 @@
 import Chip from 'src/components/common/Chip';
-import PrizeCard from 'src/components/home/PrizeCard';
+import PrizeCard from 'src/components/shared/PrizeCard';
 
 export default function QuizImages() {
 	return (

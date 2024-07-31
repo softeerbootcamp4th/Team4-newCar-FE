@@ -68,7 +68,7 @@ const DialogContent = React.forwardRef<
 					<DialogDescription />
 				</VisuallyHidden.Root>
 				{children}
-				<DialogPrimitive.Close className="ring-offset-background focus:ring-foreground data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-[15px] top-[15px] h-[30px] w-[30px] rounded-[2px] p-[4px] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
+				<DialogPrimitive.Close className="ring-offset-background focus:ring-foreground data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-[30px] top-[30px] h-[30px] w-[30px] rounded-[2px] p-[4px] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
 					<Close className="h-full w-full" />
 				</DialogPrimitive.Close>
 			</DialogPrimitive.Content>

@@ -145,10 +145,10 @@ const backgroundImage = {
 	'gradient-gauge1': 'linear-gradient(to right, #5D85D2, #8093BB, #60E9FB)',
 	'gradient-gauge2': 'linear-gradient(to right, #E0A64F, #FFF59E, #FFE500)',
 	'gradient-gauge3': 'linear-gradient(to right, #D25C7F, #E37D9B, #FF3C76)',
-	'gradient-leisure': 'linear-gradient(to bottom, #535353, #d4d4d4)',
-	'gradient-travel': 'linear-gradient(to bottom, #A9A9A9, #66331c)',
-	'gradient-pet': 'linear-gradient(to bottom, #33332b, #999980)',
-	'gradient-place': 'linear-gradient(to bottom, #0A0B08, #484A3D)',
+	'gradient-leisure': 'linear-gradient(to bottom, #53535382, #d4d4d482)',
+	'gradient-travel': 'linear-gradient(to bottom, #A9A9A982, #66331c82)',
+	'gradient-pet': 'linear-gradient(to bottom, #33332bcc, #999980cc)',
+	'gradient-place': 'linear-gradient(to bottom, #0A0B0882, #484A3D82)',
 };
 
 export { backgroundImage, colors, fontFamily, fontSize, fontWeight, spacing };

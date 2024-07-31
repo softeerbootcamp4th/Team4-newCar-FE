@@ -1,42 +1,31 @@
-import { PropsWithChildren, ReactElement } from 'react';
+import { DialogTitle } from '@radix-ui/react-dialog';
 import { Button } from 'src/components/ui/button';
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from 'src/components/ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog';
+import { useModal } from 'src/store/provider/ModalProvider';
 
-interface ActionModalProps {
-	title: string;
-	openTrigger: ReactElement;
-	actionTrigger: ReactElement;
-}
-export default function ActionModal({
-	title,
-	openTrigger,
-	actionTrigger,
-	children,
-}: PropsWithChildren<ActionModalProps>) {
+export default function ActionModal() {
+	const { isModalOpen, modalContent, modalCallback, closeModal } = useModal();
+	const handleSubmit = () => {
+		closeModal();
+		modalCallback();
+	};
 	return (
-		<Dialog>
-			<DialogTrigger asChild>{openTrigger}</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>{title}</DialogTitle>
-				</DialogHeader>
-				<div className="flexcol flex min-h-[100px]">{children}</div>
-				<DialogFooter>
-					<DialogClose asChild>
-						<Button type="button" variant="secondary">
-							취소
+		<Dialog open={isModalOpen}>
+			<DialogContent className="w-auto max-w-fit">
+				<div className="flexcol flex min-h-[100px] w-full">{modalContent}</div>
+				<DialogTitle />
+				<div className="flex w-full flex-row justify-end">
+					<DialogFooter>
+						<DialogClose asChild onClick={closeModal}>
+							<Button type="button" variant="secondary">
+								취소
+							</Button>
+						</DialogClose>
+						<Button type="button" variant="default" onClick={handleSubmit}>
+							확인
 						</Button>
-					</DialogClose>
-					{actionTrigger}
-				</DialogFooter>
+					</DialogFooter>
+				</div>
 			</DialogContent>
 		</Dialog>
 	);

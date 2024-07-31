@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
 	Accordion,
 	AccordionContent,
@@ -11,6 +12,12 @@ interface SideBarProps {
 }
 
 function SideBar({ isChecked }: SideBarProps) {
+	const navigate = useNavigate();
+	const handleClick = (path: string | undefined) => {
+		if (path) {
+			navigate(path);
+		}
+	};
 	return (
 		<div
 			className={`absolute m-[-100px_0_0_-50px] h-screen w-[300px] origin-[0%_0%] transform list-none bg-slate-200 px-10 pt-[125px] font-sans antialiased transition-all duration-500 ease-[cubic-bezier(0.77,0.2,0.05,1.0)] ${
@@ -24,7 +31,14 @@ function SideBar({ isChecked }: SideBarProps) {
 							<AccordionTrigger>{route.name}</AccordionTrigger>
 							<AccordionContent>
 								{route.subRoutes.map((subRoute) => (
-									<div key={subRoute.id} className="cursor-pointer hover:underline">
+									<div
+										role="presentation"
+										key={subRoute.id}
+										className="cursor-pointer hover:underline"
+										onClick={() => {
+											handleClick(subRoute.path);
+										}}
+									>
 										{subRoute.name}
 									</div>
 								))}
@@ -33,8 +47,12 @@ function SideBar({ isChecked }: SideBarProps) {
 					</Accordion>
 				) : (
 					<div
+						role="presentation"
 						key={route.id}
 						className="border-b border-gray-400 py-4 hover:cursor-pointer hover:underline"
+						onClick={() => {
+							handleClick(route.path);
+						}}
 					>
 						{route.name}
 					</div>

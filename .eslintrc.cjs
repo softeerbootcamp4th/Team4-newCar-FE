@@ -53,13 +53,14 @@ module.exports = {
 			},
 		],
 		'react/jsx-props-no-spreading': 'off',
-		indent: ['error', 'tab'],
+		indent: 'off',
 		'react/jsx-indent': 'off',
 		'react/jsx-indent-props': 'off',
 		'@typescript-eslint/indent': 'off',
 		'no-tabs': 'off',
 		'global-require': 'off',
 		'react/jsx-wrap-multilines': 'off',
-		"react/jsx-one-expression-per-line": ['enabled', { "allow": "single-child" }]
+		'react/jsx-one-expression-per-line': 'off',
+		'react-hooks/exhaustive-deps': 'off',
 	},
 };

@@ -1,0 +1,13 @@
+[
+    {
+      "id": 1,
+      "winnerCount": 20,
+      "postDate": "2024-07-29",
+      "question": "질문",
+      "choice1": "보기 1번",
+      "choice2": "보기 2번",
+      "choice3": "보기 3번",
+      "choice4": "보기 4번",
+      "correctAnswer": 0
+    }
+  ]

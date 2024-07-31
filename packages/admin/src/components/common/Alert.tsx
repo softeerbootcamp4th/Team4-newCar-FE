@@ -1,33 +1,34 @@
-import { PropsWithChildren } from 'react';
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogFooter,
-	AlertDialogTrigger,
-} from 'src/components/ui/alert-dialog';
+import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
+import { AlertDialog, AlertDialogContent, AlertDialogFooter } from 'src/components/ui/alert-dialog';
+import { Button } from 'src/components/ui/button';
+import { useAlert } from 'src/store/provider/AlertProvider';
 
-interface AlertProps {
-	openTrigger: React.ReactElement;
-	actionTrigger: React.ReactElement;
-	showCancelButton?: boolean;
-}
-
-export default function Alert({
-	openTrigger,
-	actionTrigger,
-	showCancelButton = true,
-	children,
-}: PropsWithChildren<AlertProps>) {
+export default function Alert() {
+	const { isAlertOpen, alertCallback, alertContent, alertType, closeAlert } = useAlert();
+	const showCancelButton = alertType === 'confirm';
+	const handleSubmit = () => {
+		if (showCancelButton) {
+			alertCallback();
+		}
+		closeAlert();
+	};
+	const handleClose = () => {
+		closeAlert();
+	};
 	return (
-		<AlertDialog>
-			<AlertDialogTrigger asChild>{openTrigger}</AlertDialogTrigger>
+		<AlertDialog open={isAlertOpen}>
+			<AlertDialogTitle />
 			<AlertDialogContent>
-				{children}
+				<div>{alertContent}</div>
 				<AlertDialogFooter>
-					{showCancelButton && <AlertDialogCancel>취소</AlertDialogCancel>}
-					<AlertDialogAction asChild>{actionTrigger}</AlertDialogAction>
+					<div className="flex flex-row justify-end">
+						{showCancelButton && (
+							<Button variant="secondary" className="mr-2" onClick={handleClose}>
+								취소
+							</Button>
+						)}
+						<Button onClick={handleSubmit}>확인</Button>
+					</div>
 				</AlertDialogFooter>
 			</AlertDialogContent>
 		</AlertDialog>

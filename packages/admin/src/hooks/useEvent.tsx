@@ -40,9 +40,28 @@ const useEvent = () => {
 		queryKey: [API.QUIZ],
 	});
 
+	const eventWinnerResult = useQuery<Response[API.WINNERS]>({
+		queryFn: async () => {
+			try {
+				const response = await fetchData({
+					path: API.WINNERS,
+					method: 'GET',
+				});
+				const result = await response.json();
+				return result;
+			} catch (err) {
+				console.log(err);
+				// 핸들링 필요함
+				// 백엔드 배포 되면 해야징~
+			}
+		},
+		queryKey: [API.WINNERS],
+	});
+
 	return {
 		commonEvent: commonEventResult.data,
 		quizEvent: quizEventResult.data,
+		eventWinners: eventWinnerResult.data,
 	};
 };
 export default useEvent;

@@ -11,7 +11,7 @@ function CommonEventItem({ description, element }: { description: string; elemen
 	return (
 		<div className="w-1/2 p-1">
 			<div className="flex rounded-sm border-[1px] border-black">
-				<div className="flex w-32 items-center justify-center border-r-[1px] border-black min-h-[40px]">
+				<div className="flex min-h-[40px] w-32 items-center justify-center border-r-[1px] border-black">
 					{description}
 				</div>
 				<div className="flex w-full items-center justify-center">{element}</div>
@@ -71,15 +71,7 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
 			<CommonEventItem description="상태" element={<div>{commonEvent.status}</div>} />
-			<CommonEventItem
-				description="담당자"
-				element={
-					<div>
-						{commonEvent.eventManager}
-					</div>
-
-				}
-			/>
+			<CommonEventItem description="담당자" element={<div>{commonEvent.eventManager}</div>} />
 			<CommonEventItem
 				description="진행 기간"
 				element={
@@ -109,7 +101,6 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 
 function CommonEventTab() {
 	const { commonEvent } = useEvent();
-
 	return (
 		<div className="mt-4 flex flex-col gap-2">
 			{commonEvent && <CommonEventBox commonEvent={commonEvent} />}

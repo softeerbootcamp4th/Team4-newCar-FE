@@ -12,7 +12,7 @@ interface QuizObj {
 }
 
 interface QuizEventEditorProps {
-	quiz: Quiz
+	quiz: Quiz;
 }
 
 function QuizEventEditor({ quiz }: QuizEventEditorProps) {

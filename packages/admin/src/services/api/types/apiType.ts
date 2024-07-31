@@ -4,6 +4,7 @@ import { API } from 'src/constants/api';
 export interface Payload {
 	[API.COMMON_EVENT]: Record<string, never>;
 	[API.QUIZ]: Record<string, never>;
+	[API.WINNERS]: Record<string, never>;
 }
 
 export interface CommonEvent {
@@ -26,9 +27,18 @@ export interface Quiz {
 	correctAnswer: number
 }
 
+export interface Winner {
+	rank: number
+	name: string
+	phoneNumber: string
+	clickNumber: number
+	team: string
+}
+
 export interface Response {
 	[API.COMMON_EVENT]: CommonEvent;
 	[API.QUIZ]: Quiz[];
+	[API.WINNERS]: Winner[];
 }
 
 export type FetchDataRequestOptions<K extends keyof Payload> = {

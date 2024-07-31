@@ -16,23 +16,23 @@ export interface CommonEvent {
 }
 
 export interface Quiz {
-	id: number
-	winnerCount: number
-	postDate: string
-	question: string
-	choice1: string
-	choice2: string
-	choice3: string
-	choice4: string
-	correctAnswer: number
+	id: number;
+	winnerCount: number;
+	postDate: string;
+	question: string;
+	choice1: string;
+	choice2: string;
+	choice3: string;
+	choice4: string;
+	correctAnswer: number;
 }
 
 export interface Winner {
-	rank: number
-	name: string
-	phoneNumber: string
-	clickNumber: number
-	team: string
+	rank: number;
+	name: string;
+	phoneNumber: string;
+	clickNumber: number;
+	team: string;
 }
 
 export interface Response {

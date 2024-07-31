@@ -3,7 +3,7 @@ import RoutePaths from 'src/constants/routePath';
 interface Route {
 	id: number;
 	name: string;
-	path?: string
+	path?: string;
 	subRoutes?: Route[];
 }
 const SideBarRoutes: Route[] = [

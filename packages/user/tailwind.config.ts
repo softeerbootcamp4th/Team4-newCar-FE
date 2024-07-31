@@ -27,7 +27,7 @@ const config: Config = {
 		extend: {
 			spacing,
 			boxShadow: {
-				lg: '0px 0px 20px 0px #ffffffD0', // popup
+				lg: '0px 0px 20px 0px #ffffffD0', // modal
 			},
 			container: {
 				center: true,

@@ -24,8 +24,7 @@ const buttonVariants = cva(clsx(buttonStyles, defaultStyles), {
 	},
 });
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-	VariantProps<typeof buttonVariants>;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>;
 
 /** 랜딩 페이지 이동(size: lg), 팝업 버튼(size: default) */
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

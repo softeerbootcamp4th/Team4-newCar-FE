@@ -33,7 +33,7 @@ const dialogVariants = cva(
 	{
 		variants: {
 			variants: {
-				default: 'bg-background/80',
+				default: 'bg-background/80 backdrop-blur-lg',
 				pet: 'bg-gradient-pet',
 				place: 'bg-gradient-place',
 				travel: 'bg-gradient-travel',

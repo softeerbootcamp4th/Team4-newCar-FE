@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+import Button from 'src/components/common/Button';
+import RoutePaths from 'src/constants/routePath';
 import EventStep from './EventStep';
 import StepFirst from './StepFirst';
 import StepSecond from './StepSecond';
@@ -28,6 +31,19 @@ export default function EventSteps() {
 					{contents}
 				</EventStep>
 			))}
+			<EventEnterButton />
 		</section>
+	);
+}
+
+function EventEnterButton() {
+	const navigate = useNavigate();
+
+	const handleClick = () => navigate(RoutePaths.Event);
+
+	return (
+		<Button variants={'primary'} size={'lg'} onClick={handleClick}>
+			지금 바로 참여하기!
+		</Button>
 	);
 }

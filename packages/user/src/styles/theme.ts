@@ -137,6 +137,7 @@ const fontWeight = {
 };
 
 const backgroundImage = {
+	'gradient-to-b-card': 'linear-gradient(to bottom, var(--tw-gradient-stops) 50%)',
 	'gradient-lineBanner': 'linear-gradient(to right, #2589FF, #232AA3)',
 	'gradient-cards1': 'linear-gradient(to right, #FD7A4D, #000000)',
 	'gradient-cards3': 'linear-gradient(to right, #37392A, #000000)',

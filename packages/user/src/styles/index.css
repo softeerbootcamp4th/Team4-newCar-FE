@@ -71,17 +71,16 @@ p > strong {
 	@apply text-primary;
 }
 
-
 /** scroll snap */
 
 main {
-	@apply overflow-auto snap-y snap-proximity;
+	@apply snap-y snap-proximity overflow-auto;
 }
 
-section,footer {
+section,
+footer {
 	@apply snap-start;
 }
-
 
 /* shadcn ui */
 

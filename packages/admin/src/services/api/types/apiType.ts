@@ -13,7 +13,6 @@ export interface CommonEvent {
 	eventManager: string;
 	eventName: string;
 	startTime: string;
-	status: string;
 }
 
 export interface Quiz {

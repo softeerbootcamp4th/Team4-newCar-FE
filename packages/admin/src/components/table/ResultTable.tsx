@@ -28,8 +28,8 @@ function ResultTable({ headers, rows }: ResultTableProps) {
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{rows.map((row, rowIndex) => (
-					<TableRow key={`row-${row.join()}`} key={rowIndex}>
+				{rows.map((row) => (
+					<TableRow key={`row-${row.join()}`}>
 						{row.map((item, colIndex) => (
 							<TableCell className="font-medium" key={colIndex}>
 								{item}

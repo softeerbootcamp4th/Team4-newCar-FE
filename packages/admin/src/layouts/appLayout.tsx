@@ -8,7 +8,7 @@ export default function AppLayout() {
 	const { headerTitle } = useHeader();
 
 	return (
-		<div className="mx-auto flex h-screen w-screen min-w-[1200px] bg-gradient-to-r from-orange-500 to-indigo-600">
+		<div className="mx-auto flex h-screen w-screen min-w-[1200px]">
 			<SideBarContainer />
 			<div className="mx-auto flex h-screen w-full max-w-[1200px] gap-10">
 				<SystemContainer />

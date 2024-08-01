@@ -1,11 +1,11 @@
-import Light1 from 'src/assets/landing-racing/lights/light-1.svg?react';
-import Light2 from 'src/assets/landing-racing/lights/light-2.svg?react';
-import Light3 from 'src/assets/landing-racing/lights/light-3.svg?react';
-import Light4 from 'src/assets/landing-racing/lights/light-4.svg?react';
-import Light5 from 'src/assets/landing-racing/lights/light-5.svg?react';
-import Light6 from 'src/assets/landing-racing/lights/light-6.svg?react';
-import Light7 from 'src/assets/landing-racing/lights/light-7.svg?react';
-import Light8 from 'src/assets/landing-racing/lights/light-8.svg?react';
+import Light1 from 'src/assets/landing-racing/effects/light-1.svg?react';
+import Light2 from 'src/assets/landing-racing/effects/light-2.svg?react';
+import Light3 from 'src/assets/landing-racing/effects/light-3.svg?react';
+import Light4 from 'src/assets/landing-racing/effects/light-4.svg?react';
+import Light5 from 'src/assets/landing-racing/effects/light-5.svg?react';
+import Light6 from 'src/assets/landing-racing/effects/light-6.svg?react';
+import Light7 from 'src/assets/landing-racing/effects/light-7.svg?react';
+import Light8 from 'src/assets/landing-racing/effects/light-8.svg?react';
 
 export default function Lights() {
 	return (

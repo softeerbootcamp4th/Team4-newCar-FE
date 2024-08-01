@@ -8,6 +8,10 @@ function SideBarContainer() {
 		setIsChecked(!isChecked);
 	};
 
+	const handleClose = () => {
+		setIsChecked(false);
+	};
+
 	const spanStyled =
 		'block w-8 h-1 mb-1 relative bg-[#cdcdcd] rounded z-10 origin-[4px_0px] transition-transform transition-bg duration-500 ease-custom-bezier';
 
@@ -39,7 +43,7 @@ function SideBarContainer() {
 					}`}
 				/>
 
-				<SideBar isChecked={isChecked} />
+				<SideBar isChecked={isChecked} handleClose={handleClose} />
 			</div>
 		</nav>
 	);

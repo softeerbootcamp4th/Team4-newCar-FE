@@ -40,11 +40,11 @@ const useEvent = () => {
 		queryKey: [API.QUIZ_LIST],
 	});
 
-	const eventWinnerResult = useQuery<Response[API.WINNERS]>({
+	const racingWinnerResult = useQuery<Response[API.RACING_WINNERS]>({
 		queryFn: async () => {
 			try {
 				const response = await fetchData({
-					path: API.WINNERS,
+					path: API.RACING_WINNERS,
 					method: 'GET',
 				});
 				const result = await response.json();
@@ -55,13 +55,13 @@ const useEvent = () => {
 				// 백엔드 배포 되면 해야징~
 			}
 		},
-		queryKey: [API.WINNERS],
+		queryKey: [API.RACING_WINNERS],
 	});
 
 	return {
 		commonEvent: commonEventResult.data,
 		quizEvent: quizEventResult.data,
-		eventWinners: eventWinnerResult.data,
+		racingWinners: racingWinnerResult.data,
 	};
 };
 export default useEvent;

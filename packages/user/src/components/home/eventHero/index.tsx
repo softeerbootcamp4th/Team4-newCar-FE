@@ -1,5 +1,5 @@
-import CarRacing from './CarRacing';
 import LandingTitle from './LandingTitle';
+import CarRacing from './racing';
 
 /** 랜딩 시 보이는 히어로 섹션 */
 export default function EventHero() {

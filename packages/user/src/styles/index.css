@@ -74,7 +74,7 @@ p > strong {
 /** scroll snap */
 
 main {
-	@apply snap-y snap-proximity overflow-auto;
+	@apply snap-y snap-mandatory overflow-auto;
 }
 
 section,

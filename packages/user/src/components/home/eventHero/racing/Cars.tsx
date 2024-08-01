@@ -6,6 +6,15 @@ import FirstCarShadow from 'src/assets/landing-racing/orange-shadow.svg?react'; 
 import ThirdCarImage from 'src/assets/landing-racing/white-car.svg?react'; // 3
 import ThirdCarShadow from 'src/assets/landing-racing/white-shadow.svg?react'; // 6
 
+export default function Cars() {
+	return (
+		<>
+			<ThirdCar />
+			<SecondCar />
+			<FirstCar />
+		</>
+	);
+}
 function FirstCar() {
 	return (
 		<div className="absolute left-[389px] h-full w-[490px]">
@@ -32,5 +41,3 @@ function ThirdCar() {
 		</div>
 	);
 }
-
-export { FirstCar, SecondCar, ThirdCar };

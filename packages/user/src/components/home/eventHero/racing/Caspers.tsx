@@ -38,8 +38,8 @@ function CreamCasper() {
 			</p>
 			<CreamBubble />
 			<CreamCharacter className="absolute left-[110px] top-[35px]" />
-			<Lighting1 className="absolute -top-[2px] right-[4px]" />
-			<Lighting2 className="absolute right-0 top-[22px]" />
+			<Lighting1 className="animate-sparkle absolute -top-[2px] right-[4px]" />
+			<Lighting2 className="animate-sparkle-reverse absolute right-0 top-[22px]" />
 		</div>
 	);
 }

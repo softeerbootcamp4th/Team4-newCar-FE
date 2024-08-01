@@ -45,10 +45,21 @@ const config: Config = {
 					'0%, 100%': { transform: 'translateY(-15px)' },
 					'50%': { transform: 'translateY(15px)' },
 				},
+				sparkle: {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' },
+				},
+				'sparkle-reverse': {
+					'0%, 100%': { opacity: '0.5' },
+					'50%': { opacity: '1' },
+				},
 			},
 			animation: {
 				'casper-float': 'float 2.1s ease-in-out infinite',
 				'casper-float-reverse': 'float-reverse 1.2s ease-in-out infinite',
+				sparkle: 'sparkle 1.5s ease-in-out infinite',
+				'sparkle-reverse': 'sparkle-reverse 1.8s ease-in-out infinite',
+				sparkle2: 'sparkle 2s ease-in-out infinite',
 			},
 		},
 	},

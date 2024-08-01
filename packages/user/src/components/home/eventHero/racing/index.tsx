@@ -1,12 +1,12 @@
 import Background from './Background';
 import { FirstCar, SecondCar, ThirdCar } from './Cars';
-import Lights from './Lights';
+import Effects from './Effects';
 
 export default function CarRacing() {
 	return (
 		<div className="relative flex h-[520px] w-[1155px]">
 			<Background />
-			<Lights />
+			<Effects />
 			<ThirdCar />
 			<SecondCar />
 			<FirstCar />

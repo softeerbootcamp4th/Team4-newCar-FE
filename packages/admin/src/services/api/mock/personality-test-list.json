@@ -1,0 +1,44 @@
+[
+	{
+		"id": 1,
+		"question": "오늘은 나들이 가는날 당신의 드라이브 스타일은",
+		"choice1": "반려동물과 함께하는 드라이브",
+		"choice2": "음악과 함께 하는 드라이브",
+		"choice1_pet_score": 0,
+		"choice1_travel_score": 0,
+		"choice1_space_score": 0,
+		"choice1_leisure_score": 10,
+		"choice2_pet_score": 0,
+		"choice2_travel_score": 0,
+		"choice2_space_score": 30,
+		"choice2_leisure_score": 0
+	},
+	{
+		"id": 2,
+		"question": "당신이 드라이브 가고 싶은 사람은?",
+		"choice1": "진환이와 함께",
+		"choice2": "락현과 함께",
+		"choice1_pet_score": 0,
+		"choice1_travel_score": 0,
+		"choice1_space_score": 0,
+		"choice1_leisure_score": 100,
+		"choice2_pet_score": 0,
+		"choice2_travel_score": 0,
+		"choice2_space_score": 300,
+		"choice2_leisure_score": 0
+	},
+	{
+		"id": 3,
+		"question": "당신이 드라이브 가고 싶은 사람은?",
+		"choice1": "진환이와 함께",
+		"choice2": "락현과 함께",
+		"choice1_pet_score": 0,
+		"choice1_travel_score": 0,
+		"choice1_space_score": 0,
+		"choice1_leisure_score": 100,
+		"choice2_pet_score": 0,
+		"choice2_travel_score": 0,
+		"choice2_space_score": 300,
+		"choice2_leisure_score": 0
+	}
+]

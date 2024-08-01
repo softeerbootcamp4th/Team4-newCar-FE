@@ -10,7 +10,7 @@ import {
 interface ResultTableProps {
 	headers: Array<{
 		text: string;
-		width: number;
+		width: number | string;
 	}>;
 	rows: Array<Array<string>>;
 }

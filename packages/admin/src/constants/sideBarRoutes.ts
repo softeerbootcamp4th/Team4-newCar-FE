@@ -3,14 +3,14 @@ import RoutePaths from 'src/constants/routePath';
 interface Route {
 	id: number;
 	name: string;
-	path?: string
+	path?: string;
 	subRoutes?: Route[];
 }
 const SideBarRoutes: Route[] = [
 	{
 		id: 1,
 		name: '이벤트 관리',
-		path: '/',
+		path: RoutePaths.EVENT_PAGE,
 	},
 	{
 		id: 2,

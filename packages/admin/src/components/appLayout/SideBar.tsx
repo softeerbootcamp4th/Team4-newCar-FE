@@ -9,13 +9,15 @@ import SideBarRoutes from 'src/constants/sideBarRoutes';
 
 interface SideBarProps {
 	isChecked: boolean;
+	handleClose: VoidFunction;
 }
 
-function SideBar({ isChecked }: SideBarProps) {
+function SideBar({ isChecked, handleClose }: SideBarProps) {
 	const navigate = useNavigate();
 	const handleClick = (path: string | undefined) => {
 		if (path) {
 			navigate(path);
+			handleClose();
 		}
 	};
 	return (

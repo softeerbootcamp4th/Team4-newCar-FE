@@ -6,7 +6,7 @@ import { Input } from 'src/components/ui/input';
 import useEvent from 'src/hooks/useEvent';
 import { CommonEvent } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
-import { getPickerTimeFromUtc } from 'src/utils/time';
+import { getKstFromPickerTime, getPickerTimeFromKst } from 'src/utils/time';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
@@ -29,15 +29,21 @@ const getStatus = (startTime: string, endTime: string) => {
 	return '진행중';
 };
 
-function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
+function CommonEventBox({
+	commonEvent,
+	handleUpdateEvent,
+}: {
+	commonEvent: CommonEvent;
+	handleUpdateEvent: (newCommonEvent: CommonEvent) => void;
+}) {
 	const { openAlert, addAlertCallback } = useAlert();
 	const [startTime, setStartTime] = useState('');
 	const [endTime, setEndTime] = useState('');
 
 	useEffect(() => {
 		if (commonEvent) {
-			setStartTime(getPickerTimeFromUtc(commonEvent.startTime));
-			setEndTime(getPickerTimeFromUtc(commonEvent.endTime));
+			setStartTime(getPickerTimeFromKst(commonEvent.startTime));
+			setEndTime(getPickerTimeFromKst(commonEvent.endTime));
 		}
 	}, [commonEvent]);
 
@@ -71,7 +77,12 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 
 	const handleSave = () => {
 		addAlertCallback(() => {
-			console.log('수정완료');
+			handleUpdateEvent({
+				startTime: getKstFromPickerTime(startTime),
+				endTime: getKstFromPickerTime(endTime),
+				eventManager: commonEvent.eventManager,
+				eventName: commonEvent.eventName,
+			});
 		});
 		openAlert('이벤트를 수정할까요?', 'confirm');
 	};
@@ -79,7 +90,10 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 	return (
 		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
-			<CommonEventItem description="상태" element={<div>{getStatus(startTime, endTime)}</div>} />
+			<CommonEventItem
+				description="상태"
+				element={<div>{getStatus(commonEvent.startTime, commonEvent.endTime)}</div>}
+			/>
 			<CommonEventItem description="담당자" element={<div>{commonEvent.eventManager}</div>} />
 			<CommonEventItem
 				description="진행 기간"
@@ -109,10 +123,15 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 }
 
 function CommonEventTab() {
-	const { commonEvent } = useEvent();
+	const { commonEvent, updateCommonEvent } = useEvent();
+	const handleUpdateEvent = (newCmmonEvent: CommonEvent) => {
+		updateCommonEvent(newCmmonEvent);
+	};
 	return (
 		<div className="mt-4 flex flex-col gap-2">
-			{commonEvent && <CommonEventBox commonEvent={commonEvent} />}
+			{commonEvent && (
+				<CommonEventBox commonEvent={commonEvent} handleUpdateEvent={handleUpdateEvent} />
+			)}
 		</div>
 	);
 }

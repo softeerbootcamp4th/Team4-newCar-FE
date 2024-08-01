@@ -115,7 +115,7 @@ function QuizEventEditor({ quiz }: QuizEventEditorProps) {
 					<div className="flex w-full items-center justify-start gap-4 p-4">
 						<Input
 							type="checkbox"
-							checked={quizOptionIndex === quizObj.answerIndex}
+							checked={quizOptionIndex + 1 === quizObj.answerIndex}
 							className="w-7 cursor-pointer"
 							onClick={() => {
 								handleQuizAnswerIndexChange(quizOptionIndex);

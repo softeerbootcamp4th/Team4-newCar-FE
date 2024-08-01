@@ -6,7 +6,6 @@ import { useModal } from 'src/store/provider/ModalProvider';
 export default function ActionModal() {
 	const { isModalOpen, modalContent, modalCallback, closeModal } = useModal();
 	const handleSubmit = () => {
-		closeModal();
 		modalCallback();
 	};
 	return (

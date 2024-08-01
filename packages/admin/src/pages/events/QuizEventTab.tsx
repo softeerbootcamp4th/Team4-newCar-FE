@@ -34,19 +34,43 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 			<AccordionContent>
 				<div className="mt-4 w-full border-4 border-gray-500">
 					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="1번" />
+						<Input
+							className="mr-4 w-4"
+							type="checkbox"
+							value="1번"
+							disabled
+							checked={quiz.correctAnswer === 1}
+						/>
 						<p>{quiz.choice1}</p>
 					</div>
 					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="2번" />
+						<Input
+							className="mr-4 w-4"
+							type="checkbox"
+							value="2번"
+							disabled
+							checked={quiz.correctAnswer === 2}
+						/>
 						<p>{quiz.choice2}</p>
 					</div>
 					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="3번" />
+						<Input
+							className="mr-4 w-4"
+							type="checkbox"
+							value="3번"
+							disabled
+							checked={quiz.correctAnswer === 3}
+						/>
 						<p>{quiz.choice3}</p>
 					</div>
 					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="4번" />
+						<Input
+							className="mr-4 w-4"
+							type="checkbox"
+							value="4번"
+							disabled
+							checked={quiz.correctAnswer === 4}
+						/>
 						<p>{quiz.choice4}</p>
 					</div>
 				</div>

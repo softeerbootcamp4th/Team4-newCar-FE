@@ -1,15 +1,15 @@
-import { API_DEFAULT_HEADER, BASE_URL } from 'src/constants/api';
+import { API_DEFAULT_HEADER, BASE_URL, METHOD } from 'src/constants/api';
 import { FetchDataRequestOptions, Payload } from 'src/services/api/types/apiType';
 
-const fetchData = async <K extends keyof Payload>({
+const fetchData = async <K extends keyof Payload, T extends keyof Payload[K]>({
 	path,
-	payload = {},
+	payload,
 	method,
 	headers = {},
-}: FetchDataRequestOptions<K>) =>
+}: FetchDataRequestOptions<K, T>) =>
 	fetch(
 		BASE_URL + path,
-		method === 'GET'
+		method === METHOD.GET
 			? {
 					...API_DEFAULT_HEADER,
 					...headers,

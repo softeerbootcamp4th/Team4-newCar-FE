@@ -1,5 +1,5 @@
 import { PropsWithChildren, Suspense } from 'react';
-import EventDuration from './EventDuration';
+import EventDurationText from './EventDurationText';
 
 export default function LandingTitle() {
 	return (
@@ -15,7 +15,7 @@ export default function LandingTitle() {
 				<Chip>이벤트 기간</Chip>
 				<p className="text-detail-1 h-[22px] w-[160px]">
 					<Suspense fallback="불러오는 중...">
-						<EventDuration />
+						<EventDurationText />
 					</Suspense>
 				</p>
 			</div>

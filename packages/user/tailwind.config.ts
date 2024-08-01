@@ -36,6 +36,20 @@ const config: Config = {
 					'2xl': '1920px',
 				},
 			},
+			keyframes: {
+				float: {
+					'0%, 100%': { transform: 'translateY(15px)' },
+					'50%': { transform: 'translateY(-15px)' },
+				},
+				'float-reverse': {
+					'0%, 100%': { transform: 'translateY(-15px)' },
+					'50%': { transform: 'translateY(15px)' },
+				},
+			},
+			animation: {
+				'casper-float': 'float 2.1s ease-in-out infinite',
+				'casper-float-reverse': 'float-reverse 1.2s ease-in-out infinite',
+			},
 		},
 	},
 	plugins: [tailwindAnimate],

@@ -18,9 +18,21 @@ export default function Caspers() {
 	);
 }
 
+function OrangeCasper() {
+	return (
+		<div className="animate-casper-float-reverse absolute right-[92px] top-[15px] w-[150px]">
+			<p className="text-detail-3 text-background absolute right-[18px] top-[2px] z-10 font-medium">
+				&quot;거침없이 누구보다 빠르게&quot;
+			</p>
+			<OrangeBubble className="absolute right-0" />
+			<OrangeCharacter className="absolute right-[100px] top-[35px]" />
+		</div>
+	);
+}
+
 function CreamCasper() {
 	return (
-		<div className="absolute left-[37px] top-[2px] w-[220px]">
+		<div className="animate-casper-float absolute left-[37px] top-[2px] w-[220px]">
 			<p className="text-detail-3 text-background absolute left-[20px] top-[2px] font-medium">
 				&quot;캐스퍼의 주인공은 누구?&quot;
 			</p>
@@ -32,30 +44,18 @@ function CreamCasper() {
 	);
 }
 
-function OrangeCasper() {
+function WhiteCasper() {
 	return (
-		<div className="absolute right-[92px] top-[15px] w-[150px]">
-			<p className="text-detail-3 text-background absolute right-[18px] top-[2px] z-10 font-medium">
-				&quot;거침없이 누구보다 빠르게&quot;
-			</p>
-			<OrangeBubble className="absolute right-0" />
-			<OrangeCharacter className="absolute right-[100px] top-[35px]" />
+		<div className="animate-casper-float-reverse absolute left-[270px] top-[55px]">
+			<WhiteCharacter />
 		</div>
 	);
 }
 
 function KhakiCasper() {
 	return (
-		<div className="absolute -top-[2px] right-[295px]">
+		<div className="animate-casper-float absolute -top-[2px] right-[295px]">
 			<KhakiCharacter />
-		</div>
-	);
-}
-
-function WhiteCasper() {
-	return (
-		<div className="absolute left-[270px] top-[55px]">
-			<WhiteCharacter />
 		</div>
 	);
 }

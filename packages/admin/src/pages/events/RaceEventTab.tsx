@@ -1,47 +1,73 @@
 import RaceEventEditor from 'src/components/editor/RaceEventEditor';
 import { Button } from 'src/components/ui/button';
+import useEvent from 'src/hooks/useEvent';
+import { PersonalityTest } from 'src/services/api/types/apiType';
 import { useModal } from 'src/store/provider/ModalProvider';
 
-interface Weight {
-	name: string;
-	value: number;
-}
+const categoryList = [
+	{
+		KR: '펫 프랜들리',
+		EN: 'pet',
+	},
+	{
+		KR: '여행의 정석',
+		EN: 'travel',
+	},
+	{
+		KR: '공간활용의 기술',
+		EN: 'space',
+	},
+	{
+		KR: '레저의 정석',
+		EN: 'leisure',
+	},
+];
 
-interface Answer {
-	title: string;
-	weights: Weight[];
-}
-
-interface Quiz {
-	title: string;
-	answer: Answer[];
-}
-
-function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
+function RaceEventBox({
+	personalityTest,
+	quizIndex,
+}: {
+	personalityTest: PersonalityTest;
+	quizIndex: number;
+}) {
 	const { openModal } = useModal();
+	// server response가 choice1_pet_score choice2_pet_score 같이 칼럼으로 모두 줘서 key값의 이더레이터 필요
+	const answers = [personalityTest.choice1, personalityTest.choice2];
+
+	const scoreKeys: [(keyof PersonalityTest)[], (keyof PersonalityTest)[]] = [
+		Object.keys(personalityTest).filter((key): key is keyof PersonalityTest =>
+			key.includes('choice1_'),
+		),
+		Object.keys(personalityTest).filter((key): key is keyof PersonalityTest =>
+			key.includes('choice1_'),
+		),
+	];
 
 	const handleFix = () => {
-		openModal(<RaceEventEditor />);
+		openModal(<RaceEventEditor personalityTest={personalityTest} />);
 	};
 
 	return (
 		<div>
 			<div>{quizIndex + 1}</div>
-			{/* map 사용시 key값은 서버에서 주는 primary key로 추가 */}
 			<div className="flex flex-col gap-8 bg-[#EFEFEF] p-4">
-				<div className="font-bold">Q. {quiz.title}</div>
-				{quiz.answer.map((answer, answerIndex) => (
+				<div className="font-bold">Q. {personalityTest.question}</div>
+				{answers.map((answer, answerIndex) => (
 					<div>
 						<div>
 							<span className="mr-1 font-bold">{String.fromCharCode(65 + answerIndex)}</span>
-							{answer.title}
+							{answer}
 						</div>
 
 						<div className="flex gap-4">
-							{answer.weights.map((weight) => (
-								<div className="flex items-center gap-2">
-									<span className="rounded-sm bg-black p-1 text-white"> {weight.name} </span>
-									<span>{weight.value}</span>
+							{scoreKeys[answerIndex].map((categoryKey) => (
+								<div className="flex items-center gap-1">
+									<span className="rounded-sm bg-black p-1 p-2 text-white">
+										{categoryList.find((category) => categoryKey.includes(category.EN))?.KR}
+									</span>
+									<span className="rounded-sm bg-gray-400 p-1 p-2 text-white">
+										{personalityTest[categoryKey]}
+									</span>
 								</div>
 							))}
 						</div>
@@ -55,154 +81,12 @@ function RaceEventBox({ quiz, quizIndex }: { quiz: Quiz; quizIndex: number }) {
 	);
 }
 function RaceEventTab() {
-	const quizList: Quiz[] = [
-		{
-			title: '오늘은 나들이 가는 날! 나의 드라이브 스타일은?',
-			answer: [
-				{
-					title: '반려동물과 함께하는 드라이브',
-					weights: [
-						{
-							name: '펫',
-							value: 7,
-						},
-						{
-							name: '여행',
-							value: 0,
-						},
-						{
-							name: '공간',
-							value: 0,
-						},
-						{
-							name: '레저',
-							value: 0,
-						},
-					],
-				},
-				{
-					title: '반려동물과 함께하는 드라이브1',
-					weights: [
-						{
-							name: '펫',
-							value: 7,
-						},
-						{
-							name: '여행',
-							value: 0,
-						},
-						{
-							name: '공간',
-							value: 0,
-						},
-						{
-							name: '레저',
-							value: 0,
-						},
-					],
-				},
-			],
-		},
-		{
-			title: '오늘은 나들이 가는 날! 나의 드라이브 스타일은?1',
-			answer: [
-				{
-					title: '반려동물과 함께하는 드라이브',
-					weights: [
-						{
-							name: '펫',
-							value: 7,
-						},
-						{
-							name: '여행',
-							value: 0,
-						},
-						{
-							name: '공간',
-							value: 0,
-						},
-						{
-							name: '레저',
-							value: 0,
-						},
-					],
-				},
-				{
-					title: '반려동물과 함께하는 드라이브2',
-					weights: [
-						{
-							name: '펫',
-							value: 7,
-						},
-						{
-							name: '여행',
-							value: 0,
-						},
-						{
-							name: '공간',
-							value: 0,
-						},
-						{
-							name: '레저',
-							value: 0,
-						},
-					],
-				},
-			],
-		},
-		{
-			title: '오늘은 나들이 가는 날! 나의 드라이브 스타일은?3',
-			answer: [
-				{
-					title: '반려동물과 함께하는 드라이브',
-					weights: [
-						{
-							name: '펫',
-							value: 7,
-						},
-						{
-							name: '여행',
-							value: 0,
-						},
-						{
-							name: '공간',
-							value: 0,
-						},
-						{
-							name: '레저',
-							value: 0,
-						},
-					],
-				},
-				{
-					title: '반려동물과 함께하는 드라이브3',
-					weights: [
-						{
-							name: '펫',
-							value: 7,
-						},
-						{
-							name: '여행',
-							value: 0,
-						},
-						{
-							name: '공간',
-							value: 0,
-						},
-						{
-							name: '레저',
-							value: 0,
-						},
-					],
-				},
-			],
-		},
-	];
+	const { personalityTestList } = useEvent();
 
 	return (
 		<div className="flex flex-col gap-8">
-			{quizList.map((quiz, quizIndex) => (
-				<RaceEventBox quiz={quiz} quizIndex={quizIndex} />
+			{personalityTestList?.map((personalityTest, quizIndex) => (
+				<RaceEventBox personalityTest={personalityTest} quizIndex={quizIndex} />
 			))}
 		</div>
 	);

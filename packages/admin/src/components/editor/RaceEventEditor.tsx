@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
+import { PersonalityTest } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
 import { AlertType, useModal } from 'src/store/provider/ModalProvider';
 
@@ -11,15 +12,29 @@ interface RaceObj {
 	scores: number[][];
 }
 
-function RaceEventEditor() {
+interface RaceEventEditorProps {
+	personalityTest: PersonalityTest;
+}
+
+function RaceEventEditor({ personalityTest }: RaceEventEditorProps) {
 	const { isModalOpen, addModalCallback } = useModal();
 	const { addAlertCallback, openAlert } = useAlert();
 	const [raceObj, setRaceObj] = useState<RaceObj>({
-		title: '문제 입니다~~~~~~~~~~~~',
-		answers: ['질문 1번 답', '질문 2번 답'],
+		title: personalityTest.question,
+		answers: [personalityTest.choice1, personalityTest.choice2],
 		scores: [
-			[1, 2, 3, 4],
-			[1, 2, 3, 4],
+			[
+				personalityTest.choice1_pet_score,
+				personalityTest.choice1_travel_score,
+				personalityTest.choice1_space_score,
+				personalityTest.choice1_leisure_score,
+			],
+			[
+				personalityTest.choice2_pet_score,
+				personalityTest.choice2_travel_score,
+				personalityTest.choice2_space_score,
+				personalityTest.choice2_leisure_score,
+			],
 		],
 	});
 

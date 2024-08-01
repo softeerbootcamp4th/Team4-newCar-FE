@@ -3,7 +3,7 @@ import { API } from 'src/constants/api';
 
 export interface Payload {
 	[API.COMMON_EVENT]: Record<string, never>;
-	[API.QUIZ]: Record<string, never>;
+	[API.QUIZ_LIST]: Record<string, never>;
 	[API.WINNERS]: Record<string, never>;
 }
 
@@ -16,28 +16,28 @@ export interface CommonEvent {
 }
 
 export interface Quiz {
-	id: number
-	winnerCount: number
-	postDate: string
-	question: string
-	choice1: string
-	choice2: string
-	choice3: string
-	choice4: string
-	correctAnswer: number
+	id: number;
+	winnerCount: number;
+	postDate: string;
+	question: string;
+	choice1: string;
+	choice2: string;
+	choice3: string;
+	choice4: string;
+	correctAnswer: number;
 }
 
 export interface Winner {
-	rank: number
-	name: string
-	phoneNumber: string
-	clickNumber: number
-	team: string
+	rank: number;
+	name: string;
+	phoneNumber: string;
+	clickNumber: number;
+	team: string;
 }
 
 export interface Response {
 	[API.COMMON_EVENT]: CommonEvent;
-	[API.QUIZ]: Quiz[];
+	[API.QUIZ_LIST]: Quiz[];
 	[API.WINNERS]: Winner[];
 }
 

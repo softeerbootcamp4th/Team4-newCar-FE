@@ -22,11 +22,11 @@ const useEvent = () => {
 		queryKey: [API.COMMON_EVENT],
 	});
 
-	const quizEventResult = useQuery<Response[API.QUIZ]>({
+	const quizEventResult = useQuery<Response[API.QUIZ_LIST]>({
 		queryFn: async () => {
 			try {
 				const response = await fetchData({
-					path: API.QUIZ,
+					path: API.QUIZ_LIST,
 					method: 'GET',
 				});
 				const result = await response.json();
@@ -37,7 +37,7 @@ const useEvent = () => {
 				// 백엔드 배포 되면 해야징~
 			}
 		},
-		queryKey: [API.QUIZ],
+		queryKey: [API.QUIZ_LIST],
 	});
 
 	const eventWinnerResult = useQuery<Response[API.WINNERS]>({

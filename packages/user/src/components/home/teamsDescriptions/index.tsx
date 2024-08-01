@@ -16,7 +16,7 @@ export default function TeamsDescriptions() {
 				<h6 className="text-heading-11 font-medium">
 					캐스퍼의 <strong className="text-primary">다양한 활용 방안</strong>
 				</h6>
-				<div className="my-15 flex gap-[21px]">
+				<div className="my-15 group flex gap-[21px]">
 					{TEAM_TYPES.map((type) => (
 						<TeamDescriptionModal
 							key={type}

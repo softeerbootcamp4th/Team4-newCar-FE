@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button';
@@ -19,6 +20,14 @@ function CommonEventItem({ description, element }: { description: string; elemen
 		</div>
 	);
 }
+
+const getStatus = (startTime: string, endTime: string) => {
+	const beforeCondition = moment().isBefore(moment(startTime));
+	const aterCondition = moment().isAfter(moment(endTime));
+	if (beforeCondition) return '예약';
+	if (aterCondition) return '종료';
+	return '진행중';
+};
 
 function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 	const { openAlert, addAlertCallback } = useAlert();
@@ -70,7 +79,7 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 	return (
 		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
-			<CommonEventItem description="상태" element={<div>{commonEvent.status}</div>} />
+			<CommonEventItem description="상태" element={<div>{getStatus(startTime, endTime)}</div>} />
 			<CommonEventItem description="담당자" element={<div>{commonEvent.eventManager}</div>} />
 			<CommonEventItem
 				description="진행 기간"

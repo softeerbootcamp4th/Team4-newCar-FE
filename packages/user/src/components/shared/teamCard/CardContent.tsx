@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
-import type { TeamDescription } from 'src/constants/teamDescriptions';
+import type { TeamDescriptions } from 'src/constants/team';
 
 export default function CardContent({
 	label,
 	details,
 	children,
-}: PropsWithChildren<TeamDescription>) {
+}: PropsWithChildren<TeamDescriptions>) {
 	return (
 		<div className="relative z-10 flex h-full flex-col items-center justify-between">
 			<div className="text-center">

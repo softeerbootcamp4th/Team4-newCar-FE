@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
-import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions';
-import { Category } from 'src/types/user';
+import { TEAM_DESCRIPTIONS } from 'src/constants/team';
+import type { Category } from 'src/types/category';
 import CardBackgroundImage from './CardBackgroundImage';
 import CardContent from './CardContent';
 import CardGradient from './CardGradient';

@@ -3,7 +3,7 @@ import LinkDisplay from 'src/components/shared/LinkDisplay';
 import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton';
 import useAuth from 'src/hooks/useAuth';
 import { toast } from 'src/hooks/useToast';
-import { Category } from 'src/types/user';
+import type { Category } from 'src/types/category';
 
 // TODO: 추후 이벤트 도메인으로 변경
 const DOMAIN = 'https://hyundai.com';

@@ -14,7 +14,6 @@ const config: Config = {
 	theme: {
 		fontFamily,
 		fontWeight,
-		backgroundImage,
 		colors,
 		fontSize,
 		boxShadow: {
@@ -25,6 +24,7 @@ const config: Config = {
 		margin: spacing,
 		padding: spacing,
 		extend: {
+			backgroundImage,
 			spacing,
 			boxShadow: {
 				lg: '0px 0px 20px 0px #ffffffD0', // modal

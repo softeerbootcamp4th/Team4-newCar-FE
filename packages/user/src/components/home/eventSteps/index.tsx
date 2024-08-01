@@ -24,7 +24,7 @@ const EVENT_STEPS = [
 /** 이벤트(캐스퍼 레이싱) 참여 방법 섹션 */
 export default function EventSteps() {
 	return (
-		<section className="gap-15 spacing-11 flex flex-col items-center pt-[100px]">
+		<section className="gap-15 spacing-11 flex flex-col items-center pb-[150px] pt-[100px]">
 			<h2>참여 방법</h2>
 			{EVENT_STEPS.map(({ title, contents }, index) => (
 				<EventStep key={title} step={index + 1} title={title}>
@@ -42,7 +42,7 @@ function EventEnterButton() {
 	const handleClick = () => navigate(RoutePaths.Event);
 
 	return (
-		<Button variants={'primary'} size={'lg'} onClick={handleClick}>
+		<Button variants="primary" size="lg" onClick={handleClick}>
 			지금 바로 참여하기!
 		</Button>
 	);

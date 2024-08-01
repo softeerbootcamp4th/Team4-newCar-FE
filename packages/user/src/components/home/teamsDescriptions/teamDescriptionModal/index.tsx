@@ -8,6 +8,7 @@ interface TeamDescriptionModalProps extends ModalProps {
 
 export default function TeamDescriptionModal({ type, openTrigger }: TeamDescriptionModalProps) {
 	const { label, details } = TEAM_DESCRIPTIONS[type];
+
 	return (
 		<Modal openTrigger={openTrigger}>
 			<h6 className="text-heading-11 font-medium">{details}</h6>

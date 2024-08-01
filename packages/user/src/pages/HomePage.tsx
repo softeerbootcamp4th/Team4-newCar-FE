@@ -4,6 +4,7 @@ import {
 	EventSteps,
 	FastestQuiz,
 	QuizHint,
+	TeamsDescriptions,
 } from 'src/components/home';
 
 export default function HomePage() {
@@ -13,6 +14,7 @@ export default function HomePage() {
 			<EventSteps />
 			<FastestQuiz />
 			<QuizHint />
+			<TeamsDescriptions />
 			<EventGuidelines />
 		</>
 	);

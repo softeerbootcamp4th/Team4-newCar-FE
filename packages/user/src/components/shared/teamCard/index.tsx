@@ -14,17 +14,17 @@ const Teams: Record<Category, CardTitle> = {
 };
 
 interface TeamCardProps {
-	variant: Category;
+	type: Category;
 }
 
-export default function TeamCard({ variant, children }: PropsWithChildren<TeamCardProps>) {
-	const { label, details } = Teams[variant];
-	const src = `/src/assets/images/card-${variant}.png`;
+export default function TeamCard({ type, children }: PropsWithChildren<TeamCardProps>) {
+	const { label, details } = Teams[type];
+	const src = `/src/assets/images/card-${type}.png`;
 
 	return (
 		<div className="relative h-[364px] w-[244px] overflow-hidden rounded-[11px] pb-[21px] pt-[25px]">
 			<CardBackgroundImage src={src} alt={label} />
-			<CardGradient variant={variant} />
+			<CardGradient variant={type} />
 			<CardContent label={label} details={details}>
 				{children}
 			</CardContent>

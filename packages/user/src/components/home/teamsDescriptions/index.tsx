@@ -1,7 +1,7 @@
 import Button from 'src/components/common/Button';
-import HoverAnimationWrapper from 'src/components/home/teamsDescriptions/HoverAnimationWrapper';
 import EXTERNAL_LINKS from 'src/constants/externalLinks';
 import { TEAM_TYPES } from 'src/constants/team';
+import HoverAnimationWrapper from './HoverAnimationWrapper';
 import TeamDescriptionModal from './teamDescriptionModal';
 import TeamInfoCard from './TeamInfoCard';
 

@@ -19,7 +19,7 @@ function FirstCar() {
 	return (
 		<div className="absolute left-[389px] h-full w-[490px]">
 			<FirstCarShadow className="absolute bottom-0" />
-			<FirstCarImage className="absolute bottom-[40px] left-[4px] z-30" />
+			<FirstCarImage className="animate-rotate1 absolute bottom-[40px] left-[4px] z-30" />
 		</div>
 	);
 }
@@ -28,7 +28,7 @@ function SecondCar() {
 	return (
 		<div className="absolute left-[170px] h-full w-[370px]">
 			<SecondCarShadow className="absolute bottom-[25px] left-[25px]" />
-			<SecondCarImage className="absolute bottom-[70px] z-20" />
+			<SecondCarImage className="animate-rotate2 absolute bottom-[70px] z-20" />
 		</div>
 	);
 }
@@ -37,7 +37,7 @@ function ThirdCar() {
 	return (
 		<div className="absolute right-[190px] h-full w-[210px]">
 			<ThirdCarShadow className="absolute bottom-[54px] right-[20px]" />
-			<ThirdCarImage className="absolute bottom-[70px] right-0 z-10" />
+			<ThirdCarImage className="animate-rotate3 absolute bottom-[70px] right-0 z-10" />
 		</div>
 	);
 }

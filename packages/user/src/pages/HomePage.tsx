@@ -1,5 +1,6 @@
 import {
 	EventGuidelines,
+	EventHero,
 	EventPrizes,
 	EventSteps,
 	FastestQuiz,
@@ -10,6 +11,7 @@ import {
 export default function HomePage() {
 	return (
 		<>
+			<EventHero />
 			<EventPrizes />
 			<EventSteps />
 			<FastestQuiz />

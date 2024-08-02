@@ -1,6 +1,6 @@
-import QuizImages from 'src/components/home/fastestQuiz/QuizImages';
 import QUIZ_SECTION_ID from 'src/constants/quizSectionId';
 import Description from './Description';
+import QuizImages from './QuizImages';
 import TopSection from './TopSection';
 
 /** 선착순 퀴즈 설명 섹션 */

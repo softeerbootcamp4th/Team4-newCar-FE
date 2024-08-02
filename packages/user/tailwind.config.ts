@@ -1,11 +1,15 @@
 import { Config } from 'tailwindcss';
 import tailwindAnimate from 'tailwindcss-animate';
 import {
+	animation,
 	backgroundImage,
+	boxShadow,
 	colors,
+	container,
 	fontFamily,
 	fontSize,
 	fontWeight,
+	keyframes,
 	spacing,
 } from './src/styles/theme';
 
@@ -16,26 +20,17 @@ const config: Config = {
 		fontWeight,
 		colors,
 		fontSize,
-		boxShadow: {
-			md: 'rgba(255,255,255, 0.15) 0px 5px 15px 0px',
-		},
 		borderRadius: spacing,
 		gap: spacing,
 		margin: spacing,
 		padding: spacing,
+		boxShadow,
 		extend: {
 			backgroundImage,
 			spacing,
-			boxShadow: {
-				lg: '0px 0px 20px 0px #ffffffD0', // modal
-			},
-			container: {
-				center: true,
-				padding: '2rem',
-				screens: {
-					'2xl': '1920px',
-				},
-			},
+			keyframes,
+			animation,
+			container,
 		},
 	},
 	plugins: [tailwindAnimate],

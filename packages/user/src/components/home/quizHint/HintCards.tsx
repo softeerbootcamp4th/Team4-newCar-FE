@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
-import HintCard from 'src/components/home/quizHint/HintCard';
-import InfoBox from 'src/components/home/quizHint/InfoBox';
-import InfoTitle from 'src/components/home/quizHint/infoTitle';
+import HintCard from './HintCard';
+import InfoBox from './InfoBox';
+import InfoTitle from './infoTitle';
 
 const HINT_CARDS = [
 	{

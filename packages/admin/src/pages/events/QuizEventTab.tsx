@@ -66,7 +66,7 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 // }
 
 function QuizEventTab() {
-	const { commonEvent, quizEvent, refechQuizEvent } = useEvent();
+	const { quizEvent, refechQuizEvent } = useEvent();
 	useLayoutEffect(() => {
 		refechQuizEvent();
 	}, []);

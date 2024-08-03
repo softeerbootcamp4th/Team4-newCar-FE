@@ -19,7 +19,7 @@ const SideBarRoutes: Route[] = [
 			{
 				id: 1,
 				name: '추첨하기',
-				path: RoutePaths.QUIZ_WINNER_DRAW,
+				path: RoutePaths.RACE_WINNER_DRAW,
 			},
 			{
 				id: 2,

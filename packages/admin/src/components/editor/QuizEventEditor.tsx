@@ -43,9 +43,8 @@ function QuizEventEditor({ quiz }: QuizEventEditorProps) {
 	useEffect(() => {
 		addModalCallback(() => {
 			addAlertCallback(() => {
-				updateQuizEvent(quizObj).then(() => {
-					closeModal();
-				});
+				updateQuizEvent(quizObj);
+				closeModal();
 			});
 			openAlert(...getAlertPayload());
 		});

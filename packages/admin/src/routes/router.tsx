@@ -3,7 +3,7 @@ import RoutePaths from 'src/constants/routePath';
 import AppLayout from 'src/layouts/appLayout';
 import EventPage from 'src/pages/events/EventsPage';
 import LoginPage from 'src/pages/start/LoginPage';
-import QuizWinnerDraw from 'src/pages/winner/QuizWinnerDraw';
+import RaceWinnerDraw from 'src/pages/winner/RaceWinnerDraw';
 import WinnerResult from 'src/pages/winner/WinnerResult';
 
 const routes: RouteObject[] = [
@@ -14,8 +14,8 @@ const routes: RouteObject[] = [
 			{ path: RoutePaths.ROOT, element: <LoginPage />, id: '로그인' },
 			{ path: RoutePaths.EVENT_PAGE, element: <EventPage />, id: '이벤트 관리' },
 			{
-				path: RoutePaths.QUIZ_WINNER_DRAW,
-				element: <QuizWinnerDraw />,
+				path: RoutePaths.RACE_WINNER_DRAW,
+				element: <RaceWinnerDraw />,
 				id: '추첨하기',
 			},
 			{

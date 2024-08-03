@@ -44,6 +44,11 @@ export interface PersonalityTest {
 	choices: PersonalityChoice[];
 }
 
+export interface WinnerSetting {
+	rank: number;
+	num: number;
+}
+
 export interface Payload {
 	[API.COMMON_EVENT]: {
 		// GET은 리팩토링시 구조 변경하면서 삭제할 예정
@@ -58,6 +63,7 @@ export interface Payload {
 	};
 	[API.RACING_WINNERS]: {
 		[METHOD.GET]: Record<string, never>;
+		[METHOD.POST]: WinnerSetting[];
 	};
 	[API.PERSONALITY_TEST_LIST]: {
 		[METHOD.GET]: Record<string, never>;
@@ -79,6 +85,7 @@ export interface Response {
 	};
 	[API.RACING_WINNERS]: {
 		[METHOD.GET]: RacingWinner[];
+		[METHOD.POST]: string;
 	};
 	[API.PERSONALITY_TEST_LIST]: {
 		[METHOD.GET]: PersonalityTest[];

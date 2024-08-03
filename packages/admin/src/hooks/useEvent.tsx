@@ -1,9 +1,17 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { API, METHOD } from 'src/constants/api';
-import { CommonEvent, PersonalityTest, Quiz, Response } from 'src/services/api/types/apiType';
+import {
+	CommonEvent,
+	PersonalityTest,
+	Quiz,
+	Response,
+	WinnerSetting,
+} from 'src/services/api/types/apiType';
+import { useAlert } from 'src/store/provider/AlertProvider';
 import fetchData from 'src/utils/fetchData';
 
 const useEvent = () => {
+	const { openAlert } = useAlert();
 	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
@@ -31,7 +39,7 @@ const useEvent = () => {
 		},
 	});
 
-	const updateCommonEvent = async (commonEvent: CommonEvent) => {
+	const updateCommonEvent = (commonEvent: CommonEvent) => {
 		commonEventMutation.mutate(commonEvent);
 	};
 
@@ -62,7 +70,7 @@ const useEvent = () => {
 		},
 	});
 
-	const updateQuizEvent = async (quizEvent: Quiz) => {
+	const updateQuizEvent = (quizEvent: Quiz) => {
 		quizEventMutation.mutate(quizEvent);
 	};
 
@@ -73,10 +81,34 @@ const useEvent = () => {
 				method: METHOD.GET,
 			});
 			const result = await response.json();
-			return result;
+			if (result.status === 200) return result;
+			return [];
 		},
 		queryKey: [API.RACING_WINNERS],
 	});
+
+	const racingWinnerMutation = useMutation({
+		mutationFn: async (winnerSettings: WinnerSetting[]) => {
+			const response = await fetchData({
+				path: API.RACING_WINNERS,
+				method: METHOD.POST,
+				payload: winnerSettings,
+			});
+			openAlert(await response.text(), 'alert');
+			if (response.status === 200) {
+				openAlert('추첨이 완료되었습니다.', 'alert');
+				const result = await response.json();
+				return result;
+			}
+		},
+		onSuccess: () => {
+			racingWinnerQuery.refetch();
+		},
+	});
+
+	const updateRacingWinner = (winnerSettings: WinnerSetting[]) => {
+		racingWinnerMutation.mutate(winnerSettings);
+	};
 
 	const personalityTestListQuery = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
 		queryFn: async () => {
@@ -105,7 +137,7 @@ const useEvent = () => {
 		},
 	});
 
-	const updatePersonalityTest = async (personalityTest: PersonalityTest) => {
+	const updatePersonalityTest = (personalityTest: PersonalityTest) => {
 		personalityTestMutation.mutate(personalityTest);
 	};
 
@@ -117,6 +149,8 @@ const useEvent = () => {
 		updateQuizEvent,
 		refechQuizEvent: quizEventQuery.refetch,
 		racingWinners: racingWinnerQuery.data,
+		refetchRacingWinners: racingWinnerQuery.refetch,
+		updateRacingWinner,
 		personalityTestList: personalityTestListQuery.data,
 		updatePersonalityTest,
 		refetchPersonalityTestList: personalityTestListQuery.refetch,

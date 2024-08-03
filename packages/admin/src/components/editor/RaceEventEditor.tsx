@@ -94,9 +94,8 @@ function RaceEventEditor({ personalityTest }: RaceEventEditorProps) {
 	useEffect(() => {
 		addModalCallback(() => {
 			addAlertCallback(() => {
-				updatePersonalityTest(personalityTestObj).then(() => {
-					closeModal();
-				});
+				updatePersonalityTest(personalityTestObj);
+				closeModal();
 			});
 			openAlert(...getAlertPayload());
 		});

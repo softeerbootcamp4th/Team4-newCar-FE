@@ -24,7 +24,7 @@ function ShareCountExample() {
 	return (
 		<ContentCard
 			size={{ width: '280px', height: '420px' }}
-			imageUrl={`/src/assets/images/step-3.png`}
+			imageUrl="/src/assets/images/step/3.png"
 		>
 			내 링크로 접속한
 			<br />

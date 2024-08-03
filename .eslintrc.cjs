@@ -36,23 +36,12 @@ module.exports = {
 		'implicit-arrow-linebreak': 'off',
 		'function-paren-newline': 'off',
 		'consistent-return': 'off',
-		'no-use-before-define': [
-			'error',
-			{
-				functions: false,
-				classes: true,
-				variables: true,
-				allowNamedExports: false,
-			},
-		],
+		'no-use-before-define': 'off',
 		'import/no-extraneous-dependencies': 'off',
-		'no-restricted-imports': [
-			'error',
-			{
-				patterns: ['.*'],
-			},
-		],
+		'no-restricted-imports': 'off',
+		'react/prop-types': 'off',
 		'react/jsx-props-no-spreading': 'off',
+		'@typescript-eslint/no-use-before-define': 'off',
 		indent: 'off',
 		'react/jsx-indent': 'off',
 		'react/jsx-indent-props': 'off',

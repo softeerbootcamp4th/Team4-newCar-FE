@@ -1,6 +1,5 @@
-const categories = ['pet', 'place', 'travel', 'leisure'] as const;
+import { Category } from 'src/types/category';
 
-type Category = (typeof categories)[number];
 interface User {
 	id: number;
 	name: string;

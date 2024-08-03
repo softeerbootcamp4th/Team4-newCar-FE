@@ -39,11 +39,13 @@ function CommonEventBox({
 	const { openAlert, addAlertCallback } = useAlert();
 	const [startTime, setStartTime] = useState('');
 	const [endTime, setEndTime] = useState('');
+	const [managerName, setManagerName] = useState('');
 
 	useEffect(() => {
 		if (commonEvent) {
 			setStartTime(getPickerTimeFromKst(commonEvent.startTime));
 			setEndTime(getPickerTimeFromKst(commonEvent.endTime));
+			setManagerName(commonEvent.eventManager);
 		}
 	}, [commonEvent]);
 
@@ -75,12 +77,16 @@ function CommonEventBox({
 		}
 	};
 
+	const saveManagerName = (newManagerName: string) => {
+		setManagerName(newManagerName);
+	};
+
 	const handleSave = () => {
 		addAlertCallback(() => {
 			handleUpdateEvent({
 				startTime: getKstFromPickerTime(startTime),
 				endTime: getKstFromPickerTime(endTime),
-				eventManager: commonEvent.eventManager,
+				eventManager: managerName,
 				eventName: commonEvent.eventName,
 			});
 		});
@@ -94,7 +100,17 @@ function CommonEventBox({
 				description="상태"
 				element={<div>{getStatus(commonEvent.startTime, commonEvent.endTime)}</div>}
 			/>
-			<CommonEventItem description="담당자" element={<div>{commonEvent.eventManager}</div>} />
+			<CommonEventItem
+				description="담당자"
+				element={
+					<Input
+						value={managerName}
+						onChange={(event) => {
+							saveManagerName(event.target.value);
+						}}
+					/>
+				}
+			/>
 			<CommonEventItem
 				description="진행 기간"
 				element={

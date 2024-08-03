@@ -1,3 +1,4 @@
+import moment from 'moment';
 import QuizEventEditor from 'src/components/editor/QuizEventEditor';
 import {
 	Accordion,
@@ -7,7 +8,6 @@ import {
 } from 'src/components/ui/accordion';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
-import useEvent from 'src/hooks/useEvent';
 import { Quiz } from 'src/services/api/types/apiType';
 import { useModal } from 'src/store/provider/ModalProvider';
 
@@ -79,13 +79,40 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 	);
 }
 
+function getDatesBetween(startDate: string, endDate: string) {
+	const start = moment(startDate).startOf('day'); // 시작 날짜
+	const end = moment(endDate).endOf('day'); // 종료 날짜
+	const dates = [];
+
+	const currentDate = start.clone(); // 현재 날짜 초기화
+
+	while (currentDate <= end) {
+		dates.push(currentDate.format('YYYY-MM-DD')); // 날짜를 배열에 추가
+		currentDate.add(1, 'day'); // 날짜를 하루 증가
+	}
+
+	return dates;
+}
+
 function QuizEventTab() {
-	const { quizEvent } = useEvent();
+	// const { commonEvent, quizEvent, refechQuizEvent } = useEvent();
+	// const [quizList, setQuizList] = useState<Quiz[]>([]);
+
+	// useLayoutEffect(() => {
+	// 	refechQuizEvent();
+	// 	if (commonEvent) {
+	// 		console.log(getDatesBetween(commonEvent.startTime, commonEvent.endTime));
+	// 	}
+	// }, []);
+
+	// useEffect(() => {
+	// 	// sync real quiz
+	// }, [quizEvent]);
 
 	return (
 		<div className="mt-4 flex flex-col gap-2">
 			<Accordion type="single" collapsible>
-				{quizEvent?.map((quiz, index) => <QuizEventBox quiz={quiz} index={index} />)}
+				{/* {quizEvent?.map((quiz, index) => <QuizEventBox quiz={quiz} index={index} />)} */}
 			</Accordion>
 		</div>
 	);

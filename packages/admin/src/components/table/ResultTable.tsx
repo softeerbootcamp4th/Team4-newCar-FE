@@ -16,7 +16,12 @@ interface ResultTableProps {
 }
 
 function ResultTable({ headers, rows }: ResultTableProps) {
-	return (
+	const isBeforeDraw = rows.length === 0;
+	return isBeforeDraw ? (
+		<div className="flex h-full flex-col items-center justify-center">
+			아직 당첨자 추첨이 이루어지지 않았습니다.
+		</div>
+	) : (
 		<Table>
 			<TableHeader>
 				<TableRow>

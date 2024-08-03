@@ -1,114 +1,127 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
-import { PersonalityTest } from 'src/services/api/types/apiType';
+import categoryList from 'src/constants/categoryList';
+import useEvent from 'src/hooks/useEvent';
+import { PersonalityChoice, PersonalityTest } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
 import { AlertType, useModal } from 'src/store/provider/ModalProvider';
-
-const categories = ['펫 프렌들리', '여행의 정석', '공간활용의 기술', '레저의 정석'];
-
-interface RaceObj {
-	title: string;
-	answers: string[];
-	scores: number[][];
-}
 
 interface RaceEventEditorProps {
 	personalityTest: PersonalityTest;
 }
 
 function RaceEventEditor({ personalityTest }: RaceEventEditorProps) {
+	const { closeModal } = useModal();
+	const { updatePersonalityTest } = useEvent();
 	const { isModalOpen, addModalCallback } = useModal();
 	const { addAlertCallback, openAlert } = useAlert();
-	const [raceObj, setRaceObj] = useState<RaceObj>({
-		title: personalityTest.question,
-		answers: [personalityTest.choice1, personalityTest.choice2],
-		scores: [
-			[
-				personalityTest.choice1_pet_score,
-				personalityTest.choice1_travel_score,
-				personalityTest.choice1_space_score,
-				personalityTest.choice1_leisure_score,
-			],
-			[
-				personalityTest.choice2_pet_score,
-				personalityTest.choice2_travel_score,
-				personalityTest.choice2_space_score,
-				personalityTest.choice2_leisure_score,
-			],
-		],
-	});
+	const [personalityTestObj, setPersonalityTestObj] = useState<PersonalityTest>(personalityTest);
 
 	const getAlertPayload = (): [string, AlertType] => {
 		// 복잡한 condition 따로 분리
-		const answersEmpty = raceObj.answers.find((answer) => answer === '') !== undefined;
-		const titleEmpty = raceObj.title.length === 0;
-		const scoresEmpty = raceObj.scores.flat(1).length !== 8;
+		const answersEmpty =
+			personalityTestObj.choices.find((choice) => choice.text === '') !== undefined;
+		const titleEmpty = personalityTestObj.question.length === 0;
+		const scoresEmpty =
+			personalityTestObj.choices.find(
+				(choice) => choice.scores.find((score) => Number.isNaN(score.value)) !== undefined,
+			) !== undefined;
+
+		const scoreExceed =
+			personalityTestObj.choices.find((choice) =>
+				choice.scores.find((score) => score.value > 10000),
+			) !== undefined;
 
 		if (answersEmpty || titleEmpty || scoresEmpty) return ['모든 정보값을 입력해주세요', 'alert'];
 
-		if (raceObj.title.length > 50) return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
+		if (personalityTestObj.question.length > 50) {
+			return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
+		}
 
-		if (raceObj.title.length > 50) return ['질문은 공백 포함 50자까지 입력 가능합니다.', 'alert'];
-
-		if (raceObj.answers[0].length > 20 || raceObj.answers[1].length > 20) {
+		if (personalityTestObj.choices.find((choice) => choice.text.length > 20) !== undefined) {
 			return ['보기는 공백 포함 20자까지 입력 가능합니다.', 'alert'];
+		}
+
+		if (scoreExceed) {
+			return ['점수는 최대 10000점까지 가능합니다.', 'alert'];
 		}
 
 		return ['유형검사 내용을 수정할까요?', 'confirm'];
 	};
 
-	const handleRaceTitleChange = (text: string) => {
-		setRaceObj((prev) => ({
+	const handleQuestionChange = (text: string) => {
+		setPersonalityTestObj((prev) => ({
 			...prev,
-			title: text,
+			question: text,
 		}));
 	};
 
-	const handleRaceAnswersChange = (text: string, answerIndex: number) => {
-		setRaceObj((prev) => ({
+	// 68line의 방식이랑 53line 방식이랑 비교하면 어떤게 더 좋을까요?
+	const handleAnswersChange = (text: string, choiceIndex: number) => {
+		setPersonalityTestObj((prev: PersonalityTest) => ({
 			...prev,
-			answers: prev.answers.map((answer, index) => (answerIndex === index ? text : answer)),
+			choices: prev.choices.map((choice, index): PersonalityChoice => {
+				if (choiceIndex === index) {
+					return {
+						text,
+						scores: choice.scores,
+					};
+				}
+				return choice;
+			}),
 		}));
 	};
 
-	const handleRaceScoresChange = (newValue: number, answerIndex: number, categoryIndex: number) => {
-		const tmpScores = raceObj.scores.slice();
-		tmpScores[answerIndex][categoryIndex] = newValue;
-		setRaceObj((prev) => ({
+	const handleScoresChange = (newValue: number, choiceIndex: number, categoryIndex: number) => {
+		const tmpScores = [
+			...personalityTest.choices[choiceIndex].scores.map((score) => ({ ...score })),
+		];
+		tmpScores[categoryIndex].value = newValue;
+		setPersonalityTestObj((prev: PersonalityTest) => ({
 			...prev,
-			scores: tmpScores,
+			choices: prev.choices.map((choice, index): PersonalityChoice => {
+				if (choiceIndex === index) {
+					return {
+						text: choice.text,
+						scores: tmpScores,
+					};
+				}
+				return choice;
+			}),
 		}));
 	};
 
 	useEffect(() => {
 		addModalCallback(() => {
 			addAlertCallback(() => {
-				console.log('저장 완료');
+				updatePersonalityTest(personalityTestObj).then(() => {
+					closeModal();
+				});
 			});
 			openAlert(...getAlertPayload());
 		});
-	}, [isModalOpen, raceObj]);
+	}, [isModalOpen, personalityTestObj]);
 
 	return (
 		<div className="flex w-[800px] flex-col">
 			<div className="flex flex-row items-center gap-4">
 				<div className="min-w-fit">유형 검사 문제</div>
 				<Input
-					value={raceObj.title}
+					value={personalityTestObj.question}
 					onChange={(e) => {
-						handleRaceTitleChange(e.target.value);
+						handleQuestionChange(e.target.value);
 					}}
 				/>
 			</div>
 
 			<div className="flex justify-between">
-				{raceObj.answers.map((answer, answerIndex) => (
+				{personalityTestObj.choices.map((choice, choiceIndex) => (
 					<div className="flex w-1/2 items-center gap-4 p-4">
-						<div>{String.fromCharCode(65 + answerIndex)}</div>
+						<div>{String.fromCharCode(65 + choiceIndex)}</div>
 						<Input
-							value={answer}
+							value={choice.text}
 							onChange={(e) => {
-								handleRaceAnswersChange(e.target.value, answerIndex);
+								handleAnswersChange(e.target.value, choiceIndex);
 							}}
 						/>
 					</div>
@@ -116,22 +129,18 @@ function RaceEventEditor({ personalityTest }: RaceEventEditorProps) {
 			</div>
 
 			<div className="flex flex-row justify-between">
-				{raceObj.scores.map((score, answerIndex) => (
+				{personalityTestObj.choices.map((choice, choiceIndex) => (
 					<div className="flex w-1/2 flex-col gap-1 p-4">
-						{categories.map((category, categoryIndex) => (
+						{categoryList.map((category, categoryIndex) => (
 							<div className="flex flex-row gap-2">
 								<div className="flex w-[400px] items-center justify-center rounded-sm bg-gray-500 text-white">
-									{category}+
+									{category.KR}+
 								</div>
 								<Input
 									type="number"
-									value={score[categoryIndex]}
+									value={choice.scores.find((score) => score.type === category.EN)?.value}
 									onChange={(e) => {
-										handleRaceScoresChange(
-											parseInt(e.target.value, 10),
-											answerIndex,
-											categoryIndex,
-										);
+										handleScoresChange(parseInt(e.target.value, 10), choiceIndex, categoryIndex);
 									}}
 								/>
 							</div>

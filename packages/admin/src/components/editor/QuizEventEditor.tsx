@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Input } from 'src/components/ui/input';
 import useEvent from 'src/hooks/useEvent';
-import { Choice, Quiz } from 'src/services/api/types/apiType';
+import { Quiz, QuizChoice } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
 import { AlertType, useModal } from 'src/store/provider/ModalProvider';
 
@@ -51,7 +51,7 @@ function QuizEventEditor({ quiz }: QuizEventEditorProps) {
 		});
 	}, [isModalOpen, quizObj]);
 
-	const handleQuizChoiceChange = (newChoice: Choice) => {
+	const handleQuizChoiceChange = (newChoice: QuizChoice) => {
 		setQuizObj((prev) => ({
 			...prev,
 			choices: prev.choices.map((choice) => (choice.num === newChoice.num ? newChoice : choice)),

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { API, METHOD } from 'src/constants/api';
-import { CommonEvent, Quiz, Response } from 'src/services/api/types/apiType';
+import { CommonEvent, PersonalityTest, Quiz, Response } from 'src/services/api/types/apiType';
 import fetchData from 'src/utils/fetchData';
 
 const useEvent = () => {
@@ -66,7 +66,7 @@ const useEvent = () => {
 		quizEventMutation.mutate(quizEvent);
 	};
 
-	const racingWinnerResult = useQuery<Response[API.RACING_WINNERS][METHOD.GET]>({
+	const racingWinnerQuery = useQuery<Response[API.RACING_WINNERS][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.RACING_WINNERS,
@@ -78,7 +78,7 @@ const useEvent = () => {
 		queryKey: [API.RACING_WINNERS],
 	});
 
-	const personalityTestListResult = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
+	const personalityTestListQuery = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.PERSONALITY_TEST_LIST,
@@ -90,14 +90,36 @@ const useEvent = () => {
 		queryKey: [API.PERSONALITY_TEST_LIST],
 	});
 
+	const personalityTestMutation = useMutation({
+		mutationFn: async (personalityTest: PersonalityTest) => {
+			const response = await fetchData({
+				path: API.PERSONALITY_TEST,
+				method: METHOD.POST,
+				payload: personalityTest,
+			});
+			const result = await response.json();
+			return result;
+		},
+		onSuccess: () => {
+			personalityTestListQuery.refetch();
+		},
+	});
+
+	const updatePersonalityTest = async (personalityTest: PersonalityTest) => {
+		personalityTestMutation.mutate(personalityTest);
+	};
+
 	return {
 		commonEvent: commonEventQuery.data,
 		updateCommonEvent,
+		refechCommonEvent: commonEventQuery.refetch,
 		quizEvent: quizEventQuery.data,
 		updateQuizEvent,
 		refechQuizEvent: quizEventQuery.refetch,
-		racingWinners: racingWinnerResult.data,
-		personalityTestList: personalityTestListResult.data,
+		racingWinners: racingWinnerQuery.data,
+		personalityTestList: personalityTestListQuery.data,
+		updatePersonalityTest,
+		refetchPersonalityTestList: personalityTestListQuery.refetch,
 	};
 };
 export default useEvent;

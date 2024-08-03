@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
@@ -139,7 +139,10 @@ function CommonEventBox({
 }
 
 function CommonEventTab() {
-	const { commonEvent, updateCommonEvent } = useEvent();
+	const { commonEvent, updateCommonEvent, refechCommonEvent } = useEvent();
+	useLayoutEffect(() => {
+		refechCommonEvent();
+	}, []);
 	const handleUpdateEvent = (newCmmonEvent: CommonEvent) => {
 		updateCommonEvent(newCmmonEvent);
 	};

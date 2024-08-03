@@ -8,7 +8,7 @@ export interface CommonEvent {
 	startTime: string;
 }
 
-export interface Choice {
+export interface QuizChoice {
 	num: number;
 	text: string;
 }
@@ -18,7 +18,7 @@ export interface Quiz {
 	winnerCount: number;
 	postDate: string;
 	question: string;
-	choices: Choice[];
+	choices: QuizChoice[];
 	correctAnswer: number;
 }
 
@@ -30,28 +30,31 @@ export interface RacingWinner {
 	team: string;
 }
 
+export interface PersonalityScore {
+	type: string;
+	value: number;
+}
+export interface PersonalityChoice {
+	text: string;
+	scores: PersonalityScore[];
+}
 export interface PersonalityTest {
 	id: number;
 	question: string;
-	choice1: string;
-	choice2: string;
-	choice1_pet_score: number;
-	choice1_travel_score: number;
-	choice1_space_score: number;
-	choice1_leisure_score: number;
-	choice2_pet_score: number;
-	choice2_travel_score: number;
-	choice2_space_score: number;
-	choice2_leisure_score: number;
+	choices: PersonalityChoice[];
 }
 
 export interface Payload {
 	[API.COMMON_EVENT]: {
+		// GET은 리팩토링시 구조 변경하면서 삭제할 예정
 		[METHOD.GET]: Record<string, never>;
 		[METHOD.POST]: CommonEvent;
 	};
 	[API.QUIZ_LIST]: {
 		[METHOD.GET]: Record<string, never>;
+	};
+	[API.QUIZ]: {
+		[METHOD.POST]: Quiz;
 	};
 	[API.RACING_WINNERS]: {
 		[METHOD.GET]: Record<string, never>;
@@ -59,8 +62,8 @@ export interface Payload {
 	[API.PERSONALITY_TEST_LIST]: {
 		[METHOD.GET]: Record<string, never>;
 	};
-	[API.QUIZ]: {
-		[METHOD.POST]: Quiz;
+	[API.PERSONALITY_TEST]: {
+		[METHOD.POST]: PersonalityTest;
 	};
 }
 
@@ -71,14 +74,17 @@ export interface Response {
 	[API.QUIZ_LIST]: {
 		[METHOD.GET]: Quiz[];
 	};
+	[API.QUIZ]: {
+		[METHOD.POST]: Quiz;
+	};
 	[API.RACING_WINNERS]: {
 		[METHOD.GET]: RacingWinner[];
 	};
 	[API.PERSONALITY_TEST_LIST]: {
 		[METHOD.GET]: PersonalityTest[];
 	};
-	[API.QUIZ]: {
-		[METHOD.POST]: Quiz;
+	[API.PERSONALITY_TEST]: {
+		[METHOD.POST]: PersonalityTest;
 	};
 }
 

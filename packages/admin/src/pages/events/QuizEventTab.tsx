@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { useLayoutEffect } from 'react';
 import QuizEventEditor from 'src/components/editor/QuizEventEditor';
 import {
 	Accordion,
@@ -50,26 +50,29 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 	);
 }
 
-function getDatesBetween(startDate: string, endDate: string) {
-	const start = moment(startDate).startOf('day'); // 시작 날짜
-	const end = moment(endDate).endOf('day'); // 종료 날짜
-	const dates = [];
+// function getDatesBetween(startDate: string, endDate: string) {
+// 	const start = moment(startDate).startOf('day'); // 시작 날짜
+// 	const end = moment(endDate).endOf('day'); // 종료 날짜
+// 	const dates = [];
 
-	const currentDate = start.clone(); // 현재 날짜 초기화
+// 	const currentDate = start.clone(); // 현재 날짜 초기화
 
-	while (currentDate <= end) {
-		dates.push(currentDate.format('YYYY-MM-DD')); // 날짜를 배열에 추가
-		currentDate.add(1, 'day'); // 날짜를 하루 증가
-	}
+// 	while (currentDate <= end) {
+// 		dates.push(currentDate.format('YYYY-MM-DD')); // 날짜를 배열에 추가
+// 		currentDate.add(1, 'day'); // 날짜를 하루 증가
+// 	}
 
-	return dates;
-}
+// 	return dates;
+// }
 
 function QuizEventTab() {
 	const { commonEvent, quizEvent, refechQuizEvent } = useEvent();
-	console.log(quizEvent);
-	// const [quizList, setQuizList] = useState<Quiz[]>([]);
+	useLayoutEffect(() => {
+		refechQuizEvent();
+	}, []);
 
+	// 더미데이터 추가해서 처리해야함,
+	// const [quizList, setQuizList] = useState<Quiz[]>([]);
 	// useLayoutEffect(() => {
 	// 	refechQuizEvent();
 	// 	if (commonEvent) {

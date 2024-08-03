@@ -8,6 +8,7 @@ import {
 } from 'src/components/ui/accordion';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import useEvent from 'src/hooks/useEvent';
 import { Quiz } from 'src/services/api/types/apiType';
 import { useModal } from 'src/store/provider/ModalProvider';
 
@@ -32,48 +33,18 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 			</div>
 
 			<AccordionContent>
-				<div className="mt-4 w-full border-4 border-gray-500">
+				<div className="mt-4 w-full border-4 border-gray-500" />
+				{quiz.choices.map((choice) => (
 					<div className="flex items-center p-4">
 						<Input
 							className="mr-4 w-4"
 							type="checkbox"
-							value="1번"
 							disabled
-							checked={quiz.correctAnswer === 1}
+							checked={quiz.correctAnswer === choice.num}
 						/>
-						<p>{quiz.choice1}</p>
+						<p>{choice.text}</p>
 					</div>
-					<div className="flex items-center p-4">
-						<Input
-							className="mr-4 w-4"
-							type="checkbox"
-							value="2번"
-							disabled
-							checked={quiz.correctAnswer === 2}
-						/>
-						<p>{quiz.choice2}</p>
-					</div>
-					<div className="flex items-center p-4">
-						<Input
-							className="mr-4 w-4"
-							type="checkbox"
-							value="3번"
-							disabled
-							checked={quiz.correctAnswer === 3}
-						/>
-						<p>{quiz.choice3}</p>
-					</div>
-					<div className="flex items-center p-4">
-						<Input
-							className="mr-4 w-4"
-							type="checkbox"
-							value="4번"
-							disabled
-							checked={quiz.correctAnswer === 4}
-						/>
-						<p>{quiz.choice4}</p>
-					</div>
-				</div>
+				))}
 			</AccordionContent>
 		</AccordionItem>
 	);
@@ -95,7 +66,8 @@ function getDatesBetween(startDate: string, endDate: string) {
 }
 
 function QuizEventTab() {
-	// const { commonEvent, quizEvent, refechQuizEvent } = useEvent();
+	const { commonEvent, quizEvent, refechQuizEvent } = useEvent();
+	console.log(quizEvent);
 	// const [quizList, setQuizList] = useState<Quiz[]>([]);
 
 	// useLayoutEffect(() => {
@@ -112,7 +84,7 @@ function QuizEventTab() {
 	return (
 		<div className="mt-4 flex flex-col gap-2">
 			<Accordion type="single" collapsible>
-				{/* {quizEvent?.map((quiz, index) => <QuizEventBox quiz={quiz} index={index} />)} */}
+				{quizEvent?.map((quiz, index) => <QuizEventBox quiz={quiz} index={index} />)}
 			</Accordion>
 		</div>
 	);

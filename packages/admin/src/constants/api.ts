@@ -11,6 +11,7 @@ export const enum METHOD {
 export const enum API {
 	COMMON_EVENT = '/common-event',
 	QUIZ_LIST = '/quiz-list',
+	QUIZ = '/quiz',
 	RACING_WINNERS = '/racing-winners',
 	PERSONALITY_TEST_LIST = '/personality-test-list',
 }

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { API, METHOD } from 'src/constants/api';
-import { CommonEvent, Response } from 'src/services/api/types/apiType';
+import { CommonEvent, Quiz, Response } from 'src/services/api/types/apiType';
 import fetchData from 'src/utils/fetchData';
 
 const useEvent = () => {
@@ -47,6 +47,25 @@ const useEvent = () => {
 		queryKey: [API.QUIZ_LIST],
 	});
 
+	const quizEventMutation = useMutation({
+		mutationFn: async (quizEvent: Quiz) => {
+			const response = await fetchData({
+				path: API.QUIZ,
+				method: METHOD.POST,
+				payload: quizEvent,
+			});
+			const result = await response.json();
+			return result;
+		},
+		onSuccess: () => {
+			quizEventQuery.refetch();
+		},
+	});
+
+	const updateQuizEvent = async (quizEvent: Quiz) => {
+		quizEventMutation.mutate(quizEvent);
+	};
+
 	const racingWinnerResult = useQuery<Response[API.RACING_WINNERS][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
@@ -75,6 +94,7 @@ const useEvent = () => {
 		commonEvent: commonEventQuery.data,
 		updateCommonEvent,
 		quizEvent: quizEventQuery.data,
+		updateQuizEvent,
 		refechQuizEvent: quizEventQuery.refetch,
 		racingWinners: racingWinnerResult.data,
 		personalityTestList: personalityTestListResult.data,

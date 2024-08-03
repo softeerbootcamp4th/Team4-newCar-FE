@@ -8,15 +8,17 @@ export interface CommonEvent {
 	startTime: string;
 }
 
+export interface Choice {
+	num: number;
+	text: string;
+}
+
 export interface Quiz {
 	id: number;
 	winnerCount: number;
 	postDate: string;
 	question: string;
-	choice1: string;
-	choice2: string;
-	choice3: string;
-	choice4: string;
+	choices: Choice[];
 	correctAnswer: number;
 }
 
@@ -57,6 +59,9 @@ export interface Payload {
 	[API.PERSONALITY_TEST_LIST]: {
 		[METHOD.GET]: Record<string, never>;
 	};
+	[API.QUIZ]: {
+		[METHOD.POST]: Quiz;
+	};
 }
 
 export interface Response {
@@ -71,6 +76,9 @@ export interface Response {
 	};
 	[API.PERSONALITY_TEST_LIST]: {
 		[METHOD.GET]: PersonalityTest[];
+	};
+	[API.QUIZ]: {
+		[METHOD.POST]: Quiz;
 	};
 }
 

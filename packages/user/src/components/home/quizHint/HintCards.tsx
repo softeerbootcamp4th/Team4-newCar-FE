@@ -19,7 +19,7 @@ const HINT_CARDS = [
 	},
 	{
 		title: (
-			<p className="text-heading-7">
+			<p className="text-heading-7 font-bold">
 				<strong>볼드</strong>하고
 				<br />
 				<strong>유니크</strong>한 디자인
@@ -33,7 +33,7 @@ const HINT_CARDS = [
 export default function HintCards() {
 	return (
 		<div className="relative flex flex-col items-center gap-10">
-			<TalkingOrangeCasper className="absolute -top-[120px] right-[40px] animate-casper-float" />
+			<TalkingOrangeCasper className="animate-casper-float absolute -top-[120px] right-[40px]" />
 			{HINT_CARDS.map((hint, index) => {
 				const [left, right] = determinePositions(getHintElements)(hint, index);
 				return <HintCard key={hint.details} left={left} right={right} />;

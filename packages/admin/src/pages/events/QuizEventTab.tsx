@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react';
 import QuizEventEditor from 'src/components/editor/QuizEventEditor';
 import {
 	Accordion,
@@ -32,31 +33,56 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 			</div>
 
 			<AccordionContent>
-				<div className="mt-4 w-full border-4 border-gray-500">
+				<div className="mt-4 w-full border-4 border-gray-500" />
+				{quiz.choices.map((choice) => (
 					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="1번" />
-						<p>{quiz.choice1}</p>
+						<Input
+							className="mr-4 w-4"
+							type="checkbox"
+							disabled
+							checked={quiz.correctAnswer === choice.num}
+						/>
+						<p>{choice.text}</p>
 					</div>
-					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="2번" />
-						<p>{quiz.choice2}</p>
-					</div>
-					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="3번" />
-						<p>{quiz.choice3}</p>
-					</div>
-					<div className="flex items-center p-4">
-						<Input className="mr-4 w-4" type="checkbox" value="4번" />
-						<p>{quiz.choice4}</p>
-					</div>
-				</div>
+				))}
 			</AccordionContent>
 		</AccordionItem>
 	);
 }
 
+// function getDatesBetween(startDate: string, endDate: string) {
+// 	const start = moment(startDate).startOf('day'); // 시작 날짜
+// 	const end = moment(endDate).endOf('day'); // 종료 날짜
+// 	const dates = [];
+
+// 	const currentDate = start.clone(); // 현재 날짜 초기화
+
+// 	while (currentDate <= end) {
+// 		dates.push(currentDate.format('YYYY-MM-DD')); // 날짜를 배열에 추가
+// 		currentDate.add(1, 'day'); // 날짜를 하루 증가
+// 	}
+
+// 	return dates;
+// }
+
 function QuizEventTab() {
-	const { quizEvent } = useEvent();
+	const { quizEvent, refechQuizEvent } = useEvent();
+	useLayoutEffect(() => {
+		refechQuizEvent();
+	}, []);
+
+	// 더미데이터 추가해서 처리해야함,
+	// const [quizList, setQuizList] = useState<Quiz[]>([]);
+	// useLayoutEffect(() => {
+	// 	refechQuizEvent();
+	// 	if (commonEvent) {
+	// 		console.log(getDatesBetween(commonEvent.startTime, commonEvent.endTime));
+	// 	}
+	// }, []);
+
+	// useEffect(() => {
+	// 	// sync real quiz
+	// }, [quizEvent]);
 
 	return (
 		<div className="mt-4 flex flex-col gap-2">

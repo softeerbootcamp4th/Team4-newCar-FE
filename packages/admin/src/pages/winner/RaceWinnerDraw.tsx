@@ -1,16 +1,19 @@
 import { ChangeEvent, useState } from 'react';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
+import useEvent from 'src/hooks/useEvent';
+import { WinnerSetting } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
 
-function QuizWinnerDraw() {
+function RaceWinnerDraw() {
+	const { updateRacingWinner } = useEvent();
 	const { openAlert, addAlertCallback } = useAlert();
 
-	const [rankList, setRankList] = useState<{ rank: number; winnerCount: string }[]>([]);
+	const [rankList, setRankList] = useState<WinnerSetting[]>([]);
 
-	const generateRankItem = () => ({
+	const generateRankItem = (): WinnerSetting => ({
 		rank: rankList.length + 1,
-		winnerCount: '0',
+		num: 0,
 	});
 
 	const handleAdd = () => {
@@ -31,7 +34,7 @@ function QuizWinnerDraw() {
 
 	const handleDraw = () => {
 		addAlertCallback(() => {
-			console.log('당첨자 추첨');
+			updateRacingWinner(rankList);
 		});
 		openAlert(
 			<div>
@@ -50,7 +53,7 @@ function QuizWinnerDraw() {
 		setRankList((pre) => {
 			const nextValue = target.value;
 			const tmp = [...pre];
-			tmp[index].winnerCount = nextValue;
+			tmp[index].num = parseInt(nextValue, 10);
 			return tmp;
 		});
 	};
@@ -68,7 +71,7 @@ function QuizWinnerDraw() {
 					<div className="flex w-full flex-row justify-between p-2">
 						<div>
 							<Input
-								value={rankData.winnerCount}
+								value={rankData.num}
 								onChange={(event) => {
 									handleChangeWinnerCount(event, index);
 								}}
@@ -95,4 +98,4 @@ function QuizWinnerDraw() {
 		</div>
 	);
 }
-export default QuizWinnerDraw;
+export default RaceWinnerDraw;

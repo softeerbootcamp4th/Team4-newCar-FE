@@ -1,19 +1,16 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { API } from 'src/constants/api';
-
-export interface Payload {
-	[API.COMMON_EVENT]: Record<string, never>;
-	[API.QUIZ_LIST]: Record<string, never>;
-	[API.RACING_WINNERS]: Record<string, never>;
-	[API.PERSONALITY_TEST_LIST]: Record<string, never>;
-}
+import { API, METHOD } from 'src/constants/api';
 
 export interface CommonEvent {
 	endTime: string;
 	eventManager: string;
 	eventName: string;
 	startTime: string;
-	status: string;
+}
+
+export interface QuizChoice {
+	num: number;
+	text: string;
 }
 
 export interface Quiz {
@@ -21,10 +18,7 @@ export interface Quiz {
 	winnerCount: number;
 	postDate: string;
 	question: string;
-	choice1: string;
-	choice2: string;
-	choice3: string;
-	choice4: string;
+	choices: QuizChoice[];
 	correctAnswer: number;
 }
 
@@ -36,31 +30,74 @@ export interface RacingWinner {
 	team: string;
 }
 
+export interface PersonalityScore {
+	type: string;
+	value: number;
+}
+export interface PersonalityChoice {
+	text: string;
+	scores: PersonalityScore[];
+}
 export interface PersonalityTest {
 	id: number;
 	question: string;
-	choice1: string;
-	choice2: string;
-	choice1_pet_score: number;
-	choice1_travel_score: number;
-	choice1_space_score: number;
-	choice1_leisure_score: number;
-	choice2_pet_score: number;
-	choice2_travel_score: number;
-	choice2_space_score: number;
-	choice2_leisure_score: number;
+	choices: PersonalityChoice[];
+}
+
+export interface WinnerSetting {
+	rank: number;
+	num: number;
+}
+
+export interface Payload {
+	[API.COMMON_EVENT]: {
+		// GET은 리팩토링시 구조 변경하면서 삭제할 예정
+		[METHOD.GET]: Record<string, never>;
+		[METHOD.POST]: CommonEvent;
+	};
+	[API.QUIZ_LIST]: {
+		[METHOD.GET]: Record<string, never>;
+	};
+	[API.QUIZ]: {
+		[METHOD.POST]: Quiz;
+	};
+	[API.RACING_WINNERS]: {
+		[METHOD.GET]: Record<string, never>;
+		[METHOD.POST]: WinnerSetting[];
+	};
+	[API.PERSONALITY_TEST_LIST]: {
+		[METHOD.GET]: Record<string, never>;
+	};
+	[API.PERSONALITY_TEST]: {
+		[METHOD.POST]: PersonalityTest;
+	};
 }
 
 export interface Response {
-	[API.COMMON_EVENT]: CommonEvent;
-	[API.QUIZ_LIST]: Quiz[];
-	[API.RACING_WINNERS]: RacingWinner[];
-	[API.PERSONALITY_TEST_LIST]: PersonalityTest[];
+	[API.COMMON_EVENT]: {
+		[METHOD.GET]: CommonEvent;
+	};
+	[API.QUIZ_LIST]: {
+		[METHOD.GET]: Quiz[];
+	};
+	[API.QUIZ]: {
+		[METHOD.POST]: Quiz;
+	};
+	[API.RACING_WINNERS]: {
+		[METHOD.GET]: RacingWinner[];
+		[METHOD.POST]: string;
+	};
+	[API.PERSONALITY_TEST_LIST]: {
+		[METHOD.GET]: PersonalityTest[];
+	};
+	[API.PERSONALITY_TEST]: {
+		[METHOD.POST]: PersonalityTest;
+	};
 }
 
-export type FetchDataRequestOptions<K extends keyof Payload> = {
+export type FetchDataRequestOptions<K extends keyof Payload, T extends keyof Payload[K]> = {
 	path: K;
-	payload?: Payload[K];
+	payload?: Payload[K][T];
 	method: 'GET' | 'POST' | 'PUT' | 'DELETE';
 	headers?: HeadersInit;
 };

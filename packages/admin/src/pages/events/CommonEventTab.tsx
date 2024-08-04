@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button';
 import { Input } from 'src/components/ui/input';
 import useEvent from 'src/hooks/useEvent';
 import { CommonEvent } from 'src/services/api/types/apiType';
 import { useAlert } from 'src/store/provider/AlertProvider';
-import { getPickerTimeFromUtc } from 'src/utils/time';
+import { getKstFromPickerTime, getPickerTimeFromKst } from 'src/utils/time';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
@@ -20,15 +21,31 @@ function CommonEventItem({ description, element }: { description: string; elemen
 	);
 }
 
-function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
+const getStatus = (startTime: string, endTime: string) => {
+	const beforeCondition = moment().isBefore(moment(startTime));
+	const aterCondition = moment().isAfter(moment(endTime));
+	if (beforeCondition) return '예약';
+	if (aterCondition) return '종료';
+	return '진행중';
+};
+
+function CommonEventBox({
+	commonEvent,
+	handleUpdateEvent,
+}: {
+	commonEvent: CommonEvent;
+	handleUpdateEvent: (newCommonEvent: CommonEvent) => void;
+}) {
 	const { openAlert, addAlertCallback } = useAlert();
 	const [startTime, setStartTime] = useState('');
 	const [endTime, setEndTime] = useState('');
+	const [managerName, setManagerName] = useState('');
 
 	useEffect(() => {
 		if (commonEvent) {
-			setStartTime(getPickerTimeFromUtc(commonEvent.startTime));
-			setEndTime(getPickerTimeFromUtc(commonEvent.endTime));
+			setStartTime(getPickerTimeFromKst(commonEvent.startTime));
+			setEndTime(getPickerTimeFromKst(commonEvent.endTime));
+			setManagerName(commonEvent.eventManager);
 		}
 	}, [commonEvent]);
 
@@ -60,9 +77,18 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 		}
 	};
 
+	const saveManagerName = (newManagerName: string) => {
+		setManagerName(newManagerName);
+	};
+
 	const handleSave = () => {
 		addAlertCallback(() => {
-			console.log('수정완료');
+			handleUpdateEvent({
+				startTime: getKstFromPickerTime(startTime),
+				endTime: getKstFromPickerTime(endTime),
+				eventManager: managerName,
+				eventName: commonEvent.eventName,
+			});
 		});
 		openAlert('이벤트를 수정할까요?', 'confirm');
 	};
@@ -70,8 +96,21 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 	return (
 		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
-			<CommonEventItem description="상태" element={<div>{commonEvent.status}</div>} />
-			<CommonEventItem description="담당자" element={<div>{commonEvent.eventManager}</div>} />
+			<CommonEventItem
+				description="상태"
+				element={<div>{getStatus(commonEvent.startTime, commonEvent.endTime)}</div>}
+			/>
+			<CommonEventItem
+				description="담당자"
+				element={
+					<Input
+						value={managerName}
+						onChange={(event) => {
+							saveManagerName(event.target.value);
+						}}
+					/>
+				}
+			/>
 			<CommonEventItem
 				description="진행 기간"
 				element={
@@ -100,10 +139,18 @@ function CommonEventBox({ commonEvent }: { commonEvent: CommonEvent }) {
 }
 
 function CommonEventTab() {
-	const { commonEvent } = useEvent();
+	const { commonEvent, updateCommonEvent, refechCommonEvent } = useEvent();
+	useLayoutEffect(() => {
+		refechCommonEvent();
+	}, []);
+	const handleUpdateEvent = (newCmmonEvent: CommonEvent) => {
+		updateCommonEvent(newCmmonEvent);
+	};
 	return (
 		<div className="mt-4 flex flex-col gap-2">
-			{commonEvent && <CommonEventBox commonEvent={commonEvent} />}
+			{commonEvent && (
+				<CommonEventBox commonEvent={commonEvent} handleUpdateEvent={handleUpdateEvent} />
+			)}
 		</div>
 	);
 }

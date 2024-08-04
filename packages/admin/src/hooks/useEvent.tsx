@@ -1,86 +1,159 @@
-import { useQuery } from '@tanstack/react-query';
-import { API } from 'src/constants/api';
-import { Response } from 'src/services/api/types/apiType';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { API, METHOD } from 'src/constants/api';
+import {
+	CommonEvent,
+	PersonalityTest,
+	Quiz,
+	Response,
+	WinnerSetting,
+} from 'src/services/api/types/apiType';
+import { useAlert } from 'src/store/provider/AlertProvider';
 import fetchData from 'src/utils/fetchData';
 
 const useEvent = () => {
-	const commonEventResult = useQuery<Response[API.COMMON_EVENT]>({
+	const { openAlert } = useAlert();
+	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
-			try {
-				const response = await fetchData({
-					path: API.COMMON_EVENT,
-					method: 'GET',
-				});
-				const result = await response.json();
-				return result;
-			} catch (err) {
-				console.log(err);
-				// 핸들링 필요함
-				// 백엔드 배포 되면 해야징~
-			}
+			const response = await fetchData({
+				path: API.COMMON_EVENT,
+				method: METHOD.GET,
+			});
+			const result = await response.json();
+			return result;
 		},
 		queryKey: [API.COMMON_EVENT],
 	});
 
-	const quizEventResult = useQuery<Response[API.QUIZ_LIST]>({
+	const commonEventMutation = useMutation({
+		mutationFn: async (commonEvent: CommonEvent) => {
+			const response = await fetchData({
+				path: API.COMMON_EVENT,
+				method: METHOD.POST,
+				payload: commonEvent,
+			});
+			const result = await response.json();
+			return result;
+		},
+		onSuccess: () => {
+			commonEventQuery.refetch();
+		},
+	});
+
+	const updateCommonEvent = (commonEvent: CommonEvent) => {
+		commonEventMutation.mutate(commonEvent);
+	};
+
+	const quizEventQuery = useQuery<Response[API.QUIZ_LIST][METHOD.GET]>({
 		queryFn: async () => {
-			try {
-				const response = await fetchData({
-					path: API.QUIZ_LIST,
-					method: 'GET',
-				});
-				const result = await response.json();
-				return result;
-			} catch (err) {
-				console.log(err);
-				// 핸들링 필요함
-				// 백엔드 배포 되면 해야징~
-			}
+			const response = await fetchData({
+				path: API.QUIZ_LIST,
+				method: METHOD.GET,
+			});
+			const result = await response.json();
+			return result;
 		},
 		queryKey: [API.QUIZ_LIST],
 	});
 
-	const racingWinnerResult = useQuery<Response[API.RACING_WINNERS]>({
+	const quizEventMutation = useMutation({
+		mutationFn: async (quizEvent: Quiz) => {
+			const response = await fetchData({
+				path: API.QUIZ,
+				method: METHOD.POST,
+				payload: quizEvent,
+			});
+			const result = await response.json();
+			return result;
+		},
+		onSuccess: () => {
+			quizEventQuery.refetch();
+		},
+	});
+
+	const updateQuizEvent = (quizEvent: Quiz) => {
+		quizEventMutation.mutate(quizEvent);
+	};
+
+	const racingWinnerQuery = useQuery<Response[API.RACING_WINNERS][METHOD.GET]>({
 		queryFn: async () => {
-			try {
-				const response = await fetchData({
-					path: API.RACING_WINNERS,
-					method: 'GET',
-				});
-				const result = await response.json();
-				return result;
-			} catch (err) {
-				console.log(err);
-				// 핸들링 필요함
-				// 백엔드 배포 되면 해야징~
-			}
+			const response = await fetchData({
+				path: API.RACING_WINNERS,
+				method: METHOD.GET,
+			});
+			const result = await response.json();
+			if (result.status === 200) return result;
+			return [];
 		},
 		queryKey: [API.RACING_WINNERS],
 	});
 
-	const personalityTestListResult = useQuery<Response[API.PERSONALITY_TEST_LIST]>({
-		queryFn: async () => {
-			try {
-				const response = await fetchData({
-					path: API.PERSONALITY_TEST_LIST,
-					method: 'GET',
-				});
+	const racingWinnerMutation = useMutation({
+		mutationFn: async (winnerSettings: WinnerSetting[]) => {
+			const response = await fetchData({
+				path: API.RACING_WINNERS,
+				method: METHOD.POST,
+				payload: winnerSettings,
+			});
+			openAlert(await response.text(), 'alert');
+			if (response.status === 200) {
+				openAlert('추첨이 완료되었습니다.', 'alert');
 				const result = await response.json();
 				return result;
-			} catch (err) {
-				console.log(err);
-				// 핸들링 필요함
-				// 백엔드 배포 되면 해야징~
 			}
+		},
+		onSuccess: () => {
+			racingWinnerQuery.refetch();
+		},
+	});
+
+	const updateRacingWinner = (winnerSettings: WinnerSetting[]) => {
+		racingWinnerMutation.mutate(winnerSettings);
+	};
+
+	const personalityTestListQuery = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
+		queryFn: async () => {
+			const response = await fetchData({
+				path: API.PERSONALITY_TEST_LIST,
+				method: METHOD.GET,
+			});
+			const result = await response.json();
+			return result;
 		},
 		queryKey: [API.PERSONALITY_TEST_LIST],
 	});
 
+	const personalityTestMutation = useMutation({
+		mutationFn: async (personalityTest: PersonalityTest) => {
+			const response = await fetchData({
+				path: API.PERSONALITY_TEST,
+				method: METHOD.POST,
+				payload: personalityTest,
+			});
+			const result = await response.json();
+			return result;
+		},
+		onSuccess: () => {
+			personalityTestListQuery.refetch();
+		},
+	});
+
+	const updatePersonalityTest = (personalityTest: PersonalityTest) => {
+		personalityTestMutation.mutate(personalityTest);
+	};
+
 	return {
-		commonEvent: commonEventResult.data,
-		quizEvent: quizEventResult.data,
-		racingWinners: racingWinnerResult.data,
-		personalityTestList: personalityTestListResult.data,
+		commonEvent: commonEventQuery.data,
+		updateCommonEvent,
+		refechCommonEvent: commonEventQuery.refetch,
+		quizEvent: quizEventQuery.data,
+		updateQuizEvent,
+		refechQuizEvent: quizEventQuery.refetch,
+		racingWinners: racingWinnerQuery.data,
+		refetchRacingWinners: racingWinnerQuery.refetch,
+		updateRacingWinner,
+		personalityTestList: personalityTestListQuery.data,
+		updatePersonalityTest,
+		refetchPersonalityTestList: personalityTestListQuery.refetch,
 	};
 };
 export default useEvent;

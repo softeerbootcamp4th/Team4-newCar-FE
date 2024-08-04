@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Pagination from 'src/components/common/Pagination';
 import Tab from 'src/components/common/Tab';
 import ResultTable from 'src/components/table/ResultTable';
@@ -35,7 +35,12 @@ const getRows = (pageIndex: number, rawList: RacingWinner[]) => {
 };
 
 function WinnerResult() {
-	const { racingWinners } = useEvent();
+	const { racingWinners, refetchRacingWinners } = useEvent();
+
+	useLayoutEffect(() => {
+		refetchRacingWinners();
+	}, []);
+
 	const [pageIndex, setPageIndex] = useState(0);
 	const [tabName, setTabName] = useState(TabName.QUIZ);
 	const [total, setTotal] = useState(0);
@@ -43,12 +48,12 @@ function WinnerResult() {
 	const [headers, setHeaders] = useState<{ text: string; width: string }[]>([]);
 
 	useEffect(() => {
-		if (tabName === TabName.QUIZ && racingWinners) {
+		if (tabName === TabName.QUIZ && racingWinners !== undefined) {
 			setTotal(racingWinners.length);
 			setRows(getRows(pageIndex, racingWinners));
 			setHeaders(quizHeaders);
 		}
-		if (tabName === TabName.RACE && racingWinners) {
+		if (tabName === TabName.RACE && racingWinners !== undefined) {
 			setTotal(racingWinners.length);
 			setRows(getRows(pageIndex, racingWinners));
 			setHeaders(racingHeaders);

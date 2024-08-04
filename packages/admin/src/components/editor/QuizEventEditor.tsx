@@ -11,8 +11,7 @@ interface QuizEventEditorProps {
 
 function QuizEventEditor({ quiz }: QuizEventEditorProps) {
 	const { updateQuizEvent } = useEvent();
-	const { closeModal } = useModal();
-	const { isModalOpen, addModalCallback } = useModal();
+	const { isModalOpen, addModalCallback, closeModal } = useModal();
 	const { addAlertCallback, openAlert } = useAlert();
 	const [quizObj, setQuizObj] = useState<Quiz>(quiz);
 

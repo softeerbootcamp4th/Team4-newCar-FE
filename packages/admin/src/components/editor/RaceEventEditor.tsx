@@ -11,9 +11,8 @@ interface RaceEventEditorProps {
 }
 
 function RaceEventEditor({ personalityTest }: RaceEventEditorProps) {
-	const { closeModal } = useModal();
 	const { updatePersonalityTest } = useEvent();
-	const { isModalOpen, addModalCallback } = useModal();
+	const { isModalOpen, addModalCallback, closeModal } = useModal();
 	const { addAlertCallback, openAlert } = useAlert();
 	const [personalityTestObj, setPersonalityTestObj] = useState<PersonalityTest>(personalityTest);
 

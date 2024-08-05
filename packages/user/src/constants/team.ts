@@ -22,3 +22,24 @@ export const TEAM_DESCRIPTIONS: Record<Category, TeamDescriptions> = {
 		summary: '오프로드도 캐스퍼와 함께',
 	},
 } as const;
+
+export type HelmetOption = { image: string; description: string };
+
+export const TEAM_HELMET_OPTIONS: Record<Category, HelmetOption> = {
+	pet: {
+		description: '펫 프렌들리',
+		image: '/',
+	},
+	travel: {
+		description: '펫 프렌들리',
+		image: '/',
+	},
+	place: {
+		description: '펫 프렌들리',
+		image: '/',
+	},
+	leisure: {
+		description: '펫 프렌들리',
+		image: '/',
+	},
+} as const;

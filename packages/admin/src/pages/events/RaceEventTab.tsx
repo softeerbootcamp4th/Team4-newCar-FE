@@ -1,10 +1,10 @@
 import { useLayoutEffect } from 'react';
-import RaceEventEditor from 'src/components/editor/RaceEventEditor';
-import { Button } from 'src/components/ui/button';
-import categoryList from 'src/constants/categoryList';
-import useEvent from 'src/hooks/useEvent';
-import { PersonalityTest } from 'src/services/api/types/apiType';
-import { useModal } from 'src/store/provider/ModalProvider';
+import RaceEventEditor from 'src/components/editor/RaceEventEditor.tsx';
+import { Button } from 'src/components/ui/button.tsx';
+import categoryList from 'src/constants/categoryList.ts';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { PersonalityTest } from 'src/services/api/types/apiType.ts';
+import { useModal } from 'src/store/provider/ModalProvider.tsx';
 
 function RaceEventBox({
 	personalityTest,

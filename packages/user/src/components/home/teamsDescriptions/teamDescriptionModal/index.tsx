@@ -1,6 +1,6 @@
-import Modal, { ModalProps } from 'src/components/common/Modal';
-import { TEAM_DESCRIPTIONS } from 'src/constants/team';
-import type { Category } from 'src/types/category';
+import type { Category } from '@softeer/common/types';
+import Modal, { ModalProps } from 'src/components/common/Modal.tsx';
+import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
 
 const TEAM_DETAILS: Record<Category, string> = {
 	pet: '주행 중 반려견의 안전한 차량 거주를 위한 넉넉한 사이즈의 켄넬, 청결한 차량 관리를 위한 파티션 보드 방오 커버, 2열 방오 매트를 제공합니다. 캐스퍼 밴 전용 켄넬, 사다리를 활용하면 대형견도 안전한 여행을 함께할 수 있어요.',

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import LogoIcon from 'src/assets/icons/casper-white.svg?react';
-import RoutePaths from 'src/constants/routePath';
+import RoutePaths from 'src/constants/routePath.ts';
 
 export default function Logo() {
 	const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { Button } from 'src/components/ui/button';
+import { Button } from 'src/components/ui/button.tsx';
 
 interface CommonTabProps {
 	tabNames: string[];

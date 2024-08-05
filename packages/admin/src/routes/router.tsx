@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import RoutePaths from 'src/constants/routePath';
-import AppLayout from 'src/layouts/appLayout';
-import EventPage from 'src/pages/events/EventsPage';
-import LoginPage from 'src/pages/start/LoginPage';
-import RaceWinnerDraw from 'src/pages/winner/RaceWinnerDraw';
-import WinnerResult from 'src/pages/winner/WinnerResult';
+import RoutePaths from 'src/constants/routePath.ts';
+import AppLayout from 'src/layouts/appLayout.tsx';
+import EventPage from 'src/pages/events/EventsPage.tsx';
+import LoginPage from 'src/pages/start/LoginPage.tsx';
+import RaceWinnerDraw from 'src/pages/winner/RaceWinnerDraw.tsx';
+import WinnerResult from 'src/pages/winner/WinnerResult.tsx';
 
 const routes: RouteObject[] = [
 	{

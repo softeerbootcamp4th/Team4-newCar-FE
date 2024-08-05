@@ -1,6 +1,6 @@
 import useGetEventDuration, {
 	EventDuration as EventDurationType,
-} from 'src/hooks/query/useGetEventDuration';
+} from 'src/hooks/query/useGetEventDuration.ts';
 
 export default function EventDurationText() {
 	const { duration } = useGetEventDuration();

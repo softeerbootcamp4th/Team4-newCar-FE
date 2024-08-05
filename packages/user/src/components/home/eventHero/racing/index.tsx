@@ -1,7 +1,7 @@
-import Background from './Background';
-import Cars from './Cars';
-import Caspers from './Caspers';
-import Effects from './Effects';
+import Background from './Background.tsx';
+import Cars from './Cars.tsx';
+import Caspers from './Caspers.tsx';
+import Effects from './Effects.tsx';
 
 export default function CarRacing() {
 	return (

@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import Layout from 'src/components/layout';
-import RoutePaths from 'src/constants/routePath';
-import AuthProvider from 'src/context/auth';
-import HomePage from 'src/pages/HomePage';
+import Layout from 'src/components/layout/index.tsx';
+import RoutePaths from 'src/constants/routePath.ts';
+import AuthProvider from 'src/context/auth/index.tsx';
+import HomePage from 'src/pages/HomePage.tsx';
 
 const routes: RouteObject[] = [
 	{

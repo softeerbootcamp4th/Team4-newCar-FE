@@ -1,4 +1,4 @@
-import HintCards from './HintCards';
+import HintCards from './HintCards.tsx';
 
 /** 선착순 퀴즈 힌트 섹션 */
 export default function QuizHint() {

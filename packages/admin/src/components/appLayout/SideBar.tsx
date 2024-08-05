@@ -4,8 +4,8 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from 'src/components/ui/accordion';
-import SideBarRoutes from 'src/constants/sideBarRoutes';
+} from 'src/components/ui/accordion.tsx';
+import SideBarRoutes from 'src/constants/sideBarRoutes.ts';
 
 interface SideBarProps {
 	isChecked: boolean;

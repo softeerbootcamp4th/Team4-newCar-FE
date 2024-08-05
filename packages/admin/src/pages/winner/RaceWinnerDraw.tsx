@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react';
-import { Button } from 'src/components/ui/button';
-import { Input } from 'src/components/ui/input';
-import useEvent from 'src/hooks/useEvent';
-import { WinnerSetting } from 'src/services/api/types/apiType';
-import { useAlert } from 'src/store/provider/AlertProvider';
+import { Button } from 'src/components/ui/button.tsx';
+import { Input } from 'src/components/ui/input.tsx';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { WinnerSetting } from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 
 function RaceWinnerDraw() {
 	const { updateRacingWinner } = useEvent();

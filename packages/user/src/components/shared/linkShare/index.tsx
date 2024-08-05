@@ -1,9 +1,9 @@
-import OutlinedButton from 'src/components/common/OutlinedButton';
-import LinkDisplay from 'src/components/shared/LinkDisplay';
-import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton';
-import useAuth from 'src/hooks/useAuth';
-import { toast } from 'src/hooks/useToast';
-import type { Category } from 'src/types/category';
+import type { Category } from '@softeer/common/types';
+import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
+import LinkDisplay from 'src/components/shared/LinkDisplay.tsx';
+import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton.tsx';
+import useAuth from 'src/hooks/useAuth.tsx';
+import { toast } from 'src/hooks/useToast.ts';
 
 // TODO: 추후 이벤트 도메인으로 변경
 const DOMAIN = 'https://hyundai.com';

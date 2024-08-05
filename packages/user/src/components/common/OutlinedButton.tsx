@@ -1,8 +1,8 @@
 /* eslint-disable react/button-has-type */
+import { cn } from '@softeer/common/utils';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import buttonStyles from 'src/styles/button';
-import cn from 'src/utils/cn';
+import buttonStyles from 'src/styles/button.ts';
 
 const styles = clsx(
 	'border-primary text-primary text-body-2 rounded-2.5 gap-[10px] border px-7 py-[10px] font-normal',

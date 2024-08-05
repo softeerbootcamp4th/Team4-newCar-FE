@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import TalkingOrangeCasper from 'src/assets/icons/quiz-hint-casper.svg?react';
-import HintCard from './HintCard';
-import InfoBox from './InfoBox';
-import InfoTitle from './infoTitle';
+import HintCard from './HintCard.tsx';
+import InfoBox from './InfoBox.tsx';
+import InfoTitle from './infoTitle.tsx';
 
 const HINT_CARDS = [
 	{

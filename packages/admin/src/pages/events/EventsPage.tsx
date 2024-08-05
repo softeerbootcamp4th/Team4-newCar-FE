@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Tab from 'src/components/common/Tab';
-import CommonEventTab from 'src/pages/events/CommonEventTab';
-import QuizEventTab from 'src/pages/events/QuizEventTab';
-import RaceEventTab from 'src/pages/events/RaceEventTab';
+import Tab from 'src/components/common/Tab.tsx';
+import CommonEventTab from 'src/pages/events/CommonEventTab.tsx';
+import QuizEventTab from 'src/pages/events/QuizEventTab.tsx';
+import RaceEventTab from 'src/pages/events/RaceEventTab.tsx';
 
 const TabName = {
 	COMMON: '이벤트 공통',

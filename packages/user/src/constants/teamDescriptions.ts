@@ -1,6 +1,4 @@
-import type { Category } from 'src/types/category';
-
-export const TEAM_TYPES = ['pet', 'leisure', 'place', 'travel'] as const;
+import type { Category } from '@softeer/common/types';
 
 export type TeamDescriptions = { title: string; summary: string };
 

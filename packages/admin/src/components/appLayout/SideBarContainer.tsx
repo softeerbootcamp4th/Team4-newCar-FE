@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SideBar from 'src/components/appLayout/SideBar';
+import SideBar from 'src/components/appLayout/SideBar.tsx';
 
 function SideBarContainer() {
 	const [isChecked, setIsChecked] = useState(false);

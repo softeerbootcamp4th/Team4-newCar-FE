@@ -1,9 +1,9 @@
 /* eslint-disable react/button-has-type */
+import { cn } from '@softeer/common/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import buttonStyles from 'src/styles/button';
-import cn from 'src/utils/cn';
+import buttonStyles from 'src/styles/button.ts';
 
 const defaultStyles = 'gap-[10px] py-4 px-12';
 

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import Chip from 'src/components/common/Chip';
+import Chip from 'src/components/common/Chip.tsx';
 
 interface ContentCardProps {
 	step?: number;
@@ -16,7 +16,7 @@ export default function ContentCard({
 	return (
 		<div
 			style={size}
-			className={`relative top-5 flex flex-col items-center justify-center gap-5 rounded-[10px] bg-neutral-700 py-10`}
+			className="relative top-5 flex flex-col items-center justify-center gap-5 rounded-[10px] bg-neutral-700 py-10"
 		>
 			{step && (
 				<div className="absolute -top-5">

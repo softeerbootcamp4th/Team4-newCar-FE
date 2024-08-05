@@ -1,5 +1,5 @@
-import ContentCard from './ContentCard';
-import ContentsContainer from './ContentsContainer';
+import ContentCard from './ContentCard.tsx';
+import ContentsContainer from './ContentsContainer.tsx';
 
 const CONTENTS = [
 	'물음표 카드 클릭!',

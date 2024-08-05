@@ -1,3 +1,3 @@
-export { default as colors } from './colors';
-export { default as spacing } from './spacing';
-export * from './typography';
+export { default as colors } from './colors.ts';
+export { default as spacing } from './spacing.ts';
+export * from './typography.ts';

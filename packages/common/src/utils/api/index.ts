@@ -1,4 +1,4 @@
-import fetchWithInterceptors from './fetchInterceptors';
+import fetchWithInterceptors from './fetchInterceptors.ts';
 
 interface Interceptors {
 	request?: (url: string, options: RequestInit) => Promise<RequestInit> | RequestInit;

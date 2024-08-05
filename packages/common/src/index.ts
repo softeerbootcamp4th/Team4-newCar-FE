@@ -1,9 +1,9 @@
-export * from './styles/theme';
+export * from './styles/theme/index.ts';
 
-export * from './components';
+export * from './components/index.ts';
 
-export * from './utils';
+export * from './utils/index.ts';
 
-export * from './constants';
+export * from './constants/index.ts';
 
-export * from './types';
+export * from './types/index.ts';

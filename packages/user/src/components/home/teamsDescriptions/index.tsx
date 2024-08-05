@@ -1,4 +1,4 @@
-import { CATEGORIES } from '@softeer/common';
+import { CATEGORIES } from '@softeer/common/constants';
 import Button from 'src/components/common/Button.tsx';
 import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
 import HoverAnimationWrapper from './HoverAnimationWrapper.tsx';

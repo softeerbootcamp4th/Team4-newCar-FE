@@ -1,4 +1,4 @@
-import { spacing } from '@softeer/common';
+import { spacing } from '@softeer/common/theme';
 import { Children, Fragment, PropsWithChildren } from 'react';
 import StepArrow from 'src/assets/icons/step-arrow.svg?react';
 

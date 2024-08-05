@@ -1,4 +1,4 @@
-import { Chat } from '@softeer/common';
+import { Chat } from '@softeer/common/components';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import Layout from 'src/components/layout/index.tsx';
 import RoutePaths from 'src/constants/routePath.ts';

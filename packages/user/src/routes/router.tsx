@@ -1,4 +1,3 @@
-import { Chat } from '@softeer/common/components';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import Layout from 'src/components/layout/index.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
@@ -20,7 +19,7 @@ const routes: RouteObject[] = [
 			},
 			{
 				path: RoutePaths.Event,
-				element: <Chat type="leisure" />,
+				element: <>event</>,
 			},
 		],
 	},

@@ -102,10 +102,12 @@ function QuizEventTab() {
 	useEffect(() => {
 		if (commonEvent && quizEvent) {
 			const lastQuiz = quizEvent[quizEvent.length - 1];
-			const aa = getDatesBetween(lastQuiz.postDate, commonEvent.endTime);
-			const dummyQuizList = aa.map((_aa, index) => generateQuiz(_aa, lastQuiz.id + index + 1));
-			const tmpQuizList: Quiz[] = [...quizEvent, ...dummyQuizList];
-			setQuizList(tmpQuizList);
+			if (lastQuiz.postDate) {
+				const aa = getDatesBetween(lastQuiz.postDate, commonEvent.endTime);
+				const dummyQuizList = aa.map((_aa, index) => generateQuiz(_aa, lastQuiz.id + index + 1));
+				const tmpQuizList: Quiz[] = [...quizEvent, ...dummyQuizList];
+				setQuizList(tmpQuizList);
+			}
 		}
 	}, [quizEvent]);
 

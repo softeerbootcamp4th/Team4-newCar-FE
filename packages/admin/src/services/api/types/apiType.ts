@@ -3,7 +3,7 @@ import { API, METHOD } from 'src/constants/api';
 
 export interface CommonEvent {
 	endTime: string;
-	eventManager: string;
+	managerName: string;
 	eventName: string;
 	startTime: string;
 }
@@ -16,11 +16,13 @@ export interface QuizChoice {
 export interface Quiz {
 	id: number;
 	winnerCount: number;
-	postDate: string;
+	postDate?: string;
 	question: string;
 	choices: QuizChoice[];
 	correctAnswer: number;
 }
+
+export type QuizWithoutPostDate = Omit<Quiz, 'postDate'>;
 
 export interface RacingWinner {
 	rank: number;
@@ -59,7 +61,7 @@ export interface Payload {
 		[METHOD.GET]: Record<string, never>;
 	};
 	[API.QUIZ]: {
-		[METHOD.POST]: Quiz;
+		[METHOD.POST]: QuizWithoutPostDate;
 	};
 	[API.RACING_WINNERS]: {
 		[METHOD.GET]: Record<string, never>;

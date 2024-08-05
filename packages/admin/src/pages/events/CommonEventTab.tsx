@@ -45,7 +45,7 @@ function CommonEventBox({
 		if (commonEvent) {
 			setStartTime(getPickerTimeFromKst(commonEvent.startTime));
 			setEndTime(getPickerTimeFromKst(commonEvent.endTime));
-			setManagerName(commonEvent.eventManager);
+			setManagerName(commonEvent.managerName);
 		}
 	}, [commonEvent]);
 
@@ -86,7 +86,7 @@ function CommonEventBox({
 			handleUpdateEvent({
 				startTime: getKstFromPickerTime(startTime),
 				endTime: getKstFromPickerTime(endTime),
-				eventManager: managerName,
+				managerName,
 				eventName: commonEvent.eventName,
 			});
 		});

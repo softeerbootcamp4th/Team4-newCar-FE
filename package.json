@@ -9,8 +9,9 @@
 		"hoistingLimits": "workspaces"
 	},
 	"scripts": {
-		"start:admin": "yarn workspace @softeer/common build & yarn workspace admin start",
-		"start:user": "yarn workspace @softeer/common build & yarn workspace user start",
+		"start:admin": "yarn workspace admin start",
+		"start:user": "yarn workspace user start",
+		"build:common": "yarn workspace @softeer/common build",
 		"build:admin": "yarn workspace admin build",
 		"build:user": "yarn workspace user build",
 		"lint:fix": "eslint --fix --ext .js,.jsx --no-cache",

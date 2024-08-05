@@ -28,6 +28,16 @@
 				"default": "./dist/components.js"
 			}
 		},
+		"./utils": {
+			"require": {
+				"types": "./dist/utils.d.cts",
+				"default": "./dist/utils.cjs"
+			},
+			"import": {
+				"types": "./dist/utils.d.ts",
+				"default": "./dist/utils.js"
+			}
+		},
 		"./theme": {
 			"require": {
 				"types": "./dist/theme.d.cts",
@@ -58,5 +68,8 @@
 		"tsup": "^8.2.4",
 		"typescript": "^5.5.4"
 	},
-	"packageManager": "yarn@4.3.1"
+	"packageManager": "yarn@4.3.1",
+	"dependencies": {
+		"clsx": "^2.1.1"
+	}
 }

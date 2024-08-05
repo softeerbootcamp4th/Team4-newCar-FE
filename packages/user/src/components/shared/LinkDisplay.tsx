@@ -1,8 +1,8 @@
+import { cn } from '@softeer/common';
 import { cva, VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 import inputStyles from 'src/styles/input';
-import cn from 'src/utils/cn';
 
 const defaultStyles = 'flex px-5';
 

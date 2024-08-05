@@ -10,6 +10,7 @@ export default defineConfig({
 	entry: {
 		index: 'src/index.ts',
 		components: 'src/components/index.ts',
+		utils: 'src/utils/index.ts',
 		theme: 'src/styles/theme/index.ts',
 		tailwindConfig: 'tailwind.config.ts',
 	},

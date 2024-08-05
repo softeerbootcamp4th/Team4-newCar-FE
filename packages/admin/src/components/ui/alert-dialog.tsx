@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
+import { cn } from '@softeer/common';
 import React from 'react';
 import { buttonVariants } from 'src/components/ui/button';
-import cn from 'src/utils/cn';
 
 const AlertDialog = AlertDialogPrimitive.Root;
 

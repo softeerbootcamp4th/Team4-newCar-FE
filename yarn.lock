@@ -1505,6 +1505,7 @@ __metadata:
   resolution: "@softeer/common@workspace:packages/common"
   dependencies:
     autoprefixer: "npm:^10.4.20"
+    clsx: "npm:^2.1.1"
     postcss: "npm:^8.4.40"
     tailwindcss: "npm:^3.4.7"
     tailwindcss-animate: "npm:^1.0.7"

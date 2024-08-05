@@ -36,6 +36,9 @@ export default function LinkShare({ category }: LinkShareProps) {
 	const handleCopy = async () => {
 		try {
 			await copyToClipboard(url);
+			toast({
+				description: '복사 완료 ✅ 지금 바로 친구에게 공유해요 🔗',
+			});
 		} catch (error) {
 			toast({
 				description: `복사가 정상적으로 이루어지지 않았습니다. 관리자에게 문의 바랍니다.\n${error}`,

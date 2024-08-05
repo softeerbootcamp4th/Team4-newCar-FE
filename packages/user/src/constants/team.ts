@@ -1,6 +1,6 @@
 import type { Category } from 'src/types/category';
 
-export const TEAM_TYPES = ['pet', 'place', 'travel', 'leisure'] as const;
+export const TEAM_TYPES = ['pet', 'leisure', 'place', 'travel'] as const;
 
 export type TeamDescriptions = { title: string; summary: string };
 

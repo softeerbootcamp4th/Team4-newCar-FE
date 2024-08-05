@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import Button from 'src/components/common/Button';
-import RoutePaths from 'src/constants/routePath';
-import EventStep from './EventStep';
-import StepFirst from './StepFirst';
-import StepSecond from './StepSecond';
-import StepThird from './StepThird';
+import Button from 'src/components/common/Button.tsx';
+import RoutePaths from 'src/constants/routePath.ts';
+import EventStep from './EventStep.tsx';
+import StepFirst from './StepFirst.tsx';
+import StepSecond from './StepSecond.tsx';
+import StepThird from './StepThird.tsx';
 
 const EVENT_STEPS = [
 	{

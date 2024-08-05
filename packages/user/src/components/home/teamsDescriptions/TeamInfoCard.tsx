@@ -1,5 +1,5 @@
-import TeamCard from 'src/components/shared/teamCard';
-import type { Category } from 'src/types/category';
+import type { Category } from '@softeer/common/types';
+import TeamCard from 'src/components/shared/teamCard/index.tsx';
 
 interface TeamInfoCardProps {
 	type: Category;

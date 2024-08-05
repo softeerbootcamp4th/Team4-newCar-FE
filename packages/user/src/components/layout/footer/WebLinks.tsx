@@ -1,4 +1,4 @@
-import EXTERNAL_LINKS from 'src/constants/externalLinks';
+import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
 
 const WEB_LINKS = [
 	{ text: '캐스퍼 온라인 이용약관', url: EXTERNAL_LINKS.CASPER_AGREEMENTS },

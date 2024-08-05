@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
-import ToasterStack from 'src/components/common/toast/ToasterStack';
-import AppProviders from 'src/libs';
-import router from 'src/routes/router';
+import ToasterStack from 'src/components/common/toast/ToasterStack.tsx';
+import AppProviders from 'src/libs/index.tsx';
+import router from 'src/routes/router.tsx';
 
 export default function App() {
 	return (

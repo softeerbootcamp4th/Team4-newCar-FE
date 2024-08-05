@@ -1,9 +1,9 @@
 /* eslint-disable react/button-has-type */
+import { cn } from '@softeer/common/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import buttonStyles from 'src/styles/button';
-import cn from 'src/utils/cn';
+import buttonStyles from 'src/styles/button.ts';
 
 const defaultStyles =
 	'min-w-[101px] text-body-3 font-normal rounded-[10px] gap-[10px] py-[10px] px-5 hover:bg-foreground/50 active:bg-foreground/70';

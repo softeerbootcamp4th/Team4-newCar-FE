@@ -1,0 +1,95 @@
+{
+	"name": "@softeer/common",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "./dist/index.js",
+	"description": "Softeer Common Package",
+	"scripts": {
+		"build": "tsup --outDir dist"
+	},
+	"exports": {
+		".": {
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			},
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./components": {
+			"require": {
+				"types": "./dist/components.d.cts",
+				"default": "./dist/components.cjs"
+			},
+			"import": {
+				"types": "./dist/components.d.ts",
+				"default": "./dist/components.js"
+			}
+		},
+		"./utils": {
+			"require": {
+				"types": "./dist/utils.d.cts",
+				"default": "./dist/utils.cjs"
+			},
+			"import": {
+				"types": "./dist/utils.d.ts",
+				"default": "./dist/utils.js"
+			}
+		},
+		"./constants": {
+			"require": {
+				"types": "./dist/constants.d.cts",
+				"default": "./dist/constants.cjs"
+			},
+			"import": {
+				"types": "./dist/constants.d.ts",
+				"default": "./dist/constants.js"
+			}
+		},
+		"./types": {
+			"require": {
+				"types": "./dist/types.d.cts",
+				"default": "./dist/types.cjs"
+			},
+			"import": {
+				"types": "./dist/types.d.ts",
+				"default": "./dist/types.js"
+			}
+		},
+		"./theme": {
+			"require": {
+				"types": "./dist/theme.d.cts",
+				"default": "./dist/theme.cjs"
+			},
+			"import": {
+				"types": "./dist/theme.d.ts",
+				"default": "./dist/theme.js"
+			}
+		},
+		"./configs": {
+			"require": {
+				"types": "./dist/tailwindConfig.d.cts",
+				"default": "./dist/tailwindConfig.cjs"
+			},
+			"import": {
+				"types": "./dist/tailwindConfig.d.ts",
+				"default": "./dist/tailwindConfig.js"
+			}
+		}
+	},
+	"author": "nimod7890",
+	"devDependencies": {
+		"autoprefixer": "^10.4.20",
+		"postcss": "^8.4.40",
+		"tailwindcss": "^3.4.7",
+		"tailwindcss-animate": "^1.0.7",
+		"tsup": "^8.2.4",
+		"typescript": "^5.5.4"
+	},
+	"packageManager": "yarn@4.3.1",
+	"dependencies": {
+		"clsx": "^2.1.1"
+	}
+}

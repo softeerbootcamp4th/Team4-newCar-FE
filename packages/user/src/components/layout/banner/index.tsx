@@ -1,4 +1,4 @@
-import ScrollToQuizButton from './ScrollToQuizButton';
+import ScrollToQuizButton from './ScrollToQuizButton.tsx';
 
 export default function Banner() {
 	return (

@@ -1,6 +1,6 @@
-import LinkShare from 'src/components/shared/linkShare';
-import ContentCard from './ContentCard';
-import ContentsContainer from './ContentsContainer';
+import LinkShare from 'src/components/shared/linkShare/index.tsx';
+import ContentCard from './ContentCard.tsx';
+import ContentsContainer from './ContentsContainer.tsx';
 
 export default function StepThird() {
 	return (

@@ -1,5 +1,5 @@
-import Chip from 'src/components/common/Chip';
-import PrizeCard from 'src/components/shared/PrizeCard';
+import Chip from 'src/components/common/Chip.tsx';
+import PrizeCard from 'src/components/shared/PrizeCard.tsx';
 
 const EVENT_PRIZES = [
 	{

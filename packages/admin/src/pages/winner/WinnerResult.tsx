@@ -1,9 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import Pagination from 'src/components/common/Pagination';
-import Tab from 'src/components/common/Tab';
-import ResultTable from 'src/components/table/ResultTable';
-import useEvent from 'src/hooks/useEvent';
-import { RacingWinner } from 'src/services/api/types/apiType';
+import Pagination from 'src/components/common/Pagination.tsx';
+import Tab from 'src/components/common/Tab.tsx';
+import ResultTable from 'src/components/table/ResultTable.tsx';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { RacingWinner } from 'src/services/api/types/apiType.ts';
 
 const TabName = {
 	QUIZ: 'QUIZ',

@@ -1,9 +1,9 @@
-import Button from 'src/components/common/Button';
-import EXTERNAL_LINKS from 'src/constants/externalLinks';
-import { TEAM_TYPES } from 'src/constants/team';
-import HoverAnimationWrapper from './HoverAnimationWrapper';
-import TeamDescriptionModal from './teamDescriptionModal';
-import TeamInfoCard from './TeamInfoCard';
+import { CATEGORIES } from '@softeer/common/constants';
+import Button from 'src/components/common/Button.tsx';
+import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
+import HoverAnimationWrapper from './HoverAnimationWrapper.tsx';
+import TeamDescriptionModal from './teamDescriptionModal/index.tsx';
+import TeamInfoCard from './TeamInfoCard.tsx';
 
 /** 팀 소개 섹션 */
 export default function TeamsDescriptions() {
@@ -17,7 +17,7 @@ export default function TeamsDescriptions() {
 					캐스퍼의 <strong className="text-primary">다양한 활용 방안</strong>
 				</h6>
 				<div className="my-15 group flex gap-[21px]">
-					{TEAM_TYPES.map((type) => (
+					{CATEGORIES.map((type) => (
 						<TeamDescriptionModal
 							key={type}
 							type={type}

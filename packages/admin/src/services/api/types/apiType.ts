@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { API, METHOD } from 'src/constants/api';
+import { API, METHOD } from 'src/constants/api.ts';
 
 export interface CommonEvent {
 	endTime: string;

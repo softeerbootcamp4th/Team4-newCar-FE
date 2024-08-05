@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactElement } from 'react';
-import { Dialog, DialogContent, DialogProps, DialogTrigger } from 'src/components/ui/dialog';
+import { Dialog, DialogContent, DialogProps, DialogTrigger } from 'src/components/ui/dialog.tsx';
 
 export interface ModalProps extends DialogProps {
 	openTrigger: ReactElement;

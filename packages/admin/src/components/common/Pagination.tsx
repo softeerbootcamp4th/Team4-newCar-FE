@@ -5,7 +5,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 	Pagination as ShadcnPagination,
-} from 'src/components/ui/pagination';
+} from 'src/components/ui/pagination.tsx';
 
 interface PaginationProps {
 	pageIndex: number;

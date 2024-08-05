@@ -1,7 +1,11 @@
 import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
-import { AlertDialog, AlertDialogContent, AlertDialogFooter } from 'src/components/ui/alert-dialog';
-import { Button } from 'src/components/ui/button';
-import { useAlert } from 'src/store/provider/AlertProvider';
+import {
+	AlertDialog,
+	AlertDialogContent,
+	AlertDialogFooter,
+} from 'src/components/ui/alert-dialog.tsx';
+import { Button } from 'src/components/ui/button.tsx';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 
 export default function Alert() {
 	const { isAlertOpen, alertCallback, alertContent, alertType, closeAlert } = useAlert();

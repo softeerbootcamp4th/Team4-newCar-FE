@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import Banner from './banner';
-import BodyContainer from './BodyContainer';
-import Footer from './footer';
-import Header from './header';
-import TopSectionContainer from './TopSectionContainer';
+import Banner from './banner/index.tsx';
+import BodyContainer from './BodyContainer.tsx';
+import Footer from './footer/index.tsx';
+import Header from './header/index.tsx';
+import TopSectionContainer from './TopSectionContainer.tsx';
 
 export default function Layout() {
 	return (

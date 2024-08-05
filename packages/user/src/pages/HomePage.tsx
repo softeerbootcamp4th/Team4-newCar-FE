@@ -8,7 +8,7 @@ import {
 	FastestQuiz,
 	QuizHint,
 	TeamsDescriptions,
-} from 'src/components/home';
+} from 'src/components/home/index.ts';
 
 export default function HomePage() {
 	const { state } = useLocation();

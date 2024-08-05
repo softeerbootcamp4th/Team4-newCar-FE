@@ -1,4 +1,4 @@
-import type { Category } from '@softeer/common';
+import type { Category } from '@softeer/common/types';
 
 interface User {
 	id: number;

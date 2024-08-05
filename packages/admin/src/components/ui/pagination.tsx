@@ -1,8 +1,8 @@
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import * as React from 'react';
 
-import { cn } from '@softeer/common';
-import { ButtonProps, buttonVariants } from 'src/components/ui/button';
+import { cn } from '@softeer/common/utils';
+import { ButtonProps, buttonVariants } from 'src/components/ui/button.tsx';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
 	return (

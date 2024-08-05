@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/comma-dangle */
 // eslint-disable @typescript-eslint/comma-dangle
 import * as ToastPrimitives from '@radix-ui/react-toast';
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
 

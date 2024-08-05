@@ -1,4 +1,4 @@
-import NavTitle from 'src/types/appLayout/types';
+import NavTitle from 'src/types/appLayout/types.ts';
 
 interface HeaderProps {
 	headerTitle: string;

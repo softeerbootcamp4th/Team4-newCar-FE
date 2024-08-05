@@ -1,6 +1,6 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
 import Close from 'src/assets/icons/close.svg?react';

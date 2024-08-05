@@ -1,6 +1,6 @@
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import * as React from 'react';
-import inputStyles from 'src/styles/input';
+import inputStyles from 'src/styles/input.ts';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import OutlinedButton from 'src/components/common/OutlinedButton';
-import ChatInput from 'src/components/event/chat/inputbar/ChatInput';
+import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
+import ChatInput from 'src/components/event/chat/inputbar/ChatInput.tsx';
 
 export default function ChatInputbar() {
 	const inputRef = useRef<HTMLInputElement>(null);

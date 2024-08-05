@@ -1,9 +1,9 @@
-import type { Category } from '@softeer/common';
+import type { Category } from '@softeer/common/types';
 import { PropsWithChildren } from 'react';
-import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions';
-import CardBackgroundImage from './CardBackgroundImage';
-import CardContent from './CardContent';
-import CardGradient from './CardGradient';
+import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
+import CardBackgroundImage from './CardBackgroundImage.tsx';
+import CardContent from './CardContent.tsx';
+import CardGradient from './CardGradient.tsx';
 
 interface TeamCardProps {
 	type: Category;

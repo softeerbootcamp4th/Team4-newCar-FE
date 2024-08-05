@@ -1,4 +1,4 @@
-import type { Category } from '@softeer/common';
+import type { Category } from '@softeer/common/types';
 
 export type TeamDescriptions = { title: string; summary: string };
 

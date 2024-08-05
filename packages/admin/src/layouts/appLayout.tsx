@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import Header from 'src/components/appLayout/Header';
-import SideBarContainer from 'src/components/appLayout/SideBarContainer';
-import SystemContainer from 'src/components/appLayout/System';
-import useHeader from 'src/hooks/useHeader';
+import Header from 'src/components/appLayout/Header.tsx';
+import SideBarContainer from 'src/components/appLayout/SideBarContainer.tsx';
+import SystemContainer from 'src/components/appLayout/System.tsx';
+import useHeader from 'src/hooks/useHeader.tsx';
 
 export default function AppLayout() {
 	const { headerTitle } = useHeader();

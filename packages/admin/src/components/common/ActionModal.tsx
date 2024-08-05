@@ -1,7 +1,7 @@
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { Button } from 'src/components/ui/button';
-import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog';
-import { useModal } from 'src/store/provider/ModalProvider';
+import { Button } from 'src/components/ui/button.tsx';
+import { Dialog, DialogClose, DialogContent, DialogFooter } from 'src/components/ui/dialog.tsx';
+import { useModal } from 'src/store/provider/ModalProvider.tsx';
 
 export default function ActionModal() {
 	const { isModalOpen, modalContent, modalCallback, closeModal } = useModal();

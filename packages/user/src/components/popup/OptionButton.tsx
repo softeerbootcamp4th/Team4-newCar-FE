@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
 import buttonStyles from 'src/styles/button';

@@ -1,4 +1,4 @@
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import React from 'react';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}

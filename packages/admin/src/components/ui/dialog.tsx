@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import * as React from 'react';
 
 const Dialog = DialogPrimitive.Root;

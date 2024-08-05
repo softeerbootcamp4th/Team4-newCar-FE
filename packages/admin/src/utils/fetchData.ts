@@ -1,5 +1,5 @@
-import { API_DEFAULT_HEADER, BASE_URL, METHOD } from 'src/constants/api';
-import { FetchDataRequestOptions, Payload } from 'src/services/api/types/apiType';
+import { API_DEFAULT_HEADER, BASE_URL, METHOD } from 'src/constants/api.ts';
+import { FetchDataRequestOptions, Payload } from 'src/services/api/types/apiType.ts';
 
 const fetchData = async <K extends keyof Payload, T extends keyof Payload[K]>({
 	path,

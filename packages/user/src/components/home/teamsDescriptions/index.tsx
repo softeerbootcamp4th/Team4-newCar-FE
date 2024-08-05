@@ -1,9 +1,9 @@
 import { CATEGORIES } from '@softeer/common';
-import Button from 'src/components/common/Button';
-import EXTERNAL_LINKS from 'src/constants/externalLinks';
-import HoverAnimationWrapper from './HoverAnimationWrapper';
-import TeamDescriptionModal from './teamDescriptionModal';
-import TeamInfoCard from './TeamInfoCard';
+import Button from 'src/components/common/Button.tsx';
+import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
+import HoverAnimationWrapper from './HoverAnimationWrapper.tsx';
+import TeamDescriptionModal from './teamDescriptionModal/index.tsx';
+import TeamInfoCard from './TeamInfoCard.tsx';
 
 /** 팀 소개 섹션 */
 export default function TeamsDescriptions() {

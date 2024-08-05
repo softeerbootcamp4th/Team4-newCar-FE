@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import { ChevronDown } from 'lucide-react';
 import * as React from 'react';
 

@@ -1,4 +1,4 @@
-import { cn } from '@softeer/common';
+import { cn } from '@softeer/common/utils';
 import * as React from 'react';
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(

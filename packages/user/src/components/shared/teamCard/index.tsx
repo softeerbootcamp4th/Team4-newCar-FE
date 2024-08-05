@@ -1,6 +1,6 @@
+import type { Category } from '@softeer/common';
 import { PropsWithChildren } from 'react';
-import { TEAM_DESCRIPTIONS } from 'src/constants/team';
-import type { Category } from 'src/types/category';
+import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions';
 import CardBackgroundImage from './CardBackgroundImage';
 import CardContent from './CardContent';
 import CardGradient from './CardGradient';

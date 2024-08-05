@@ -1,4 +1,4 @@
-import { Category } from 'src/types/category';
+import type { Category } from '@softeer/common';
 
 interface User {
 	id: number;
@@ -7,4 +7,4 @@ interface User {
 	shareUrl: string;
 }
 
-export type { Category, User };
+export default User;

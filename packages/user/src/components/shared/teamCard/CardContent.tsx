@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react';
-import type { TeamDescriptions } from 'src/constants/team';
+import type { TeamDescriptions } from 'src/constants/teamDescriptions';
 
 export default function CardContent({
 	title,

@@ -1,11 +1,9 @@
-const TEAM_TYPES = ['pet', 'leisure', 'place', 'travel'] as const;
-
-type Category = (typeof TEAM_TYPES)[number];
+import type { Category } from 'src/types';
 
 interface ChatProps {
-  type: Category
+	type: Category;
 }
 
 export default function Chat({ type }: ChatProps) {
-  return <div className="flex gap-[8px]">{type}</div>;
+	return <div className="flex gap-3">{type}</div>;
 }

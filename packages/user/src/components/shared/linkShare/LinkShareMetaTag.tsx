@@ -1,11 +1,11 @@
+import { CATEGORIES } from '@softeer/common/constants';
+import { Category } from '@softeer/common/types';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
-import { TEAM_HELMET_OPTIONS, TEAM_TYPES } from 'src/constants/team';
-import { Category } from 'src/types/category';
+import { TEAM_HELMET_OPTIONS } from 'src/constants/teamDescriptions.ts';
 
-// 팀 타입 검증 함수
 function isValidTeamType(value: string | null): boolean {
-	return value !== null && (TEAM_TYPES as readonly string[]).includes(value);
+	return value !== null && (CATEGORIES as readonly string[]).includes(value);
 }
 
 function LinkShareMetaTag() {
@@ -13,6 +13,7 @@ function LinkShareMetaTag() {
 	const queryParams = new URLSearchParams(location.search);
 	const teamType = queryParams.get('teamType');
 
+	// ?teamType=pet | teamType=place | ... 이런식으로 쿼리스트링 파싱해서 og, description 변경
 	let helmetOption = TEAM_HELMET_OPTIONS.pet;
 	if (isValidTeamType(teamType)) {
 		const result = TEAM_HELMET_OPTIONS[teamType as Category];

@@ -20,7 +20,7 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 	const { title, summary } = TEAM_DESCRIPTIONS[type];
 	const content = TEAM_DETAILS[type];
 
-	const imageBaseUrl = `/src/assets/images/team-modal/${type}`;
+	const imageBaseUrl = `images/team-modal/${type}`;
 
 	return (
 		<Modal openTrigger={openTrigger}>

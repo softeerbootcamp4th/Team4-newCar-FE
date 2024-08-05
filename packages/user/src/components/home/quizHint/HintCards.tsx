@@ -71,10 +71,6 @@ function createInfoBox({ title, subTitle, details }: Hint): ReactElement {
 
 function createImage(index: number): ReactElement {
 	return (
-		<img
-			src={`/src/assets/images/hint/${index + 1}.png`}
-			className="h-full w-full object-cover"
-			alt="힌트"
-		/>
+		<img src={`images/hint/${index + 1}.png`} className="h-full w-full object-cover" alt="힌트" />
 	);
 }

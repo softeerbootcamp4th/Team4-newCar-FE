@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	darkMode: ['class'],
+	darkMode: ['selector'],
 	content: ['./src/**/*.{ts,tsx}'],
 	prefix: '',
 	theme: {
@@ -78,5 +78,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate')],
+	presets: [require('@softeer/common/tailwind.config')],
 };

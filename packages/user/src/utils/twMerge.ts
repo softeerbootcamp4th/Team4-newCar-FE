@@ -1,4 +1,4 @@
-import { colors, fontSize } from 'src/styles/theme';
+import { colors, fontSize } from '@softeer/common';
 import { extendTailwindMerge } from 'tailwind-merge';
 
 const twMerge = extendTailwindMerge({

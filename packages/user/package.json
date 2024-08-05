@@ -20,6 +20,7 @@
 		"@radix-ui/react-slot": "^1.1.0",
 		"@radix-ui/react-toast": "^1.2.1",
 		"@radix-ui/react-visually-hidden": "^1.1.0",
+		"@softeer/common": "*",
 		"@tanstack/react-query": "^5.51.11",
 		"@vitejs/plugin-react": "^4.3.1",
 		"class-variance-authority": "^0.7.0",

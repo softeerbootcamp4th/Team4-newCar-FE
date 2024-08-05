@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import tailwindConfig from '@softeer/common/configs';
+
+const config = {
 	darkMode: ['selector'],
 	content: ['./src/**/*.{ts,tsx}'],
 	prefix: '',
@@ -78,5 +79,7 @@ module.exports = {
 			},
 		},
 	},
-	presets: [require('@softeer/common/tailwind.config')],
+	presets: [tailwindConfig],
 };
+
+export default config;

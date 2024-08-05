@@ -2022,6 +2022,8 @@ __metadata:
     postcss: "npm:^8.4.39"
     tailwindcss: "npm:^3.4.6"
     tailwindcss-animate: "npm:^1.0.7"
+    tsc: "npm:^2.0.4"
+    typescript: "npm:^5.5.4"
     vite: "npm:^5.3.4"
   peerDependencies:
     react: ^18.3.1

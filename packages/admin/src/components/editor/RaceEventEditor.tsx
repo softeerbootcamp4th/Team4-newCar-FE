@@ -73,7 +73,7 @@ function RaceEventEditor({ personalityTest }: RaceEventEditorProps) {
 
 	const handleScoresChange = (newValue: number, choiceIndex: number, categoryIndex: number) => {
 		const tmpScores = [
-			...personalityTest.choices[choiceIndex].scores.map((score) => ({ ...score })),
+			...personalityTestObj.choices[choiceIndex].scores.map((score) => ({ ...score })),
 		];
 		tmpScores[categoryIndex].value = newValue;
 		setPersonalityTestObj((prev: PersonalityTest) => ({

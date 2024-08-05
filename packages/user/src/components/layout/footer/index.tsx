@@ -1,6 +1,6 @@
 import HyundaiLogo from 'src/assets/icons/hyundai.svg?react';
-import ContactInfo from './ContactInfo';
-import WebLinks from './WebLinks';
+import ContactInfo from './ContactInfo.tsx';
+import WebLinks from './WebLinks.tsx';
 
 export default function Footer() {
 	return (

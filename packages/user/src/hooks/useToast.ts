@@ -1,7 +1,7 @@
 // https://ui.shadcn.com/docs/components/toast
 import React from 'react';
 
-import type { ToastActionElement, ToastProps } from 'src/components/common/toast/Toast';
+import type { ToastActionElement, ToastProps } from 'src/components/common/toast/Toast.tsx';
 
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
@@ -32,19 +32,19 @@ type Action =
 	| {
 			type: ActionType['ADD_TOAST'];
 			toast: ToasterToast;
-	  }
+		}
 	| {
 			type: ActionType['UPDATE_TOAST'];
 			toast: Partial<ToasterToast>;
-	  }
+		}
 	| {
 			type: ActionType['DISMISS_TOAST'];
 			toastId?: ToasterToast['id'];
-	  }
+		}
 	| {
 			type: ActionType['REMOVE_TOAST'];
 			toastId?: ToasterToast['id'];
-	  };
+		};
 
 interface State {
 	toasts: ToasterToast[];
@@ -61,7 +61,7 @@ const addToRemoveQueue = (toastId: string) => {
 		toastTimeouts.delete(toastId);
 		dispatch({
 			type: 'REMOVE_TOAST',
-			toastId: toastId,
+			toastId,
 		});
 	}, TOAST_REMOVE_DELAY);
 
@@ -90,8 +90,8 @@ export const reducer = (state: State, action: Action): State => {
 			if (toastId) {
 				addToRemoveQueue(toastId);
 			} else {
-				state.toasts.forEach((toast) => {
-					addToRemoveQueue(toast.id);
+				state.toasts.forEach((toastState) => {
+					addToRemoveQueue(toastState.id);
 				});
 			}
 
@@ -117,7 +117,9 @@ export const reducer = (state: State, action: Action): State => {
 			return {
 				...state,
 				toasts: state.toasts.filter((t) => t.id !== action.toastId),
-			};
+		};
+		default:
+				return state;
 	}
 };
 
@@ -137,10 +139,10 @@ type Toast = Omit<ToasterToast, 'id'>;
 function toast({ ...props }: Toast) {
 	const id = genId();
 
-	const update = (props: ToasterToast) =>
+	const update = (updateProps: ToasterToast) =>
 		dispatch({
 			type: 'UPDATE_TOAST',
-			toast: { ...props, id },
+			toast: { ...updateProps, id },
 		});
 	const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id });
 
@@ -157,7 +159,7 @@ function toast({ ...props }: Toast) {
 	});
 
 	return {
-		id: id,
+		id,
 		dismiss,
 		update,
 	};

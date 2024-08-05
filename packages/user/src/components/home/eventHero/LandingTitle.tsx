@@ -1,5 +1,5 @@
 import { PropsWithChildren, Suspense } from 'react';
-import EventDurationText from './EventDurationText';
+import EventDurationText from './EventDurationText.tsx';
 
 export default function LandingTitle() {
 	return (

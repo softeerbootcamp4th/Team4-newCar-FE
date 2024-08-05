@@ -1,3 +1,3 @@
-export * from './animations';
-export * from './components';
-export { default as backgroundImage } from './gradients';
+export * from './animations.ts';
+export * from './components.ts';
+export { default as backgroundImage } from './gradients.ts';

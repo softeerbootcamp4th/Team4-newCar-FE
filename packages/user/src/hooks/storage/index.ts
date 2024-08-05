@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { toast } from 'src/hooks/useToast';
+import { toast } from 'src/hooks/useToast.ts';
 
 function useStorage<T>(keyName: string, defaultValue: T) {
 	const [storedValue, setStoredValue] = useState(() => {

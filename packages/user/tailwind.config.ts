@@ -1,8 +1,13 @@
 import tailwindConfig from '@softeer/common/configs';
-import { Config } from 'tailwindcss';
-import { animation, backgroundImage, boxShadow, container, keyframes } from './src/styles/theme';
+import {
+	animation,
+	backgroundImage,
+	boxShadow,
+	container,
+	keyframes,
+} from './src/styles/theme/index.ts';
 
-const config: Config = {
+const config = {
 	content: ['./src/**/*.{ts,tsx}'],
 	theme: {
 		boxShadow,

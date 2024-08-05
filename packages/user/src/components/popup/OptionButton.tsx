@@ -2,7 +2,7 @@
 import { cn } from '@softeer/common/utils';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
-import buttonStyles from 'src/styles/button';
+import buttonStyles from 'src/styles/button.ts';
 
 const styles = clsx(
 	'border-primary text-primary rounded-2.5 px-15 min-w-[275px] gap-2 border py-2.5',

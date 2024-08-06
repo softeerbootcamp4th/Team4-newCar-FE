@@ -11,7 +11,7 @@ interface TeamCardProps {
 
 export default function TeamCard({ type, children }: PropsWithChildren<TeamCardProps>) {
 	const { title, summary } = TEAM_DESCRIPTIONS[type];
-	const src = `/src/assets/images/card/${type}.png`;
+	const src = `images/card/${type}.png`;
 
 	return (
 		<div className="relative h-[364px] w-[244px] overflow-hidden rounded-[11px] pb-[21px] pt-[25px]">

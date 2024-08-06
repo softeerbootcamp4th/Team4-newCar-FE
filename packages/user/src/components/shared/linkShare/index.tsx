@@ -15,7 +15,7 @@ export default function LinkShare({ category }: LinkShareProps) {
 	const variants = category ?? 'default';
 	const { user } = useAuth();
 
-	const url = user ? user.shareUrl : DOMAIN;
+	const url = user?.shareUrl ?? DOMAIN;
 
 	function copyToClipboard(text: string) {
 		if (navigator.clipboard) {

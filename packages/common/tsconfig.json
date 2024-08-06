@@ -6,7 +6,7 @@
 		},
 		"typeRoots": ["declarations.d.ts"]
 	},
-	"include": ["src/**/*", "tailwind.config.ts", "declarations.d.ts"],
+	"include": ["src/**/*", "declarations.d.ts"],
 	"exclude": ["dist/*"],
 	"extends": "../../tsconfig.json"
 }

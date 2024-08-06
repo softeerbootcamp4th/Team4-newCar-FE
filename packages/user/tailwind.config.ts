@@ -10,7 +10,8 @@ import {
 } from './src/styles/theme/index.ts';
 
 const config: Config = {
-	content: ['./src/**/*.{js,jsx,ts,tsx}'],
+	presets: [tailwindConfig],
+	content: ['./src/**/*.{js,jsx,ts,tsx}', '../common/dist/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		boxShadow,
 		extend: {
@@ -20,7 +21,6 @@ const config: Config = {
 			container,
 		},
 	},
-	presets: [tailwindConfig],
 	plugins: [tailwindAnimate],
 };
 

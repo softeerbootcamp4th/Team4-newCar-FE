@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 import { colors, fontFamily, fontSize, fontWeight, spacing } from 'src/styles/theme/index.ts';
 import type { Config } from 'tailwindcss';
 

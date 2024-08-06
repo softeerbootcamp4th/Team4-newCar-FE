@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Input } from 'src/components/ui/input';
-import useEvent from 'src/hooks/useEvent';
-import { Quiz, QuizChoice } from 'src/services/api/types/apiType';
-import { useAlert } from 'src/store/provider/AlertProvider';
-import { AlertType, useModal } from 'src/store/provider/ModalProvider';
+import { Input } from 'src/components/ui/input.tsx';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { Quiz, QuizChoice } from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
+import { AlertType, useModal } from 'src/store/provider/ModalProvider.tsx';
 
 interface QuizEventEditorProps {
 	quiz: Quiz;

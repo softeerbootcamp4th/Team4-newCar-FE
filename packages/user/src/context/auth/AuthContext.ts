@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { User } from 'src/types/user';
+import type { User } from 'src/types/user.d.ts';
 
 interface AuthContextType {
 	isAuthenticated: boolean;

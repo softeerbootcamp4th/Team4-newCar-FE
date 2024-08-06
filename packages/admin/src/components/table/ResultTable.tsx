@@ -5,7 +5,7 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from 'src/components/ui/table';
+} from 'src/components/ui/table.tsx';
 
 interface ResultTableProps {
 	headers: Array<{

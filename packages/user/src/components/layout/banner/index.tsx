@@ -1,8 +1,8 @@
-import ScrollToQuizButton from './ScrollToQuizButton';
+import ScrollToQuizButton from './ScrollToQuizButton.tsx';
 
 export default function Banner() {
 	return (
-		<section className="bg-gradient-lineBanner min-h-[50px] py-[6px]">
+		<aside className="bg-gradient-lineBanner min-h-[50px] py-[6px]">
 			<div className="container flex items-center">
 				<div className="flex flex-grow flex-col items-center justify-center gap-x-6 md:flex-row">
 					<p className="text-body-3">매일 오후 3시 15분 선착순 퀴즈 이벤트</p>
@@ -10,6 +10,6 @@ export default function Banner() {
 				</div>
 				<ScrollToQuizButton />
 			</div>
-		</section>
+		</aside>
 	);
 }

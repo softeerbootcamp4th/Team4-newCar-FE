@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import QUERY_KEYS from 'src/constants/queryKey';
+import QUERY_KEYS from 'src/constants/queryKey.ts';
 
 export type EventDuration = { startDate: string; endDate: string };
 

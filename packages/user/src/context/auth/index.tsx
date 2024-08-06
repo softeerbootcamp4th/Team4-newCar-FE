@@ -1,9 +1,9 @@
 import { PropsWithChildren, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RoutePaths from 'src/constants/routePath';
-import AuthContext from 'src/context/auth/AuthContext';
-import useUserStorage from 'src/hooks/storage/useUserStorage';
-import { User } from 'src/types/user';
+import RoutePaths from 'src/constants/routePath.ts';
+import AuthContext from 'src/context/auth/AuthContext.ts';
+import useUserStorage from 'src/hooks/storage/useUserStorage.ts';
+import type { User } from 'src/types/user.d.ts';
 
 export default function AuthProvider({ children }: PropsWithChildren) {
 	const [user, setUser] = useUserStorage();

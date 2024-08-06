@@ -1,4 +1,4 @@
-import RoutePaths from 'src/constants/routePath';
+import RoutePaths from 'src/constants/routePath.ts';
 
 interface Route {
 	id: number;

@@ -1,9 +1,9 @@
+import type { Category } from '@softeer/common/types';
 import { PropsWithChildren } from 'react';
-import { TEAM_DESCRIPTIONS } from 'src/constants/team';
-import type { Category } from 'src/types/category';
-import CardBackgroundImage from './CardBackgroundImage';
-import CardContent from './CardContent';
-import CardGradient from './CardGradient';
+import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
+import CardBackgroundImage from './CardBackgroundImage.tsx';
+import CardContent from './CardContent.tsx';
+import CardGradient from './CardGradient.tsx';
 
 interface TeamCardProps {
 	type: Category;
@@ -11,7 +11,7 @@ interface TeamCardProps {
 
 export default function TeamCard({ type, children }: PropsWithChildren<TeamCardProps>) {
 	const { title, summary } = TEAM_DESCRIPTIONS[type];
-	const src = `/src/assets/images/card/${type}.png`;
+	const src = `images/card/${type}.png`;
 
 	return (
 		<div className="relative h-[364px] w-[244px] overflow-hidden rounded-[11px] pb-[21px] pt-[25px]">

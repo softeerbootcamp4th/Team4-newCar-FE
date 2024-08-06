@@ -1,5 +1,5 @@
-import LandingTitle from './LandingTitle';
-import CarRacing from './racing';
+import LandingTitle from './LandingTitle.tsx';
+import CarRacing from './racing/index.tsx';
 
 /** 랜딩 시 보이는 히어로 섹션 */
 export default function EventHero() {

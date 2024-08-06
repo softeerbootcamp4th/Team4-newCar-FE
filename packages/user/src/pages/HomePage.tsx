@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
 	EventGuidelines,
 	EventHero,
@@ -6,9 +8,15 @@ import {
 	FastestQuiz,
 	QuizHint,
 	TeamsDescriptions,
-} from 'src/components/home';
+} from 'src/components/home/index.ts';
 
 export default function HomePage() {
+	const { state } = useLocation();
+
+	useEffect(() => {
+		scrollToSection(state?.sectionId);
+	}, [state]);
+
 	return (
 		<>
 			<EventHero />
@@ -20,4 +28,14 @@ export default function HomePage() {
 			<EventGuidelines />
 		</>
 	);
+}
+
+function scrollToSection(sectionId: string | undefined) {
+	if (sectionId) {
+		const element = document.getElementById(sectionId);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth' });
+			window.history.replaceState({}, '');
+		}
+	}
 }

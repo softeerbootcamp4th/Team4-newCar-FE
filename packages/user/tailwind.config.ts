@@ -1,39 +1,24 @@
-import { Config } from 'tailwindcss';
-import tailwindAnimate from 'tailwindcss-animate';
+import tailwindConfig from '@softeer/common/configs';
 import {
 	animation,
 	backgroundImage,
 	boxShadow,
-	colors,
 	container,
-	fontFamily,
-	fontSize,
-	fontWeight,
 	keyframes,
-	spacing,
-} from './src/styles/theme';
+} from './src/styles/theme/index.ts';
 
-const config: Config = {
+const config = {
 	content: ['./src/**/*.{ts,tsx}'],
 	theme: {
-		fontFamily,
-		fontWeight,
-		colors,
-		fontSize,
-		borderRadius: spacing,
-		gap: spacing,
-		margin: spacing,
-		padding: spacing,
 		boxShadow,
 		extend: {
 			backgroundImage,
-			spacing,
 			keyframes,
 			animation,
 			container,
 		},
 	},
-	plugins: [tailwindAnimate],
+	presets: [tailwindConfig],
 };
 
 export default config;

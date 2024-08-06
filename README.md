@@ -5,11 +5,10 @@
 
 ## 멤버
 
-| - | 이름 | github id |
-|--|--|--|
-| 팀장 | 김보민 | [@nimod7890](https://github.com/nimod7890)| |
-| 팀원 | 김지민 | [@moana16](https://github.com/moana16)|
-| 팀원 | 성락현 | [@racgoo](https://github.com/racgoo) |
+| 이름 | github id |
+|--|--|
+| 김보민 | [@nimod7890](https://github.com/nimod7890)| |
+| 성락현 | [@racgoo](https://github.com/racgoo) |
 
 
 

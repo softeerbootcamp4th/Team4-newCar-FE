@@ -1,7 +1,7 @@
-export { default as EventGuidelines } from './EventGuidelines';
-export { default as EventHero } from './eventHero';
-export { default as EventPrizes } from './EventPrizes';
-export { default as EventSteps } from './eventSteps';
-export { default as FastestQuiz } from './fastestQuiz';
-export { default as QuizHint } from './quizHint';
-export { default as TeamsDescriptions } from './teamsDescriptions';
+export { default as EventGuidelines } from './EventGuidelines.tsx';
+export { default as EventHero } from './eventHero/index.tsx';
+export { default as EventPrizes } from './EventPrizes.tsx';
+export { default as EventSteps } from './eventSteps/index.tsx';
+export { default as FastestQuiz } from './fastestQuiz/index.tsx';
+export { default as QuizHint } from './quizHint/index.tsx';
+export { default as TeamsDescriptions } from './teamsDescriptions/index.tsx';

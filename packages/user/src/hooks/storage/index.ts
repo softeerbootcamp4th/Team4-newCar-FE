@@ -1,18 +1,14 @@
 import { useState } from 'react';
-import { toast } from 'src/hooks/useToast';
-
-const STORAGE_KEY_PREFIX = 'hyundai-softeer-team4-';
+import { toast } from 'src/hooks/useToast.ts';
 
 function useStorage<T>(keyName: string, defaultValue: T) {
-	const prefixedKey = `${STORAGE_KEY_PREFIX}${keyName}`;
-
 	const [storedValue, setStoredValue] = useState(() => {
 		try {
-			const value = window.localStorage.getItem(prefixedKey);
+			const value = localStorage.getItem(keyName);
 			if (value) {
 				return JSON.parse(value);
 			}
-			window.localStorage.setItem(prefixedKey, JSON.stringify(defaultValue));
+			localStorage.setItem(keyName, JSON.stringify(defaultValue));
 			return defaultValue;
 		} catch (err) {
 			return defaultValue;
@@ -21,7 +17,7 @@ function useStorage<T>(keyName: string, defaultValue: T) {
 
 	const setValue = (newValue: T) => {
 		try {
-			window.localStorage.setItem(prefixedKey, JSON.stringify(newValue));
+			localStorage.setItem(keyName, JSON.stringify(newValue));
 		} catch (error) {
 			toast({ description: `${error}` });
 		}

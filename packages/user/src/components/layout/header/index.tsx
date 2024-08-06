@@ -1,6 +1,6 @@
-import Logo from './Logo';
-import NavigateTabs from './tab';
-import User from './user';
+import Logo from './Logo.tsx';
+import NavigateTabs from './tab/index.tsx';
+import User from './user/index.tsx';
 
 export default function Header() {
 	return (

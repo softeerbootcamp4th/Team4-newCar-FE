@@ -1,17 +1,17 @@
 import moment from 'moment';
 import { useEffect, useLayoutEffect, useState } from 'react';
-import QuizEventEditor from 'src/components/editor/QuizEventEditor';
+import QuizEventEditor from 'src/components/editor/QuizEventEditor.tsx';
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
-} from 'src/components/ui/accordion';
-import { Button } from 'src/components/ui/button';
-import { Input } from 'src/components/ui/input';
-import useEvent from 'src/hooks/useEvent';
-import { Quiz } from 'src/services/api/types/apiType';
-import { useModal } from 'src/store/provider/ModalProvider';
+} from 'src/components/ui/accordion.tsx';
+import { Button } from 'src/components/ui/button.tsx';
+import { Input } from 'src/components/ui/input.tsx';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { Quiz } from 'src/services/api/types/apiType.ts';
+import { useModal } from 'src/store/provider/ModalProvider.tsx';
 
 function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 	const { openModal } = useModal();

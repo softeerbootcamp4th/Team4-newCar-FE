@@ -1,6 +1,6 @@
-import LinkShare from 'src/components/shared/linkShare';
-import ContentCard from './ContentCard';
-import ContentsContainer from './ContentsContainer';
+import LinkShare from 'src/components/shared/linkShare/index.tsx';
+import ContentCard from './ContentCard.tsx';
+import ContentsContainer from './ContentsContainer.tsx';
 
 export default function StepThird() {
 	return (
@@ -22,10 +22,7 @@ function CopyAndShare() {
 
 function ShareCountExample() {
 	return (
-		<ContentCard
-			size={{ width: '280px', height: '420px' }}
-			imageUrl="/src/assets/images/step/3.png"
-		>
+		<ContentCard size={{ width: '280px', height: '420px' }} imageUrl="images/step/3.png">
 			내 링크로 접속한
 			<br />
 			친구 수 확인하기

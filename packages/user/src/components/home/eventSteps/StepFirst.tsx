@@ -1,5 +1,5 @@
-import ContentCard from './ContentCard';
-import ContentsContainer from './ContentsContainer';
+import ContentCard from './ContentCard.tsx';
+import ContentsContainer from './ContentsContainer.tsx';
 
 const CONTENTS = [
 	'물음표 카드 클릭!',
@@ -15,7 +15,7 @@ export default function StepFirst() {
 					key={content}
 					step={index + 1}
 					size={{ width: '293px', height: '390px' }}
-					imageUrl={`/src/assets/images/step/1-${index + 1}.png`}
+					imageUrl={`images/step/1-${index + 1}.png`}
 				>
 					{content}
 				</ContentCard>

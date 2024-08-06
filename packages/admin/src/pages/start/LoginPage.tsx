@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from 'src/components/ui/button';
-import { Input } from 'src/components/ui/input';
+import { Button } from 'src/components/ui/button.tsx';
+import { Input } from 'src/components/ui/input.tsx';
 
 function LoginPage() {
 	const [userId, setUserId] = useState('');

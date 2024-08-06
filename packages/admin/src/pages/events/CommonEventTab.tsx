@@ -1,16 +1,16 @@
 import moment, { Moment } from 'moment';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Button } from 'src/components/ui/button';
-import { Input } from 'src/components/ui/input';
-import useEvent from 'src/hooks/useEvent';
-import { CommonEvent } from 'src/services/api/types/apiType';
-import { useAlert } from 'src/store/provider/AlertProvider';
+import { Button } from 'src/components/ui/button.tsx';
+import { Input } from 'src/components/ui/input.tsx';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { CommonEvent } from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 import {
 	getKstTimeFromDateAndTime,
 	getPickerDateFromKst,
 	getPickerTimeFromKst,
-} from 'src/utils/time';
+} from 'src/utils/time.ts';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (

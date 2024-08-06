@@ -1,13 +1,11 @@
+import { CATEGORIES } from '@softeer/common/constants';
+import { Category } from '@softeer/common/types';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
-import { TEAM_HELMET_OPTIONS, TEAM_TYPES } from 'src/constants/team';
+import { TEAM_HELMET_OPTIONS } from 'src/constants/teamDescriptions.ts';
 
-function getTeamOgInfo(type: string | null): boolean {
-	if (type === null) {
-		return {};
-	}
-	if (TEAM_TYPES.includes(type as (typeof TEAM_TYPES)[number])) {
-	}
+function isValidTeamType(value: string | null): boolean {
+	return value !== null && (CATEGORIES as readonly string[]).includes(value);
 }
 
 function LinkShareMetaTag() {
@@ -15,21 +13,23 @@ function LinkShareMetaTag() {
 	const queryParams = new URLSearchParams(location.search);
 	const teamType = queryParams.get('teamType');
 
-	if (checkTeamType(teamType)) {
-		console.log(TEAM_HELMET_OPTIONS[teamType]);
+	// ?teamType=pet | teamType=place | ... 이런식으로 쿼리스트링 파싱해서 og, description 변경
+	let helmetOption = TEAM_HELMET_OPTIONS.pet;
+	if (isValidTeamType(teamType)) {
+		const result = TEAM_HELMET_OPTIONS[teamType as Category];
+		if (result) {
+			helmetOption = result;
+		}
 	}
 
 	return (
 		<Helmet>
-			{' '}
-			{/* <title>React Title</title> */}{' '}
-			<meta
-				name="description"
-				content="나만 알고 싶은 코스메틱 향기 브랜드 - 비누, 천연, 스프레이드"
-			/>{' '}
-			<meta property="og:image" content="https://example.com/my-image.jpg" />{' '}
-			<meta property="og:url" content={window.location.href} />{' '}
+			{/* 일반적인 메타 태그 설정 */}
+			<meta name="description" content={helmetOption.description} />
+			<meta property="og:image" content={helmetOption.image} />
+			<meta property="og:url" content={window.location.href} />
 		</Helmet>
 	);
 }
+
 export default LinkShareMetaTag;

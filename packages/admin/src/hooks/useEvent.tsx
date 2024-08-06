@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { API, METHOD } from 'src/constants/api';
+import { API, METHOD } from 'src/constants/api.ts';
 import {
 	CommonEvent,
 	PersonalityTest,
@@ -7,9 +7,9 @@ import {
 	QuizWithoutPostDate,
 	Response,
 	WinnerSetting,
-} from 'src/services/api/types/apiType';
-import { useAlert } from 'src/store/provider/AlertProvider';
-import fetchData from 'src/utils/fetchData';
+} from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
+import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
 	const { openAlert } = useAlert();

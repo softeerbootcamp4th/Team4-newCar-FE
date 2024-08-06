@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Input } from 'src/components/ui/input';
-import categoryList from 'src/constants/categoryList';
-import useEvent from 'src/hooks/useEvent';
-import { PersonalityChoice, PersonalityTest } from 'src/services/api/types/apiType';
-import { useAlert } from 'src/store/provider/AlertProvider';
-import { AlertType, useModal } from 'src/store/provider/ModalProvider';
+import { Input } from 'src/components/ui/input.tsx';
+import categoryList from 'src/constants/categoryList.ts';
+import useEvent from 'src/hooks/useEvent.tsx';
+import { PersonalityChoice, PersonalityTest } from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
+import { AlertType, useModal } from 'src/store/provider/ModalProvider.tsx';
 
 interface RaceEventEditorProps {
 	personalityTest: PersonalityTest;

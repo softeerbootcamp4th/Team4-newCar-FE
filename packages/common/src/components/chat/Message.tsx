@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Category } from 'src/types/category.ts';
 import { ChatUser } from 'src/types/chatUser.ts';
+import { cn } from 'src/utils/index.ts';
 
 interface MessageProps {
 	user: ChatUser;
@@ -24,10 +25,10 @@ export default function Message({
 
 	return (
 		<div className="flex w-full items-center gap-12">
-			<div className="flex min-w-[180px] max-w-[180px] items-center gap-3">
-				<img src={casper} className="h-8 w-11" alt="캐스퍼 캐릭터" />
-				<p className={`text-body-3 truncate ${textColor} font-medium`}>익명 {id} </p>
-				{!isMyMessage && <p className={`text-body-3 ${textColor} font-medium`}>(나)</p>}
+			<div className="flex w-[180px] items-center gap-3">
+				<img src={casper} style={{ width: '40px' }} alt="캐스퍼" />
+				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {id} </p>
+				{!isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
 			</div>
 			<p className={`text-body-3 truncate ${isMyMessage && 'font-medium'}`}>{children}</p>
 		</div>

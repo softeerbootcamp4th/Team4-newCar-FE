@@ -9,8 +9,7 @@ import {
 	keyframes,
 } from './src/styles/theme/index.ts';
 
-const config:Config = {
-	presets: [tailwindConfig],
+const config: Config = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		boxShadow,
@@ -21,6 +20,7 @@ const config:Config = {
 			container,
 		},
 	},
+	presets: [tailwindConfig],
 	plugins: [tailwindAnimate],
 };
 

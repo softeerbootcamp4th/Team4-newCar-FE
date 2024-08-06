@@ -8,7 +8,7 @@ export default function RealTimeChatting() {
 			<h6 className="text-heading-10 mb-[25px] font-medium">기대평을 남겨보세요!</h6>
 			<ChatInputArea />
 			<ChatList>
-				<Chat type="blocked" />
+				<Chat type="message" user={{ category: 'pet', id: 1234223 }} message="안녕" />
 				<Chat type="blocked" />
 				<Chat type="blocked" />
 				<Chat type="blocked" />

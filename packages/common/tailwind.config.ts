@@ -1,20 +1,20 @@
-import { colors, fontFamily, fontSize, fontWeight, spacing } from 'src/styles/theme/index.ts';
-import type { Config } from 'tailwindcss';
+import { colors, fontFamily, fontSize, fontWeight, spacing } from './src/styles/theme/index.ts';
 
-const tailwindConfig: Omit<Config, 'content'> = {
+const tailwindConfig = {
+	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		fontFamily,
 		fontWeight,
-		colors,
 		fontSize,
 		borderRadius: spacing,
 		gap: spacing,
 		margin: spacing,
 		padding: spacing,
 		extend: {
+			colors,
 			spacing,
 		},
 	},
+	plugins: [],
 };
-
 export default tailwindConfig;

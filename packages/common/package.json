@@ -85,12 +85,7 @@
 	},
 	"author": "nimod7890",
 	"devDependencies": {
-		"@svgr/core": "^8.1.0",
-		"@svgr/plugin-jsx": "^8.1.0",
-		"@svgr/plugin-svgo": "^8.1.0",
-		"@svgr/webpack": "^8.1.0",
 		"autoprefixer": "^10.4.20",
-		"esbuild-plugin-svgr": "^2.1.0",
 		"postcss": "^8.4.40",
 		"tailwind-merge": "^2.4.0",
 		"tailwindcss": "^3.4.7",
@@ -101,10 +96,5 @@
 	"packageManager": "yarn@4.3.1",
 	"dependencies": {
 		"clsx": "^2.1.1"
-	},
-	"resolutions": {
-		"@svgr/core": "^8.1.0",
-		"@svgr/plugin-jsx": "^8.1.0",
-		"@svgr/plugin-svgo": "^8.1.0"
 	}
 }

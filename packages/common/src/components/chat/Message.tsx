@@ -25,8 +25,8 @@ export default function Message({
 
 	return (
 		<div className="flex w-full items-center gap-12">
-			<div className="flex w-[180px] items-center gap-3">
-				<img src={casper} style={{ width: '40px' }} alt="캐스퍼" />
+			<div className="flex min-w-[180px] max-w-[180px] items-center gap-3">
+				<img src={casper} className="h-8 w-11" alt="캐스퍼" />
 				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {id} </p>
 				{isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
 			</div>

@@ -3,7 +3,6 @@ import useAuth from 'src/hooks/useAuth.tsx';
 
 export default function Chat({ type, user, message }: ChatProps) {
 	const { user: me } = useAuth();
-	const isMyMessage = me?.id === user?.id;
 
 	switch (type) {
 		case 'notice':
@@ -12,7 +11,7 @@ export default function Chat({ type, user, message }: ChatProps) {
 			return <BlockedChat />;
 		case 'message':
 			return (
-				<Message user={user} isMyMessage={isMyMessage}>
+				<Message user={user} isMyMessage={me?.id === user.id}>
 					{message}
 				</Message>
 			);

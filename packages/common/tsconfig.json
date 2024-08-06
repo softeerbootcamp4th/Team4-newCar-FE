@@ -6,5 +6,6 @@
 		}
 	},
 	"include": ["src/**/*", "tailwind.config.ts"],
+	"exclude": ["dist/*"],
 	"extends": "../../tsconfig.json"
 }

@@ -49,6 +49,7 @@ export default function LinkShare({ category }: LinkShareProps) {
 	return (
 		<div className="flex gap-3">
 			<LinkDisplay variants={variants} value={url} />
+			{/* Todo: 유형 검사 완료해야 가산점 받을 수 있다는 안내 tooltip 추가 */}
 			{category ? (
 				<LinkShareButton onClick={handleCopy} variants={category} />
 			) : (

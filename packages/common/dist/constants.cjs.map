@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/constants/categories.ts"],"names":["CATEGORIES","categories_default"],"mappings":";;AAAA,IAAMA,EAAa,CAAC,KAAA,CAAO,UAAW,OAAS,CAAA,QAAQ,EAEhDC,CAAQD,CAAAA","file":"constants.cjs","sourcesContent":["const CATEGORIES = ['pet', 'leisure', 'place', 'travel'] as const;\n\nexport default CATEGORIES;\n"]}

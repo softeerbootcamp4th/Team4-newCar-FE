@@ -22,10 +22,7 @@ function CopyAndShare() {
 
 function ShareCountExample() {
 	return (
-		<ContentCard
-			size={{ width: '280px', height: '420px' }}
-			imageUrl="/src/assets/images/step/3.png"
-		>
+		<ContentCard size={{ width: '280px', height: '420px' }} imageUrl="images/step/3.png">
 			내 링크로 접속한
 			<br />
 			친구 수 확인하기

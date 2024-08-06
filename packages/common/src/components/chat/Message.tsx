@@ -28,7 +28,7 @@ export default function Message({
 			<div className="flex w-[180px] items-center gap-3">
 				<img src={casper} style={{ width: '40px' }} alt="캐스퍼" />
 				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {id} </p>
-				{!isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
+				{isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
 			</div>
 			<p className={`text-body-3 truncate ${isMyMessage && 'font-medium'}`}>{children}</p>
 		</div>

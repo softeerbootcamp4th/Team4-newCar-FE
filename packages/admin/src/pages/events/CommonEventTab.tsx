@@ -45,7 +45,7 @@ function CommonEventBox({
 	const [endDate, setEndDate] = useState('');
 	const [startTime, setStartTime] = useState('00:00');
 	const [endTime, setEndTime] = useState('00:00');
-	const [eventManager, setEventManager] = useState('');
+	const [managerName, setManagerName] = useState('');
 	const [status, setStatus] = useState('');
 
 	useEffect(() => {
@@ -57,7 +57,7 @@ function CommonEventBox({
 			setStartTime(getPickerTimeFromKst(commonEvent.startTime));
 			setEndTime(getPickerTimeFromKst(commonEvent.endTime));
 			// manager, status
-			setEventManager(commonEvent.eventManager);
+			setManagerName(commonEvent.managerName);
 			setStatus(getStatus(moment(commonEvent.startTime), moment(commonEvent.endTime)));
 		}
 	}, [commonEvent]);
@@ -106,7 +106,7 @@ function CommonEventBox({
 	};
 
 	const saveManagerName = (newManagerName: string) => {
-		setEventManager(newManagerName);
+		setManagerName(newManagerName);
 	};
 
 	const handleSave = () => {
@@ -114,7 +114,7 @@ function CommonEventBox({
 			handleUpdateEvent({
 				startTime: getKstTimeFromDateAndTime(startDate, startTime),
 				endTime: getKstTimeFromDateAndTime(endDate, endTime),
-				eventManager,
+				managerName,
 				eventName: commonEvent.eventName,
 			});
 		});
@@ -129,7 +129,7 @@ function CommonEventBox({
 				description="담당자"
 				element={
 					<Input
-						value={eventManager}
+						value={managerName}
 						onChange={(event) => {
 							saveManagerName(event.target.value);
 						}}

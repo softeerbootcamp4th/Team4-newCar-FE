@@ -1,5 +1,5 @@
-import { Category } from '@softeer/common/types';
 import { PropsWithChildren } from 'react';
+import { Category } from 'src/types/category.ts';
 import { ChatUser } from 'src/types/chatUser.ts';
 
 interface MessageProps {
@@ -8,10 +8,10 @@ interface MessageProps {
 }
 
 const TYPES: Record<Category, { iconPath: string; textColor: string }> = {
-	pet: { iconPath: '/casper/yellow.svg', textColor: 'text-cream-600' },
-	leisure: { iconPath: '/casper/khaki.svg', textColor: 'text-khaki-400' },
-	travel: { iconPath: '/casper/orange.svg', textColor: 'text-orange-500' },
-	place: { iconPath: '/casper/white.svg', textColor: 'text-gray-300' },
+	pet: { iconPath: 'src/assets/casper/yellow.svg', textColor: 'text-cream-600' },
+	leisure: { iconPath: 'src/assets/casper/khaki.svg', textColor: 'text-khaki-400' },
+	travel: { iconPath: 'src/assets/casper/orange.svg', textColor: 'text-orange-500' },
+	place: { iconPath: 'src/assets/casper/white.svg', textColor: 'text-gray-300' },
 };
 
 export default function Message({

@@ -1,14 +1,13 @@
-/* eslint-disable import/order */
-import { colors, fontFamily, fontSize, fontWeight, spacing } from 'src/styles/theme/index.ts';
-import type { Config } from 'tailwindcss';
-import tailwindAnimate from 'tailwindcss-animate';
+import { Config } from 'tailwindcss';
+import { colors, fontFamily, fontSize, fontWeight, spacing } from './src/styles/theme/index.ts';
 
-const tailwindConfig: Omit<Config, 'content'> = {
+const tailwindConfig: Config = {
+	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		fontFamily,
 		fontWeight,
-		colors,
 		fontSize,
+		colors,
 		borderRadius: spacing,
 		gap: spacing,
 		margin: spacing,
@@ -17,7 +16,6 @@ const tailwindConfig: Omit<Config, 'content'> = {
 			spacing,
 		},
 	},
-	plugins: [tailwindAnimate],
+	plugins: [],
 };
-
 export default tailwindConfig;

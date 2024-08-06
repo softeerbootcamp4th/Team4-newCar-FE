@@ -1,6 +1,8 @@
 import tailwindConfig from '@softeer/common/configs';
+import tailwindAnimate from 'tailwindcss-animate';
 
 const config = {
+	presets: [tailwindConfig],
 	darkMode: ['selector'],
 	content: ['./src/**/*.{ts,tsx}'],
 	prefix: '',
@@ -79,7 +81,7 @@ const config = {
 			},
 		},
 	},
-	presets: [tailwindConfig],
+	plugins: [tailwindAnimate],
 };
 
 export default config;

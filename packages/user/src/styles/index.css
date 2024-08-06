@@ -82,6 +82,19 @@ footer {
 	@apply snap-start;
 }
 
+.group:hover > *:not(:hover),
+.group:focus-within > *:not(:focus) {
+  opacity: 0.4;
+  transform: scale(1);	
+}
+
+.group > *:hover,
+.group > *:focus {
+  opacity: 1;
+  transform: scale(1.2);
+	z-index: 1
+}
+
 /* shadcn ui */
 
 @layer base {
@@ -89,3 +102,4 @@ footer {
 		@apply bg-background text-foreground font-normal;
 	}
 }
+

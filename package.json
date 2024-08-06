@@ -13,7 +13,7 @@
 		"start:user": "yarn workspace @softeer/common build && yarn workspace user start",
 		"build:admin": "yarn workspace admin build",
 		"build:user": "yarn workspace user build",
-    "build:common": "yarn workspace @softeer/common build",
+		"build:common": "yarn workspace @softeer/common build",
 		"lint:fix": "eslint --fix --ext .js,.jsx --no-cache",
 		"prettier:fix": "prettier --write './packages/**/*.{js,jsx,ts,tsx}' --cache --cache-location=.yarn/prettier-cache"
 	},

@@ -2,19 +2,21 @@
 <html lang="kr">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="favicon" href="/favicon/favicon.ico" />
-    <title>4팀 이벤트</title>
+    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property='og:url' content='url hh' />
     <meta property='og:type' content='website' />
-    <meta property='og:title' content='title gg' />
-    <meta property='og:description' content='여행' />
-    <meta property='og:image' content='Image gg' />
-    <meta property='og:image:type' content='image/jpg' />
+    <meta property='og:title' content='여행의 정석' />
+    <meta property='og:description' content='캐스퍼 이벤트로 초대합니다.' />
+    <meta property='og:image' content='/link/og-travel.png' />
+    <meta property='og:image:type' content='image/png' />
 </head>
 <body>
     <script>
-        window.location.href = "http://www.batro.org";
+        const currentUrl = new URL(window.location.href);
+        const baseUrl = "http://www.batro.org";
+        const newUrl = `${baseUrl}${currentUrl.pathname}${currentUrl.search}`;
+        window.location.href = newUrl;
     </script>
 </body>
 </html>

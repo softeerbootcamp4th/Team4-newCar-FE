@@ -20,24 +20,3 @@ export const TEAM_DESCRIPTIONS: Record<Category, TeamDescriptions> = {
 		summary: '오프로드도 캐스퍼와 함께',
 	},
 } as const;
-
-export type HelmetOption = { image: string; description: string };
-
-export const TEAM_HELMET_OPTIONS: Record<Category, HelmetOption> = {
-	pet: {
-		description: '펫 프렌들리\n반려동물의 편안하고\n안전한 여행을 위한',
-		image: '/images/card/leisure.png',
-	},
-	travel: {
-		description: '여행의 정석\n아웃도어 활동을 쉽고 편하게',
-		image: '/images/card/pet.png',
-	},
-	place: {
-		description: '공간활용의 기술\n많은 물건도 구석구석 알차게',
-		image: '/images/card/place.png',
-	},
-	leisure: {
-		description: '펫 프렌들리\n레저의 정석',
-		image: '/image/card/travel.png',
-	},
-} as const;

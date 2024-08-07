@@ -1,5 +1,4 @@
-import moment from 'moment';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import QuizEventEditor from 'src/components/editor/QuizEventEditor.tsx';
 import {
 	Accordion,
@@ -51,83 +50,17 @@ function QuizEventBox({ quiz, index }: { quiz: Quiz; index: number }) {
 	);
 }
 
-function getDatesBetween(startDate: string, endDate: string) {
-	const start = moment(startDate).startOf('day'); // 시작 날짜
-	const end = moment(endDate).endOf('day'); // 종료 날짜
-	const dates = [];
-
-	const currentDate = start.clone(); // 현재 날짜 초기화
-	currentDate.add(1, 'day');
-	while (currentDate <= end) {
-		dates.push(currentDate.format('YYYY-MM-DD')); // 날짜를 배열에 추가
-		currentDate.add(1, 'day'); // 날짜를 하루 증가
-	}
-
-	return dates;
-}
-
-const generateQuiz = (date: string, id: number): Quiz => ({
-	id,
-	winnerCount: 0,
-	postDate: date,
-	question: `${id} ID입니다.`,
-	choices: [
-		{
-			num: 0,
-			text: '',
-		},
-		{
-			num: 1,
-			text: '',
-		},
-		{
-			num: 2,
-			text: '',
-		},
-		{
-			num: 3,
-			text: '',
-		},
-	],
-	correctAnswer: 0,
-});
-
 function QuizEventTab() {
-	const { quizEvent, refechQuizEvent, commonEvent } = useEvent();
-	const [quizList, setQuizList] = useState<Quiz[]>([]);
+	const { quizEvent, refechQuizEvent } = useEvent();
 
 	useLayoutEffect(() => {
 		refechQuizEvent();
 	}, []);
-	useEffect(() => {
-		if (commonEvent && quizEvent) {
-			const lastQuiz = quizEvent[quizEvent.length - 1];
-			if (lastQuiz.postDate) {
-				const aa = getDatesBetween(lastQuiz.postDate, commonEvent.endTime);
-				const dummyQuizList = aa.map((_aa, index) => generateQuiz(_aa, lastQuiz.id + index + 1));
-				const tmpQuizList: Quiz[] = [...quizEvent, ...dummyQuizList];
-				setQuizList(tmpQuizList);
-			}
-		}
-	}, [quizEvent]);
-
-	// 더미데이터 추가해서 처리해야함,
-	// const [quizList, setQuizList] = useState<Quiz[]>([]);
-	// useLayoutEffect(() => {
-	// 	refechQuizEvent();
-	// 	if (commonEvent) {
-	// 		console.log(getDatesBetween(commonEvent.startTime, commonEvent.endTime));
-	// 	}
-	// }, []);
-
-	// useEffect(() => {
-	// 	// sync real quiz
-	// }, [quizEvent]);
 
 	return (
 		<div className="mt-4 flex flex-col gap-2">
 			<Accordion type="single" collapsible>
-				{quizList.map((quiz, index) => (
+				{quizEvent?.map((quiz, index) => (
 					<QuizEventBox quiz={quiz} index={index} />
 				))}
 			</Accordion>

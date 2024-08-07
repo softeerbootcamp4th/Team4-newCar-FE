@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button.tsx';
 import { Input } from 'src/components/ui/input.tsx';
+import { ConfirmMessage, ErrorMessage } from 'src/constants/message.ts';
 import useEvent from 'src/hooks/useEvent.tsx';
 import { CommonEvent } from 'src/services/api/types/apiType.ts';
 import { useAlert } from 'src/store/provider/AlertProvider.tsx';
@@ -41,10 +42,13 @@ function CommonEventBox({
 	handleUpdateEvent: (newCommonEvent: CommonEvent) => void;
 }) {
 	const { openAlert, addAlertCallback } = useAlert();
+	// 흠 이거 reduce 쓰면 뭔가 더 복잡해 보임 -> 유사하게 날짜 수정 로직 생기면 공통 util로 빼는 방식으로 변경
 	const [startDate, setStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');
+
 	const [startTime, setStartTime] = useState('00:00');
 	const [endTime, setEndTime] = useState('00:00');
+
 	const [managerName, setManagerName] = useState('');
 	const [status, setStatus] = useState('');
 
@@ -71,7 +75,7 @@ function CommonEventBox({
 		if (validateDate(startMoment, endMoment)) {
 			setStartDate(date);
 		} else {
-			toast('올바르지 않은 기간입니다.');
+			toast(ErrorMessage.INVALID_DURATION);
 		}
 	};
 
@@ -81,7 +85,7 @@ function CommonEventBox({
 		if (validateDate(startMoment, endMoment)) {
 			setEndDate(date);
 		} else {
-			toast('올바르지 않은 기간입니다.');
+			toast(ErrorMessage.INVALID_DURATION);
 		}
 	};
 
@@ -91,7 +95,7 @@ function CommonEventBox({
 		if (validateDate(startMoment, endMoment)) {
 			setStartTime(time);
 		} else {
-			toast('올바르지 않은 기간입니다.');
+			toast(ErrorMessage.INVALID_DURATION);
 		}
 	};
 
@@ -101,7 +105,7 @@ function CommonEventBox({
 		if (validateDate(startMoment, endMoment)) {
 			setEndTime(time);
 		} else {
-			toast('올바르지 않은 기간입니다.');
+			toast(ErrorMessage.INVALID_DURATION);
 		}
 	};
 
@@ -118,7 +122,7 @@ function CommonEventBox({
 				eventName: commonEvent.eventName,
 			});
 		});
-		openAlert('이벤트를 수정할까요?', 'confirm');
+		openAlert(ConfirmMessage.EVENT_CHANGE, 'confirm');
 	};
 
 	return (

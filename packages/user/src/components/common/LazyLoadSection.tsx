@@ -9,7 +9,7 @@ function LazyLoadSection<T extends HTMLElement>({ component: Component }: LazyLo
 	const [ref, isIntersecting] = useIntersectionObserver<T>();
 
 	return (
-		<div ref={ref as React.RefObject<HTMLDivElement>} className="min-h-[1000px]">
+		<div ref={ref as React.RefObject<HTMLDivElement>} className="min-h-[500px]">
 			{isIntersecting && (
 				<Suspense fallback={null}>
 					<Component />

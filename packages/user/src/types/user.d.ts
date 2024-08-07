@@ -4,7 +4,7 @@ interface User {
 	id: number;
 	name: string;
 	category: Category;
-	shareUrl: string;
+	shareUrl?: string | null;
 }
 
 // eslint-disable-next-line import/prefer-default-export

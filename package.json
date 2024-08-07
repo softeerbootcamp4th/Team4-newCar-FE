@@ -9,10 +9,11 @@
 		"hoistingLimits": "workspaces"
 	},
 	"scripts": {
-		"start:admin": "yarn workspace @softeer/common build & yarn workspace admin start",
+		"start:admin": "yarn workspace @softeer/common build && yarn workspace admin start",
 		"start:user": "yarn workspace @softeer/common build && yarn workspace user start",
 		"build:admin": "yarn workspace admin build",
 		"build:user": "yarn workspace user build",
+		"build:common": "yarn workspace @softeer/common build",
 		"lint:fix": "eslint --fix --ext .js,.jsx --no-cache",
 		"prettier:fix": "prettier --write './packages/**/*.{js,jsx,ts,tsx}' --cache --cache-location=.yarn/prettier-cache"
 	},
@@ -52,5 +53,5 @@
 		"tailwindcss": "^3.4.6",
 		"typescript": "^5.5.4"
 	},
-	"packageManager": "yarn@4.3.1"
+	"packageManager": "yarn@4.4.0"
 }

@@ -18,4 +18,7 @@ export default defineConfig({
 	},
 	format: ['cjs', 'esm'],
 	outDir: 'dist',
+	loader: {
+		'.svg': 'file',
+	},
 });

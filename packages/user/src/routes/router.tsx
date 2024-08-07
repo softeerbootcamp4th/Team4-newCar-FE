@@ -1,8 +1,11 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import Layout from 'src/components/layout/index.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import AuthProvider from 'src/context/auth/index.tsx';
-import HomePage from 'src/pages/HomePage.tsx';
+
+const HomePage = lazy(() => import('src/pages/HomePage.tsx'));
+const EventPage = lazy(() => import('src/pages/EventPage.tsx'));
 
 const routes: RouteObject[] = [
 	{
@@ -16,11 +19,20 @@ const routes: RouteObject[] = [
 		children: [
 			{
 				index: true,
-				element: <HomePage />,
+				element: (
+					<Suspense>
+						<HomePage />
+					</Suspense>
+				),
 			},
 			{
 				path: RoutePaths.Event,
-				element: <>event</>,
+				element: (
+					// TODO: event page loading component
+					<Suspense>
+						<EventPage />
+					</Suspense>
+				),
 			},
 		],
 	},

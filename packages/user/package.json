@@ -22,13 +22,13 @@
 		"@radix-ui/react-visually-hidden": "^1.1.0",
 		"@softeer/common": "*",
 		"@tanstack/react-query": "^5.51.11",
-		"@vitejs/plugin-react": "^4.3.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"jsdom": "^24.1.1",
 		"lucide-react": "^0.417.0"
 	},
 	"devDependencies": {
+		"@vitejs/plugin-react": "^4.3.1",
 		"autoprefixer": "^10.4.19",
 		"postcss": "^8.4.39",
 		"rollup-plugin-visualizer": "^5.12.0",

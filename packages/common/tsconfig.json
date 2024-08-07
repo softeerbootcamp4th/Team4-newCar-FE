@@ -3,8 +3,10 @@
 		"baseUrl": ".",
 		"paths": {
 			"src/*": ["src/*"]
-		}
+		},
+		"typeRoots": ["declarations.d.ts"]
 	},
-	"include": ["src/**/*", "tailwind.config.ts"],
+	"include": ["src/**/*", "declarations.d.ts"],
+	"exclude": ["dist/*"],
 	"extends": "../../tsconfig.json"
 }

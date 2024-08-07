@@ -4,7 +4,7 @@ import inputStyles from 'src/styles/input.ts';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const ChatInput = React.forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
 	<input
 		type="text"
 		autoComplete="off"
@@ -19,4 +19,4 @@ const ChatInput = React.forwardRef<HTMLInputElement, InputProps>(({ className, .
 	/>
 ));
 
-export default ChatInput;
+export default Input;

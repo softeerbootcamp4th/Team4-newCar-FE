@@ -2,6 +2,7 @@ import { lazy, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
 import EventHero from 'src/components/home/eventHero/index.tsx';
+import SECTION_ID from 'src/constants/sectionId.ts';
 
 const EventPrizes = lazy(() => import('src/components/home/EventPrizes.tsx'));
 const EventSteps = lazy(() => import('src/components/home/eventSteps/index.tsx'));
@@ -14,7 +15,7 @@ export default function HomePage() {
 	const { state } = useLocation();
 
 	useEffect(() => {
-		scrollToSection(state?.sectionId);
+		scrollToSection(state?.sectionId ?? SECTION_ID.HERO);
 	}, [state]);
 
 	return (

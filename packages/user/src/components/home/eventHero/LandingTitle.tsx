@@ -1,5 +1,4 @@
 import { PropsWithChildren, Suspense } from 'react';
-import HighLight from 'src/assets/icons/highlight.svg?react';
 import EventDurationText from './EventDurationText.tsx';
 
 export default function LandingTitle() {
@@ -31,14 +30,11 @@ function Header({ children }: PropsWithChildren) {
 function Subtitle({ children }: PropsWithChildren) {
 	return (
 		<div className="text-heading-12 relative text-center font-medium">
-			<div className="absolute -left-6 top-1 w-[85px]">
-				<HighLight />
-			</div>
-			{/* <img
+			<img
 				className="absolute -left-6 top-1 w-[85px]"
-				src="/src/assets/icons/highlight.svg"
+				src="/images/hero/highlight.png"
 				alt="서브 타이틀 강조"
-			/> */}
+			/>
 			{children}
 		</div>
 	);

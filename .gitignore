@@ -12,3 +12,7 @@
 #!.yarn/cache
 .pnp.*
 .env
+
+
+# build 결과 시각화
+**/*/stats.html

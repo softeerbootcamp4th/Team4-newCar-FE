@@ -4,7 +4,6 @@ import {
 	CommonEvent,
 	PersonalityTest,
 	Quiz,
-	QuizWithoutPostDate,
 	Response,
 	WinnerSetting,
 } from 'src/services/api/types/apiType.ts';
@@ -61,7 +60,7 @@ const useEvent = () => {
 		mutationFn: async (quizEvent: Quiz) => {
 			const tmp = quizEvent;
 			delete tmp.postDate;
-			const payload: QuizWithoutPostDate = tmp;
+			const payload: Quiz = tmp;
 			const response = await fetchData({
 				path: API.QUIZ,
 				method: METHOD.POST,

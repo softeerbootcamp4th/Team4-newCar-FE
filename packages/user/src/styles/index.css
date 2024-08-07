@@ -77,8 +77,7 @@ main {
 	@apply snap-y snap-mandatory overflow-auto;
 }
 
-section,
-footer {
+section {
 	@apply snap-start;
 }
 

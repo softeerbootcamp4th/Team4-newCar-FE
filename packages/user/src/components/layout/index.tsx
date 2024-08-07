@@ -1,9 +1,12 @@
+import { lazy } from 'react';
 import { Outlet } from 'react-router-dom';
+import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
 import Banner from './banner/index.tsx';
 import BodyContainer from './BodyContainer.tsx';
-import Footer from './footer/index.tsx';
 import Header from './header/index.tsx';
 import TopSectionContainer from './TopSectionContainer.tsx';
+
+const Footer = lazy(() => import('./footer/index.tsx'));
 
 export default function Layout() {
 	return (
@@ -14,7 +17,7 @@ export default function Layout() {
 			</TopSectionContainer>
 			<BodyContainer>
 				<Outlet />
-				<Footer />
+				<InViewLoadSection<HTMLDivElement> component={Footer} />
 			</BodyContainer>
 		</div>
 	);

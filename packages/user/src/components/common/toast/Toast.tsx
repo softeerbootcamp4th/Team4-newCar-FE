@@ -86,5 +86,5 @@ export {
 	ToastProvider,
 	ToastViewport,
 	type ToastActionElement,
-	type ToastProps
+	type ToastProps,
 };

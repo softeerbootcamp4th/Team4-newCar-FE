@@ -12,6 +12,7 @@ import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
 	const { openAlert } = useAlert();
+
 	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
@@ -57,10 +58,13 @@ const useEvent = () => {
 
 	const quizEventMutation = useMutation({
 		mutationFn: async (quizEvent: Quiz) => {
+			const tmp = quizEvent;
+			delete tmp.postDate;
+			const payload: Quiz = tmp;
 			const response = await fetchData({
 				path: API.QUIZ,
 				method: METHOD.POST,
-				payload: quizEvent,
+				payload,
 			});
 			const result = await response.json();
 			return result;
@@ -81,7 +85,7 @@ const useEvent = () => {
 				method: METHOD.GET,
 			});
 			const result = await response.json();
-			if (result.status === 200) return result;
+			if (response.status === 200) return result;
 			return [];
 		},
 		queryKey: [API.RACING_WINNERS],

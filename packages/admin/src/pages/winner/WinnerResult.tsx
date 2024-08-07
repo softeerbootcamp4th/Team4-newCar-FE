@@ -2,8 +2,10 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import Pagination from 'src/components/common/Pagination.tsx';
 import Tab from 'src/components/common/Tab.tsx';
 import ResultTable from 'src/components/table/ResultTable.tsx';
+import { Button } from 'src/components/ui/button.tsx';
 import useEvent from 'src/hooks/useEvent.tsx';
 import { RacingWinner } from 'src/services/api/types/apiType.ts';
+import excelDownload from 'src/utils/xlsx.ts';
 
 const TabName = {
 	QUIZ: 'QUIZ',
@@ -58,11 +60,20 @@ function WinnerResult() {
 			setRows(getRows(pageIndex, racingWinners));
 			setHeaders(racingHeaders);
 		}
-	}, [racingWinners, pageIndex]);
+	}, [racingWinners, pageIndex, tabName]);
 
 	useEffect(() => {
 		setPageIndex(0);
 	}, [tabName]);
+
+	const hnadleDownload = () => {
+		if (tabName === TabName.QUIZ && racingWinners !== undefined) {
+			excelDownload(racingWinners, '퀴즈 위너');
+		}
+		if (tabName === TabName.RACE && racingWinners !== undefined) {
+			excelDownload(racingWinners, '레이싱 위너');
+		}
+	};
 
 	return (
 		<div className="flex h-full w-full flex-col gap-4">
@@ -71,6 +82,11 @@ function WinnerResult() {
 				setSelectedTabName={setTabName}
 				selectedTabName={tabName}
 			/>
+			<div>
+				<Button onClick={hnadleDownload} className="mb-4">
+					excel 파일로 받기
+				</Button>
+			</div>
 			<ResultTable headers={headers} rows={rows} />
 			<Pagination pageIndex={pageIndex} setPageIndex={setPageIndex} total={total} />
 		</div>

@@ -7,6 +7,7 @@ import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 
 function RaceWinnerDraw() {
 	const { updateRacingWinner } = useEvent();
+
 	const { openAlert, addAlertCallback } = useAlert();
 
 	const [rankList, setRankList] = useState<WinnerSetting[]>([]);

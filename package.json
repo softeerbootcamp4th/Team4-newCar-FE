@@ -25,7 +25,8 @@
 		"react-helmet-async": "^2.0.5",
 		"react-router-dom": "^6.25.1",
 		"react-toastify": "^10.0.5",
-		"tailwind-merge": "^2.4.0"
+		"tailwind-merge": "^2.4.0",
+		"xlsx": "^0.18.5"
 	},
 	"devDependencies": {
 		"@types/eslint": "^8",

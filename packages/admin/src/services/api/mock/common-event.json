@@ -1,6 +1,6 @@
 {
 	"eventName": "common Event 테스트!!",
-	"eventManager": "배진환",
+	"managerName": "배진환",
 	"status": "COMPLETED",
 	"startTime": "2024-07-30T08:24:37.763",
 	"endTime": "2024-07-30T08:24:37.763"

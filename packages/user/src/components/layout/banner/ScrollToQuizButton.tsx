@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg?react';
-import QUIZ_SECTION_ID from 'src/constants/quizSectionId.ts';
 import RoutePaths from 'src/constants/routePath.ts';
+import SECTION_ID from 'src/constants/sectionId.ts';
 
 export default function ScrollToQuizButton() {
 	const navigate = useNavigate();
 
 	const handleClick = () =>
 		navigate(RoutePaths.Home, {
-			state: {
-				sectionId: QUIZ_SECTION_ID,
-			},
+			state: { sectionId: SECTION_ID.QUIZ },
 		});
 
 	return (

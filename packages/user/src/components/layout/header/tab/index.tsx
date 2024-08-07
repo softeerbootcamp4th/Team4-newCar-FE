@@ -5,7 +5,7 @@ import RoutePaths from 'src/constants/routePath.ts';
 import NavigateTab from './NavigateTab.tsx';
 import SelectedTabIndicator from './SelectedTabIndicator.tsx';
 
-type Tab = keyof typeof RoutePaths;
+type Tab = keyof typeof RoutePaths ;
 
 const tabs: { label: string; tab: Tab }[] = [
 	{ label: '이벤트 소개', tab: 'Home' },
@@ -15,7 +15,7 @@ const tabs: { label: string; tab: Tab }[] = [
 export default function NavigateTabs() {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const [selectedTab, setSelectedTab] = useState<Tab>('Home');
+	const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
 
 	useEffect(() => {
 		setSelectedTab(location.pathname.includes('event') ? 'Event' : 'Home');
@@ -40,7 +40,7 @@ export default function NavigateTabs() {
 					</NavigateTab>
 				))}
 			</div>
-			<SelectedTabIndicator selectedTab={selectedTab} />
+			{selectedTab && <SelectedTabIndicator selectedTab={selectedTab} />}
 		</div>
 	);
 }

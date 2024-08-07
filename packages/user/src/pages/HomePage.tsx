@@ -1,6 +1,6 @@
 import { lazy, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import LazyLoadSection from 'src/components/common/LazyLoadSection.tsx';
+import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
 import EventHero from 'src/components/home/eventHero/index.tsx';
 
 const EventPrizes = lazy(() => import('src/components/home/EventPrizes.tsx'));
@@ -20,13 +20,13 @@ export default function HomePage() {
 	return (
 		<>
 			<EventHero />
-			<LazyLoadSection<HTMLDivElement> component={EventPrizes} />
-			<LazyLoadSection<HTMLDivElement> component={EventSteps} />
+			<InViewLoadSection<HTMLDivElement> component={EventPrizes} />
+			<InViewLoadSection<HTMLDivElement> component={EventSteps} />
 			{/* 배너 바로가기 기능 동작을 위해 view port load 하지 않음 */}
 			<FastestQuiz />
-			<LazyLoadSection<HTMLDivElement> component={QuizHint} />
-			<LazyLoadSection<HTMLDivElement> component={TeamsDescriptions} />
-			<LazyLoadSection<HTMLDivElement> component={EventGuidelines} />
+			<InViewLoadSection<HTMLDivElement> component={QuizHint} />
+			<InViewLoadSection<HTMLDivElement> component={TeamsDescriptions} />
+			<InViewLoadSection<HTMLDivElement> component={EventGuidelines} />
 		</>
 	);
 }

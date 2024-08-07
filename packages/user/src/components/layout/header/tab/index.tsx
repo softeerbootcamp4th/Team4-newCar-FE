@@ -5,7 +5,7 @@ import RoutePaths from 'src/constants/routePath.ts';
 import NavigateTab from './NavigateTab.tsx';
 import SelectedTabIndicator from './SelectedTabIndicator.tsx';
 
-type Tab = keyof typeof RoutePaths ;
+type Tab = keyof typeof RoutePaths;
 
 const tabs: { label: string; tab: Tab }[] = [
 	{ label: '이벤트 소개', tab: 'Home' },

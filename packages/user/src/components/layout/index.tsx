@@ -1,5 +1,6 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Outlet } from 'react-router-dom';
+import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
 import Banner from './banner/index.tsx';
 import BodyContainer from './BodyContainer.tsx';
 import Header from './header/index.tsx';
@@ -16,9 +17,7 @@ export default function Layout() {
 			</TopSectionContainer>
 			<BodyContainer>
 				<Outlet />
-				<Suspense>
-					<Footer />
-				</Suspense>
+				<InViewLoadSection<HTMLDivElement> component={Footer} />
 			</BodyContainer>
 		</div>
 	);

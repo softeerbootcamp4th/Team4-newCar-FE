@@ -26,6 +26,9 @@ function LinkShareMetaTag() {
 		<Helmet>
 			{/* 일반적인 메타 태그 설정 */}
 			<meta name="description" content={helmetOption.description} />
+			<meta property="og:title" content="OG 타이틀ㅎㅎ" />
+			<meta property="og:description" content={helmetOption.description} />
+			<meta property="og:type" content="website" />
 			<meta property="og:image" content={helmetOption.image} />
 			<meta property="og:url" content={window.location.href} />
 		</Helmet>

@@ -77,10 +77,6 @@ main {
 	@apply snap-y snap-mandatory overflow-auto;
 }
 
-section {
-	@apply snap-start;
-}
-
 /* 팀 소개 카드 리스트 */
 
 .group-description:hover > *:not(:hover),

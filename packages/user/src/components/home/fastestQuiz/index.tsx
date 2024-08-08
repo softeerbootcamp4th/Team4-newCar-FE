@@ -6,7 +6,7 @@ import TopSection from './TopSection.tsx';
 /** 선착순 퀴즈 설명 섹션 */
 export default function FastestQuiz() {
 	return (
-		<section id={SECTION_ID.QUIZ} className="bg-neutral-700 pt-[120px]">
+		<section id={SECTION_ID.QUIZ} className="bg-neutral-700 pt-[120px] snap-start">
 			<div className="gap-15 flex flex-col items-center">
 				<TopSection />
 				<QuizImages />

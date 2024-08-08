@@ -2,6 +2,7 @@ import { ChatList } from '@softeer/common/components';
 import Chat from 'src/components/event/chatting/Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
 
+/** 실시간 기대평 섹션 */
 export default function RealTimeChatting() {
 	return (
 		<section className="container flex max-w-[1200px] flex-col items-center pb-[115px] pt-[95px]">

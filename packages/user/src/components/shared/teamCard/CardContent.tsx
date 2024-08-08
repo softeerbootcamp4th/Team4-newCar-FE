@@ -1,18 +1,9 @@
 import { PropsWithChildren } from 'react';
-import type { TeamDescriptions } from 'src/constants/teamDescriptions.ts';
 
-export default function CardContent({
-	title,
-	summary,
-	children,
-}: PropsWithChildren<TeamDescriptions>) {
+export default function CardContent({ children }: PropsWithChildren) {
 	return (
 		<div className="relative z-10 flex h-full flex-col items-center justify-between">
-			<div className="text-center">
-				<h5>{title}</h5>
-				<p className="text-detail-2 whitespace-pre-line">{summary}</p>
-			</div>
-			<div>{children}</div>
+			{children}
 		</div>
 	);
 }

@@ -67,11 +67,11 @@ p {
 	@apply text-body-1 font-normal;
 }
 
-p > strong {
+h1 > strong, h2 > strong, h3 > strong, h4 > strong, h5 > strong, h6 > strong, p > strong {
 	@apply text-primary;
 }
 
-/** scroll snap */
+/* scroll snap */
 
 main {
 	@apply snap-y snap-mandatory overflow-auto;
@@ -81,18 +81,42 @@ section {
 	@apply snap-start;
 }
 
-.group:hover > *:not(:hover),
-.group:focus-within > *:not(:focus) {
+/* 팀 소개 카드 리스트 */
+
+.group-description:hover > *:not(:hover),
+.group-description:focus-within > *:not(:focus) {
+	@apply transition-all duration-150;
   opacity: 0.4;
   transform: scale(1);	
 }
 
-.group > *:hover,
-.group > *:focus {
-  opacity: 1;
-  transform: scale(1.2);
+.group-description > *:hover,
+.group-description > *:focus {
+	@apply transition-all duration-150;
+	opacity: 1;
+  transform: scale(1.1);
 	z-index: 1
 }
+
+/* 레이싱 unassigned 유형 카드 */
+
+.gradient-border {
+	position: relative;
+	overflow: hidden;
+	padding: 2px; 
+}
+
+.gradient-border::before {
+	@apply bg-gradient-border;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-size: 200% 200%;
+	z-index: -1;
+}	
 
 /* shadcn ui */
 
@@ -101,4 +125,3 @@ section {
 		@apply bg-background text-foreground font-normal;
 	}
 }
-

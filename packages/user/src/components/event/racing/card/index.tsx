@@ -6,7 +6,6 @@ import UnassignedCard from './UnassignedCard.tsx';
 
 export default function RacingCard() {
 	const { user } = useAuth();
-	// const user = { id: 1, name: '안녕', category: 'leisure' as Category, shareUrl: 'string' };
 
 	return (
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">

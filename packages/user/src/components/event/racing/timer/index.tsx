@@ -25,7 +25,7 @@ export default function EventTimer() {
 
   return useMemo(
     () => (
-      <div className="flex space-x-4 items-center justify-center">
+      <div className="flex space-x-10 items-center justify-center">
         <TimeUnit value={timeLeft.days} label="DAY" />
         <TimeUnit value={timeLeft.hours} label="HOUR" />
         <TimeUnit value={timeLeft.minutes} label="MIN" />

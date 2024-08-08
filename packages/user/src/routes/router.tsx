@@ -5,7 +5,7 @@ import LinkShareMetaTag from 'src/components/shared/linkShare/LinkShareMetaTag.t
 import RoutePaths from 'src/constants/routePath.ts';
 import AuthProvider from 'src/context/auth/index.tsx';
 import HomePage from 'src/pages/HomePage.tsx';
-// const HomePage = lazy(() => import('src/pages/HomePage.tsx'));
+
 const EventPage = lazy(() => import('src/pages/EventPage.tsx'));
 
 const routes: RouteObject[] = [

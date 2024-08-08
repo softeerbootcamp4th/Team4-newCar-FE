@@ -15,6 +15,6 @@ export default function useGetEventDuration() {
 const fetchMockData = (): Promise<EventDuration> =>
 	new Promise((resolve) => {
 		setTimeout(() => {
-			resolve({ startDate: '2024-07-31T15:00:00Z', endDate: '2024-08-06T15:00:00Z' });
+			resolve({ startDate: '2024-07-31T15:00:00Z', endDate: '2024-09-10T15:00:00Z' });
 		}, 1000);
 	});

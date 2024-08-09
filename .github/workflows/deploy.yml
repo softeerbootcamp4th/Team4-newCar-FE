@@ -18,8 +18,14 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: Build
-        run: yarn build:admin
+      - name: Build Common
+        run: yarn run build:common
+
+      - name: Build Admin
+        run: yarn run build:admin
+
+      - name: Build User
+        run: yarn run build:user
 
       - name: Deploy
         env:

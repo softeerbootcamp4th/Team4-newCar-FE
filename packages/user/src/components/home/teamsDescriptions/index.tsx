@@ -1,7 +1,7 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import Button from 'src/components/common/Button.tsx';
+import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
-import HoverAnimationWrapper from './HoverAnimationWrapper.tsx';
 import TeamDescriptionModal from './teamDescriptionModal/index.tsx';
 import TeamInfoCard from './TeamInfoCard.tsx';
 
@@ -16,15 +16,15 @@ export default function TeamsDescriptions() {
 				<h6 className="text-heading-11 font-medium">
 					캐스퍼의 <strong className="text-primary">다양한 활용 방안</strong>
 				</h6>
-				<div className="my-15 group flex gap-[21px]">
+				<div className="my-15 group-description flex gap-[21px]">
 					{CATEGORIES.map((type) => (
 						<TeamDescriptionModal
 							key={type}
 							type={type}
 							openTrigger={
-								<HoverAnimationWrapper>
+								<TriggerButtonWrapper>
 									<TeamInfoCard type={type} />
-								</HoverAnimationWrapper>
+								</TriggerButtonWrapper>
 							}
 						/>
 					))}

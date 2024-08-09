@@ -1,6 +1,6 @@
 import type { Category } from '@softeer/common/types';
 
-export type TeamDescriptions = { title: string; summary: string };
+type TeamDescriptions = { title: string; summary: string };
 
 export const TEAM_DESCRIPTIONS: Record<Category, TeamDescriptions> = {
 	pet: {

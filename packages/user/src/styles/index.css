@@ -14,21 +14,21 @@
 
 @font-face {
 	font-family: 'Hyundai Sans Head KR Bold';
-	src: url('/fonts/HyundaiSansHeadKRBold.woff2.ttf') format('ttf');
+	src: url('/fonts/HyundaiSansHeadKRBold.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Hyundai Sans Head KR Medium';
-	src: url('/fonts/HyundaiSansHeadKRMedium.woff2.ttf') format('ttf');
+	src: url('/fonts/HyundaiSansHeadKRMedium.woff2') format('woff2');
 	font-weight: 500;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Hyundai Sans Head KR';
-	src: url('/fonts/HyundaiSansHeadKR.woff2.ttf') format('ttf');
+	src: url('/fonts/HyundaiSansHeadKR.woff2') format('woff2');
 	font-weight: 400;
 	font-style: normal;
 }

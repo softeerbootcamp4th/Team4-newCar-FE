@@ -10,7 +10,7 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'typ
 	percent: number;
 }
 
-export default function GaugeButton({ type, rank, percent, ...props }: ButtonProps) {
+export default function GaugeButton({ type, rank, percent, disabled, ...props }: ButtonProps) {
 	const { shortTitle, title } = TEAM_DESCRIPTIONS[type];
 	const { bgStyles, fontStyles } = styles[type];
 	const imageUrl = imageUrls[type];
@@ -19,8 +19,8 @@ export default function GaugeButton({ type, rank, percent, ...props }: ButtonPro
 	const formattedPercent = percent.toFixed(2);
 
 	return (
-		<button {...props} type="button" className="relative overflow-visible group">
-			<GradientBorderWrapper>
+		<button disabled={disabled} {...props} type="button" className="relative overflow-visible group disabled:opacity-70">
+			<GradientBorderWrapper className={`${!disabled && 'group-active:animate-rotate'}`}>
 				<div
 					className={`flex h-[84px] w-[250px] gap-7 rounded-[inherit] px-[14px] py-[10px] ${bgStyles}`}
 				>
@@ -34,7 +34,7 @@ export default function GaugeButton({ type, rank, percent, ...props }: ButtonPro
 			<img
 				src={imageUrl}
 				alt={`${title} 팀 캐스퍼 실물`}
-				className={`absolute -bottom-[25px] -right-[18px] z-10 w-[100px] cursor-pointer object-contain ${clickTransition}`}
+				className={`absolute -bottom-[25px] -right-[18px] z-10 w-[100px] cursor-pointer object-contain ${!disabled && clickTransition}`}
 			/>
 		</button>
 	);

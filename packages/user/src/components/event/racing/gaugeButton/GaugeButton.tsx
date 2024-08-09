@@ -19,7 +19,7 @@ export default function GaugeButton({ type, rank, percent, ...props }: ButtonPro
 	const formattedPercent = percent.toFixed(2);
 
 	return (
-		<button {...props} type="button" className="relative overflow-visible">
+		<button {...props} type="button" className="relative overflow-visible group">
 			<GradientBorderWrapper>
 				<div
 					className={`flex h-[84px] w-[250px] gap-7 rounded-[inherit] px-[14px] py-[10px] ${bgStyles}`}
@@ -34,11 +34,13 @@ export default function GaugeButton({ type, rank, percent, ...props }: ButtonPro
 			<img
 				src={imageUrl}
 				alt={`${title} 팀 캐스퍼 실물`}
-				className="absolute -bottom-[25px] -right-[18px] z-10 w-[100px] cursor-pointer object-contain"
+				className={`absolute -bottom-[25px] -right-[18px] z-10 w-[100px] cursor-pointer object-contain ${clickTransition}`}
 			/>
 		</button>
 	);
 }
+
+const clickTransition = 'transition-transform duration-300 ease-out group-active:scale-125';
 
 const styles: Record<Category, { bgStyles: string; fontStyles: string }> = {
 	travel: { bgStyles: 'bg-gradient-cards1', fontStyles: 'text-orange-500' },

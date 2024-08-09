@@ -1,4 +1,4 @@
-import GradientBorderWrapper from './GradientBorderWrapper.tsx';
+import GradientBorderWrapper from 'src/components/common/GradientBorderWrapper.tsx';
 
 export default function UnassignedCard() {
 	return (

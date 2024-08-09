@@ -60,7 +60,7 @@ h5 {
 }
 
 h6 {
-	@apply text-heading-6 font-bold;
+	@apply text-heading-6 font-extrabold;
 }
 
 p {

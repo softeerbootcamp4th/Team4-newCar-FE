@@ -32,7 +32,7 @@ export default function RealTimeRacing() {
 			</div>
 			<div className="mt-[70px] flex space-x-11">
 				{ranks.map((type, index) => (
-					<TeamGaugeButton key={type} type={type} rank={(index + 1) as Rank} />
+					<TeamGaugeButton key={type} type={type} rank={(index + 1) as Rank} percentage={30} />
 				))}
 			</div>
 		</section>

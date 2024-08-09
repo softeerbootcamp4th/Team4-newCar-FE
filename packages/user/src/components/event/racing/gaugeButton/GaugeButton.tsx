@@ -34,7 +34,7 @@ export default function GaugeButton({ type, rank, percent, ...props }: ButtonPro
 			<img
 				src={imageUrl}
 				alt={`${title} 팀 캐스퍼 실물`}
-				className="absolute -bottom-[25px] -right-[18px] z-10 w-[100px] object-contain cursor-pointer"
+				className="absolute -bottom-[25px] -right-[18px] z-10 w-[100px] cursor-pointer object-contain"
 			/>
 		</button>
 	);

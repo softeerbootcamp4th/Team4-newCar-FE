@@ -1,5 +1,5 @@
 import { Category } from '@softeer/common/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
 import Gauge from './Gauge.tsx';
 import GaugeButton from './GaugeButton.tsx';
@@ -9,44 +9,53 @@ export type Rank = 1 | 2 | 3 | 4;
 interface TeamGaugeButtonProps {
 	type: Category;
 	rank: Rank;
+	percentage: number;
 }
 
 const MAX_CLICK = 30;
 const MIN_PERCENT = 2;
 const RESET_SECOND = 1000;
 
-export default function TeamGaugeButton({ type, rank }: TeamGaugeButtonProps) {
-	const initPercentage = 40; // TODO: update after socket connecting
-
+export default function TeamGaugeButton({
+	type,
+	rank,
+	percentage: originPercentage,
+}: TeamGaugeButtonProps) {
 	const [progress, setProgress] = useState(0);
 	const [clickCount, setClickCount] = useState(0);
+	const initPercentageRef = useRef(originPercentage);
 
 	useEffect(() => {
-		/** 렌더링 후 initial로 차오름 */
-		const timer = setTimeout(() => {
-			setProgress(initPercentage);
-		}, 0);
-
-		return () => clearTimeout(timer);
-	}, [initPercentage]);
+		initPercentageRef.current = originPercentage;
+	}, [originPercentage]);
 
 	useEffect(() => {
-		if (clickCount > 0) {
-			setProgress(MIN_PERCENT + (100 - MIN_PERCENT) * (clickCount / MAX_CLICK));
+		const resetProgress = requestAnimationFrame(() => setProgress(initPercentageRef.current));
+		return () => cancelAnimationFrame(resetProgress);
+	}, []);
+
+	useEffect(() => {
+		if (clickCount > 0 && clickCount <= MAX_CLICK) {
+			updateProgress(clickCount);
 		}
 
 		if (clickCount === MAX_CLICK) {
-			/** RESET_SECOND 후에 initial로 되돌아감 */
-			const resetTimer = setTimeout(() => {
-				setClickCount(0);
-				setProgress(initPercentage);
-			}, RESET_SECOND);
-
+			const resetTimer = setTimeout(resetToInitProgress, RESET_SECOND);
 			return () => clearTimeout(resetTimer);
 		}
-	}, [clickCount, initPercentage]);
+	}, [clickCount, originPercentage]);
 
-	const handleClick = () => setClickCount((count) => count + 1);
+	const handleClick = () => clickCount < MAX_CLICK && setClickCount((count) => count + 1);
+
+	const updateProgress = (count: number) => {
+		const newProgress = MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);
+		setProgress(newProgress);
+	};
+
+	const resetToInitProgress = () => {
+		setClickCount(0);
+		setProgress(initPercentageRef.current);
+	};
 
 	return (
 		<div className="flex flex-col gap-3">
@@ -59,7 +68,7 @@ export default function TeamGaugeButton({ type, rank }: TeamGaugeButtonProps) {
 				disabled={clickCount === MAX_CLICK}
 				rank={rank}
 				type={type}
-				percent={initPercentage}
+				percent={originPercentage}
 			/>
 		</div>
 	);

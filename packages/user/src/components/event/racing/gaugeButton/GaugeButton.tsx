@@ -50,8 +50,8 @@ const styles: Record<Category, { bgStyles: string; fontStyles: string }> = {
 };
 
 const imageUrls: Record<Category, string> = {
-	travel: '/images/racing/travel-casper.png',
-	leisure: '/images/racing/leisure-casper.png',
-	place: '/images/racing/place-casper.png',
-	pet: '/images/racing/pet-casper.png',
+	travel: '/images/racing/side/travel.png',
+	leisure: '/images/racing/side/leisure.png',
+	place: '/images/racing/side/place.png',
+	pet: '/images/racing/side/pet.png',
 };

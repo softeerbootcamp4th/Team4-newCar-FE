@@ -92,13 +92,14 @@ main {
 /* 레이싱 unassigned 유형 카드 */
 
 .gradient-border {
-	@apply relative overflow-hidden p-1
+	@apply relative p-1 overflow-hidden bg-gradient-border
 }
 
 .gradient-border::before {
-	@apply bg-gradient-border absolute top-0 left-0 right-0 -z-10;
+	@apply bg-gradient-border absolute top-0 left-0 right-0 bottom-0 -z-10;
 	content: '';
 	background-size: 200% 200%;
+	z-index: -1;
 }	
 
 /* shadcn ui */

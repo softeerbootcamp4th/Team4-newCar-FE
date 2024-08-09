@@ -1,6 +1,7 @@
 const SECTION_ID = {
-	QUIZ: 'quiz-section',
-	HERO: 'hero-section',
+	QUIZ: 'intro-quiz-section',
+	HERO: 'intro-hero-section',
+	RACING: 'event-racing',
 } as const;
 
 export default SECTION_ID;

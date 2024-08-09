@@ -60,7 +60,7 @@ h5 {
 }
 
 h6 {
-	@apply text-heading-6 font-bold;
+	@apply text-heading-6 font-extrabold;
 }
 
 p {
@@ -75,10 +75,6 @@ h1 > strong, h2 > strong, h3 > strong, h4 > strong, h5 > strong, h6 > strong, p 
 
 main {
 	@apply snap-y snap-mandatory overflow-auto;
-}
-
-section {
-	@apply snap-start;
 }
 
 /* 팀 소개 카드 리스트 */

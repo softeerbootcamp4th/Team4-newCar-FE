@@ -10,7 +10,7 @@ export default function TeamsDescriptions() {
 	const goDetailDescriptions = () => window.open(EXTERNAL_LINKS.CASPER_HOMEPAGE);
 
 	return (
-		<section className="bg-neutral-700 py-[160px]">
+		<section className="snap-start bg-neutral-700 py-[160px]">
 			<div className="flex flex-col items-center">
 				<h2>팀 소개</h2>
 				<h6 className="text-heading-11 font-medium">

@@ -11,7 +11,6 @@ const backgroundImage = {
 	'gradient-gauge1': 'linear-gradient(to right, #5D85D2, #8093BB, #60E9FB)',
 	'gradient-gauge2': 'linear-gradient(to right, #E0A64F, #FFF59E, #FFE500)',
 	'gradient-gauge3': 'linear-gradient(to right, #D25C7F, #E37D9B, #FF3C76)',
-	'gradient-gauge4': 'linear-gradient(to right, #009688, #4DB6AC, #80CBC4)',
 	'gradient-leisure': 'linear-gradient(to bottom, #53535382, #d4d4d482)',
 	'gradient-travel': 'linear-gradient(to bottom, #A9A9A982, #66331c82)',
 	'gradient-pet': 'linear-gradient(to bottom, #33332bcc, #999980cc)',

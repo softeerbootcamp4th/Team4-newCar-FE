@@ -28,7 +28,7 @@ export default function TeamGaugeButton({
 		<div className="flex flex-col gap-3">
 			<div className="flex items-center gap-2">
 				<Lightning />
-				<Gauge type={type} percent={progress} />
+				<Gauge percent={progress} />
 			</div>
 			<GaugeButton
 				onClick={handleClick}

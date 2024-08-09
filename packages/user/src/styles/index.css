@@ -81,37 +81,24 @@ main {
 
 .group-description:hover > *:not(:hover),
 .group-description:focus-within > *:not(:focus) {
-	@apply transition-all duration-150;
-  opacity: 0.4;
-  transform: scale(1);	
+	@apply transition-all duration-150 opacity-40 scale-100;
 }
 
 .group-description > *:hover,
 .group-description > *:focus {
-	@apply transition-all duration-150;
-	opacity: 1;
-  transform: scale(1.1);
-	z-index: 1
+	@apply transition-all duration-150 opacity-100 scale-110 z-10;
 }
 
 /* 레이싱 unassigned 유형 카드 */
 
 .gradient-border {
-	position: relative;
-	overflow: hidden;
-	padding: 2px; 
+	@apply relative overflow-hidden p-1
 }
 
 .gradient-border::before {
-	@apply bg-gradient-border;
+	@apply bg-gradient-border absolute top-0 left-0 right-0 -z-10;
 	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
 	background-size: 200% 200%;
-	z-index: -1;
 }	
 
 /* shadcn ui */

@@ -16,7 +16,7 @@ function LoginPage() {
 
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center">
-			<p className="mb-10">Admin System</p>
+			<p className="mb-10">Admin System(하하 CI/CD 성공?)</p>
 			<div className="flex w-[200px] flex-col gap-2">
 				<Input
 					placeholder="아이디를 입력하세요."

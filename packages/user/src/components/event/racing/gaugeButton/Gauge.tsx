@@ -5,9 +5,10 @@ interface GaugeProps {
 }
 export default function Gauge({ percent }: GaugeProps) {
 	const backgroundColor = useMemo(() => {
-		if (percent < 33) return 'bg-gradient-gauge1';
-    if (percent < 72) return 'bg-gradient-gauge2';
-    return 'bg-gradient-gauge3';
+		if (percent < 22) return 'bg-gradient-gauge1';
+		if (percent < 57) return 'bg-gradient-gauge2';
+    if (percent < 88) return 'bg-gradient-gauge3';
+    return 'bg-gradient-gauge4';
 	}, [percent]);
 
 	return (

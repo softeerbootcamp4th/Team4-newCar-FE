@@ -31,7 +31,7 @@ const EVENT_PRIZES = [
 /** 이벤트(캐스퍼 레이싱) 경품 섹션 */
 export default function EventPrizes() {
 	return (
-		<section className="gap-15 flex flex-col items-center pt-[80px] snap-start">
+		<section className="gap-15 flex snap-start flex-col items-center pt-[80px]">
 			<h2>이벤트 경품</h2>
 			<h6 className="text-heading-10">캐스퍼 레이싱</h6>
 			<div className="mb-8 flex gap-3">

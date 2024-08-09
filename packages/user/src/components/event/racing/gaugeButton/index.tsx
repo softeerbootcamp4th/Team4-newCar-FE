@@ -21,6 +21,26 @@ export default function TeamGaugeButton({
 	rank,
 	percentage: originPercentage,
 }: TeamGaugeButtonProps) {
+	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage);
+
+	return (
+		<div className="flex flex-col gap-3">
+			<div className="flex items-center gap-2">
+				<Lightning />
+				<Gauge type={type} percent={progress} />
+			</div>
+			<GaugeButton
+				onClick={handleClick}
+				disabled={clickCount === MAX_CLICK}
+				rank={rank}
+				type={type}
+				percent={originPercentage}
+			/>
+		</div>
+	);
+}
+
+function useGaugeProgress(originPercentage: number) {
 	const [progress, setProgress] = useState(0);
 	const [clickCount, setClickCount] = useState(0);
 	const initPercentageRef = useRef(originPercentage);
@@ -57,19 +77,5 @@ export default function TeamGaugeButton({
 		setProgress(initPercentageRef.current);
 	};
 
-	return (
-		<div className="flex flex-col gap-3">
-			<div className="flex items-center gap-2">
-				<Lightning />
-				<Gauge type={type} percent={progress} />
-			</div>
-			<GaugeButton
-				onClick={handleClick}
-				disabled={clickCount === MAX_CLICK}
-				rank={rank}
-				type={type}
-				percent={originPercentage}
-			/>
-		</div>
-	);
+  return { progress, clickCount, handleClick };
 }

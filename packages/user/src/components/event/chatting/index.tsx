@@ -5,7 +5,7 @@ import ChatInputArea from './inputArea/index.tsx';
 /** 실시간 기대평 섹션 */
 export default function RealTimeChatting() {
 	return (
-		<section className="container flex max-w-[1200px] flex-col items-center pb-[115px] pt-[95px]">
+		<section className="container flex max-w-[1200px] flex-col items-center pb-[115px] pt-[150px] snap-start">
 			<h6 className="text-heading-10 mb-[25px] font-medium">기대평을 남겨보세요!</h6>
 			<ChatInputArea />
 			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">

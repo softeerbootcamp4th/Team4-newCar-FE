@@ -8,7 +8,7 @@ export default function EventStep({ step, title, children }: PropsWithChildren<E
 	const stepLabel = `Step ${step.toString().padStart(2, '0')}`;
 
 	return (
-		<section className="flex snap-start flex-col items-center">
+		<section className="flex flex-col items-center">
 			<h6 className="text-primary text-heading-10 mb-[30px] font-medium">{stepLabel}</h6>
 			<h6 className="text-heading-10 font-medium">{title}</h6>
 			{children}

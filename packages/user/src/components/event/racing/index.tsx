@@ -12,7 +12,7 @@ export default function RealTimeRacing() {
 	return (
 		<section
 			id={SECTION_ID.RACING}
-			className="container flex w-[1200px] flex-col items-center pt-[100px]"
+			className="snap-start container flex w-[1200px] flex-col items-center pt-[100px]"
 		>
 			<div className="relative h-[685px] w-full">
 				<div className="absolute -top-[5px] z-10 flex w-full flex-col items-center gap-5">

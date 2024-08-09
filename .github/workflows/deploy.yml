@@ -27,7 +27,7 @@ jobs:
       - name: Build User
         run: yarn run build:user
 
-      - name: Deploy
+      - name: Deploy-Admin
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -35,4 +35,14 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            packages/admin/dist s3://yangbong-front
+            packages/admin/dist s3://yangbong-admin
+
+      - name: Deploy-User
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            packages/user/dist s3://yangbong-front

@@ -4,7 +4,8 @@ import Lightning from 'src/assets/icons/lighting.svg?react';
 import Gauge from './Gauge.tsx';
 import GaugeButton from './GaugeButton.tsx';
 
-export type Rank = 1 | 2 | 3 | 4;
+const ranks = [1, 2, 3, 4] as const;
+export type Rank = typeof ranks[number];
 
 interface TeamGaugeButtonProps {
 	type: Category;

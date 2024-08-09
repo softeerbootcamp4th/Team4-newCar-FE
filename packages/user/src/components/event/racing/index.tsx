@@ -12,11 +12,14 @@ export default function RealTimeRacing() {
 	return (
 		<section
 			id={SECTION_ID.RACING}
-			className="snap-start container flex w-[1200px] flex-col items-center pt-[100px]"
+			className="snap-start container flex w-[1200px] flex-col items-center pt-[100px] pb-[50px]"
 		>
 			<div className="relative h-[685px] w-full">
-				<div className="absolute -top-[5px] z-10 flex w-full flex-col items-center gap-5">
-					<h3>아래 버튼을 클릭해서 1등을 차지하세요!</h3>
+				<div className="absolute -top-[5px] z-10 flex w-full flex-col items-center">
+					<h3>버튼을 연타해 승리를 <strong>CHARGE</strong>하세요!</h3>
+					<div className="flex items-center gap-3 mb-5">
+						<p className="text-body-2 text-foreground/60">1등에 가까워질 수 있도록 배터리를 가득 충전<strong className="inline-block align-bottom leading-6">🔋</strong>해주세요!</p>
+     </div>
 					<Suspense>
 						<EventTimer />
 					</Suspense>
@@ -32,7 +35,7 @@ export default function RealTimeRacing() {
 			</div>
 			<div className="mt-[70px] flex space-x-11">
 				{ranks.map((type, index) => (
-					<TeamGaugeButton key={type} type={type} rank={(index + 1) as Rank} percentage={30} />
+					<TeamGaugeButton key={type} type={type} rank={(index + 1) as Rank} percentage={25} />
 				))}
 			</div>
 		</section>

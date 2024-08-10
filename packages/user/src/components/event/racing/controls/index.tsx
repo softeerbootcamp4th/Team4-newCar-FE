@@ -1,6 +1,6 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import { Category } from '@softeer/common/types';
-import { CategoryRankMap } from 'src/types/rank.js';
+import type { CategoryRankMap } from 'src/types/rank.d.ts';
 import ControlButton from './ControlButton.tsx';
 
 interface RacingControlsProps {

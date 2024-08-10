@@ -6,22 +6,24 @@ import type { Rank } from 'src/types/rank.d.ts';
 import Gauge from './Gauge.tsx';
 import GaugeButton from './GaugeButton.tsx';
 
-interface TeamGaugeButtonProps {
+interface RaceControlButtonProps {
 	type: Category;
 	rank: Rank;
 	percentage: number;
+	onScale: () => void;
 }
 
 const MAX_CLICK = 10;
 const MIN_PERCENT = 2;
 const RESET_SECOND = 10000;
 
-export default function TeamGaugeButton({
+export default function RaceControlButton({
 	type,
 	rank,
 	percentage: originPercentage,
-}: TeamGaugeButtonProps) {
-	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage);
+	onScale,
+}: RaceControlButtonProps) {
+	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onScale);
 
 	return (
 		<div
@@ -49,7 +51,7 @@ const styles: Record<Rank, string> = {
 	4: 'left-[850px] z-10',
 };
 
-function useGaugeProgress(originPercentage: number) {
+function useGaugeProgress(originPercentage: number, onClick: () => void) {
 	const { toast } = useToast();
 
 	const [progress, setProgress] = useState(0);
@@ -77,7 +79,12 @@ function useGaugeProgress(originPercentage: number) {
 		}
 	}, [clickCount, originPercentage]);
 
-	const handleClick = () => clickCount < MAX_CLICK && setClickCount((count) => count + 1);
+	const handleClick = () => {
+		if (clickCount < MAX_CLICK) {
+			setClickCount((count) => count + 1);
+			onClick();
+		}
+	};
 
 	const updateProgress = (count: number) => {
 		const newProgress = MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);

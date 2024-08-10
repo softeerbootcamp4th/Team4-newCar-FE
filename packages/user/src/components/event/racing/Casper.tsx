@@ -3,13 +3,14 @@ import type { Rank } from 'src/types/rank.d.ts';
 interface CarProps {
 	rank: Rank;
 	imageUrl: string;
+	className: string;
 }
-export default function Casper({ rank, imageUrl }: CarProps) {
+export default function Casper({ rank, imageUrl, className }: CarProps) {
 	return (
 		<img
 			src={imageUrl}
 			alt={`${rank}등 차`}
-			className={`absolute ${styles[rank]} transition-all duration-700 ease-in-out`}
+			className={`${styles[rank]} absolute transition-all duration-700 ease-in-out ${className}`}
 		/>
 	);
 }

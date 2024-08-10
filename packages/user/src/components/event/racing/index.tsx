@@ -12,14 +12,19 @@ export default function RealTimeRacing() {
 	return (
 		<section
 			id={SECTION_ID.RACING}
-			className="snap-start container flex w-[1200px] flex-col items-center pt-[100px] pb-[50px]"
+			className="container flex w-[1200px] snap-start flex-col items-center pb-[50px] pt-[100px]"
 		>
 			<div className="relative h-[685px] w-full">
 				<div className="absolute -top-[5px] z-10 flex w-full flex-col items-center">
-					<h3>버튼을 연타해 승리를 <strong>CHARGE</strong>하세요!</h3>
-					<div className="flex items-center gap-3 mb-5">
-						<p className="text-body-2 text-foreground/60">1등에 가까워질 수 있도록 배터리를 가득 충전<strong className="inline-block align-bottom leading-6">🔋</strong>해주세요!</p>
-     </div>
+					<h3>
+						버튼을 연타해 승리를 <strong>CHARGE</strong>하세요!
+					</h3>
+					<div className="mb-5 flex items-center gap-3">
+						<p className="text-body-2 text-foreground/60">
+							1등에 가까워질 수 있도록 배터리를 가득 충전
+							<strong className="inline-block align-bottom leading-6">🔋</strong>해주세요!
+						</p>
+					</div>
 					<Suspense>
 						<EventTimer />
 					</Suspense>

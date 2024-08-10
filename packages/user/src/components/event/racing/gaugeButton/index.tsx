@@ -6,7 +6,7 @@ import Gauge from './Gauge.tsx';
 import GaugeButton from './GaugeButton.tsx';
 
 const ranks = [1, 2, 3, 4] as const;
-export type Rank = typeof ranks[number];
+export type Rank = (typeof ranks)[number];
 
 interface TeamGaugeButtonProps {
 	type: Category;
@@ -82,5 +82,5 @@ function useGaugeProgress(originPercentage: number) {
 		setProgress(initPercentageRef.current);
 	};
 
-  return { progress, clickCount, handleClick };
+	return { progress, clickCount, handleClick };
 }

@@ -1,8 +1,8 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import Button from 'src/components/common/Button.tsx';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
+import TeamDescriptionModal from 'src/components/shared/modal/TeamDescriptionModal.tsx';
 import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
-import TeamDescriptionModal from './teamDescriptionModal/index.tsx';
 import TeamInfoCard from './TeamInfoCard.tsx';
 
 /** 팀 소개 섹션 */

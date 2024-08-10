@@ -17,9 +17,7 @@ export default function HomePage() {
 
 	useEffect(() => {
 		const sectionId = state?.sectionId || SECTION_ID.HERO;
-		const behavior = state?.sectionId ? 'smooth' : 'instant';
-
-		scrollToElementId({ sectionId, behavior });
+		scrollToElementId({ sectionId, behavior: 'instant' });
 	}, [state?.sectionId]);
 
 	return (

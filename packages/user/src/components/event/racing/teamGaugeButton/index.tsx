@@ -2,11 +2,9 @@ import { Category } from '@softeer/common/types';
 import { useEffect, useRef, useState } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
 import { useToast } from 'src/hooks/useToast.ts';
+import type { Rank } from 'src/types/rank.d.ts';
 import Gauge from './Gauge.tsx';
 import GaugeButton from './GaugeButton.tsx';
-
-const ranks = [1, 2, 3, 4] as const;
-export type Rank = (typeof ranks)[number];
 
 interface TeamGaugeButtonProps {
 	type: Category;
@@ -26,7 +24,9 @@ export default function TeamGaugeButton({
 	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage);
 
 	return (
-		<div className="flex flex-col gap-3">
+		<div
+			className={`absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${styles[rank]}`}
+		>
 			<div className="flex items-center gap-2">
 				<Lightning />
 				<Gauge percent={progress} />
@@ -41,6 +41,13 @@ export default function TeamGaugeButton({
 		</div>
 	);
 }
+
+const styles: Record<Rank, string> = {
+	1: 'left-[40px] z-40',
+	2: 'left-[310px] z-30',
+	3: 'left-[580px] z-20',
+	4: 'left-[850px] z-10',
+};
 
 function useGaugeProgress(originPercentage: number) {
 	const { toast } = useToast();

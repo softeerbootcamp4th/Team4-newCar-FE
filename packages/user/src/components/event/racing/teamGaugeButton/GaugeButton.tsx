@@ -2,7 +2,7 @@ import { Category } from '@softeer/common/types';
 import { ButtonHTMLAttributes } from 'react';
 import GradientBorderWrapper from 'src/components/common/GradientBorderWrapper.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
-import type { Rank } from './index.tsx';
+import type { Rank } from 'src/types/rank.d.ts';
 
 const imageUrls: Record<Category, string> = {
 	travel: '/images/racing/side/travel.png',
@@ -55,9 +55,9 @@ function getStyles({ type, isActive }: { type: Category; isActive: boolean }) {
 	return {
 		percent: `text-body-3 font-medium ${fontStyles}`,
 		image: `${imageBaseStyles} ${isActive ? 'transition-transform duration-300 ease-out group-active:scale-125' : ''}`,
-		button: 'relative overflow-visible group disabled:opacity-70',
+		button: 'relative overflow-visible group disabled:opacity-50',
 		borderWrapper: isActive ? 'group-active:animate-rotate' : '',
-		innerborderWrapper: `flex h-[84px] w-[250px] gap-7 rounded-[inherit] px-[14px] py-[10px] ${bgStyles}`,
+		innerborderWrapper: `flex h-[84px] w-[240px] gap-7 rounded-[inherit] px-[10px] py-[10px] ${bgStyles}`,
 	};
 }
 

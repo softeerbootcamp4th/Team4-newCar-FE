@@ -4,7 +4,7 @@ import useAuth from 'src/hooks/useAuth.tsx';
 import type { Rank } from 'src/types/rank.d.ts';
 
 interface CasperProps {
-	type:Category
+	type: Category;
 	rank: Rank;
 	className: string;
 }
@@ -13,13 +13,11 @@ export default function Casper({ type, rank, className }: CasperProps) {
 	const isMyCasper = user?.type === type;
 
 	return (
-		<div className={`flex flex-col items-center gap-8 absolute ${className} ${rankStyles[rank]} ${transitionStyles}`}>
-			<div className="h-[10px]">{isMyCasper && <MarkerIcon /> }</div>
-			<img
-				src={imageUrls[type]}
-				alt={`${rank}등 차`}
-				className="object-contain"
-			/>
+		<div
+			className={`absolute flex flex-col items-center gap-8 ${className} ${rankStyles[rank]} ${transitionStyles}`}
+		>
+			<div className="h-[10px]">{isMyCasper && <MarkerIcon />}</div>
+			<img src={imageUrls[type]} alt={`${rank}등 차`} className="object-contain" />
 		</div>
 	);
 }

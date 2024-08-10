@@ -10,7 +10,7 @@ interface RacingControlsProps {
 
 export default function RacingControls({ ranks, setScaledType }: RacingControlsProps) {
 	return (
-		<div className="relative mt-[50px] h-[300px] w-full">
+		<div className="relative h-[150px] w-full">
 			{CATEGORIES.map((type) => (
 				<ControlButton
 					key={type}

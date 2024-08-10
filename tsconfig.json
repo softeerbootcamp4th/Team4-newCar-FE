@@ -31,7 +31,9 @@
 		"project": "./tsconfig.json"
 	},
 	"include": [
-		"packages/**/*",
+		"**/*/*.ts",
+		"**/*/*.tsx",
+		"**/*/*.js",
 		".eslintrc.cjs",
 		"tailwind.config.cjs",
 		"postcss.config.js",

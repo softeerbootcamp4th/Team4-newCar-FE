@@ -29,11 +29,7 @@ export default function RacingDashboard({ ranks, scaledType }: RacingDashboardPr
 					key={type}
 					rank={ranks[type]}
 					imageUrl={imageUrls[type]}
-					className={
-						scaledType === type
-						? 'scale-110'
-						: ''
-					}
+					className={scaledType === type ? 'scale-110' : ''}
 				/>
 			))}
 			<Background />

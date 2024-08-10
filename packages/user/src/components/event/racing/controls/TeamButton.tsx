@@ -17,7 +17,7 @@ interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'typ
 	percent: number;
 }
 
-export default function GaugeButton({
+export default function TeamButton({
 	type,
 	rank,
 	percent,

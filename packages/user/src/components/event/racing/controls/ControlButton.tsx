@@ -4,9 +4,9 @@ import Lightning from 'src/assets/icons/lighting.svg?react';
 import { useToast } from 'src/hooks/useToast.ts';
 import type { Rank } from 'src/types/rank.d.ts';
 import Gauge from './Gauge.tsx';
-import GaugeButton from './GaugeButton.tsx';
+import TeamButton from './TeamButton.tsx';
 
-interface RaceControlButtonProps {
+interface ControlButtonProps {
 	type: Category;
 	rank: Rank;
 	percentage: number;
@@ -17,12 +17,12 @@ const MAX_CLICK = 10;
 const MIN_PERCENT = 2;
 const RESET_SECOND = 10000;
 
-export default function RaceControlButton({
+export default function ControlButton({
 	type,
 	rank,
 	percentage: originPercentage,
 	onScale,
-}: RaceControlButtonProps) {
+}: ControlButtonProps) {
 	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onScale);
 
 	return (
@@ -33,7 +33,7 @@ export default function RaceControlButton({
 				<Lightning />
 				<Gauge percent={progress} />
 			</div>
-			<GaugeButton
+			<TeamButton
 				onClick={handleClick}
 				disabled={clickCount === MAX_CLICK}
 				rank={rank}

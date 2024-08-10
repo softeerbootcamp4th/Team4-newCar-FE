@@ -12,34 +12,48 @@ interface RacingDashboardProps {
 	ranks: CategoryRankMap;
 	scaledType: Category | null;
 }
+
 export default function RacingDashboard({ ranks, scaledType }: RacingDashboardProps) {
-	return (
-		<div className="relative h-[685px] w-full">
-			<div className="absolute -top-[5px] flex w-full flex-col items-center">
-				<RacingTitle />
-				<Suspense>
-					<EventTimer />
-				</Suspense>
-			</div>
-			<div className="absolute left-[27px] top-[95px]">
-				<RacingCard />
-			</div>
-			{CATEGORIES.map((type) => (
-				<Casper
-					key={type}
-					rank={ranks[type]}
-					imageUrl={imageUrls[type]}
-					className={scaledType === type ? 'scale-110' : ''}
-				/>
-			))}
-			<Background />
-		</div>
-	);
+  return (
+    <div className="relative h-[685px] w-full">
+      <HeaderSection />
+      <RacingCardSection />
+      <CaspersSection ranks={ranks} scaledType={scaledType} />
+      <Background />
+    </div>
+  );
 }
 
-const imageUrls: Record<Category, string> = {
-	travel: '/images/racing/front/travel.png',
-	leisure: '/images/racing/front/leisure.png',
-	place: '/images/racing/front/place.png',
-	pet: '/images/racing/front/pet.png',
-};
+function HeaderSection() {
+  return (
+    <div className="absolute -top-[5px] flex w-full flex-col items-center">
+      <RacingTitle />
+      <Suspense>
+        <EventTimer />
+      </Suspense>
+    </div>
+  );
+}
+
+function RacingCardSection() {
+  return (
+    <div className="absolute left-[27px] top-[95px]">
+      <RacingCard />
+    </div>
+  );
+}
+
+function CaspersSection({ ranks, scaledType }: RacingDashboardProps) {
+  return (
+    <>
+      {CATEGORIES.map((type) => (
+        <Casper
+          key={type}
+          type={type}
+          rank={ranks[type]}
+          className={scaledType === type ? 'scale-110' : ''}
+        />
+      ))}
+    </>
+  );
+}

@@ -1,23 +1,41 @@
+import { Category } from '@softeer/common/types';
+import MarkerIcon from 'src/assets/icons/car-marker.svg?react';
+import useAuth from 'src/hooks/useAuth.tsx';
 import type { Rank } from 'src/types/rank.d.ts';
 
-interface CarProps {
+interface CasperProps {
+	type:Category
 	rank: Rank;
-	imageUrl: string;
 	className: string;
 }
-export default function Casper({ rank, imageUrl, className }: CarProps) {
+export default function Casper({ type, rank, className }: CasperProps) {
+	const { user } = useAuth();
+	const isMyCasper = user?.type === type;
+
 	return (
-		<img
-			src={imageUrl}
-			alt={`${rank}등 차`}
-			className={`${styles[rank]} absolute transition-all duration-700 ease-in-out ${className}`}
-		/>
+		<div className={`flex flex-col items-center gap-8 absolute ${className} ${rankStyles[rank]} ${transitionStyles}`}>
+			<div className="h-[10px]">{isMyCasper && <MarkerIcon /> }</div>
+			<img
+				src={imageUrls[type]}
+				alt={`${rank}등 차`}
+				className="object-contain"
+			/>
+		</div>
 	);
 }
 
-const styles: Record<Rank, string> = {
-	1: 'w-[335px] left-[378px] top-[335px] z-40 transform rotate-0',
-	2: 'w-[260px] left-[170px] top-[390px] z-30 transform -rotate-[4deg]',
-	3: 'w-[230px] left-[850px] top-[400px] z-20 transform rotate-6',
-	4: 'w-[120px] left-[690px] top-[450px] z-10 transform rotate-[5deg]',
+const transitionStyles = 'transform transition-all duration-700 ease-in-out';
+
+const rankStyles: Record<Rank, string> = {
+	1: 'w-[335px] left-[378px] top-[295px] z-40 rotate-0',
+	2: 'w-[260px] left-[170px] top-[345px] z-30 -rotate-[4deg]',
+	3: 'w-[230px] left-[850px] top-[360px] z-20 rotate-6',
+	4: 'w-[120px] left-[690px] top-[410px] z-10 rotate-[5deg]',
+};
+
+const imageUrls: Record<Category, string> = {
+	travel: '/images/racing/front/travel.png',
+	leisure: '/images/racing/front/leisure.png',
+	place: '/images/racing/front/place.png',
+	pet: '/images/racing/front/pet.png',
 };

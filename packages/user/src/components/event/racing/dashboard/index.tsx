@@ -1,5 +1,5 @@
 import { CATEGORIES } from '@softeer/common/constants';
-import { Category } from '@softeer/common/types';
+import type { Category } from '@softeer/common/types';
 import { Suspense } from 'react';
 import type { CategoryRankMap } from 'src/types/rank.d.ts';
 import Background from './Background.tsx';

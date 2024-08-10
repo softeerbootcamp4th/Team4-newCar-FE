@@ -1,5 +1,5 @@
 import { CATEGORIES } from '@softeer/common/constants';
-import { Category } from '@softeer/common/types';
+import type { Category } from '@softeer/common/types';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { TEAM_HELMET_OPTIONS } from 'src/constants/teamDescriptions.ts';

@@ -1,4 +1,4 @@
-import { Category } from '@softeer/common/types';
+import type { Category } from '@softeer/common/types';
 import { useState } from 'react';
 import SECTION_ID from 'src/constants/sectionId.ts';
 import type { CategoryRankMap } from 'src/types/rank.d.ts';

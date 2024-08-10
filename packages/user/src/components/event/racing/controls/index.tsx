@@ -7,7 +7,6 @@ interface RacingControlsProps {
 	ranks: CategoryRankMap;
 	setScaledType: (type: Category) => void;
 }
-
 export default function RacingControls({ ranks, setScaledType }: RacingControlsProps) {
 	return (
 		<div className="relative h-[150px] w-full">

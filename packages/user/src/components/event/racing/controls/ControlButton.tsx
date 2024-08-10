@@ -1,4 +1,4 @@
-import { Category } from '@softeer/common/types';
+import type { Category } from '@softeer/common/types';
 import { useEffect, useRef, useState } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
 import { useToast } from 'src/hooks/useToast.ts';

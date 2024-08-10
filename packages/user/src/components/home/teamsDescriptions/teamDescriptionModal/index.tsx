@@ -12,7 +12,7 @@ const TEAM_DETAILS: Record<Category, string> = {
 		'오프로드의 정석을 느끼게 해줄 다양한 액세서리를 캐스퍼에 적용해보세요.  자전거와 함께할 수 있도록 돕는 루프 자전거 캐리어, 험한 길도 끄떡없는 스틸 언더커버를 제공합니다.',
 } as const;
 
-interface TeamDescriptionModalProps extends ModalProps {
+interface TeamDescriptionModalProps extends Omit<ModalProps, 'children'> {
 	type: Category;
 }
 

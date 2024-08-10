@@ -17,7 +17,7 @@ export default function Casper({ rank, imageUrl, className }: CarProps) {
 
 const styles: Record<Rank, string> = {
 	1: 'w-[335px] left-[378px] top-[335px] z-40 transform rotate-0',
-	2: 'w-[240px] left-[170px] top-[400px] z-30 transform -rotate-6',
-	3: 'w-[220px] left-[840px] top-[400px] z-20 transform rotate-6',
-	4: 'w-[108px] left-[690px] top-[470px] z-10 transform rotate-[5deg]',
+	2: 'w-[260px] left-[170px] top-[390px] z-30 transform -rotate-[4deg]',
+	3: 'w-[230px] left-[850px] top-[400px] z-20 transform rotate-6',
+	4: 'w-[120px] left-[690px] top-[450px] z-10 transform rotate-[5deg]',
 };

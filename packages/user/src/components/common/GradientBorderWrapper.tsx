@@ -1,6 +1,8 @@
 import { PropsWithChildren } from 'react';
 
-interface GradientBorderWrapperProps { className?: string | undefined }
+interface GradientBorderWrapperProps {
+	className?: string | undefined;
+}
 
 export default function GradientBorderWrapper({
 	children,

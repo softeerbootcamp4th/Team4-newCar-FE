@@ -25,10 +25,10 @@ export default function Casper({ type, rank, className }: CasperProps) {
 const transitionStyles = 'transform transition-all duration-700 ease-in-out';
 
 const rankStyles: Record<Rank, string> = {
-	1: 'w-[335px] left-[378px] top-[295px] z-40 rotate-0',
-	2: 'w-[260px] left-[170px] top-[345px] z-30 -rotate-[4deg]',
-	3: 'w-[230px] left-[850px] top-[360px] z-20 rotate-6',
-	4: 'w-[120px] left-[690px] top-[410px] z-10 rotate-[5deg]',
+	1: 'w-[335px] left-[380px] top-[295px] z-40 rotate-0',
+	2: 'w-[270px] left-[170px] top-[335px] z-30 -rotate-[4deg]',
+	3: 'w-[200px] left-[700px] top-[360px] z-20 rotate-6',
+	4: 'w-[120px] left-[900px] top-[410px] z-10 rotate-[5deg]',
 };
 
 const imageUrls: Record<Category, string> = {

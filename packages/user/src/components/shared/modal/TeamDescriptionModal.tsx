@@ -24,12 +24,14 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 
 	return (
 		<Modal openTrigger={openTrigger}>
-			<div className="flex flex-col items-center justify-center px-[75px]">
+			<div className="flex flex-col items-center justify-center sm:h-full px-[50px] py-[30px] sm:px-[75px] sm:py-[40px]">
 				<div className="flex flex-col items-center gap-2.5">
-					<h6 className="text-heading-11 font-medium text-neutral-100">{summary}</h6>
+					<h6 className="text-heading-11 whitespace-pre-line font-medium text-neutral-100 sm:whitespace-normal">
+						{summary}
+					</h6>
 					<h3>{title}</h3>
 				</div>
-				<div className="my-[20px] inline-flex h-[241px]">
+				<div className="mb-7 grid grid-flow-row sm:grid-flow-col">
 					<DescriptionImage src={`${imageBaseUrl}-1.png`} />
 					<DescriptionImage src={`${imageBaseUrl}-2.png`} />
 				</div>
@@ -40,5 +42,11 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 }
 
 function DescriptionImage({ src }: { src: string }) {
-	return <img src={src} alt="팀 소개" className="h-full w-full object-cover" />;
+	return (
+		<img
+			src={src}
+			alt="팀 소개"
+			className="min-w-1/2 h-full min-h-[240px] w-full max-w-full object-cover"
+		/>
+	);
 }

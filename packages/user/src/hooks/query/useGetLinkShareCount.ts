@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import QUERY_KEYS from 'src/constants/queryKey.ts';
+import QUERY_KEYS from 'src/services/api/queryKey.ts';
 
 export type LinkShareCount = { count: number };
 

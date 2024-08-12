@@ -3,7 +3,7 @@ import { API, METHOD } from 'src/constants/api.ts';
 
 export interface CommonEvent {
 	endTime: string;
-	eventManager: string;
+	managerName: string;
 	eventName: string;
 	startTime: string;
 }
@@ -16,7 +16,7 @@ export interface QuizChoice {
 export interface Quiz {
 	id: number;
 	winnerCount: number;
-	postDate: string;
+	postDate?: string | never;
 	question: string;
 	choices: QuizChoice[];
 	correctAnswer: number;
@@ -49,6 +49,11 @@ export interface WinnerSetting {
 	num: number;
 }
 
+export interface LoginProps {
+	adminId: string;
+	password: string;
+}
+
 export interface Payload {
 	[API.COMMON_EVENT]: {
 		// GET은 리팩토링시 구조 변경하면서 삭제할 예정
@@ -71,6 +76,9 @@ export interface Payload {
 	[API.PERSONALITY_TEST]: {
 		[METHOD.POST]: PersonalityTest;
 	};
+	[API.LOGIN]: {
+		[METHOD.POST]: LoginProps;
+	};
 }
 
 export interface Response {
@@ -92,6 +100,12 @@ export interface Response {
 	};
 	[API.PERSONALITY_TEST]: {
 		[METHOD.POST]: PersonalityTest;
+	};
+	[API.LOGIN]: {
+		[METHOD.POST]: {
+			status: string;
+			token: string;
+		};
 	};
 }
 

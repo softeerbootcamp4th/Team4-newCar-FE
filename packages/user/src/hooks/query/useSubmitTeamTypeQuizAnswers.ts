@@ -11,7 +11,7 @@ export type SubmitQuizAnswersRequest = Record<QuizId, ChoiceIndex>;
 
 export interface SubmitQuizAnswersResponse {
 	team: Category;
-	accesstoken:string
+	accesstoken: string;
 }
 
 export default function useSubmitTeamTypeQuizAnswers() {

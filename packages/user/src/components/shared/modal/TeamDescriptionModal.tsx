@@ -7,7 +7,7 @@ interface TeamDescriptionModalProps extends Omit<ModalProps, 'children'> {
 }
 
 export default function TeamDescriptionModal({ type, openTrigger }: TeamDescriptionModalProps) {
-	const { title, subTitle: summary, details } = TEAM_DESCRIPTIONS[type];
+	const { title, subTitle, details } = TEAM_DESCRIPTIONS[type];
 
 	const imageBaseUrl = `images/team-modal/${type}`;
 
@@ -16,7 +16,7 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 			<div className="flex flex-col items-center justify-center px-[50px] py-[30px] sm:h-full sm:px-[75px] sm:py-[40px]">
 				<div className="flex flex-col items-center gap-2.5">
 					<h6 className="text-heading-11 whitespace-pre-line font-medium text-neutral-100 sm:whitespace-normal">
-						{summary}
+						{subTitle}
 					</h6>
 					<h3>{title}</h3>
 				</div>

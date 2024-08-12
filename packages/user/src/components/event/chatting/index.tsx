@@ -1,5 +1,4 @@
-import { ChatList } from '@softeer/common/components';
-import { Category } from '@softeer/common/types';
+import { ChatList, ChatProps } from '@softeer/common/components';
 import { useEffect, useState } from 'react';
 import { CHAT_SOCKET_ENDPOINTS } from 'src/services/socket/endpoints.ts';
 import socketClient from 'src/services/socket/index.ts';
@@ -16,10 +15,9 @@ export default function RealTimeChatting() {
 			<ChatInputArea onSend={onSendMessage} />
 			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
 				<ChatList>
-					{messages.map((message, index) => (
+					{messages.map((message) => (
 						<Chat
-							// eslint-disable-next-line react/no-array-index-key
-							key={index}
+							key={message.id}
 							{...message}
 						/>
 					))}
@@ -29,13 +27,11 @@ export default function RealTimeChatting() {
 	);
 }
 
-export type ChatProps = { sender:number, content:string, team:Category, type:'message' | 'blocked' | 'notice' };
-
 function useChatSocket() {
 	const [messages, setMessages] = useState<ChatProps[]>([]);
 
 	const handleIncomingMessage = (payload:{ body: string }) => {
-		const parsedMessage = Object.assign(JSON.parse(payload.body), { type: 'message' });
+		const parsedMessage = Object.assign(JSON.parse(payload.body)) as ChatProps;
 		setMessages((prevMessages) => [...prevMessages, parsedMessage]);
 	};
 

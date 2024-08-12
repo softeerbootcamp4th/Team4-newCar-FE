@@ -1,21 +1,27 @@
-import { ChatUser } from 'src/types/chatUser.ts';
+import { Category } from 'src/types/category.ts';
 
 type NoticeChatProps = {
+	id:string;
 	type: 'notice';
-	message: string;
-	user?: never;
+	content: string;
+	sender?: never;
+	team?: never;
 };
 
-type MessageChatProps = {
+export type MessageChatProps = {
+	id:string;
 	type: 'message';
-	user: ChatUser;
-	message: string;
+	sender: number;
+	content: string;
+	team: Category;
 };
 
 type BlockedChatProps = {
+	id:string;
 	type: 'blocked';
-	user?: never;
-	message?: never;
+	sender?: never;
+	content?: never;
+	team?: never;
 };
 
 export type ChatProps = NoticeChatProps | MessageChatProps | BlockedChatProps;

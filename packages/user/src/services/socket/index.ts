@@ -1,4 +1,4 @@
-import { Client, IMessage, StompSubscription } from '@stomp/stompjs';
+import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
 
@@ -22,8 +22,10 @@ export class Socket {
 		return stompClient;
 	}
 
-	connect(callback?: (isConnected: boolean, options?:{ chatMessages?:[] }) => void) {
-		this.client.onConnect = () => callback?.(true, { chatMessages: [] });
+	connect(callback?: (isConnected: boolean, options?: IFrame) => void) {
+		// TODO: 채팅 메시지 리스트 받아오기
+		// this.client.onConnect = (options) => callback?.(true, options);
+		this.client.onConnect = () => callback?.(true);
 
 		this.client.onStompError = (error) => {
 			console.error('STOMP Error', error);
@@ -34,7 +36,6 @@ export class Socket {
 	}
 
 	disconnect() {
-		console.log('disconnect');
 		this.subscriptions.forEach((subscription) => subscription.unsubscribe());
 		this.subscriptions.clear();
 

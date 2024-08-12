@@ -7,7 +7,7 @@ import useSubmitTeamTypeQuizAnswers, {
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import { useFunnel } from 'src/hooks/useFunnel.ts';
 import ErrorStep from './ErrorStep.tsx';
-import PendingStep from './PendingStep.tsx';
+import PendingStatus from './PendingStatus.tsx';
 import ResultStep from './ResultStep.tsx';
 import QuizFunnel from './quiz/index.tsx';
 
@@ -45,7 +45,7 @@ export default function TeamSelectModalContent() {
 			</Funnel.Step>
 			<Funnel.Step name="pending">
 				<DeferredWrapper>
-					<PendingStep />
+					<PendingStatus>내 유형 불러오는 중 ...</PendingStatus>
 				</DeferredWrapper>
 			</Funnel.Step>
 			<Funnel.Step name="success">

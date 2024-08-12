@@ -2,9 +2,9 @@ import type { Category } from '@softeer/common/types';
 import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
 import LinkDisplay from 'src/components/shared/LinkDisplay.tsx';
 import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton.tsx';
-import { DOMAIN } from 'src/constants/environments.ts';
 import useAuth from 'src/hooks/useAuth.tsx';
 import copyLink from 'src/utils/copyLink.ts';
+import { getShareLink } from 'src/utils/getShareLink.ts';
 
 interface LinkShareProps {
 	category?: Category | null;
@@ -12,11 +12,9 @@ interface LinkShareProps {
 export default function LinkShare({ category }: LinkShareProps) {
 	const { user } = useAuth();
 
+	const url = getShareLink({ type: user?.type });
+
 	const variants = category ?? 'default';
-
-	const domainType = user?.type ?? 'default';
-
-	const url = DOMAIN[domainType];
 
 	const handleCopy = () => copyLink(url);
 

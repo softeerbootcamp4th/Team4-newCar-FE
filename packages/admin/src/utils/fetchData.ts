@@ -14,12 +14,14 @@ const fetchData = async <K extends keyof Payload, T extends keyof Payload[K]>({
 					...API_DEFAULT_HEADER,
 					...headers,
 					method,
+					credentials: 'include',
 				}
 			: {
 					...API_DEFAULT_HEADER,
 					...headers,
 					method,
 					body: JSON.stringify(payload),
+					credentials: 'include',
 				},
 	);
 

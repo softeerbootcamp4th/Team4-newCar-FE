@@ -1,26 +1,32 @@
 import { useState } from 'react';
 import { Button } from 'src/components/ui/button.tsx';
 import { Input } from 'src/components/ui/input.tsx';
+import useAuth from 'src/hooks/useAuth.tsx';
 
 function LoginPage() {
-	const [userId, setUserId] = useState('');
+	const { login } = useAuth();
+	const [adminId, setAdminId] = useState('');
 	const [password, setPassword] = useState('');
 
 	const handleIdChange = (newId: string) => {
-		setUserId(newId);
+		setAdminId(newId);
 	};
 
 	const handlePasswordChange = (newPassword: string) => {
 		setPassword(newPassword);
 	};
 
+	const handleLogin = () => {
+		login(adminId, password);
+	};
+
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center">
-			<p className="mb-10">Admin System(하하 CI/CD 성공?)</p>
+			<p className="mb-10">Admin System</p>
 			<div className="flex w-[200px] flex-col gap-2">
 				<Input
 					placeholder="아이디를 입력하세요."
-					value={userId}
+					value={adminId}
 					onChange={(event) => handleIdChange(event.target.value)}
 				/>
 				<Input
@@ -29,7 +35,7 @@ function LoginPage() {
 					value={password}
 					onChange={(event) => handlePasswordChange(event.target.value)}
 				/>
-				<Button>로그인</Button>
+				<Button onClick={handleLogin}>로그인</Button>
 			</div>
 		</div>
 	);

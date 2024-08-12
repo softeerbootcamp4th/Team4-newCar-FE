@@ -22,8 +22,8 @@ export default function TeamSelectModalContent() {
 
 	const [result, setResult] = useState<SubmitQuizAnswersResponse | null>(null);
 
-	const handleSubmit = (data: SubmitQuizAnswersRequest) =>
-		submitAnswers(data, {
+	const handleSubmit = (request: SubmitQuizAnswersRequest) =>
+		submitAnswers(request, {
 			onSuccess: setResult,
 			onError: () => setStep('error'),
 		});
@@ -33,7 +33,7 @@ export default function TeamSelectModalContent() {
 	}, [isPending]);
 
 	useEffect(() => {
-		if (result !== null) setStep('success');
+		if (result) setStep('success');
 	}, [result]);
 
 	return (

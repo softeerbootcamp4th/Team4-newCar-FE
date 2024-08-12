@@ -3,8 +3,8 @@ import type { Category } from '@softeer/common/types';
 import { Suspense } from 'react';
 import type { CategoryRankMap } from 'src/types/rank.d.ts';
 import Background from './Background.tsx';
-import RacingCard from './card/index.tsx';
 import Casper from './Casper.tsx';
+import RacingCard from './RacingCard.tsx';
 import RacingTitle from './RacingTitle.tsx';
 import EventTimer from './timer/index.tsx';
 

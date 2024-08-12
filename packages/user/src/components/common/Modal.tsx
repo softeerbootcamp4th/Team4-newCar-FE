@@ -7,12 +7,19 @@ export interface ModalProps extends Omit<DialogProps, 'onClose'> {
 }
 
 export default function Modal({
-	openTrigger, onClose, children, ...props }: PropsWithChildren<ModalProps>) {
-		const handleOpenChange = useCallback((isOpen: boolean) => {
-		if (!isOpen && onClose) {
-			onClose();
-		}
-	}, [onClose]);
+	openTrigger,
+	onClose,
+	children,
+	...props
+}: PropsWithChildren<ModalProps>) {
+	const handleOpenChange = useCallback(
+		(isOpen: boolean) => {
+			if (!isOpen && onClose) {
+				onClose();
+			}
+		},
+		[onClose],
+	);
 
 	return (
 		<Dialog onOpenChange={handleOpenChange}>

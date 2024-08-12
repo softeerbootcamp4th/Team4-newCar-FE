@@ -5,13 +5,13 @@ import TeamSelectModalContent from './ModalContent.tsx';
 
 interface TeamSelectModalProps extends Omit<ModalProps, 'children'> {}
 
-export default function TeamSelectModal({ openTrigger }: TeamSelectModalProps) {
+export default function TeamSelectModal({ openTrigger, ...props }: TeamSelectModalProps) {
 	const { user } = useAuth();
 
 	// if (user) return <LoginModal openTrigger={openTrigger} />;
 
 	return (
-		<Modal variants={user?.type} openTrigger={openTrigger}>
+		<Modal variants={user?.type} openTrigger={openTrigger} {...props}>
 			<Suspense fallback="불러오는 중 ...">
 				<TeamSelectModalContent />
 			</Suspense>

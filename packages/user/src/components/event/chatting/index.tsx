@@ -1,38 +1,69 @@
 import { ChatList } from '@softeer/common/components';
-import Chat from 'src/components/event/chatting/Chat.tsx';
+import { Category } from '@softeer/common/types';
+import { useEffect, useState } from 'react';
+import { CHAT_SOCKET_ENDPOINTS } from 'src/services/socket/endpoints.ts';
+import socketClient from 'src/services/socket/index.ts';
+import Chat from './Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
 
 /** 실시간 기대평 섹션 */
 export default function RealTimeChatting() {
+	const { onSendMessage, messages } = useChatSocket();
+
 	return (
 		<section className="container flex max-w-[1200px] snap-start flex-col items-center pb-[115px] pt-[50px]">
 			<h6 className="text-heading-10 mb-[25px] font-medium">기대평을 남겨보세요!</h6>
-			<ChatInputArea />
+			<ChatInputArea onSend={onSendMessage} />
 			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
 				<ChatList>
-					<Chat type="message" user={{ category: 'pet', id: 1234223 }} message="안녕" />
-					<Chat
-						type="message"
-						user={{ category: 'travel', id: 4223 }}
-						message="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa doloremque hic pariatur mollitia obcaecati veritatis sed repudiandae vero, esse, ut laudantium rerum aspernatur alias! Quidem molestias assumenda labore perspiciatis. Adipisci"
-					/>
-					<Chat type="message" user={{ category: 'place', id: 1223 }} message="안녕" />
-					<Chat type="message" user={{ category: 'leisure', id: 1223 }} message="안녕" />
-					<Chat type="blocked" />
-					<Chat type="notice" message="이건 공지야" />
-					<Chat
-						type="message"
-						user={{ category: 'place', id: 1234567890 }}
-						message="안녕 나는 좀 긴 문구야"
-					/>
-					<Chat type="blocked" />
-					<Chat
-						type="notice"
-						message="이것도 공지야 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa doloremque hic pariatur mollitia obcaecati veritatis sed repudiandae vero, esse, ut laudantium rerum aspernatur alias! Quidem molestias assumenda labore perspiciatis. Adipisci?"
-					/>
-					<Chat type="message" user={{ category: 'pet', id: 1234223 }} message="안녕" />
+					{messages.map((message, index) => (
+						<Chat
+							// eslint-disable-next-line react/no-array-index-key
+							key={index}
+							{...message}
+						/>
+					))}
 				</ChatList>
 			</div>
 		</section>
 	);
+}
+
+export type ChatProps = { sender:number, content:string, team:Category, type:'message' | 'blocked' | 'notice' };
+
+function useChatSocket() {
+	const [messages, setMessages] = useState<ChatProps[]>([]);
+
+	const handleIncomingMessage = (payload:{ body: string }) => {
+		const parsedMessage = Object.assign(JSON.parse(payload.body), { type: 'message' });
+		setMessages((prevMessages) => [...prevMessages, parsedMessage]);
+	};
+
+	useEffect(() => {
+		socketClient.connect((isConnected) => {
+			if (isConnected) {
+				socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
+					callback: handleIncomingMessage,
+				});
+			}
+		});
+
+		return () => socketClient.disconnect();
+	}, [handleIncomingMessage]);
+
+	const handleSendMessage = (text: string) => {
+		const chatMessage = {
+			sender: 1,
+			team: 'pet',
+			content: text,
+		};
+
+		socketClient.sendMessages({
+			destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
+			body: chatMessage,
+		});
+	};
+
+	return { onSendMessage: handleSendMessage, messages };
 }

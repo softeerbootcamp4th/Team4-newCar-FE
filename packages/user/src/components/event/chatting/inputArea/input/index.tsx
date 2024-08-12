@@ -1,15 +1,21 @@
 import { useRef } from 'react';
 import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
-import Input from 'src/components/event/chatting/inputArea/input/Input.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
+import Input from './Input.tsx';
 
-export default function ChatInput() {
+interface ChatInputProps {
+	onSend: (message: string) => void;
+}
+export default function ChatInput({ onSend }: ChatInputProps) {
 	const { isAuthenticated } = useAuth();
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		console.info(`chat: ${inputRef.current?.value}`);
+		if (inputRef.current?.value) {
+			onSend(inputRef.current.value);
+			inputRef.current.value = '';
+		}
 	}
 
 	return (

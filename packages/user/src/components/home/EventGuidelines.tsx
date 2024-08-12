@@ -42,7 +42,7 @@ const EVENT_GUIDELINES = [
 /** 이벤트 유의사항 섹션 */
 export default function EventGuidelines() {
 	return (
-		<section className="container flex justify-center py-[66px]">
+		<section className="container flex snap-start justify-center py-[66px]">
 			<div className="flex flex-col gap-7">
 				<h6 className="text-heading-10">유의사항</h6>
 				<ul className="flex flex-col gap-7">

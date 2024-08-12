@@ -15,12 +15,14 @@ export default function ResultStep({ team: type }: ResultStepProps) {
 	const { titleStyles, detailsStyles } = styles[type];
 
 	return (
-		<div className="grid h-full gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16 items-center">
+		<div className="grid h-full items-center gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16">
 			<RacingTeamCard type={type} size="modal" />
-			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pt-5 pb-12 sm:max-w-xl md:max-h-[400px] md:pb-2">
+			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pb-12 pt-5 sm:max-w-xl md:max-h-[400px] md:pb-2">
 				<div>
 					<p className={`${titleStyles} text-heading-8 mb-6 whitespace-pre-line font-bold`}>
-						<CategoryTitleTemplate><strong className="text-foreground">{displayTitle}</strong></CategoryTitleTemplate>
+						<CategoryTitleTemplate>
+							<strong className="text-foreground">{displayTitle}</strong>
+						</CategoryTitleTemplate>
 					</p>
 					<p className={`text-body-3 ${detailsStyles} break-words`}>{details}</p>
 				</div>

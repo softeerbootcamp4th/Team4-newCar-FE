@@ -11,7 +11,7 @@ export default function StepProgress({ currentIndex, totalStep }: StepProgressPr
 					<div
 						// eslint-disable-next-line react/no-array-index-key
 						key={index}
-						className={`w-15 h-[3px] ${index === currentIndex ? 'bg-primary' : 'bg-neutral-300'}`}
+						className={`w-15 h-[3px] ${index <= currentIndex ? 'bg-primary' : 'bg-neutral-300'}`}
 					/>
 				))}
 		</div>

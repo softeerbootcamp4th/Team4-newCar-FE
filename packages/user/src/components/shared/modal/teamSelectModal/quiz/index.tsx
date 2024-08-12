@@ -67,7 +67,11 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 									</Button>
 								)}
 								{isLastQuestion ? (
-									<Button className="flex-1" disabled={disabledNextButton} onClick={() => onSubmit(answers)}>
+									<Button
+										className="flex-1"
+										disabled={disabledNextButton}
+										onClick={() => onSubmit(answers)}
+									>
 										결과 보기
 									</Button>
 								) : (

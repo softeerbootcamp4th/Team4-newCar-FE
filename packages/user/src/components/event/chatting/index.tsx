@@ -16,10 +16,7 @@ export default function RealTimeChatting() {
 			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
 				<ChatList>
 					{messages.map((message) => (
-						<Chat
-							key={message.id}
-							{...message}
-						/>
+						<Chat key={message.id} {...message} />
 					))}
 				</ChatList>
 			</div>
@@ -30,7 +27,7 @@ export default function RealTimeChatting() {
 function useChatSocket() {
 	const [messages, setMessages] = useState<ChatProps[]>([]);
 
-	const handleIncomingMessage = (payload:{ body: string }) => {
+	const handleIncomingMessage = (payload: { body: string }) => {
 		const parsedMessage = Object.assign(JSON.parse(payload.body)) as ChatProps;
 		setMessages((prevMessages) => [...prevMessages, parsedMessage]);
 	};

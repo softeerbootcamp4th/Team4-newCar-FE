@@ -1,7 +1,7 @@
 import { Category } from 'src/types/category.ts';
 
 type NoticeChatProps = {
-	id:string;
+	id: string;
 	type: 'notice';
 	content: string;
 	sender?: never;
@@ -9,7 +9,7 @@ type NoticeChatProps = {
 };
 
 export type MessageChatProps = {
-	id:string;
+	id: string;
 	type: 'message';
 	sender: number;
 	content: string;
@@ -17,7 +17,7 @@ export type MessageChatProps = {
 };
 
 type BlockedChatProps = {
-	id:string;
+	id: string;
 	type: 'blocked';
 	sender?: never;
 	content?: never;

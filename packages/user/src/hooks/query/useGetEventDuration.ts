@@ -4,7 +4,7 @@ import QUERY_KEYS from 'src/constants/queryKey.ts';
 export type EventDuration = { startDate: string; endDate: string };
 
 export default function useGetEventDuration() {
-	const { data: duration } = useSuspenseQuery({
+	const { data: duration } = useSuspenseQuery<EventDuration>({
 		queryKey: [QUERY_KEYS.EVENT_DURATION],
 		queryFn: fetchMockData,
 	});

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import DeferredWrapper from 'src/components/common/DeferredWrapper.tsx';
 import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import useSubmitTeamTypeQuizAnswers, {
-	SubmitQuizAnswersRequest,
-	SubmitQuizAnswersResponse,
+	type SubmitQuizAnswersRequest,
+	type SubmitQuizAnswersResponse,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import { useFunnel } from 'src/hooks/useFunnel.ts';
 import ErrorStep from './ErrorStep.tsx';
+import PendingStep from './PendingStep.tsx';
 import ResultStep from './ResultStep.tsx';
 import QuizFunnel from './quiz/index.tsx';
 
@@ -41,7 +43,11 @@ export default function TeamSelectModalContent() {
 			<Funnel.Step name="quiz">
 				<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
 			</Funnel.Step>
-			<Funnel.Step name="pending">결과를 불러오는 중 ...</Funnel.Step>
+			<Funnel.Step name="pending">
+				<DeferredWrapper>
+					<PendingStep />
+				</DeferredWrapper>
+			</Funnel.Step>
 			<Funnel.Step name="success">
 				<ResultStep {...(result as NonNullable<SubmitQuizAnswersResponse>)} />
 			</Funnel.Step>

@@ -17,7 +17,7 @@ interface TeamDescriptionModalProps extends ModalProps {
 }
 
 export default function TeamDescriptionModal({ type, openTrigger }: TeamDescriptionModalProps) {
-	const { title, summary } = TEAM_DESCRIPTIONS[type];
+	const { title, subTitle: summary } = TEAM_DESCRIPTIONS[type];
 	const content = TEAM_DETAILS[type];
 
 	const imageBaseUrl = `images/team-modal/${type}`;

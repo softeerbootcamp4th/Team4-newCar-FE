@@ -1,36 +1,39 @@
 import { Category } from '@softeer/common/types';
 import { useEffect, useRef, useState } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
+import { useToast } from 'src/hooks/useToast.ts';
+import type { Rank } from 'src/types/rank.d.ts';
 import Gauge from './Gauge.tsx';
-import GaugeButton from './GaugeButton.tsx';
+import TeamButton from './TeamButton.tsx';
 
-const ranks = [1, 2, 3, 4] as const;
-export type Rank = typeof ranks[number];
-
-interface TeamGaugeButtonProps {
+interface ControlButtonProps {
 	type: Category;
 	rank: Rank;
 	percentage: number;
+	onScale: () => void;
 }
 
-const MAX_CLICK = 30;
+const MAX_CLICK = 10;
 const MIN_PERCENT = 2;
-const RESET_SECOND = 1000;
+const RESET_SECOND = 10000;
 
-export default function TeamGaugeButton({
+export default function ControlButton({
 	type,
 	rank,
 	percentage: originPercentage,
-}: TeamGaugeButtonProps) {
-	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage);
+	onScale,
+}: ControlButtonProps) {
+	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onScale);
 
 	return (
-		<div className="flex flex-col gap-3">
+		<div
+			className={`absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${styles[rank]}`}
+		>
 			<div className="flex items-center gap-2">
 				<Lightning />
 				<Gauge percent={progress} />
 			</div>
-			<GaugeButton
+			<TeamButton
 				onClick={handleClick}
 				disabled={clickCount === MAX_CLICK}
 				rank={rank}
@@ -41,7 +44,16 @@ export default function TeamGaugeButton({
 	);
 }
 
-function useGaugeProgress(originPercentage: number) {
+const styles: Record<Rank, string> = {
+	1: 'left-[40px] z-40',
+	2: 'left-[310px] z-30',
+	3: 'left-[580px] z-20',
+	4: 'left-[850px] z-10',
+};
+
+function useGaugeProgress(originPercentage: number, onClick: () => void) {
+	const { toast } = useToast();
+
 	const [progress, setProgress] = useState(0);
 	const [clickCount, setClickCount] = useState(0);
 	const initPercentageRef = useRef(originPercentage);
@@ -61,12 +73,18 @@ function useGaugeProgress(originPercentage: number) {
 		}
 
 		if (clickCount === MAX_CLICK) {
+			toast({ description: '배터리가 떨어질 때까지 기다려주세요!' });
 			const resetTimer = setTimeout(resetToInitProgress, RESET_SECOND);
 			return () => clearTimeout(resetTimer);
 		}
 	}, [clickCount, originPercentage]);
 
-	const handleClick = () => clickCount < MAX_CLICK && setClickCount((count) => count + 1);
+	const handleClick = () => {
+		if (clickCount < MAX_CLICK) {
+			setClickCount((count) => count + 1);
+			onClick();
+		}
+	};
 
 	const updateProgress = (count: number) => {
 		const newProgress = MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);
@@ -78,5 +96,5 @@ function useGaugeProgress(originPercentage: number) {
 		setProgress(initPercentageRef.current);
 	};
 
-  return { progress, clickCount, handleClick };
+	return { progress, clickCount, handleClick };
 }

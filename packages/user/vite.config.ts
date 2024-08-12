@@ -24,7 +24,7 @@ export default defineConfig({
 	},
 	esbuild: {
 		sourcemap: false,
-		drop: ['console', 'debugger'],
+		// drop: ['console', 'debugger'],
 	},
 	publicDir: './public',
 } as VitestConfigExport);

@@ -11,7 +11,7 @@ interface RacingTeamCardProps {
 }
 export default function RacingTeamCard({ user }: RacingTeamCardProps) {
 	return (
-		<TeamCard type={user.category} size="racing">
+		<TeamCard type={user.type} size="racing">
 			<button
 				type="button"
 				onClick={() => copyLink(user.shareUrl as string)}

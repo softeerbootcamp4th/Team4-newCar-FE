@@ -1,6 +1,6 @@
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
-import TeamSelectModal from '../teamSelectModal/index.tsx';
+import TeamSelectModal from './teamSelectModal/index.tsx';
 import RacingTeamCard from './RacingTeamCard.tsx';
 import UnassignedCard from './UnassignedCard.tsx';
 

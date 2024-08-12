@@ -10,7 +10,7 @@ export default function RacingCard() {
 	return (
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">
 			<CardTitle name={user?.name} />
-			{user?.shareUrl ? (
+			{user?.type ? (
 				<RacingTeamCard user={user} />
 			) : (
 				<TeamSelectModal

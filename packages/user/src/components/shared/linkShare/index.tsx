@@ -2,20 +2,21 @@ import type { Category } from '@softeer/common/types';
 import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
 import LinkDisplay from 'src/components/shared/LinkDisplay.tsx';
 import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton.tsx';
+import { DOMAIN } from 'src/constants/environments.ts';
 import useAuth from 'src/hooks/useAuth.tsx';
 import copyLink from 'src/utils/copyLink.ts';
-
-// TODO: 추후 이벤트 도메인으로 변경
-const DOMAIN = 'https://hyundai.com';
 
 interface LinkShareProps {
 	category?: Category | null;
 }
 export default function LinkShare({ category }: LinkShareProps) {
-	const variants = category ?? 'default';
 	const { user } = useAuth();
 
-	const url = user?.shareUrl ?? DOMAIN;
+	const variants = category ?? 'default';
+
+	const domainType = user?.type ?? 'default';
+
+	const url = DOMAIN[domainType];
 
 	const handleCopy = () => copyLink(url);
 

@@ -3,8 +3,7 @@ import type { Category } from '@softeer/common/types';
 interface User {
 	id: number;
 	name: string;
-	type: Category;
-	shareUrl?: string | null;
+	type?: Category
 }
 
 // eslint-disable-next-line import/prefer-default-export

@@ -17,6 +17,8 @@ const MAX_CLICK = 10;
 const MIN_PERCENT = 2;
 const RESET_SECOND = 10000;
 
+const MAX_CLICK_TOAST_DESCRIPTION = '배터리가 떨어질 때까지 기다려주세요!';
+
 export default function ControlButton({
 	type,
 	rank,
@@ -73,7 +75,7 @@ function useGaugeProgress(originPercentage: number, onClick: () => void) {
 		}
 
 		if (clickCount === MAX_CLICK) {
-			toast({ description: '배터리가 떨어질 때까지 기다려주세요!' });
+			toast({ description: MAX_CLICK_TOAST_DESCRIPTION });
 			const resetTimer = setTimeout(resetToInitProgress, RESET_SECOND);
 			return () => clearTimeout(resetTimer);
 		}

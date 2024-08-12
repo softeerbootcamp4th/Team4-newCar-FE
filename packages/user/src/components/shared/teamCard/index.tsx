@@ -6,9 +6,10 @@ import CardBackgroundImage from './CardBackgroundImage.tsx';
 import CardContent from './CardContent.tsx';
 import CardGradient from './CardGradient.tsx';
 
+export type TeamCardSizeType = 'description' | 'racing' | 'modal';
 interface TeamCardProps {
 	type: Category;
-	size: 'description' | 'racing';
+	size: TeamCardSizeType;
 }
 
 export default function TeamCard({ type, size, children }: PropsWithChildren<TeamCardProps>) {
@@ -32,7 +33,14 @@ export default function TeamCard({ type, size, children }: PropsWithChildren<Tea
 	);
 }
 
-const styles = {
+const styles: Record<
+	TeamCardSizeType,
+	{
+		cardStyles: string;
+		titleStyles: string;
+		descriptionStyles: string;
+	}
+> = {
 	description: {
 		cardStyles: 'h-[364px] w-[244px] pb-[21px] pt-[25px]',
 		titleStyles: '',
@@ -42,5 +50,10 @@ const styles = {
 		cardStyles: 'w-[160px] h-[234px] pt-[15px] pb-[18px]',
 		titleStyles: 'text-[22px] leading-[22px]',
 		descriptionStyles: 'text-detail-3 leading-[15px]',
+	},
+	modal: {
+		cardStyles: 'w-[279px] h-[400px] pb-[30px] pt-[25px]',
+		titleStyles: '',
+		descriptionStyles: 'text-detail-1',
 	},
 };

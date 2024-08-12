@@ -32,7 +32,7 @@ export class Socket {
 			callback?.(false);
 		};
 
-		this.client.activate(); // Connect to the WebSocket
+		this.client.activate();
 	}
 
 	disconnect() {

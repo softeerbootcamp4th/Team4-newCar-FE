@@ -8,7 +8,7 @@ export default function ContactInfo() {
 				<p className="text-detail-1">주소 : 서울시 서초구 헌릉로 12</p>
 			</address>
 			<small className="text-detail-1 capitalize">
-				COPYRIGHT © HYUNDAI MOTOR COMPANY, ALL RIGHTS RESERVED.
+				COPYRIGHT &copy; HYUNDAI MOTOR COMPANY, ALL RIGHTS RESERVED.
 			</small>
 		</div>
 	);

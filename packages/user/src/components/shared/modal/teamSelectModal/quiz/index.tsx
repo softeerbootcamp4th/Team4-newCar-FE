@@ -15,15 +15,7 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 
 	const [Funnel, setStep] = useFunnel(steps);
 
-	const [answers, setAnswers] = useState<Record<number, number>>({});
-
-	const handleSubmit = useCallback(() => {
-		const submitData = Object.entries(answers).map(([id, choice]) => ({
-			id: Number(id),
-			choice,
-		}));
-		onSubmit(submitData);
-	}, [answers]);
+	const [answers, setAnswers] = useState<SubmitQuizAnswersRequest>({});
 
 	const handleNavigation = useCallback(
 		(quizIndex: number, direction: 'previous' | 'next') => {
@@ -75,7 +67,7 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 									</Button>
 								)}
 								{isLastQuestion ? (
-									<Button className="flex-1" disabled={disabledNextButton} onClick={handleSubmit}>
+									<Button className="flex-1" disabled={disabledNextButton} onClick={() => onSubmit(answers)}>
 										결과 보기
 									</Button>
 								) : (

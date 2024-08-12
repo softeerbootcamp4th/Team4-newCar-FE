@@ -1,12 +1,9 @@
 import { Category } from '@softeer/common/types';
 import { useMutation } from '@tanstack/react-query';
 
-interface Answer {
-	id: number;
-	choice: number;
-}
-
-export type SubmitQuizAnswersRequest = Answer[];
+type QuizId = number;
+type ChoiceIndex = number;
+export type SubmitQuizAnswersRequest = Record<QuizId, ChoiceIndex>;
 
 export interface SubmitQuizAnswersResponse {
 	type: Category;

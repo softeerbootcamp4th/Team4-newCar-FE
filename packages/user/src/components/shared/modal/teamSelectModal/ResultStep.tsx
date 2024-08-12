@@ -15,7 +15,7 @@ export default function ResultStep({ team: type }: ResultStepProps) {
 	const { titleStyles, detailsStyles } = styles[type];
 
 	return (
-		<div className="grid h-full gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16">
+		<div className="grid h-full gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16 items-center">
 			<RacingTeamCard type={type} size="modal" />
 			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pt-5 pb-12 sm:max-w-xl md:max-h-[400px] md:pb-2">
 				<div>
@@ -76,7 +76,7 @@ const styles: Record<Category, { titleStyles: string; detailsStyles: string }> =
 		detailsStyles: 'text-orange-100',
 	},
 	leisure: {
-		titleStyles: 'text-gray-500',
-		detailsStyles: 'text-foreground',
+		titleStyles: 'text-neutral-600',
+		detailsStyles: 'text-neutral-100',
 	},
 };

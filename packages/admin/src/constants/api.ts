@@ -15,6 +15,7 @@ export const enum API {
 	RACING_WINNERS = '/racing-winners',
 	PERSONALITY_TEST_LIST = '/personality-test-list',
 	PERSONALITY_TEST = '/personality-test',
+	LOGIN = '/login',
 }
 
 export const API_DEFAULT_HEADER = {

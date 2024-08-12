@@ -1,5 +1,10 @@
-import RealTimeChatting from 'src/components/event/chatting/index.tsx';
+import { RealTimeChatting, RealTimeRacing } from 'src/components/event/index.ts';
 
 export default function EventPage() {
-	return <RealTimeChatting />;
+	return (
+		<>
+			<RealTimeRacing />
+			<RealTimeChatting />
+		</>
+	);
 }

@@ -1,3 +1,6 @@
+import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
+import getCookie from '../storage/cookie/getCookie.ts';
+
 type FetchOptions = RequestInit & { interceptors?: Interceptors };
 
 interface Interceptors {
@@ -9,6 +12,11 @@ const fetchWithInterceptors = async <T>(url: string, options: FetchOptions = {})
 	const { interceptors, ...fetchOptions } = options;
 
 	if (interceptors?.request) {
+		const accessToken = getCookie(ACCESS_TOKEN_KEY);
+		fetchOptions.headers = fetchOptions.headers || {};
+		if (accessToken) {
+			(fetchOptions.headers as Record<string, string>).Authorization = accessToken;
+		}
 		const modifiedOptions = await interceptors.request(url, fetchOptions);
 		Object.assign(fetchOptions, modifiedOptions);
 	}

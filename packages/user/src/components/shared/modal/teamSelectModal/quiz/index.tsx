@@ -1,5 +1,6 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import Button from 'src/components/common/Button.tsx';
+import StepProgress from 'src/components/common/StepProgress.tsx';
 import { Quiz } from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import { SubmitQuizAnswersRequest } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import { useFunnel } from 'src/hooks/useFunnel.ts';
@@ -50,6 +51,7 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 				return (
 					<Funnel.Step key={quizId} name={quizId}>
 						<StepWrapper>
+							<StepProgress totalStep={steps.length} currentIndex={quizIndex} />
 							<QuizStepContent
 								quiz={quiz}
 								quizNum={quizIndex + 1}

@@ -1,10 +1,9 @@
 import { PropsWithChildren } from 'react';
+import { MessageChatProps } from 'src/components/chat/index.ts';
 import { Category } from 'src/types/category.ts';
-import { ChatUser } from 'src/types/chatUser.ts';
 import { cn } from 'src/utils/index.ts';
 
-interface MessageProps {
-	user: ChatUser;
+interface MessageProps extends Pick<MessageChatProps, 'sender' | 'team'> {
 	isMyMessage?: boolean;
 }
 
@@ -16,18 +15,18 @@ const TYPES: Record<Category, { casper: string; textColor: string }> = {
 };
 
 export default function Message({
-	user,
+	sender,
+	team,
 	isMyMessage = false,
 	children,
 }: PropsWithChildren<MessageProps>) {
-	const { id, category } = user;
-	const { casper, textColor } = TYPES[category];
+	const { casper, textColor } = TYPES[team];
 
 	return (
 		<div className="flex w-full items-center gap-12">
 			<div className="flex min-w-[180px] max-w-[180px] items-center gap-3">
 				<img src={casper} className="h-8 w-11" alt="캐스퍼" />
-				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {id} </p>
+				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {sender} </p>
 				{isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
 			</div>
 			<p className={`text-body-3 truncate ${isMyMessage && 'font-medium'}`}>{children}</p>

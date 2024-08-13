@@ -1,6 +1,6 @@
 import { FetchWrapper } from '@softeer/common/utils';
-import { BASE_URL } from 'src/vite-env.ts';
+import { API_BASE_URL } from 'src/constants/environments.ts';
 
-const http = new FetchWrapper(BASE_URL);
+const http = new FetchWrapper(API_BASE_URL);
 
 export default http;

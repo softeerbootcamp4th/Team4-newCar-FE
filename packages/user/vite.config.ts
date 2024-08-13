@@ -27,4 +27,7 @@ export default defineConfig({
 		// drop: ['console', 'debugger'],
 	},
 	publicDir: './public',
+	define: {
+		global: 'window', // web socket
+	},
 } as VitestConfigExport);

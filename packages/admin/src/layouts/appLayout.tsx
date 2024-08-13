@@ -23,6 +23,11 @@ export default function AppLayout() {
 				openAlert(ErrorMessage.NEED_LOGIN, 'alert');
 			}
 		}
+		if (location.pathname === RoutePaths.ROOT) {
+			if (accessToken) {
+				navigate(RoutePaths.EVENT_PAGE, { replace: true });
+			}
+		}
 	}, [location.pathname]);
 
 	return (

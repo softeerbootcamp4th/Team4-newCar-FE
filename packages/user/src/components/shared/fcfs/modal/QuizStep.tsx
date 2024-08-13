@@ -4,9 +4,10 @@ import { FCFSQuiz } from 'src/hooks/query/useGetFCFSQuiz.ts';
 
 interface QuizStepProps {
 	quiz: FCFSQuiz;
+	onSelect: (answer: number) => void;
 }
 
-export default function QuizStep({ quiz }: QuizStepProps) {
+export default function QuizStep({ quiz, onSelect }: QuizStepProps) {
 	const { question, choices } = quiz;
 
 	return (
@@ -17,7 +18,9 @@ export default function QuizStep({ quiz }: QuizStepProps) {
 			</div>
 			<div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
 				{choices.map(({ num, text }) => (
-					<OptionButton key={num}>{text}</OptionButton>
+					<OptionButton key={num} onClick={() => onSelect(num)}>
+						{text}
+					</OptionButton>
 				))}
 			</div>
 		</div>

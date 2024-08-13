@@ -3,8 +3,8 @@ import { useState } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import TeamSelectModal from 'src/components/shared/modal/teamSelectModal/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
-import UnassignedCard from 'src/components/shared/UnassignedCard.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
+import UnassignedCard from './UnassignedCard.tsx';
 
 export default function RacingCard() {
 	const { user } = useAuth();

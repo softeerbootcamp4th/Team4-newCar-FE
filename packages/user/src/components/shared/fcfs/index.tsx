@@ -1,12 +1,13 @@
-import { lazy, PropsWithChildren, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import LoginModal from 'src/components/shared/modal/login/index.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
+import TriggerButtonLike from './TriggerButtonLike.tsx';
 
-const FCFSModal = lazy(() => import('./modal/FCFSModal.tsx'));
+const FCFSModal = lazy(() => import('./FCFSModal.tsx'));
 
 const EVENT_OPEN_HOUR = 15;
-const EVENT_OPEN_MINUTE = 13;
+const EVENT_OPEN_MINUTE = 15;
 
 export default function FCFSFloatingButtonController() {
 	const { isAuthenticated } = useAuth();
@@ -23,7 +24,9 @@ export default function FCFSFloatingButtonController() {
 			<LoginModal
 				openTrigger={
 					<TriggerButtonWrapper>
-						<TriggerButtonLike>로그인하고 퀴즈 풀기</TriggerButtonLike>
+						<TriggerButtonLike>
+							<p className="text-heading-8 text-foreground font-bold">로그인</p>하고 퀴즈 풀기
+						</TriggerButtonLike>
 					</TriggerButtonWrapper>
 				}
 			/>
@@ -32,24 +35,17 @@ export default function FCFSFloatingButtonController() {
 
 	// 로그인한 유저에게는 선착순 퀴즈 모달 트리거 버튼 노출
 	return (
-		<Suspense>
+		<Suspense fallback={null}>
 			<FCFSModal
 				openTrigger={
 					<TriggerButtonWrapper>
-						<TriggerButtonLike>선착순 퀴즈 풀기</TriggerButtonLike>
+						<TriggerButtonLike>
+							선착순 퀴즈 <p className="text-heading-8 text-foreground font-extrabold">OPEN</p>
+						</TriggerButtonLike>
 					</TriggerButtonWrapper>
 				}
 			/>
 		</Suspense>
-	);
-}
-
-/** component */
-function TriggerButtonLike({ children }: PropsWithChildren) {
-	return (
-		<div className="text-heading-11 bg-skyblue-400 text-background fixed bottom-12 left-12 z-50 flex h-[150px] w-[150px] items-center justify-center break-keep rounded-[100%] p-4 text-center font-bold opacity-80 shadow-lg">
-			{children}
-		</div>
 	);
 }
 

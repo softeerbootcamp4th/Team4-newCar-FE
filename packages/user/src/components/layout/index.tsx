@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import FCFSFloatingButtonController from 'src/components/shared/FCFSFloatingButtonController.tsx';
+import FCFSFloatingButtonController from 'src/components/shared/fcfs/index.tsx';
 import Banner from './banner/index.tsx';
 import BodyContainer from './BodyContainer.tsx';
 import Footer from './footer/index.tsx';

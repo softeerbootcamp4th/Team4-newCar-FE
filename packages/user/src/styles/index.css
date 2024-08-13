@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* font */
 
 @font-face {
@@ -107,5 +108,45 @@ main {
 @layer base {
 	body {
 		@apply bg-background text-foreground font-normal;
+	}  
+
+	* {
+		cursor: none;
 	}
+	
+	/* hover 상태에서 커서 스타일 */
+	*:hover {
+		cursor: none;
+	}
+	
+	/* active 상태에서 커서 스타일 */
+	*:active {
+		cursor: none;
+	}
+	
+	/* focus 상태에서 커서 스타일 */
+	*:focus {
+		cursor: none;
+	}
+	
+	/* disabled 상태에서 커서 스타일 */
+	*:disabled {
+		cursor: none;
+	}
+	
+	/* selection 상태에서 커서 스타일 */
+	::selection {
+		cursor: none;
+	}
+	 
 }
+
+*::-webkit-scrollbar {
+	display: none;
+}
+  
+* {
+	scrollbar-width: none;
+}
+
+

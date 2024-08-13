@@ -56,7 +56,6 @@ export interface LoginProps {
 
 export interface Payload {
     [API.COMMON_EVENT]: {
-        // GET은 리팩토링시 구조 변경하면서 삭제할 예정
         [METHOD.GET]: Record<string, never>;
         [METHOD.POST]: CommonEvent;
     };
@@ -79,12 +78,12 @@ export interface Payload {
     [API.LOGIN]: {
         [METHOD.POST]: LoginProps;
     };
-
 }
 
 export interface Response {
     [API.COMMON_EVENT]: {
         [METHOD.GET]: CommonEvent;
+        [METHOD.POST]: Record<string, never>;
     };
     [API.QUIZ_LIST]: {
         [METHOD.GET]: Quiz[];
@@ -104,8 +103,7 @@ export interface Response {
     };
     [API.LOGIN]: {
         [METHOD.POST]: {
-            status: string;
-            token: string;
+            accessToken: string;
         };
     };
 }
@@ -113,6 +111,6 @@ export interface Response {
 export type FetchDataRequestOptions<K extends keyof Payload, T extends keyof Payload[K]> = {
     path: K;
     payload?: Payload[K][T];
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    method: T; // T가 'GET', 'POST', 'PUT', 'DELETE' 중 하나로 제한됩니다.
     headers?: HeadersInit;
 };

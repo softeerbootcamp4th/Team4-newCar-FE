@@ -7,11 +7,10 @@ import {
 	Response,
 	WinnerSetting,
 } from 'src/services/api/types/apiType.ts';
-import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
-	const { openAlert } = useAlert();
+	// const { openAlert } = useAlert();
 
 	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
@@ -19,8 +18,7 @@ const useEvent = () => {
 				path: API.COMMON_EVENT,
 				method: METHOD.GET,
 			});
-			const result = await response.json();
-			return result;
+			return response;
 		},
 		queryKey: [API.COMMON_EVENT],
 	});
@@ -32,8 +30,7 @@ const useEvent = () => {
 				method: METHOD.POST,
 				payload: commonEvent,
 			});
-			const result = await response.json();
-			return result;
+			return response;
 		},
 		onSuccess: () => {
 			commonEventQuery.refetch();
@@ -50,8 +47,7 @@ const useEvent = () => {
 				path: API.QUIZ_LIST,
 				method: METHOD.GET,
 			});
-			const result = await response.json();
-			return result;
+			return response;
 		},
 		queryKey: [API.QUIZ_LIST],
 	});
@@ -66,8 +62,7 @@ const useEvent = () => {
 				method: METHOD.POST,
 				payload,
 			});
-			const result = await response.json();
-			return result;
+			return response;
 		},
 		onSuccess: () => {
 			quizEventQuery.refetch();
@@ -84,9 +79,7 @@ const useEvent = () => {
 				path: API.RACING_WINNERS,
 				method: METHOD.GET,
 			});
-			const result = await response.json();
-			if (response.status === 200) return result;
-			return [];
+			return response;
 		},
 		queryKey: [API.RACING_WINNERS],
 	});
@@ -98,12 +91,14 @@ const useEvent = () => {
 				method: METHOD.POST,
 				payload: winnerSettings,
 			});
-			openAlert(await response.text(), 'alert');
-			if (response.status === 200) {
-				openAlert('추첨이 완료되었습니다.', 'alert');
-				const result = await response.json();
-				return result;
-			}
+			return response;
+			// response
+			// openAlert(await response.text(), 'alert');
+			// if (response.status === 200) {
+			// 	openAlert('추첨이 완료되었습니다.', 'alert');
+			// 	const result = await response.json();
+			// 	return result;
+			// }
 		},
 		onSuccess: () => {
 			racingWinnerQuery.refetch();
@@ -120,8 +115,7 @@ const useEvent = () => {
 				path: API.PERSONALITY_TEST_LIST,
 				method: METHOD.GET,
 			});
-			const result = await response.json();
-			return result;
+			return response;
 		},
 		queryKey: [API.PERSONALITY_TEST_LIST],
 	});
@@ -133,8 +127,7 @@ const useEvent = () => {
 				method: METHOD.POST,
 				payload: personalityTest,
 			});
-			const result = await response.json();
-			return result;
+			return response;
 		},
 		onSuccess: () => {
 			personalityTestListQuery.refetch();

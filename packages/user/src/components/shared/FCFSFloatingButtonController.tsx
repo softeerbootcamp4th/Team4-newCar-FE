@@ -44,6 +44,15 @@ export default function FCFSFloatingButtonController() {
 	);
 }
 
+/** component */
+function TriggerButtonLike({ children }: PropsWithChildren) {
+	return (
+		<div className="text-heading-11 bg-skyblue-400 text-background fixed bottom-12 left-12 z-50 flex h-[150px] w-[150px] items-center justify-center break-keep rounded-[100%] p-4 text-center font-bold opacity-80 shadow-lg">
+			{children}
+		</div>
+	);
+}
+
 /** component hook */
 function useEventActivation(eventHour: number, eventMinute: number) {
 	const [isActive, setIsActive] = useState(false);
@@ -82,13 +91,4 @@ function calculateTimeUntilEvent(hour: number, minute: number): number {
 	).getTime();
 
 	return eventTime - currentTime.getTime();
-}
-
-/** component */
-function TriggerButtonLike({ children }: PropsWithChildren) {
-	return (
-		<div className="text-heading-11 bg-skyblue-500/60 fixed bottom-12 left-12 z-50 flex h-[150px] w-[150px] items-center justify-center break-keep rounded-[100%] p-4 text-center font-bold text-background/70 shadow-lg">
-			{children}
-		</div>
-	);
 }

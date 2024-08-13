@@ -30,24 +30,3 @@ export const TEAM_DESCRIPTIONS: Record<Category, TeamDescriptions> = {
 			'오프로드의 정석을 느끼게 해줄 다양한 액세서리를 캐스퍼에 적용해보세요.  자전거와 함께할 수 있도록 돕는 루프 자전거 캐리어, 험한 길도 끄떡없는 스틸 언더커버를 제공합니다.',
 	},
 } as const;
-
-type HelmetOption = { image: string; description: string };
-
-export const TEAM_HELMET_OPTIONS: Record<Category, HelmetOption> = {
-	pet: {
-		description: '펫 프렌들리\n반려동물의 편안하고\n안전한 여행을 위한',
-		image: '/image/leisure.png',
-	},
-	travel: {
-		description: '여행의 정석\n아웃도어 활동을 쉽고 편하게',
-		image: '/image/pet.png',
-	},
-	place: {
-		description: '공간활용의 기술\n많은 물건도 구석구석 알차게',
-		image: '/image/place.png',
-	},
-	leisure: {
-		description: '펫 프렌들리\n레저의 정석',
-		image: '/image/travel.png',
-	},
-} as const;

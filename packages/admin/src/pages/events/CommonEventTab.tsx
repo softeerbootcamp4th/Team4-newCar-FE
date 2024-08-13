@@ -1,12 +1,17 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from 'src/components/ui/button.tsx';
 import { Input } from 'src/components/ui/input.tsx';
+import { ConfirmMessage, ErrorMessage } from 'src/constants/message.ts';
 import useEvent from 'src/hooks/useEvent.tsx';
 import { CommonEvent } from 'src/services/api/types/apiType.ts';
 import { useAlert } from 'src/store/provider/AlertProvider.tsx';
-import { getKstFromPickerTime, getPickerTimeFromKst } from 'src/utils/time.ts';
+import {
+	getKstTimeFromDateAndTime,
+	getPickerDateFromKst,
+	getPickerTimeFromKst,
+} from 'src/utils/time.ts';
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
@@ -21,9 +26,9 @@ function CommonEventItem({ description, element }: { description: string; elemen
 	);
 }
 
-const getStatus = (startTime: string, endTime: string) => {
-	const beforeCondition = moment().isBefore(moment(startTime));
-	const aterCondition = moment().isAfter(moment(endTime));
+const getStatus = (startMoment: Moment, endMoment: Moment) => {
+	const beforeCondition = moment().isBefore(startMoment);
+	const aterCondition = moment().isAfter(endMoment);
 	if (beforeCondition) return '예약';
 	if (aterCondition) return '종료';
 	return '진행중';
@@ -37,43 +42,70 @@ function CommonEventBox({
 	handleUpdateEvent: (newCommonEvent: CommonEvent) => void;
 }) {
 	const { openAlert, addAlertCallback } = useAlert();
-	const [startTime, setStartTime] = useState('');
-	const [endTime, setEndTime] = useState('');
+	// 흠 이거 reduce 쓰면 뭔가 더 복잡해 보임 -> 유사하게 날짜 수정 로직 생기면 공통 util로 빼는 방식으로 변경
+	const [startDate, setStartDate] = useState('');
+	const [endDate, setEndDate] = useState('');
+
+	const [startTime, setStartTime] = useState('00:00');
+	const [endTime, setEndTime] = useState('00:00');
+
 	const [managerName, setManagerName] = useState('');
+	const [status, setStatus] = useState('');
 
 	useEffect(() => {
 		if (commonEvent) {
+			// date
+			setStartDate(getPickerDateFromKst(commonEvent.startTime));
+			setEndDate(getPickerDateFromKst(commonEvent.endTime));
+			// time
 			setStartTime(getPickerTimeFromKst(commonEvent.startTime));
 			setEndTime(getPickerTimeFromKst(commonEvent.endTime));
-			setManagerName(commonEvent.eventManager);
+			// manager, status
+			setManagerName(commonEvent.managerName);
+			setStatus(getStatus(moment(commonEvent.startTime), moment(commonEvent.endTime)));
 		}
 	}, [commonEvent]);
 
-	const getDurationDiff = (start: string, end: string) => {
-		const tmpDiff = new Date(end).getTime() - new Date(start).getTime();
-		if (Number.isNaN(tmpDiff)) return 0;
-		return tmpDiff;
-	};
-
-	const validateDate = (start: string, end: string) => {
-		const diff = getDurationDiff(start, end);
-		const validCondition = diff >= 0;
-		return validCondition;
-	};
+	const validateDate = (startMoment: Moment, endMoment: Moment) =>
+		startMoment.isSameOrBefore(endMoment);
 
 	const saveStartDate = (date: string) => {
-		if (validateDate(date, endTime)) {
-			setStartTime(date);
+		const startMoment = moment(getKstTimeFromDateAndTime(date, startTime));
+		const endMoment = moment(getKstTimeFromDateAndTime(endDate, endTime));
+		if (validateDate(startMoment, endMoment)) {
+			setStartDate(date);
 		} else {
-			toast('올바르지 않은 기간입니다.');
+			toast(ErrorMessage.INVALID_DURATION);
 		}
 	};
 
 	const saveEndDate = (date: string) => {
-		if (validateDate(startTime, date)) {
-			setEndTime(date);
+		const startMoment = moment(getKstTimeFromDateAndTime(startDate, startTime));
+		const endMoment = moment(getKstTimeFromDateAndTime(date, endTime));
+		if (validateDate(startMoment, endMoment)) {
+			setEndDate(date);
 		} else {
-			toast('올바르지 않은 기간입니다.');
+			toast(ErrorMessage.INVALID_DURATION);
+		}
+	};
+
+	const saveStartTime = (time: string) => {
+		const startMoment = moment(getKstTimeFromDateAndTime(startDate, time));
+		const endMoment = moment(getKstTimeFromDateAndTime(endDate, endTime));
+		if (validateDate(startMoment, endMoment)) {
+			setStartTime(time);
+		} else {
+			toast(ErrorMessage.INVALID_DURATION);
+		}
+	};
+
+	const saveEndTime = (time: string) => {
+		const startMoment = moment(getKstTimeFromDateAndTime(startDate, startTime));
+		const endMoment = moment(getKstTimeFromDateAndTime(endDate, time));
+		if (validateDate(startMoment, endMoment)) {
+			setEndTime(time);
+		} else {
+			toast(ErrorMessage.INVALID_DURATION);
 		}
 	};
 
@@ -84,22 +116,19 @@ function CommonEventBox({
 	const handleSave = () => {
 		addAlertCallback(() => {
 			handleUpdateEvent({
-				startTime: getKstFromPickerTime(startTime),
-				endTime: getKstFromPickerTime(endTime),
-				eventManager: managerName,
+				startTime: getKstTimeFromDateAndTime(startDate, startTime),
+				endTime: getKstTimeFromDateAndTime(endDate, endTime),
+				managerName,
 				eventName: commonEvent.eventName,
 			});
 		});
-		openAlert('이벤트를 수정할까요?', 'confirm');
+		openAlert(ConfirmMessage.EVENT_CHANGE, 'confirm');
 	};
 
 	return (
 		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
-			<CommonEventItem
-				description="상태"
-				element={<div>{getStatus(commonEvent.startTime, commonEvent.endTime)}</div>}
-			/>
+			<CommonEventItem description="상태" element={<div>{status}</div>} />
 			<CommonEventItem
 				description="담당자"
 				element={
@@ -115,21 +144,39 @@ function CommonEventBox({
 				description="진행 기간"
 				element={
 					<>
-						<Input
-							type="date"
-							value={startTime}
-							onChange={(e) => {
-								saveStartDate(e.target.value);
-							}}
-						/>
+						<div>
+							<Input
+								type="date"
+								value={startDate}
+								onChange={(e) => {
+									saveStartDate(e.target.value);
+								}}
+							/>
+							<Input
+								type="time"
+								value={startTime}
+								onChange={(e) => {
+									saveStartTime(e.target.value);
+								}}
+							/>
+						</div>
 						~
-						<Input
-							type="date"
-							value={endTime}
-							onChange={(e) => {
-								saveEndDate(e.target.value);
-							}}
-						/>
+						<div>
+							<Input
+								type="date"
+								value={endDate}
+								onChange={(e) => {
+									saveEndDate(e.target.value);
+								}}
+							/>
+							<Input
+								type="time"
+								value={endTime}
+								onChange={(e) => {
+									saveEndTime(e.target.value);
+								}}
+							/>
+						</div>
 					</>
 				}
 			/>

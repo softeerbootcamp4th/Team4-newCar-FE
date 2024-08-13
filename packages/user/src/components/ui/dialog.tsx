@@ -64,7 +64,7 @@ const DialogContent = React.forwardRef<
 				<DialogTitle />
 				<DialogDescription />
 			</VisuallyHidden.Root>
-			<div className="min-h-max min-w-max overflow-scroll">{children}</div>
+			<div className="min-h-max w-full min-w-max overflow-scroll">{children}</div>
 			<DialogPrimitive.Close className="ring-offset-background focus:ring-foreground data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-[30px] top-[30px] h-[30px] w-[30px] rounded-[2px] p-[4px] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
 				<Close className="h-full w-full" />
 			</DialogPrimitive.Close>

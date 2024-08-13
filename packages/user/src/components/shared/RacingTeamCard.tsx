@@ -1,20 +1,24 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
+import { Category } from '@softeer/common/types';
 import { Suspense } from 'react';
 import ShareIcon from 'src/assets/icons/share.svg?react';
 import TeamCard from 'src/components/shared/teamCard/index.tsx';
 import useGetLinkShareCount from 'src/hooks/query/useGetLinkShareCount.ts';
-import type { User } from 'src/types/user.d.ts';
 import copyLink from 'src/utils/copyLink.ts';
+import { getSharedLink } from 'src/utils/getSharedLink.ts';
 
-interface RacingTeamCardProps {
-	user: User;
-}
-export default function RacingTeamCard({ user }: RacingTeamCardProps) {
+type RacingTeamCardProps = {
+	type: Category;
+	size: 'racing' | 'modal';
+};
+export default function RacingTeamCard({ type, size }: RacingTeamCardProps) {
+	const url = getSharedLink({ type });
+
 	return (
-		<TeamCard type={user.type} size="racing">
+		<TeamCard type={type} size={size}>
 			<button
 				type="button"
-				onClick={() => copyLink(user.shareUrl as string)}
+				onClick={() => copyLink(url)}
 				className="text-detail-3 bg-background flex items-center justify-center gap-3 rounded-[30px] px-[16px] py-[4px] text-center"
 			>
 				<ShareIcon />

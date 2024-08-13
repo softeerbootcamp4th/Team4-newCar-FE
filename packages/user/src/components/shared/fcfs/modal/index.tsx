@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import Modal, { ModalProps } from 'src/components/common/Modal.tsx';
-import QuizStep from 'src/components/shared/fcfs/modal/QuizStep.tsx';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useGetFCFSQuiz from 'src/hooks/query/useGetFCFSQuiz.ts';
 import useSubmitFCFSQuiz, { SubmitFCFSQuizResponse } from 'src/hooks/query/useSubmitFCFSQuiz.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
+import QuizStep from './QuizStep.tsx';
+import ResultStep from './ResultStep.tsx';
 
-/** 이미 참가한 퀴즈면 애초에 이 창에 접근을 못해야 하는ㄱ ㅔ 아닐까 ,, 뒤에 해줘야하나 ?  */
+export type ResultStepType = ReturnType<typeof getResultStepFromStatus>;
 
 const FCFS_FUNNEL_KEYS = [
 	'already-done',
@@ -17,7 +18,6 @@ const FCFS_FUNNEL_KEYS = [
 	'quiz',
 	'end',
 ];
-type FCFSFunnelKeyType = (typeof FCFS_FUNNEL_KEYS)[number];
 
 export default function FCFSModal(props: ModalProps) {
 	const [Funnel, setStep] = useFunnel(FCFS_FUNNEL_KEYS as NonEmptyArray<string>, {
@@ -35,7 +35,7 @@ export default function FCFSModal(props: ModalProps) {
 		submitAnswer(
 			{ answer },
 			{
-				onSuccess: (response) => setStep(getStepFromStatus(response)),
+				onSuccess: (response) => setStep(getResultStepFromStatus(response)),
 			},
 		);
 
@@ -43,8 +43,6 @@ export default function FCFSModal(props: ModalProps) {
 		<Modal {...props}>
 			<div className="flex h-full w-full items-center justify-center p-[100px]">
 				<Funnel>
-					<Funnel.Step name="already-done">already-done</Funnel.Step>
-					<Funnel.Step name="end">end</Funnel.Step>
 					<Funnel.Step name="not-started">not-started</Funnel.Step>
 
 					<Funnel.Step name="quiz">
@@ -55,15 +53,25 @@ export default function FCFSModal(props: ModalProps) {
 						<PendingStep>선착순 퀴즈 결과 불러오는 중...</PendingStep>
 					</Funnel.Step>
 
-					<Funnel.Step name="wrong-answer">wrong</Funnel.Step>
-					<Funnel.Step name="correct-answer">correct</Funnel.Step>
+					<Funnel.Step name="end">
+						<ResultStep step="end" />
+					</Funnel.Step>
+					<Funnel.Step name="already-done">
+						<ResultStep step="already-done" />
+					</Funnel.Step>
+					<Funnel.Step name="wrong-answer">
+						<ResultStep step="wrong-answer" />
+					</Funnel.Step>
+					<Funnel.Step name="correct-answer">
+						<ResultStep step="correct-answer" />
+					</Funnel.Step>
 				</Funnel>
 			</div>
 		</Modal>
 	);
 }
 
-function getStepFromStatus({ status }: SubmitFCFSQuizResponse): FCFSFunnelKeyType {
+function getResultStepFromStatus({ status }: SubmitFCFSQuizResponse) {
 	switch (status) {
 		case 'END':
 			return 'end';

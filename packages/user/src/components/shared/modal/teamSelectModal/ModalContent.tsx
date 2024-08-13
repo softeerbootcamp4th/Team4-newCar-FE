@@ -5,7 +5,7 @@ import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
 	type SubmitQuizAnswersResponse,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
-import { useFunnel } from 'src/hooks/useFunnel.ts';
+import useFunnel from 'src/hooks/useFunnel.ts';
 import ErrorStep from './ErrorStep.tsx';
 import PendingStatus from './PendingStatus.tsx';
 import ResultStep from './ResultStep.tsx';

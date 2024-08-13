@@ -2,7 +2,7 @@
 import { Children, isValidElement, ReactElement, ReactNode, useState } from 'react';
 
 type StepsType = Readonly<NonEmptyArray<string | number>>;
-export type StepElements<Steps extends StepsType> = ReactElement<StepProps<Steps>>;
+type StepElements<Steps extends StepsType> = ReactElement<StepProps<Steps>>;
 
 interface StepProps<Steps extends StepsType> {
 	name: Steps[number];
@@ -13,9 +13,7 @@ interface FunnelProps<Steps extends StepsType> {
 	children: ReactElement<StepProps<Steps>>[];
 }
 
-export type UseFunnelReturn = ReturnType<typeof useFunnel>;
-
-export function useFunnel<Steps extends StepsType>(
+export default function useFunnel<Steps extends StepsType>(
 	steps: Steps,
 	{ initialStep }: { initialStep?: Steps[number] } = {},
 ) {

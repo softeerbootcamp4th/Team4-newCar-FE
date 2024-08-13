@@ -10,7 +10,7 @@ interface TeamSelectModalProps extends Omit<ModalProps, 'children'> {}
 export default function TeamSelectModal({ openTrigger, ...props }: TeamSelectModalProps) {
 	const { user } = useAuth();
 
-	// if (user) return <LoginModal openTrigger={openTrigger} />;
+	// if (!user) return <LoginModal openTrigger={openTrigger} />;
 
 	return (
 		<Modal variants={user?.type} openTrigger={openTrigger} {...props}>

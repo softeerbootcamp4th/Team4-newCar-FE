@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import FCFSFloatingButtonController from 'src/components/shared/FCFSFloatingButtonController.tsx';
 import Banner from './banner/index.tsx';
 import BodyContainer from './BodyContainer.tsx';
 import Footer from './footer/index.tsx';
@@ -7,7 +8,7 @@ import TopSectionContainer from './TopSectionContainer.tsx';
 
 export default function Layout() {
 	return (
-		<div className="flex h-screen min-w-max flex-col overflow-hidden">
+		<div className="relative flex h-screen min-w-max flex-col overflow-hidden">
 			<TopSectionContainer>
 				<Header />
 				<Banner />
@@ -18,6 +19,7 @@ export default function Layout() {
 				</div>
 				<Footer />
 			</BodyContainer>
+			<FCFSFloatingButtonController />
 		</div>
 	);
 }

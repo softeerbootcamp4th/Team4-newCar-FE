@@ -2,6 +2,7 @@ import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import RoutePaths from 'src/constants/routePath.ts';
 import AppLayout from 'src/layouts/appLayout.tsx';
 import EventPage from 'src/pages/events/EventsPage.tsx';
+import Review from 'src/pages/review/Review.tsx';
 import LoginPage from 'src/pages/start/LoginPage.tsx';
 import RaceWinnerDraw from 'src/pages/winner/RaceWinnerDraw.tsx';
 import WinnerResult from 'src/pages/winner/WinnerResult.tsx';
@@ -23,6 +24,7 @@ const routes: RouteObject[] = [
 				element: <WinnerResult />,
 				id: '당첨자 목록',
 			},
+			{ path: RoutePaths.REVIEW, element: <Review />, id: '기대평 관리' },
 		],
 	},
 ];

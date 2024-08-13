@@ -14,6 +14,10 @@ const tailwindConfig: Config = {
 		padding: spacing,
 		extend: {
 			spacing,
+			cursor: {
+				default: 'url(/cursor/cursor.svg), default',
+				pointer: 'url(/cursor/cursor.svg), pointer',
+			},
 		},
 	},
 	plugins: [],

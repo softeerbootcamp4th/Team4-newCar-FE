@@ -7,7 +7,7 @@ import useAuth from 'src/hooks/useAuth.tsx';
 const FCFSModal = lazy(() => import('./modal/FCFSModal.tsx'));
 
 const EVENT_OPEN_HOUR = 15;
-const EVENT_OPEN_MINUTE = 10;
+const EVENT_OPEN_MINUTE = 13;
 
 export default function FCFSFloatingButtonController() {
 	const { isAuthenticated } = useAuth();
@@ -25,7 +25,7 @@ export default function FCFSFloatingButtonController() {
 				openTrigger={
 					<TriggerButtonWrapper>
 						<GradientBorderWrapper>
-							<TriggerButtonLike>선착순 퀴즈 참여하기</TriggerButtonLike>
+							<TriggerButtonLike>로그인하고 퀴즈 풀기</TriggerButtonLike>
 						</GradientBorderWrapper>
 					</TriggerButtonWrapper>
 				}
@@ -39,7 +39,7 @@ export default function FCFSFloatingButtonController() {
 			<FCFSModal
 				openTrigger={
 					<TriggerButtonWrapper>
-						<TriggerButtonLike>선착순 퀴즈 참여하기</TriggerButtonLike>
+						<TriggerButtonLike>선착순 퀴즈 풀기</TriggerButtonLike>
 					</TriggerButtonWrapper>
 				}
 			/>
@@ -89,5 +89,9 @@ function calculateTimeUntilEvent(hour: number, minute: number): number {
 
 /** component */
 function TriggerButtonLike({ children }: PropsWithChildren) {
-	return <div className="shadow-lg text-center text-yellow-700 flex break-keep justify-center items-center text-heading-11 font-bold p-4 rounded-[100%] h-[150px] w-[150px] bg-foreground/90 fixed bottom-10 left-10 z-50">{children}</div>;
+	return (
+		<div className="text-heading-11 bg-skyblue-500/60 fixed bottom-12 left-12 z-50 flex h-[150px] w-[150px] items-center justify-center break-keep rounded-[100%] p-4 text-center font-bold text-background/70 shadow-lg">
+			{children}
+		</div>
+	);
 }

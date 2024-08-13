@@ -1,5 +1,4 @@
 import { lazy, PropsWithChildren, Suspense, useEffect, useState } from 'react';
-import GradientBorderWrapper from 'src/components/common/GradientBorderWrapper.tsx';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import LoginModal from 'src/components/shared/modal/login/index.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
@@ -24,9 +23,7 @@ export default function FCFSFloatingButtonController() {
 			<LoginModal
 				openTrigger={
 					<TriggerButtonWrapper>
-						<GradientBorderWrapper>
-							<TriggerButtonLike>로그인하고 퀴즈 풀기</TriggerButtonLike>
-						</GradientBorderWrapper>
+						<TriggerButtonLike>로그인하고 퀴즈 풀기</TriggerButtonLike>
 					</TriggerButtonWrapper>
 				}
 			/>

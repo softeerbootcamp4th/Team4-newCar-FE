@@ -13,7 +13,9 @@ export default function Layout() {
 				<Banner />
 			</TopSectionContainer>
 			<BodyContainer>
-				<Outlet />
+				<div className="flex-grow">
+					<Outlet />
+				</div>
 				<Footer />
 			</BodyContainer>
 		</div>

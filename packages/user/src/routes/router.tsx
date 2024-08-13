@@ -10,7 +10,6 @@ const routes: RouteObject[] = [
 		path: RoutePaths.Index,
 		element: (
 			<AuthProvider>
-				{/* <LinkShareMetaTag /> */}
 				<Layout />
 			</AuthProvider>
 		),

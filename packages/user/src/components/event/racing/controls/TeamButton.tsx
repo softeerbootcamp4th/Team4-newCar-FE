@@ -1,4 +1,4 @@
-import { Category } from '@softeer/common/types';
+import type { Category } from '@softeer/common/types';
 import { ButtonHTMLAttributes } from 'react';
 import GradientBorderWrapper from 'src/components/common/GradientBorderWrapper.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';

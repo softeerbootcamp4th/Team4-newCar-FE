@@ -12,7 +12,7 @@ interface TeamCardProps {
 }
 
 export default function TeamCard({ type, size, children }: PropsWithChildren<TeamCardProps>) {
-	const { title, summary } = TEAM_DESCRIPTIONS[type];
+	const { title, subTitle } = TEAM_DESCRIPTIONS[type];
 	const src = `images/card/${type}.png`;
 
 	const { cardStyles, titleStyles, descriptionStyles } = styles[size];
@@ -24,7 +24,7 @@ export default function TeamCard({ type, size, children }: PropsWithChildren<Tea
 			<CardContent>
 				<div className="text-center">
 					<h5 className={titleStyles}>{title}</h5>
-					<p className={cn(descriptionStyles, 'whitespace-pre-line')}>{summary}</p>
+					<p className={cn(descriptionStyles, 'whitespace-pre-line')}>{subTitle}</p>
 				</div>
 				{children}
 			</CardContent>

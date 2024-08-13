@@ -12,7 +12,7 @@ const TEAM_DETAILS: Record<Category, string> = {
 		'오프로드의 정석을 느끼게 해줄 다양한 액세서리를 캐스퍼에 적용해보세요.  자전거와 함께할 수 있도록 돕는 루프 자전거 캐리어, 험한 길도 끄떡없는 스틸 언더커버를 제공합니다.',
 } as const;
 
-interface TeamDescriptionModalProps extends ModalProps {
+interface TeamDescriptionModalProps extends Omit<ModalProps, 'children'> {
 	type: Category;
 }
 
@@ -24,12 +24,14 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 
 	return (
 		<Modal openTrigger={openTrigger}>
-			<div className="flex flex-col items-center justify-center px-[75px]">
+			<div className="flex flex-col items-center justify-center px-[50px] py-[30px] sm:h-full sm:px-[75px] sm:py-[40px]">
 				<div className="flex flex-col items-center gap-2.5">
-					<h6 className="text-heading-11 font-medium text-neutral-100">{summary}</h6>
+					<h6 className="text-heading-11 whitespace-pre-line font-medium text-neutral-100 sm:whitespace-normal">
+						{summary}
+					</h6>
 					<h3>{title}</h3>
 				</div>
-				<div className="my-[20px] inline-flex h-[241px]">
+				<div className="mb-7 grid grid-flow-row sm:grid-flow-col">
 					<DescriptionImage src={`${imageBaseUrl}-1.png`} />
 					<DescriptionImage src={`${imageBaseUrl}-2.png`} />
 				</div>
@@ -40,5 +42,11 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 }
 
 function DescriptionImage({ src }: { src: string }) {
-	return <img src={src} alt="팀 소개" className="h-full w-full object-cover" />;
+	return (
+		<img
+			src={src}
+			alt="팀 소개"
+			className="min-w-1/2 h-full min-h-[240px] w-full max-w-full object-cover"
+		/>
+	);
 }

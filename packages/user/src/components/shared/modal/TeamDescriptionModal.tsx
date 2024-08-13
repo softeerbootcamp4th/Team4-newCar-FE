@@ -13,18 +13,20 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 
 	return (
 		<Modal openTrigger={openTrigger}>
-			<div className="flex flex-col items-center justify-center px-[50px] py-[30px] sm:h-full sm:px-[75px] sm:py-[40px]">
-				<div className="flex flex-col items-center gap-2.5">
-					<h6 className="text-heading-11 whitespace-pre-line font-medium text-neutral-100 sm:whitespace-normal">
-						{subTitle}
-					</h6>
-					<h3>{title}</h3>
+			<div className="flex w-full flex-col items-center justify-center p-[30px] px-[40px] py-[30px] sm:h-full sm:px-[50px] sm:py-[40px]">
+				<div className="max-w-[350px] w-full sm:max-w-[600px] md:max-w-[800px] lg:max-w-[800px] ">
+					<div className="flex flex-col items-center gap-2.5">
+						<h6 className="text-heading-11 whitespace-pre-line font-medium text-neutral-100 sm:whitespace-normal">
+							{subTitle}
+						</h6>
+						<h3>{title}</h3>
+					</div>
+					<div className="mb-7 grid grid-flow-row sm:grid-flow-col">
+						<DescriptionImage src={`${imageBaseUrl}-1.png`} />
+						<DescriptionImage src={`${imageBaseUrl}-2.png`} />
+					</div>
+					<p className="text-body-4 text-neutral-100">{details}</p>
 				</div>
-				<div className="mb-7 grid grid-flow-row sm:grid-flow-col">
-					<DescriptionImage src={`${imageBaseUrl}-1.png`} />
-					<DescriptionImage src={`${imageBaseUrl}-2.png`} />
-				</div>
-				<p className="text-body-4 text-neutral-100">{details}</p>
 			</div>
 		</Modal>
 	);

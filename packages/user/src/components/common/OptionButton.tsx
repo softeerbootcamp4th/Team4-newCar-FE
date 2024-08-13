@@ -14,12 +14,12 @@ const styles = clsx(
 );
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	isActive: boolean;
+	isActive?: boolean;
 }
 
 /** 팝업 퀴즈 선택지 버튼 */
 const OptionButton = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ isActive, className, ...props }, ref) => (
+	({ isActive = false, className, ...props }, ref) => (
 		<button
 			className={cn(buttonStyles, styles, className, activeStyles(isActive))}
 			ref={ref}

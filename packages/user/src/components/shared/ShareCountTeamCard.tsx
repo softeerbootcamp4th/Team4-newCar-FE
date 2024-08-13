@@ -2,20 +2,20 @@
 import { Category } from '@softeer/common/types';
 import { Suspense } from 'react';
 import ShareIcon from 'src/assets/icons/share.svg?react';
-import TeamCard from 'src/components/shared/teamCard/index.tsx';
 import useGetLinkShareCount from 'src/hooks/query/useGetLinkShareCount.ts';
 import copyLink from 'src/utils/copyLink.ts';
-import { getSharedLink } from 'src/utils/getSharedLink.ts';
+import getSharedLink from 'src/utils/getSharedLink.ts';
+import TeamCardTemplate from './teamCardTemplate/index.tsx';
 
-type RacingTeamCardProps = {
+type ShareCountTeamCardProps = {
 	type: Category;
 	size: 'racing' | 'modal';
 };
-export default function RacingTeamCard({ type, size }: RacingTeamCardProps) {
+export default function ShareCountTeamCard({ type, size }: ShareCountTeamCardProps) {
 	const url = getSharedLink({ type });
 
 	return (
-		<TeamCard type={type} size={size}>
+		<TeamCardTemplate type={type} size={size}>
 			<button
 				type="button"
 				onClick={() => copyLink(url)}
@@ -30,7 +30,7 @@ export default function RacingTeamCard({ type, size }: RacingTeamCardProps) {
 					</Suspense>
 				</span>
 			</button>
-		</TeamCard>
+		</TeamCardTemplate>
 	);
 }
 

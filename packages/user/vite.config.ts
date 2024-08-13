@@ -24,7 +24,10 @@ export default defineConfig({
 	},
 	esbuild: {
 		sourcemap: false,
-		drop: ['console', 'debugger'],
+		// drop: ['console', 'debugger'],
 	},
 	publicDir: './public',
+	define: {
+		global: 'window', // web socket
+	},
 } as VitestConfigExport);

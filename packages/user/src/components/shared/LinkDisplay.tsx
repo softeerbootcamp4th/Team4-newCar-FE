@@ -7,7 +7,7 @@ import inputStyles from 'src/styles/input.ts';
 const defaultStyles = 'flex px-5';
 
 const categoryStyles =
-	'rounded-[10px] w-[380px] h-[48px] bg-neutral-400 text-neutral-200 disabled:bg-neutral-400/10 disabled:text-neutral-600';
+	'rounded-[10px] w-full max-w-[380px] h-[48px] bg-neutral-400 text-neutral-200 disabled:bg-neutral-400/10 disabled:text-neutral-600';
 const opacityCategoryStyles = clsx('opacity-50', categoryStyles);
 
 const inputVariants = cva(clsx(defaultStyles, inputStyles), {

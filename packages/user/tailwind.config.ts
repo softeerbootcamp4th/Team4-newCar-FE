@@ -15,10 +15,10 @@ const config: Config = {
 	theme: {
 		boxShadow,
 		extend: {
+			container,
 			backgroundImage,
 			keyframes,
 			animation,
-			container,
 		},
 	},
 	plugins: [tailwindAnimate],

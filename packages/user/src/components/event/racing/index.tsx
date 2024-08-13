@@ -1,24 +1,28 @@
-import RacingCard from './card/index.tsx';
-import EventTimer from './timer/index.tsx';
+import type { Category } from '@softeer/common/types';
+import { useState } from 'react';
+import SECTION_ID from 'src/constants/sectionId.ts';
+import type { CategoryRankMap } from 'src/types/rank.d.ts';
+import RacingControls from './controls/index.tsx';
+import RacingDashboard from './dashboard/index.tsx';
 
 /** 실시간 레이싱 섹션 */
 export default function RealTimeRacing() {
+	const [scaledType, setScaledType] = useState<Category | null>(null);
+
+	const ranks: CategoryRankMap = {
+		pet: 1,
+		place: 2,
+		leisure: 4,
+		travel: 3,
+	};
+
 	return (
-		<section className="container flex flex-col items-center pt-[80px]">
-			<div className="relative h-[685px] w-[1200px]">
-				<div className="absolute z-10 -top-[5px] flex w-full flex-col items-center gap-5">
-					<h3>아래 버튼을 클릭해서 1등을 차지하세요!</h3>
-					<EventTimer />
-				</div>
-					<div className="absolute z-10 left-[27px] top-[158px]">
-						<RacingCard />
-					</div>
-				<img
-					className="absolute h-full w-full object-contain"
-					alt="레이싱 배경"
-					src="/images/racing/background.png"
-				/>
-			</div>
+		<section
+			id={SECTION_ID.RACING}
+			className="container flex w-[1200px] snap-start flex-col items-center gap-4 pb-[50px] pt-[80px]"
+		>
+			<RacingDashboard ranks={ranks} scaledType={scaledType} />
+			<RacingControls ranks={ranks} setScaledType={setScaledType} />
 		</section>
 	);
 }

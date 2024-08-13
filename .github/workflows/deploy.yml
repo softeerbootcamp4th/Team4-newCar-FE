@@ -18,6 +18,10 @@ jobs:
       - name: Install Dependencies
         run: yarn install --no-immutable
 
+      - name: Create .env in user package
+        run: |
+          echo "${{ secrets.USER_ENV }}" > packages/user/.env
+
       - name: Build Common
         run: yarn run build:common
 

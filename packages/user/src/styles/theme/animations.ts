@@ -1,4 +1,8 @@
 const keyframes = {
+	rotate: {
+		'0%, 100%': { transform: 'rotate(-1deg)' },
+		'50%': { transform: 'rotate(1deg)' },
+	},
 	rotate1: {
 		'0%, 100%': { transform: 'rotate(-3deg)' },
 		'20%, 80%': { transform: 'rotate(3deg)' },
@@ -38,6 +42,7 @@ const animation = {
 	sparkle: 'sparkle 1.5s ease-in-out infinite',
 	'sparkle-reverse': 'sparkle-reverse 1.8s ease-in-out infinite',
 	sparkle2: 'sparkle 2s ease-in-out infinite',
+	rotate: 'rotate 0.3s ease-in-out',
 	rotate1: 'rotate1 1s ease-in-out 5 forwards',
 	rotate2: 'rotate2 1s ease-in-out 5 forwards',
 	rotate3: 'rotate3 1s ease-in-out 5 forwards',

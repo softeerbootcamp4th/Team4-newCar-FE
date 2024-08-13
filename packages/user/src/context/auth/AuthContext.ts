@@ -4,15 +4,15 @@ import type { User } from 'src/types/user.d.ts';
 interface AuthContextType {
 	isAuthenticated: boolean;
 	user: User | null;
-	login: ({ userData }: { userData: User }) => Promise<void>;
-	logout: () => void;
+	setAuthData: ({ userData }: { userData: User }) => Promise<void>;
+	clearAuthData: () => void;
 }
 
 const initialAuthContext = {
 	isAuthenticated: false,
 	user: null,
-	login: async () => {},
-	logout: () => {},
+	setAuthData: async () => {},
+	clearAuthData: () => {},
 };
 
 const AuthContext = createContext<AuthContextType>(initialAuthContext);

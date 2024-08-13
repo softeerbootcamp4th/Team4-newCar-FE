@@ -1,11 +1,7 @@
 import type { Category } from '@softeer/common/types';
 
-interface User {
+export interface User {
 	id: number;
 	name: string;
-	category: Category;
-	shareUrl?: string | null;
+	type?: Category;
 }
-
-// eslint-disable-next-line import/prefer-default-export
-export { User };

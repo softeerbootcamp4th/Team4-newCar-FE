@@ -35,7 +35,7 @@ export default function FCFSFloatingButtonController() {
 
 	// 로그인한 유저에게는 선착순 퀴즈 모달 트리거 버튼 노출
 	return (
-		<Suspense fallback={null}>
+		<Suspense>
 			<FCFSModal
 				openTrigger={
 					<TriggerButtonWrapper>

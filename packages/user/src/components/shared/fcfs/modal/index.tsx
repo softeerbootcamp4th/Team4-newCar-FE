@@ -1,11 +1,22 @@
 import { useEffect } from 'react';
 import Modal, { ModalProps } from 'src/components/common/Modal.tsx';
 import QuizStep from 'src/components/shared/fcfs/modal/QuizStep.tsx';
+import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useGetFCFSQuiz from 'src/hooks/query/useGetFCFSQuiz.ts';
 import useSubmitFCFSQuiz, { SubmitFCFSQuizResponse } from 'src/hooks/query/useSubmitFCFSQuiz.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
 
-const FCFS_FUNNEL_KEYS = ['not-started', 'pending', 'correct-answer', 'wrong-answer', 'quiz', 'end', 'already-done'];
+/** 이미 참가한 퀴즈면 애초에 이 창에 접근을 못해야 하는ㄱ ㅔ 아닐까 ,, 뒤에 해줘야하나 ?  */
+
+const FCFS_FUNNEL_KEYS = [
+	'already-done',
+	'not-started',
+	'pending',
+	'correct-answer',
+	'wrong-answer',
+	'quiz',
+	'end',
+];
 type FCFSFunnelKeyType = (typeof FCFS_FUNNEL_KEYS)[number];
 
 export default function FCFSModal(props: ModalProps) {
@@ -21,8 +32,12 @@ export default function FCFSModal(props: ModalProps) {
 	}, [isPending]);
 
 	const handleSubmit = (answer: number) =>
-		submitAnswer({ answer }, {
-			onSuccess: (response) => setStep(getStepFromStatus(response)) });
+		submitAnswer(
+			{ answer },
+			{
+				onSuccess: (response) => setStep(getStepFromStatus(response)),
+			},
+		);
 
 	return (
 		<Modal {...props}>
@@ -36,7 +51,9 @@ export default function FCFSModal(props: ModalProps) {
 						<QuizStep quiz={quiz} onSelect={handleSubmit} />
 					</Funnel.Step>
 
-					<Funnel.Step name="pending">pending</Funnel.Step>
+					<Funnel.Step name="pending">
+						<PendingStep>선착순 퀴즈 결과 불러오는 중...</PendingStep>
+					</Funnel.Step>
 
 					<Funnel.Step name="wrong-answer">wrong</Funnel.Step>
 					<Funnel.Step name="correct-answer">correct</Funnel.Step>

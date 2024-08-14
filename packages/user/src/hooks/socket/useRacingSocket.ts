@@ -32,26 +32,26 @@ export type UseRacingSocketReturnType = ReturnType<typeof useRacingSocket>;
 
 export default function useRacingSocket() {
 	const [storedRank, storeRank] = useRacingRankStorage();
-	const [rank, setRank] = useState<RankStatus>(storedRank);
-	const [vote, setVote] = useState<VoteStatus>({
+	const [ranks, setRanks] = useState<RankStatus>(storedRank);
+	const [votes, setVotes] = useState<VoteStatus>({
 		pet: 0,
 		place: 0,
 		travel: 0,
 		leisure: 0,
 	});
 
-	const newRankStatus = useMemo(() => calculateRank(vote), [vote]);
+	const newRankStatus = useMemo(() => calculateRank(votes), [votes]);
 
 	useEffect(() => {
-		if (hasRankChanged(newRankStatus, rank)) {
-			setRank(newRankStatus);
+		if (hasRankChanged(newRankStatus, ranks)) {
+			setRanks(newRankStatus);
 			storeRank(newRankStatus);
 		}
-	}, [newRankStatus, rank, storeRank]);
+	}, [newRankStatus, ranks, storeRank]);
 
 	const handleStatusChange = useCallback((data: unknown) => {
 		const newVoteStatus = parseSocketVoteData(data as SocketData);
-		setVote(newVoteStatus);
+		setVotes(newVoteStatus);
 	}, []);
 
 	const handleCarFullyCharged = (category: Category) => {
@@ -64,10 +64,10 @@ export default function useRacingSocket() {
 	};
 
 	return {
-		vote,
-		rank,
+		votes,
+		ranks,
 		onReceiveStatus: handleStatusChange,
-		onFullyChargeCar: handleCarFullyCharged,
+		onCarFullyCharged: handleCarFullyCharged,
 	};
 }
 
@@ -75,7 +75,6 @@ export default function useRacingSocket() {
  * Utility functions
  */
 
-// Calculate the rank based on vote status
 function calculateRank(vote: VoteStatus): RankStatus {
 	const sortedCategories = (Object.keys(vote) as Category[]).sort(
 		(a, b) => Number(vote[b]) - Number(vote[a]),
@@ -90,14 +89,12 @@ function calculateRank(vote: VoteStatus): RankStatus {
 	);
 }
 
-// Check if rank has changed
 function hasRankChanged(newRank: RankStatus, currentRank: RankStatus): boolean {
 	return Object.keys(newRank).some(
 		(category) => newRank[category as Category] !== currentRank[category as Category],
 	);
 }
 
-// Parse socket data to vote status
 function parseSocketVoteData(data: SocketData): VoteStatus {
 	return Object.entries(data).reduce<VoteStatus>((acc, [socketCategory, value]) => {
 		const category = socketCategoryToCategory[socketCategory as SocketCategory];

@@ -54,22 +54,32 @@ export class Socket {
 		}
 	}
 
-	subscribe({
-		destination,
-		callback,
+	private createSubscription({
+    destination,
+    callback,
 	}: {
-		destination: string;
-		callback: (message: IMessage) => void;
+    destination: string;
+    callback: (messageId: string, message: IMessage) => void;
 	}) {
-		if (this.client.connected) {
-			const subscription = this.client.subscribe(destination, callback);
-			this.subscriptions.set(destination, subscription);
-		} else {
-			this.connect(() => {
-				const subscription = this.client.subscribe(destination, callback);
-				this.subscriptions.set(destination, subscription);
-			});
-		}
+		const subscription = this.client.subscribe(destination, (message: IMessage) => {
+			const messageId = message.headers['message-id'];
+			callback(messageId, message);
+	});
+	this.subscriptions.set(destination, subscription);
+	}
+
+	subscribe({
+    destination,
+    callback,
+	}: {
+    destination: string;
+    callback: (messageId: string, message: IMessage) => void;
+	}) {
+    if (this.client.connected) {
+			this.createSubscription({ destination, callback });
+    } else {
+			this.connect(() => this.createSubscription({ destination, callback }));
+    }
 	}
 
 	unsubscribe(destination: string) {

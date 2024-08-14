@@ -8,11 +8,11 @@ export default function Chat({ type, team, sender, content }: ChatProps) {
 
 	const render: FunctionComponent = useCallback(() => {
 		switch (type) {
-			case 'notice':
+			case 'n':
 				return <Notice>{content}</Notice>;
-			case 'blocked':
+			case 'b':
 				return <BlockedChat />;
-			case 'message':
+			case 'm':
 			default:
 				return (
 					<Message sender={sender} team={team} isMyMessage={me?.id === sender}>

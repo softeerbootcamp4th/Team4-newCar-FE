@@ -13,7 +13,7 @@ export default function useSocket() {
 	const { onReceiveMessage } = chatSocket;
 
 	const racingSocket = useRacingSocket();
-	const { onChangeStatus } = racingSocket;
+	const { onReceiveStatus } = racingSocket;
 
 	useEffect(() => {
 		socketClient.connect((isConnected) => {
@@ -24,7 +24,7 @@ export default function useSocket() {
 				});
 				socketClient.subscribe({
 					destination: RACING_SOCKET_ENDPOINTS.SUBSCRIBE,
-					callback: onChangeStatus,
+					callback: onReceiveStatus,
 				});
 			}
 		});

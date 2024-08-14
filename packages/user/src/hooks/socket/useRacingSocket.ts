@@ -1,50 +1,107 @@
+import { RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { Category } from '@softeer/common/types';
-import { SocketSubscribeCallbackType } from '@softeer/common/utils';
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import useRacingRankStorage from 'src/hooks/storage/useRacingRankStorage.ts';
+import socketClient from 'src/services/socket.ts';
+import type {
+	Rank,
+	RankStatus,
+	SocketCategory,
+	SocketData,
+	VoteStatus,
+} from 'src/types/racing.d.ts';
+
+/**
+ * Mapping between Category and SocketCategory
+ */
+const categoryToSocketCategory: Record<Category, SocketCategory> = {
+	pet: 'P',
+	travel: 'T',
+	place: 'S',
+	leisure: 'L',
+};
+
+const socketCategoryToCategory: Record<SocketCategory, Category> = {
+	P: 'pet',
+	T: 'travel',
+	S: 'place',
+	L: 'leisure',
+};
 
 export type UseRacingSocketReturnType = ReturnType<typeof useRacingSocket>;
 
-const ranks = [1, 2, 3, 4] as const;
-export type Rank = (typeof ranks)[number];
-
-type SocketCategory = 'P' | 'T' | 'S' | 'L';
-
-type SocketData = Record<SocketCategory, { rank: Rank; count: bigint | number }>;
-type VoteStatus = Record<Category, { rank: Rank; count: bigint | number }>;
-
-const categoryMapping: Record<SocketCategory, Category> = {
-    P: 'pet',
-    T: 'travel',
-    S: 'place',
-    L: 'leisure',
-};
-
-const INIT_STATUS: VoteStatus = {
-	pet: { rank: 1, count: 0 },
-	place: { rank: 2, count: 0 },
-	travel: { rank: 3, count: 0 },
-	leisure: { rank: 4, count: 0 },
-};
-
 export default function useRacingSocket() {
-	const [chargedCar, setChargedCar] = useState<Category | null>(null);
+	const [storedRank, storeRank] = useRacingRankStorage();
+	const [rank, setRank] = useState<RankStatus>(storedRank);
+	const [vote, setVote] = useState<VoteStatus>({
+		pet: 0,
+		place: 0,
+		travel: 0,
+		leisure: 0,
+	});
 
-	const [status, setStatus] = useState<VoteStatus>(INIT_STATUS);
+	const newRankStatus = useMemo(() => calculateRank(vote), [vote]);
 
-	const handleChangeStatus :SocketSubscribeCallbackType = (data: unknown) => {
-		const parsedData = parseSocketData(data as SocketData);
-		setStatus(parsedData);
+	useEffect(() => {
+		if (hasRankChanged(newRankStatus, rank)) {
+			setRank(newRankStatus);
+			storeRank(newRankStatus);
+		}
+	}, [newRankStatus, rank, storeRank]);
+
+	const handleStatusChange = useCallback((data: unknown) => {
+		const newVoteStatus = parseSocketVoteData(data as SocketData);
+		setVote(newVoteStatus);
+	}, []);
+
+	const handleCarFullyCharged = (category: Category) => {
+		const chargeData = { [categoryToSocketCategory[category]]: 1 };
+
+		socketClient.sendMessages({
+			destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
+			body: chargeData,
+		});
 	};
 
-	return { chargedCar, status, onChangeStatus: handleChangeStatus, onChargeCar: setChargedCar };
+	return {
+		vote,
+		rank,
+		onReceiveStatus: handleStatusChange,
+		onFullyChargeCar: handleCarFullyCharged,
+	};
 }
 
-/** utils */
+/**
+ * Utility functions
+ */
 
-function parseSocketData(data: SocketData): VoteStatus {
-	return Object.entries(data).reduce((acc, [socketCategory, value]) => {
-			const categoryKey = categoryMapping[socketCategory as SocketCategory];
-			acc[categoryKey] = value;
-			return acc;
+// Calculate the rank based on vote status
+function calculateRank(vote: VoteStatus): RankStatus {
+	const sortedCategories = (Object.keys(vote) as Category[]).sort(
+		(a, b) => Number(vote[b]) - Number(vote[a]),
+	);
+
+	return sortedCategories.reduce<RankStatus>(
+		(rankStatus, category, index) => ({
+			...rankStatus,
+			[category]: (index + 1) as Rank,
+		}),
+		{} as RankStatus,
+	);
+}
+
+// Check if rank has changed
+function hasRankChanged(newRank: RankStatus, currentRank: RankStatus): boolean {
+	return Object.keys(newRank).some(
+		(category) => newRank[category as Category] !== currentRank[category as Category],
+	);
+}
+
+// Parse socket data to vote status
+function parseSocketVoteData(data: SocketData): VoteStatus {
+	return Object.entries(data).reduce<VoteStatus>((acc, [socketCategory, value]) => {
+		const category = socketCategoryToCategory[socketCategory as SocketCategory];
+		acc[category] = value;
+		return acc;
 	}, {} as VoteStatus);
 }

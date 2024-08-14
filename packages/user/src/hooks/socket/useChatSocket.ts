@@ -13,7 +13,7 @@ export default function useChatSocket() {
 
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 
-	const handleIncomingMessage :SocketSubscribeCallbackType = (data: unknown, messageId: string) => {
+	const handleIncomingMessage: SocketSubscribeCallbackType = (data: unknown, messageId: string) => {
 		const parsedData = data as Omit<ChatProps, 'id'>;
 		const parsedMessage = { id: messageId, ...parsedData };
 		setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);

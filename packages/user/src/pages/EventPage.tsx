@@ -5,7 +5,7 @@ import useSocket from 'src/hooks/socket/index.ts';
 import scrollToElementId from 'src/utils/scrollToElementId.ts';
 
 export default function EventPage() {
-	const { chatSocket } = useSocket();
+	const { chatSocket, racingSocket } = useSocket();
 
 	useEffect(() => {
 		scrollToElementId({ sectionId: SECTION_ID.RACING, behavior: 'instant' });
@@ -13,7 +13,7 @@ export default function EventPage() {
 
 	return (
 		<>
-			<RealTimeRacing />
+			<RealTimeRacing {...racingSocket} />
 			<RealTimeChatting {...chatSocket} />
 		</>
 	);

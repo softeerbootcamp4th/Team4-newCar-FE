@@ -1,4 +1,4 @@
-import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
+import { CHAT_SOCKET_ENDPOINTS, RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { useEffect } from 'react';
 import socketClient from 'src/services/socket.ts';
 import useChatSocket, { UseChatSocketReturnType } from './useChatSocket.ts';
@@ -13,6 +13,7 @@ export default function useSocket() {
 	const { onReceiveMessage } = chatSocket;
 
 	const racingSocket = useRacingSocket();
+	const { onChangeStatus } = racingSocket;
 
 	useEffect(() => {
 		socketClient.connect((isConnected) => {
@@ -20,6 +21,10 @@ export default function useSocket() {
 				socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
 					callback: onReceiveMessage,
+				});
+				socketClient.subscribe({
+					destination: RACING_SOCKET_ENDPOINTS.SUBSCRIBE,
+					callback: onChangeStatus,
 				});
 			}
 		});

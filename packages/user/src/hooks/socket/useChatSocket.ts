@@ -1,6 +1,6 @@
 import { ChatProps } from '@softeer/common/components';
 import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
-import { IMessage } from '@stomp/stompjs';
+import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useState } from 'react';
 import useAuth from 'src/hooks/useAuth.tsx';
 import socketClient from 'src/services/socket.ts';
@@ -13,9 +13,10 @@ export default function useChatSocket() {
 
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 
-	const handleIncomingMessage = (messageId: string, message: IMessage) => {
-		const parsedMessage: ChatProps = { id: messageId, ...JSON.parse(message.body) };
-		setChatMessages((prevMessages) => [...prevMessages, parsedMessage]);
+	const handleIncomingMessage :SocketSubscribeCallbackType = (data: unknown, messageId: string) => {
+		const parsedData = data as Omit<ChatProps, 'id'>;
+		const parsedMessage = { id: messageId, ...parsedData };
+		setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
 	};
 
 	const handleSendMessage = (content: string) => {

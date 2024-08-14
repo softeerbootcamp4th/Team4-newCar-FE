@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import useSubmitTeamTypeQuizAnswers, {
@@ -40,7 +40,9 @@ export default function TeamSelectModalContent() {
 	return (
 		<Funnel>
 			<Funnel.Step name="quiz">
-				<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
+				<Suspense fallback={<PendingStep>유형 검사 리스트 불러오는 중 ...</PendingStep>}>
+					<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
+				</Suspense>
 			</Funnel.Step>
 			<Funnel.Step name="pending">
 				<PendingStep>내 유형 불러오는 중 ...</PendingStep>
@@ -49,7 +51,7 @@ export default function TeamSelectModalContent() {
 				<ResultStep {...(result as NonNullable<SubmitQuizAnswersResponse>)} />
 			</Funnel.Step>
 			<Funnel.Step name="error">
-				<ErrorStep setQuizStep={() => setStep('quiz')} />
+				<ErrorStep setQuizStep={() => setStep('quiz')}>유형 검사 결과를 잃어버렸어요...</ErrorStep>
 			</Funnel.Step>
 		</Funnel>
 	);

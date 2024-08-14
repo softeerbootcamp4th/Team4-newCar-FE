@@ -1,32 +1,35 @@
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import Modal, { ModalProps } from 'src/components/common/Modal.tsx';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useSubmitFCFSQuiz, { SubmitFCFSQuizResponse } from 'src/hooks/query/useSubmitFCFSQuiz.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
+import ErrorStep from './ErrorStep.tsx';
 import QuizStep from './QuizStep.tsx';
 import ResultStep from './ResultStep.tsx';
 
 export type ResultStepType = ReturnType<typeof getResultStepFromStatus>;
 
-const FCFS_FUNNEL_KEYS = [
-	'already-done',
-	'not-started',
-	'pending-result',
-	'correct-answer',
-	'wrong-answer',
-	'quiz',
-	'end',
-];
-
 export default function FCFSModal(props: ModalProps) {
-	const [Funnel, setStep] = useFunnel(FCFS_FUNNEL_KEYS as NonEmptyArray<string>, {
-		initialStep: 'quiz',
-	});
+	const [Funnel, setStep] = useFunnel(
+		[
+			'quiz',
+			'pending',
+			'already-done',
+			'correct-answer',
+			'wrong-answer',
+			'end',
+		] as NonEmptyArray<string>,
+		{
+			initialStep: 'quiz',
+		},
+	);
 
 	const { isPending, mutate: submitAnswer } = useSubmitFCFSQuiz();
 
 	useEffect(() => {
-		if (isPending) setStep('pending-result');
+		if (isPending) setStep('pending');
 	}, [isPending]);
 
 	const handleSubmit = (answer: number) =>
@@ -39,15 +42,19 @@ export default function FCFSModal(props: ModalProps) {
 		<Modal {...props}>
 			<div className="flex h-full w-full items-center justify-center p-[100px]">
 				<Funnel>
-					<Funnel.Step name="not-started">not-started</Funnel.Step>
-
 					<Funnel.Step name="quiz">
-						<Suspense fallback={<PendingStep>선착순 퀴즈 불러오는 중...</PendingStep>}>
-							<QuizStep onSelect={handleSubmit} />
-						</Suspense>
+						<QueryErrorResetBoundary>
+							{({ reset }) => (
+								<ErrorBoundary onReset={reset} FallbackComponent={ErrorStep}>
+									<Suspense fallback={<PendingStep>선착순 퀴즈 불러오는 중...</PendingStep>}>
+										<QuizStep onSelect={handleSubmit} />
+									</Suspense>
+								</ErrorBoundary>
+							)}
+						</QueryErrorResetBoundary>
 					</Funnel.Step>
 
-					<Funnel.Step name="pending-result">
+					<Funnel.Step name="pending">
 						<PendingStep>선착순 퀴즈 결과 불러오는 중...</PendingStep>
 					</Funnel.Step>
 

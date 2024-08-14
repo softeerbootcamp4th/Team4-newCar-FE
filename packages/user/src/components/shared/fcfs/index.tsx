@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import LoginModal from 'src/components/shared/modal/login/index.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
@@ -35,15 +35,17 @@ export default function FCFSFloatingButtonController() {
 
 	// 로그인한 유저에게는 선착순 퀴즈 모달 트리거 버튼 노출
 	return (
-		<FCFSModal
-			openTrigger={
-				<TriggerButtonWrapper>
-					<TriggerButtonLike>
-						선착순 퀴즈 <p className="text-heading-8 text-foreground font-extrabold">OPEN</p>
-					</TriggerButtonLike>
-				</TriggerButtonWrapper>
-			}
-		/>
+		<Suspense>
+			<FCFSModal
+				openTrigger={
+					<TriggerButtonWrapper>
+						<TriggerButtonLike>
+							선착순 퀴즈 <p className="text-heading-8 text-foreground font-extrabold">OPEN</p>
+						</TriggerButtonLike>
+					</TriggerButtonWrapper>
+				}
+			/>
+		</Suspense>
 	);
 }
 

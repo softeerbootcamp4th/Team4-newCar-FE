@@ -10,7 +10,7 @@ interface ControlButtonProps {
 	type: Category;
 	rank: Rank;
 	percentage: number;
-	onScale: () => void;
+	onCharge: () => void;
 }
 
 const MAX_CLICK = 10;
@@ -23,9 +23,9 @@ export default function ControlButton({
 	type,
 	rank,
 	percentage: originPercentage,
-	onScale,
+	onCharge,
 }: ControlButtonProps) {
-	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onScale);
+	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onCharge);
 
 	return (
 		<div

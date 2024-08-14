@@ -5,9 +5,9 @@ import ControlButton from './ControlButton.tsx';
 
 interface RacingControlsProps {
 	ranks: CategoryRankMap;
-	setScaledType: (type: Category) => void;
+	onCharge: (type: Category) => void;
 }
-export default function RacingControls({ ranks, setScaledType }: RacingControlsProps) {
+export default function RacingControls({ ranks, onCharge }: RacingControlsProps) {
 	return (
 		<div className="relative h-[150px] w-full">
 			{CATEGORIES.map((type) => (
@@ -16,7 +16,7 @@ export default function RacingControls({ ranks, setScaledType }: RacingControlsP
 					type={type}
 					rank={ranks[type]}
 					percentage={25}
-					onScale={() => setScaledType(type)}
+					onCharge={() => onCharge(type)}
 				/>
 			))}
 		</div>

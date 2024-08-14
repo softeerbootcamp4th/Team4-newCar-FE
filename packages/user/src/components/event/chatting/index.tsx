@@ -1,8 +1,8 @@
 import { ChatList, ChatProps } from '@softeer/common/components';
+import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
+import { IMessage } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
-import useAuth from 'src/hooks/useAuth.tsx';
-import { CHAT_SOCKET_ENDPOINTS } from 'src/services/socket/endpoints.ts';
-import socketClient from 'src/services/socket/index.ts';
+import socketClient from 'src/services/socket.ts';
 import Chat from './Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
 
@@ -26,28 +26,24 @@ export default function RealTimeChatting() {
 }
 
 function useChatSocket() {
-	const { isAuthenticated } = useAuth();
-
 	const [messages, setMessages] = useState<ChatProps[]>([]);
 
-	const handleIncomingMessage = (payload: { body: string }) => {
-		const parsedMessage = Object.assign(JSON.parse(payload.body)) as ChatProps;
+	const handleIncomingMessage = (messageId: string, message: IMessage) => {
+		const parsedMessage: ChatProps = { id: messageId, ...JSON.parse(message.body) };
 		setMessages((prevMessages) => [...prevMessages, parsedMessage]);
 	};
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			socketClient.connect((isConnected) => {
-				if (isConnected) {
-					socketClient.subscribe({
-						destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
-						callback: handleIncomingMessage,
-					});
-				}
-			});
-		}
+		socketClient.connect((isConnected) => {
+			if (isConnected) {
+				socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
+					callback: handleIncomingMessage,
+				});
+			}
+		});
 		return () => socketClient.disconnect();
-	}, [isAuthenticated, socketClient, handleIncomingMessage]);
+	}, [socketClient, handleIncomingMessage]);
 
 	const handleSendMessage = (text: string) => {
 		const chatMessage = {

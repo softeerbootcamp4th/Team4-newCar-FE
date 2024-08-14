@@ -1,8 +1,7 @@
 import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
 
-export class Socket {
+export default class Socket {
 	private client: Client;
 
 	private subscriptions: Map<string, StompSubscription> = new Map();
@@ -11,12 +10,12 @@ export class Socket {
 		this.client = this.setup({ url, token });
 	}
 
-	private setup({ url = SOCKET_BASE_URL }: { url: string; token?: string | null }): Client {
+	private setup({ url }: { url: string; token?: string | null }): Client {
 		const stompClient = new Client({
 			webSocketFactory: () => new SockJS(`${url}/ws`),
-			reconnectDelay: 5000, // Reconnect every 5 seconds if the connection drops
-			heartbeatIncoming: 4000, // Check for server heartbeat every 4 seconds
-			heartbeatOutgoing: 4000, // Send a heartbeat every 4 seconds
+			reconnectDelay: 5000, // Reconnect if the connection drops
+			// heartbeatIncoming: 4000, // Check for server heartbeat
+			// heartbeatOutgoing: 4000, // Send a heartbeat
 		});
 		this.client = stompClient;
 		return stompClient;
@@ -54,21 +53,31 @@ export class Socket {
 		}
 	}
 
+	private createSubscription({
+		destination,
+		callback,
+	}: {
+		destination: string;
+		callback: (messageId: string, message: IMessage) => void;
+	}) {
+		const subscription = this.client.subscribe(destination, (message: IMessage) => {
+			const messageId = message.headers['message-id'];
+			callback(messageId, message);
+		});
+		this.subscriptions.set(destination, subscription);
+	}
+
 	subscribe({
 		destination,
 		callback,
 	}: {
 		destination: string;
-		callback: (message: IMessage) => void;
+		callback: (messageId: string, message: IMessage) => void;
 	}) {
 		if (this.client.connected) {
-			const subscription = this.client.subscribe(destination, callback);
-			this.subscriptions.set(destination, subscription);
+			this.createSubscription({ destination, callback });
 		} else {
-			this.connect(() => {
-				const subscription = this.client.subscribe(destination, callback);
-				this.subscriptions.set(destination, subscription);
-			});
+			this.connect(() => this.createSubscription({ destination, callback }));
 		}
 	}
 
@@ -80,6 +89,3 @@ export class Socket {
 		}
 	}
 }
-
-const socketClient = new Socket(SOCKET_BASE_URL);
-export default socketClient;

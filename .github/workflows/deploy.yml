@@ -1,0 +1,52 @@
+name: React build
+on: 
+  push:
+    branches:
+      - deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Clean Yarn cache
+        run: yarn cache clean
+
+      - name: Install Dependencies
+        run: yarn install --no-immutable
+
+      - name: Create .env in user package
+        run: |
+          echo "${{ secrets.USER_ENV }}" > packages/user/.env
+
+      - name: Build Common
+        run: yarn run build:common
+
+      - name: Build Admin
+        run: yarn run build:admin
+
+      - name: Build User
+        run: yarn run build:user
+
+      - name: Deploy-Admin
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            packages/admin/dist s3://yangbong-admin
+
+      - name: Deploy-User
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            packages/user/dist s3://yangbong-front

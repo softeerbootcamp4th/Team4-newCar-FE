@@ -1,6 +1,8 @@
 // export const BASE_URL = 'http://localhost:5173/src/services/api/mock';
-// export const BASE_URL = 'http://172.30.1.22:8080/admin';
-export const BASE_URL = 'http://ec2-52-78-125-116.ap-northeast-2.compute.amazonaws.com:8080/admin';
+export const BASE_URL = 'http://ec2-3-39-67-88.ap-northeast-2.compute.amazonaws.com:8080/admin';
+// export const BASE_URL = 'http://api.softeer.kro.kr:8080/admin';
+// export const BASE_URL = 'http://dating.batro.org:8080/admin';
+
 export const enum METHOD {
 	GET = 'GET',
 	POST = 'POST',
@@ -15,6 +17,7 @@ export const enum API {
 	RACING_WINNERS = '/racing-winners',
 	PERSONALITY_TEST_LIST = '/personality-test-list',
 	PERSONALITY_TEST = '/personality-test',
+	LOGIN = '/login',
 }
 
 export const API_DEFAULT_HEADER = {

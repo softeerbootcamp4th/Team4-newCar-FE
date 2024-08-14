@@ -8,8 +8,9 @@
 	"description": "Softeer Common Package",
 	"scripts": {
 		"tailwind": "npx tailwindcss -i src/styles/index.css  -o ./dist/tailwind.css",
-		"build": "tsup",
-		"minify": "npx tailwindcss --minify -o ./dist/tailwind.css"
+		"bundle": "tsup",
+		"minify": "npx tailwindcss --minify -o ./dist/tailwind.css",
+		"build": "yes | yarn tailwind && yarn bundle && yes | yarn minify"
 	},
 	"exports": {
 		".": {

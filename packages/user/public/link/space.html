@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="kr">
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta property="og:url" content="url" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="공간 활용의 기술" />
+		<meta property="og:description" content="캐스퍼 이벤트로 초대합니다." />
+		<meta property="og:image" content="/link/og-space.png" />
+		<meta property="og:image:type" content="image/png" />
+	</head>
+	<body>
+		<script>
+			const currentUrl = new URL(window.location.href);
+			const baseUrl = 'http://www.batro.org';
+			const newUrl = `${baseUrl}${currentUrl.pathname}${currentUrl.search}`;
+			window.location.href = newUrl;
+		</script>
+	</body>
+</html>

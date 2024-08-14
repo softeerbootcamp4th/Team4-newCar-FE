@@ -1,8 +1,22 @@
+import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
+import getCookie from '../storage/cookie/getCookie.ts';
+// eslint-disable-next-line import/no-cycle
 import fetchWithInterceptors from './fetchInterceptors.ts';
 
 interface Interceptors {
 	request?: (url: string, options: RequestInit) => Promise<RequestInit> | RequestInit;
 	response?: <T>(response: Response) => Promise<T> | T;
+}
+
+export function generateDefaultHeaders(): HeadersInit {
+	const headers: HeadersInit = {
+		'Content-Type': 'application/json',
+	};
+	const accessToken = getCookie(ACCESS_TOKEN_KEY);
+	if (accessToken) {
+		headers.Authorization = accessToken;
+	}
+	return headers;
 }
 
 export default class FetchWrapper {
@@ -15,7 +29,8 @@ export default class FetchWrapper {
 		this.interceptors = {
 			response: async <T>(response: Response): Promise<T> => {
 				if (!response.ok) {
-					throw new Error('네트워크에 문제가 발생하였습니다.');
+					// eslint-disable-next-line @typescript-eslint/no-throw-literal
+					throw response;
 				}
 				return response.json();
 			},
@@ -30,7 +45,9 @@ export default class FetchWrapper {
 	}
 
 	async get<T>(url: string): Promise<T> {
-		return this.request<T>(url, {});
+		return this.request<T>(url, {
+			// credentials: 'include',
+		});
 	}
 
 	async put<T, U>(url: string, data: U): Promise<T> {
@@ -38,8 +55,9 @@ export default class FetchWrapper {
 			method: 'PUT',
 			body: JSON.stringify(data),
 			headers: {
-				'Content-Type': 'application/json',
+				...generateDefaultHeaders(),
 			},
+			// credentials: 'include',
 		});
 	}
 
@@ -48,8 +66,9 @@ export default class FetchWrapper {
 			method: 'POST',
 			body: JSON.stringify(data),
 			headers: {
-				'Content-Type': 'application/json',
+				...generateDefaultHeaders(),
 			},
+			// credentials: 'include',
 		});
 	}
 

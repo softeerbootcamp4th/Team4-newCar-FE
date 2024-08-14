@@ -47,7 +47,7 @@ function useChatSocket() {
 			});
 		}
 		return () => socketClient.disconnect();
-	}, [handleIncomingMessage]);
+	}, [isAuthenticated, socketClient, handleIncomingMessage]);
 
 	const handleSendMessage = (text: string) => {
 		const chatMessage = {

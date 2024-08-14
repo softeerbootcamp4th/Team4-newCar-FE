@@ -31,7 +31,7 @@ const SideBarRoutes: Route[] = [
 	{
 		id: 3,
 		name: '기대평 관리',
-		path: '/',
+		path: RoutePaths.REVIEW,
 	},
 ];
 

@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-cycle
+import { generateDefaultHeaders } from './index.ts';
+
 type FetchOptions = RequestInit & { interceptors?: Interceptors };
 
 interface Interceptors {
@@ -7,6 +10,11 @@ interface Interceptors {
 
 const fetchWithInterceptors = async <T>(url: string, options: FetchOptions = {}): Promise<T> => {
 	const { interceptors, ...fetchOptions } = options;
+	if (!fetchOptions.headers) {
+		fetchOptions.headers = {};
+	}
+
+	fetchOptions.headers = Object.assign(fetchOptions.headers, generateDefaultHeaders());
 
 	if (interceptors?.request) {
 		const modifiedOptions = await interceptors.request(url, fetchOptions);

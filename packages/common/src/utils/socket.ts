@@ -14,8 +14,6 @@ export default class Socket {
 		const stompClient = new Client({
 			webSocketFactory: () => new SockJS(`${url}/ws`),
 			reconnectDelay: 5000, // Reconnect if the connection drops
-			// heartbeatIncoming: 4000, // Check for server heartbeat
-			// heartbeatOutgoing: 4000, // Send a heartbeat
 		});
 		this.client = stompClient;
 		return stompClient;
@@ -62,6 +60,7 @@ export default class Socket {
 	}) {
 		const subscription = this.client.subscribe(destination, (message: IMessage) => {
 			const messageId = message.headers['message-id'];
+
 			callback(messageId, message);
 		});
 		this.subscriptions.set(destination, subscription);

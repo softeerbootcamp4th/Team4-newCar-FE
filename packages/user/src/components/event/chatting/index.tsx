@@ -2,7 +2,7 @@ import { ChatList, ChatProps } from '@softeer/common/components';
 import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { IMessage } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
-import socketClient from 'src/services/socket/index.ts';
+import socketClient from 'src/services/socket.ts';
 import Chat from './Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
 

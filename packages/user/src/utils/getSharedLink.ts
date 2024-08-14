@@ -1,5 +1,5 @@
 import { Category } from '@softeer/common/types';
-import { User } from 'src/types/user.js';
+import type { User } from 'src/types/user.d.ts';
 
 const DOMAIN: Record<Category | 'default', string> = {
 	default: 'https://www.batro.org',

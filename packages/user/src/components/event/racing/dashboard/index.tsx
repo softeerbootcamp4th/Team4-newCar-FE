@@ -18,7 +18,14 @@ export default function RacingDashboard({ ranks, scaledType }: RacingDashboardPr
 		<div className="relative h-[685px] w-full">
 			<HeaderSection />
 			<RacingCardSection />
-			<CaspersSection ranks={ranks} scaledType={scaledType} />
+			{CATEGORIES.map((type) => (
+				<Casper
+					key={type}
+					type={type}
+					rank={ranks[type]}
+					className={scaledType === type ? 'scale-110' : ''}
+				/>
+			))}
 			<Background />
 		</div>
 	);
@@ -40,20 +47,5 @@ function RacingCardSection() {
 		<div className="absolute left-[27px] top-[95px]">
 			<RacingCard />
 		</div>
-	);
-}
-
-function CaspersSection({ ranks, scaledType }: RacingDashboardProps) {
-	return (
-		<>
-			{CATEGORIES.map((type) => (
-				<Casper
-					key={type}
-					type={type}
-					rank={ranks[type]}
-					className={scaledType === type ? 'scale-110' : ''}
-				/>
-			))}
-		</>
 	);
 }

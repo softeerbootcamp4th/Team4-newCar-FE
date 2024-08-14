@@ -1,8 +1,8 @@
 import { ChatList, ChatProps } from '@softeer/common/components';
+import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { IMessage } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
-import { CHAT_SOCKET_ENDPOINTS } from 'src/services/socket/endpoints.ts';
-import socketClient from 'src/services/socket/index.ts';
+import socketClient from 'src/services/socket.ts';
 import Chat from './Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
 
@@ -29,7 +29,7 @@ function useChatSocket() {
 	const [messages, setMessages] = useState<ChatProps[]>([]);
 
 	const handleIncomingMessage = (messageId: string, message: IMessage) => {
-		const parsedMessage: ChatProps = { id: messageId, ...(JSON.parse(message.body)) };
+		const parsedMessage: ChatProps = { id: messageId, ...JSON.parse(message.body) };
 		setMessages((prevMessages) => [...prevMessages, parsedMessage]);
 	};
 

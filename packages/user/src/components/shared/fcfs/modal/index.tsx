@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import Modal, { ModalProps } from 'src/components/common/Modal.tsx';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
-import useGetFCFSQuiz from 'src/hooks/query/useGetFCFSQuiz.ts';
 import useSubmitFCFSQuiz, { SubmitFCFSQuizResponse } from 'src/hooks/query/useSubmitFCFSQuiz.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
 import QuizStep from './QuizStep.tsx';
@@ -12,7 +11,7 @@ export type ResultStepType = ReturnType<typeof getResultStepFromStatus>;
 const FCFS_FUNNEL_KEYS = [
 	'already-done',
 	'not-started',
-	'pending',
+	'pending-result',
 	'correct-answer',
 	'wrong-answer',
 	'quiz',
@@ -24,19 +23,16 @@ export default function FCFSModal(props: ModalProps) {
 		initialStep: 'quiz',
 	});
 
-	const { quiz } = useGetFCFSQuiz();
 	const { isPending, mutate: submitAnswer } = useSubmitFCFSQuiz();
 
 	useEffect(() => {
-		if (isPending) setStep('pending');
+		if (isPending) setStep('pending-result');
 	}, [isPending]);
 
 	const handleSubmit = (answer: number) =>
 		submitAnswer(
 			{ answer },
-			{
-				onSuccess: (response) => setStep(getResultStepFromStatus(response)),
-			},
+			{ onSuccess: (response) => setStep(getResultStepFromStatus(response)) },
 		);
 
 	return (
@@ -46,10 +42,12 @@ export default function FCFSModal(props: ModalProps) {
 					<Funnel.Step name="not-started">not-started</Funnel.Step>
 
 					<Funnel.Step name="quiz">
-						<QuizStep quiz={quiz} onSelect={handleSubmit} />
+						<Suspense fallback={<PendingStep>선착순 퀴즈 불러오는 중...</PendingStep>}>
+							<QuizStep onSelect={handleSubmit} />
+						</Suspense>
 					</Funnel.Step>
 
-					<Funnel.Step name="pending">
+					<Funnel.Step name="pending-result">
 						<PendingStep>선착순 퀴즈 결과 불러오는 중...</PendingStep>
 					</Funnel.Step>
 

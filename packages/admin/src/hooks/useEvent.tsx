@@ -92,13 +92,6 @@ const useEvent = () => {
 				payload: winnerSettings,
 			});
 			return response;
-			// response
-			// openAlert(await response.text(), 'alert');
-			// if (response.status === 200) {
-			// 	openAlert('추첨이 완료되었습니다.', 'alert');
-			// 	const result = await response.json();
-			// 	return result;
-			// }
 		},
 		onSuccess: () => {
 			racingWinnerQuery.refetch();
@@ -108,6 +101,17 @@ const useEvent = () => {
 	const updateRacingWinner = (winnerSettings: WinnerSetting[]) => {
 		racingWinnerMutation.mutate(winnerSettings);
 	};
+
+	const quizWinnerQuery = useQuery<Response[API.QUIZ_WINNER][METHOD.GET]>({
+		queryFn: async () => {
+			const response = await fetchData({
+				path: API.QUIZ_WINNER,
+				method: METHOD.GET,
+			});
+			return response;
+		},
+		queryKey: [API.QUIZ_WINNER],
+	});
 
 	const personalityTestListQuery = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
 		queryFn: async () => {
@@ -142,12 +146,17 @@ const useEvent = () => {
 		commonEvent: commonEventQuery.data,
 		updateCommonEvent,
 		refechCommonEvent: commonEventQuery.refetch,
+
 		quizEvent: quizEventQuery.data,
 		updateQuizEvent,
 		refechQuizEvent: quizEventQuery.refetch,
+
 		racingWinners: racingWinnerQuery.data,
 		refetchRacingWinners: racingWinnerQuery.refetch,
 		updateRacingWinner,
+
+		quizWinners: quizWinnerQuery.data,
+
 		personalityTestList: personalityTestListQuery.data,
 		updatePersonalityTest,
 		refetchPersonalityTestList: personalityTestListQuery.refetch,

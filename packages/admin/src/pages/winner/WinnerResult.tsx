@@ -4,7 +4,7 @@ import Tab from 'src/components/common/Tab.tsx';
 import ResultTable from 'src/components/table/ResultTable.tsx';
 import { Button } from 'src/components/ui/button.tsx';
 import useEvent from 'src/hooks/useEvent.tsx';
-import { RacingWinner } from 'src/services/api/types/apiType.ts';
+import { QuizWinner, RacingWinner } from 'src/services/api/types/apiType.ts';
 import excelDownload from 'src/utils/xlsx.ts';
 
 const TabName = {
@@ -26,18 +26,20 @@ const quizHeaders = [
 	{ text: '당첨 날짜 ', width: '33%' },
 ];
 
-const getRows = (pageIndex: number, rawList: RacingWinner[]) => {
+const getRows = (pageIndex: number, rawList: RacingWinner[] | QuizWinner[]) => {
 	const rows = rawList
 		.slice(pageIndex * 10, pageIndex * 10 + 10)
 		.map((racingWinner) => Object.values(racingWinner));
-	while (rows.length < 10) {
-		rows.push(['ㅤ']);
+	if (rows.length !== 0) {
+		while (rows.length < 10) {
+			rows.push(['ㅤ']);
+		}
 	}
 	return rows;
 };
 
 function WinnerResult() {
-	const { racingWinners, refetchRacingWinners } = useEvent();
+	const { racingWinners, refetchRacingWinners, quizWinners } = useEvent();
 
 	useLayoutEffect(() => {
 		refetchRacingWinners();
@@ -49,18 +51,34 @@ function WinnerResult() {
 	const [rows, setRows] = useState<string[][]>([]);
 	const [headers, setHeaders] = useState<{ text: string; width: string }[]>([]);
 
+	const handleInvalidData = () => {
+		setTotal(0);
+		setRows(getRows(pageIndex, []));
+	};
+
+	const handleValidData = (data: RacingWinner[] | QuizWinner[]) => {
+		setTotal(data.length);
+		setRows(getRows(pageIndex, data));
+	};
+
 	useEffect(() => {
-		if (tabName === TabName.QUIZ && racingWinners !== undefined) {
-			setTotal(racingWinners.length);
-			setRows(getRows(pageIndex, racingWinners));
+		if (tabName === TabName.QUIZ) {
 			setHeaders(quizHeaders);
+			if (quizWinners !== undefined) {
+				handleValidData(quizWinners);
+			} else {
+				handleInvalidData();
+			}
 		}
-		if (tabName === TabName.RACE && racingWinners !== undefined) {
-			setTotal(racingWinners.length);
-			setRows(getRows(pageIndex, racingWinners));
+		if (tabName === TabName.RACE) {
 			setHeaders(racingHeaders);
+			if (racingWinners !== undefined) {
+				handleValidData(racingWinners);
+			} else {
+				handleInvalidData();
+			}
 		}
-	}, [racingWinners, pageIndex, tabName]);
+	}, [quizWinners, racingWinners, pageIndex, tabName]);
 
 	useEffect(() => {
 		setPageIndex(0);

@@ -14,6 +14,7 @@ export const enum API {
 	COMMON_EVENT = '/common-event',
 	QUIZ_LIST = '/quiz-list',
 	QUIZ = '/quiz',
+	QUIZ_WINNER = '/quiz-winner',
 	RACING_WINNERS = '/racing-winners',
 	PERSONALITY_TEST_LIST = '/personality-test-list',
 	PERSONALITY_TEST = '/personality-test',

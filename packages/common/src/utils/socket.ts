@@ -25,7 +25,8 @@ export default class Socket {
 		this.client.onConnect = () => callback?.(true);
 
 		this.client.onStompError = (error) => {
-			console.error('STOMP Error', error);
+			alert(`실시간 데이터 연동에 실패했습니다. (${error})`);
+			console.error(error);
 			callback?.(false);
 		};
 

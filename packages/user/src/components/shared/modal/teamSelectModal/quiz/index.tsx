@@ -3,7 +3,7 @@ import Button from 'src/components/common/Button.tsx';
 import StepProgress from 'src/components/common/StepProgress.tsx';
 import { Quiz } from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import { SubmitQuizAnswersRequest } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
-import { useFunnel } from 'src/hooks/useFunnel.ts';
+import useFunnel from 'src/hooks/useFunnel.ts';
 import QuizStepContent from './QuizStepContent.tsx';
 
 interface QuizFunnelProps {

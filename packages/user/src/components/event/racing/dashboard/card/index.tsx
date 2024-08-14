@@ -2,9 +2,9 @@ import { Category } from '@softeer/common/types';
 import { useState } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import TeamSelectModal from 'src/components/shared/modal/teamSelectModal/index.tsx';
-import RacingTeamCard from 'src/components/shared/RacingTeamCard.tsx';
-import UnassignedCard from 'src/components/shared/UnassignedCard.tsx';
+import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
+import UnassignedCard from './UnassignedCard.tsx';
 
 export default function RacingCard() {
 	const { user } = useAuth();
@@ -14,7 +14,7 @@ export default function RacingCard() {
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">
 			<CardTitle name={user?.name} />
 			{type ? (
-				<RacingTeamCard type={type} size="racing" />
+				<ShareCountTeamCard type={type} size="racing" />
 			) : (
 				<TeamSelectModal
 					openTrigger={

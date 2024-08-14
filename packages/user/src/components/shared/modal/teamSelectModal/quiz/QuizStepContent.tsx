@@ -1,5 +1,5 @@
+import OptionButton from 'src/components/common/OptionButton.tsx';
 import type { Quiz } from 'src/hooks/query/useGetTeamTypeQuiz.ts';
-import OptionButton from './OptionButton.tsx';
 
 interface QuizStepContentProps {
 	quiz: Quiz;

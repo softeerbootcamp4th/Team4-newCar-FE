@@ -12,7 +12,11 @@ interface TeamCardProps {
 	size: TeamCardSizeType;
 }
 
-export default function TeamCard({ type, size, children }: PropsWithChildren<TeamCardProps>) {
+export default function TeamCardTemplate({
+	type,
+	size,
+	children,
+}: PropsWithChildren<TeamCardProps>) {
 	const { title, subTitle } = TEAM_DESCRIPTIONS[type];
 	const src = `images/card/${type}.png`;
 

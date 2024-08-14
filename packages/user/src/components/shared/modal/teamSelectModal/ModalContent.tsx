@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
-import DeferredWrapper from 'src/components/common/DeferredWrapper.tsx';
+import { Suspense, useEffect, useState } from 'react';
+import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
 	type SubmitQuizAnswersResponse,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
-import { useFunnel } from 'src/hooks/useFunnel.ts';
+import useFunnel from 'src/hooks/useFunnel.ts';
 import ErrorStep from './ErrorStep.tsx';
-import PendingStatus from './PendingStatus.tsx';
 import ResultStep from './ResultStep.tsx';
 import QuizFunnel from './quiz/index.tsx';
 
@@ -41,18 +40,18 @@ export default function TeamSelectModalContent() {
 	return (
 		<Funnel>
 			<Funnel.Step name="quiz">
-				<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
+				<Suspense fallback={<PendingStep>유형 검사 리스트 불러오는 중 ...</PendingStep>}>
+					<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
+				</Suspense>
 			</Funnel.Step>
 			<Funnel.Step name="pending">
-				<DeferredWrapper>
-					<PendingStatus>내 유형 불러오는 중 ...</PendingStatus>
-				</DeferredWrapper>
+				<PendingStep>내 유형 불러오는 중 ...</PendingStep>
 			</Funnel.Step>
 			<Funnel.Step name="success">
 				<ResultStep {...(result as NonNullable<SubmitQuizAnswersResponse>)} />
 			</Funnel.Step>
 			<Funnel.Step name="error">
-				<ErrorStep setQuizStep={() => setStep('quiz')} />
+				<ErrorStep setQuizStep={() => setStep('quiz')}>유형 검사 결과를 잃어버렸어요...</ErrorStep>
 			</Funnel.Step>
 		</Funnel>
 	);

@@ -4,7 +4,7 @@ import LinkDisplay from 'src/components/shared/LinkDisplay.tsx';
 import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
 import copyLink from 'src/utils/copyLink.ts';
-import { getSharedLink } from 'src/utils/getSharedLink.ts';
+import getSharedLink from 'src/utils/getSharedLink.ts';
 
 interface LinkShareProps {
 	category?: Category | null;

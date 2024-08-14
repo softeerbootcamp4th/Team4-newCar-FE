@@ -10,7 +10,7 @@ const DOMAIN: Record<Category | 'default', string> = {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export function getSharedLink({ type }: Pick<User, 'type'>) {
+export default function getSharedLink({ type }: Pick<User, 'type'>) {
 	const domainType = type ?? 'default';
 	return DOMAIN[domainType];
 }

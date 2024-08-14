@@ -1,7 +1,7 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import type { Category } from '@softeer/common/types';
 import { Suspense } from 'react';
-import type { CategoryRankMap } from 'src/types/rank.d.ts';
+import type { RankStatus } from 'src/types/racing.d.ts';
 import Background from './Background.tsx';
 import RacingCard from './card/index.tsx';
 import Casper from './Casper.tsx';
@@ -9,11 +9,11 @@ import RacingTitle from './RacingTitle.tsx';
 import EventTimer from './timer/index.tsx';
 
 interface RacingDashboardProps {
-	ranks: CategoryRankMap;
-	scaledType: Category | null;
+	ranks: RankStatus;
+	chargedCar: Category | null;
 }
 
-export default function RacingDashboard({ ranks, scaledType }: RacingDashboardProps) {
+export default function RacingDashboard({ ranks, chargedCar }: RacingDashboardProps) {
 	return (
 		<div className="relative h-[685px] w-full">
 			<HeaderSection />
@@ -23,7 +23,7 @@ export default function RacingDashboard({ ranks, scaledType }: RacingDashboardPr
 					key={type}
 					type={type}
 					rank={ranks[type]}
-					className={scaledType === type ? 'scale-110' : ''}
+					className={chargedCar === type ? 'scale-110' : ''}
 				/>
 			))}
 			<Background />

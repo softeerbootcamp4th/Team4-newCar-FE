@@ -1,7 +1,7 @@
 import type { Category } from '@softeer/common/types';
 import MarkerIcon from 'src/assets/icons/car-marker.svg?react';
 import useAuth from 'src/hooks/useAuth.tsx';
-import type { Rank } from 'src/types/rank.d.ts';
+import type { Rank } from 'src/types/racing.ts';
 
 interface CasperProps {
 	type: Category;

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import type { ResultStepType } from 'src/components/shared/fcfs/modal/index.tsx';
+import type { ResultStepType } from 'src/components/shared/modal/fcfs/index.tsx';
 
 interface ResultStepProps {
 	step: ResultStepType;

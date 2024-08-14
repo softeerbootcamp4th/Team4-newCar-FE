@@ -4,7 +4,7 @@ import LoginModal from 'src/components/shared/modal/login/index.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
 import TriggerButtonLike from './TriggerButtonLike.tsx';
 
-const FCFSModal = lazy(() => import('./modal/index.tsx'));
+const FCFSModal = lazy(() => import('src/components/shared/modal/fcfs/index.tsx'));
 
 const EVENT_OPEN_HOUR = 15;
 const EVENT_OPEN_MINUTE = 15;

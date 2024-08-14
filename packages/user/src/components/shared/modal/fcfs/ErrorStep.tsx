@@ -1,7 +1,7 @@
 import { FallbackProps } from 'react-error-boundary';
 import Button from 'src/components/common/Button.tsx';
-import ResultStep from 'src/components/shared/fcfs/modal/ResultStep.tsx';
 import InfoStep from 'src/components/shared/modal/InfoStep.tsx';
+import ResultStep from './ResultStep.tsx';
 
 export default function ErrorStep({ error, resetErrorBoundary }: FallbackProps) {
 	const { status } = error.response;

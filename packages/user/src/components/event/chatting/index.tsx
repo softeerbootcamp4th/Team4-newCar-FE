@@ -5,7 +5,7 @@ import ChatInputArea from './inputArea/index.tsx';
 
 /** 실시간 기대평 섹션 */
 
-export default function RealTimeChatting({ onSendMessage, messages }:UseChatSocketReturnType) {
+export default function RealTimeChatting({ onSendMessage, messages }: UseChatSocketReturnType) {
 	return (
 		<section className="container flex max-w-[1200px] snap-start flex-col items-center pb-[115px] pt-[50px]">
 			<h6 className="text-heading-10 mb-[25px] font-medium">기대평을 남겨보세요!</h6>

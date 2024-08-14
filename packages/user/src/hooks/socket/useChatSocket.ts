@@ -19,9 +19,9 @@ export default function useChatSocket() {
 	};
 
 	const handleSendMessage = (content: string) => {
-    console.assert(user !== null, '로그인 되지 않은 사용자가 메세지 전송을 시도했습니다.');
+		console.assert(user !== null, '로그인 되지 않은 사용자가 메세지 전송을 시도했습니다.');
 
-    const { id: sender, type: team } = user as NonNullable<User>;
+		const { id: sender, type: team } = user as NonNullable<User>;
 		const chatMessage = { sender, team, content };
 
 		socketClient.sendMessages({

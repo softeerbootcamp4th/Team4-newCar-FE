@@ -60,9 +60,7 @@ function QuizEventTab() {
 	return (
 		<div className="mt-4 flex flex-col gap-2">
 			<Accordion type="single" collapsible>
-				{quizEvent?.map((quiz, index) => (
-					<QuizEventBox quiz={quiz} index={index} />
-				))}
+				{quizEvent?.map((quiz, index) => <QuizEventBox quiz={quiz} index={index} />)}
 			</Accordion>
 		</div>
 	);

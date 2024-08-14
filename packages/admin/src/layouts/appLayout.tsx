@@ -32,9 +32,7 @@ export default function AppLayout() {
 
 	return (
 		<div className="mx-auto flex h-screen w-screen min-w-[1200px]">
-			{
-				accessToken && <SideBarContainer />
-			}
+			{accessToken && <SideBarContainer />}
 			<div className="mx-auto flex h-screen w-full max-w-[1200px] gap-10">
 				<SystemContainer />
 				<div className="flex w-full flex-col p-4 pb-8 pt-8">

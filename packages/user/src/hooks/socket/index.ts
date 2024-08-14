@@ -6,7 +6,7 @@ import useRacingSocket, { UseRacingSocketReturnType } from './useRacingSocket.ts
 
 export type UseSocketType = {
 	chatSocket: UseChatSocketReturnType;
-	racingSocket:UseRacingSocketReturnType;
+	racingSocket: UseRacingSocketReturnType;
 };
 export default function useSocket() {
 	const chatSocket = useChatSocket();

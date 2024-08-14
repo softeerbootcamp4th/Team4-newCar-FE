@@ -30,6 +30,12 @@ export interface RacingWinner {
 	team: string;
 }
 
+export interface QuizWinner {
+    name: string;
+    phoneNumber: string;
+    postDate: string;
+  }
+
 export interface PersonalityScore {
 	type: string;
 	value: number;
@@ -69,6 +75,9 @@ export interface Payload {
         [METHOD.GET]: Record<string, never>;
         [METHOD.POST]: WinnerSetting[];
     };
+    [API.QUIZ_WINNER]: {
+        [METHOD.GET]: Record<string, never>;
+    };
     [API.PERSONALITY_TEST_LIST]: {
         [METHOD.GET]: Record<string, never>;
     };
@@ -94,6 +103,9 @@ export interface Response {
     [API.RACING_WINNERS]: {
         [METHOD.GET]: RacingWinner[];
         [METHOD.POST]: string;
+    };
+    [API.QUIZ_WINNER]: {
+        [METHOD.GET]: QuizWinner[];
     };
     [API.PERSONALITY_TEST_LIST]: {
         [METHOD.GET]: PersonalityTest[];

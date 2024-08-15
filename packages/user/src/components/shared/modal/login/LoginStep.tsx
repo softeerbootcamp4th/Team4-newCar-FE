@@ -9,7 +9,7 @@ interface LoginStepProps {
 }
 
 // TODO: KAKAO OAuth
-export default function LoginStep({ onMoveSuccessStep }:LoginStepProps) {
+export default function LoginStep({ onMoveSuccessStep }: LoginStepProps) {
 	const { mutate: login } = useSubmitLogin();
 
 	const inputRefs = useRef<HTMLInputElement[]>([]);

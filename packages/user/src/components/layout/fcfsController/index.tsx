@@ -9,15 +9,15 @@ const EVENT_OPEN_HOUR = 15;
 const EVENT_OPEN_MINUTE = 15;
 
 const ProtectedFCFSButton = withAuth(() => (
-  <FCFSModal
-    openTrigger={
-      <TriggerButtonWrapper>
-        <TriggerButtonLike>
-          선착순 퀴즈 <p className="text-heading-8 text-foreground font-extrabold">OPEN</p>
-        </TriggerButtonLike>
-      </TriggerButtonWrapper>
-    }
-  />
+	<FCFSModal
+		openTrigger={
+			<TriggerButtonWrapper>
+				<TriggerButtonLike>
+					선착순 퀴즈 <p className="text-heading-8 text-foreground font-extrabold">OPEN</p>
+				</TriggerButtonLike>
+			</TriggerButtonWrapper>
+		}
+	/>
 ));
 
 export default function FCFSFloatingButtonController() {
@@ -37,7 +37,7 @@ export default function FCFSFloatingButtonController() {
 					</TriggerButtonLike>
 				}
 			/>
-  </Suspense>
+		</Suspense>
 	);
 }
 

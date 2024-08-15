@@ -11,7 +11,7 @@ interface TimeLeft {
 
 export default function EventTimer() {
 	const {
-		duration: { endDate },
+		duration: { endTime: endDate },
 	} = useGetEventDuration();
 
 	const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(endDate));

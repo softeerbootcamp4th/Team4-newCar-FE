@@ -1,20 +1,14 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
+import http from 'src/services/api/index.ts';
 import QUERY_KEYS from 'src/services/api/queryKey.ts';
 
-export type EventDuration = { startDate: string; endDate: string };
+export type EventDuration = { startTime: string; endTime: string };
 
 export default function useGetEventDuration() {
 	const { data: duration } = useSuspenseQuery<EventDuration>({
 		queryKey: [QUERY_KEYS.EVENT_DURATION],
-		queryFn: fetchMockData,
+		queryFn: () => http.get('/event-time'),
 	});
 
 	return { duration };
 }
-
-const fetchMockData = (): Promise<EventDuration> =>
-	new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ startDate: '2024-07-31T15:00:00Z', endDate: '2024-09-10T15:00:00Z' });
-		}, 1000);
-	});

@@ -10,7 +10,7 @@ export default function EventDurationText() {
 
 /* utils */
 
-function formatDateRange({ startDate, endDate }: EventDurationType): string {
+function formatDateRange({ startTime: startDate, endTime: endDate }: EventDurationType): string {
 	const timeOptions: Intl.DateTimeFormatOptions = {
 		hour: '2-digit',
 		minute: '2-digit',

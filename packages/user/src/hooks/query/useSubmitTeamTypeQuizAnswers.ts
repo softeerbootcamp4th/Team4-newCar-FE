@@ -19,11 +19,10 @@ export default function useSubmitTeamTypeQuizAnswers() {
 	const [_, setToken] = useTokenStorage();
 
 	const mutation = useMutation<SubmitQuizAnswersResponse, Error, SubmitQuizAnswersRequest>({
-		mutationFn: (data) => http.post('/personailty-test', data),
+		mutationFn: (data) => http.post('/personality-test', data),
 		onSuccess: ({ team, accessToken }) => {
-			const type = team === 'SPACE' ? 'place' : team;
+			const type = team === 'SPACE' ? 'place' : team.toLowerCase();
 			const userData = { ...(user as User), type: type.toLowerCase() as Category };
-
 			setToken(accessToken);
 			setAuthData({ userData });
 		},

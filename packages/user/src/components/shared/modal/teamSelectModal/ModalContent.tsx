@@ -1,8 +1,7 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect } from 'react';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
-	type SubmitQuizAnswersResponse,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
 import ErrorStep from './ErrorStep.tsx';
@@ -19,21 +18,15 @@ export default function TeamSelectModalContent() {
 
 	const { mutate: submitAnswers, isPending } = useSubmitTeamTypeQuizAnswers();
 
-	const [result, setResult] = useState<SubmitQuizAnswersResponse | null>(null);
-
 	const handleSubmit = (request: SubmitQuizAnswersRequest) =>
 		submitAnswers(request, {
-			onSuccess: setResult,
+			onSuccess: () => setStep('success'),
 			onError: () => setStep('error'),
 		});
 
 	useEffect(() => {
 		if (isPending) setStep('pending');
 	}, [isPending]);
-
-	useEffect(() => {
-		if (result) setStep('success');
-	}, [result]);
 
 	return (
 		<Funnel>
@@ -46,7 +39,7 @@ export default function TeamSelectModalContent() {
 				<PendingStep>내 유형 불러오는 중 ...</PendingStep>
 			</Funnel.Step>
 			<Funnel.Step name="success">
-				<ResultStep {...(result as NonNullable<SubmitQuizAnswersResponse>)} />
+				<ResultStep />
 			</Funnel.Step>
 			<Funnel.Step name="error">
 				<ErrorStep setQuizStep={() => setStep('quiz')}>유형 검사 결과를 잃어버렸어요...</ErrorStep>

@@ -4,7 +4,7 @@ import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
 import TeamSelectModalContent from './ModalContent.tsx';
 
-interface TeamSelectModalProps extends Omit<ModalProps, 'children'> {}
+export interface TeamSelectModalProps extends Omit<ModalProps, 'children'> {}
 
 export default function TeamSelectModal({ openTrigger, ...props }: TeamSelectModalProps) {
 	const { user } = useAuth();

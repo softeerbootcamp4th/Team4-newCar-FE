@@ -62,7 +62,7 @@ function useGaugeProgress({
 
 	const updateProgress = useCallback((count: number) => {
 		const newProgress = calculateProgress(count);
-		if (progress !== newProgress)setProgress(newProgress);
+		setProgress(newProgress);
 }, [progress]);
 
 	const resetProgress = useCallback(() => {

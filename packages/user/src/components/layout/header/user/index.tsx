@@ -1,4 +1,6 @@
 import UserIcon from 'src/assets/icons/user.svg?react';
+import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
+import LoginModal from 'src/components/shared/modal/login/index.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
 import SpeechBubble from './SpeechBubble.tsx';
 
@@ -13,9 +15,7 @@ export default function User() {
 			) : (
 				<>
 					<SpeechBubble />
-					<button type="button" aria-label="user-icon" className="p-[10px]">
-						<UserIcon />
-					</button>
+					<LoginModal openTrigger={<TriggerButtonWrapper><UserIcon /></TriggerButtonWrapper>} />
 				</>
 			)}
 		</div>

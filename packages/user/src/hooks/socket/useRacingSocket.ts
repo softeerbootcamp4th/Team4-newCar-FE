@@ -50,14 +50,17 @@ export default function useRacingSocket() {
 		}
 	}, [newRankStatus, ranks]);
 
-	const handleStatusChange: SocketSubscribeCallbackType = useCallback((data: unknown) => {
-		const newVoteStatus = parseSocketVoteData(data as SocketData);
-		const isVotesChanged = Object.keys(newVoteStatus).some(
-			(category) => newVoteStatus[category as Category] !== votes[category as Category],
-	);
+	const handleStatusChange: SocketSubscribeCallbackType = useCallback(
+		(data: unknown) => {
+			const newVoteStatus = parseSocketVoteData(data as SocketData);
+			const isVotesChanged = Object.keys(newVoteStatus).some(
+				(category) => newVoteStatus[category as Category] !== votes[category as Category],
+			);
 
-		if (isVotesChanged) setVotes(newVoteStatus);
-	}, [votes]);
+			if (isVotesChanged) setVotes(newVoteStatus);
+		},
+		[votes],
+	);
 
 	const handleCarFullyCharged = useCallback((category: Category) => {
 		const chargeData = { [categoryToSocketCategory[category]]: 1 };

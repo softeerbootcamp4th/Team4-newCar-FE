@@ -17,21 +17,24 @@ export default function ChatInput({ onSend }: ChatInputProps) {
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	const handleSubmit = useCallback(
+		(event: React.FormEvent<HTMLFormElement>) => {
+			event.preventDefault();
 
-		const disabledChatting = !isAuthenticated;
+			const disabledChatting = !isAuthenticated;
 
-		if (disabledChatting) {
-			toast({ description: DISABLED_CHATTING_TOAST_DESCRIPTION });
-			return;
-		}
+			if (disabledChatting) {
+				toast({ description: DISABLED_CHATTING_TOAST_DESCRIPTION });
+				return;
+			}
 
-		if (inputRef.current?.value) {
-			onSend(inputRef.current.value);
-			inputRef.current.value = '';
-		}
-	}, [isAuthenticated]);
+			if (inputRef.current?.value) {
+				onSend(inputRef.current.value);
+				inputRef.current.value = '';
+			}
+		},
+		[isAuthenticated],
+	);
 
 	return (
 		<form className="flex items-center gap-4" onSubmit={handleSubmit}>

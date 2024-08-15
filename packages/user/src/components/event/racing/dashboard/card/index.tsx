@@ -1,7 +1,9 @@
 import { Category } from '@softeer/common/types';
 import { memo, useState } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
-import TeamSelectModal, { type TeamSelectModalProps } from 'src/components/shared/modal/teamSelectModal/index.tsx';
+import TeamSelectModal, {
+	type TeamSelectModalProps,
+} from 'src/components/shared/modal/teamSelectModal/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import withAuth from 'src/components/shared/withAuthHOC.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';

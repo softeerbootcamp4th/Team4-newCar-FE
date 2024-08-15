@@ -1,4 +1,4 @@
-import { RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
+import { categoryToSocketCategory, RACING_SOCKET_ENDPOINTS, socketCategoryToCategory } from '@softeer/common/constants';
 import { Category } from '@softeer/common/types';
 import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -11,23 +11,6 @@ import type {
 	SocketData,
 	VoteStatus,
 } from 'src/types/racing.d.ts';
-
-/**
- * Mapping between Category and SocketCategory
- */
-const categoryToSocketCategory: Record<Category, SocketCategory> = {
-	pet: 'p',
-	travel: 't',
-	place: 's',
-	leisure: 'l',
-};
-
-const socketCategoryToCategory: Record<SocketCategory, Category> = {
-	p: 'pet',
-	t: 'travel',
-	s: 'place',
-	l: 'leisure',
-};
 
 export type UseRacingSocketReturnType = ReturnType<typeof useRacingSocket>;
 
@@ -63,7 +46,7 @@ export default function useRacingSocket() {
 	);
 
 	const handleCarFullyCharged = useCallback((category: Category) => {
-		const chargeData = { [categoryToSocketCategory[category]]: 1 };
+		const chargeData = { [categoryToSocketCategory[category].toLowerCase()]: 1 };
 
 		const completeChargeData = Object.keys(categoryToSocketCategory).reduce(
 			(acc, key) => {
@@ -114,7 +97,7 @@ function hasRankChanged(newRank: RankStatus, currentRank: RankStatus): boolean {
 
 function parseSocketVoteData(data: SocketData): VoteStatus {
 	return Object.entries(data).reduce<VoteStatus>((acc, [socketCategory, value]) => {
-		const category = socketCategoryToCategory[socketCategory as SocketCategory];
+		const category = socketCategoryToCategory[socketCategory.toLowerCase() as SocketCategory];
 		acc[category] = value;
 		return acc;
 	}, {} as VoteStatus);

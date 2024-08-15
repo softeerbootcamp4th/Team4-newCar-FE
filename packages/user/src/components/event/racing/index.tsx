@@ -9,7 +9,7 @@ import RacingDashboard from './dashboard/index.tsx';
 export default function RealTimeRacing(racingSocket: UseRacingSocketReturnType) {
 	const [chargedCar, setChargedCar] = useState<Category | null>(null);
 
-	const { ranks, onCarFullyCharged: onChargeCar } = racingSocket;
+	const { ranks, votes, onCarFullyCharged } = racingSocket;
 
 	return (
 		<section
@@ -17,7 +17,12 @@ export default function RealTimeRacing(racingSocket: UseRacingSocketReturnType) 
 			className="container flex w-[1200px] snap-start flex-col items-center gap-4 pb-[50px] pt-[80px]"
 		>
 			<RacingDashboard ranks={ranks} chargedCar={chargedCar} />
-			<RacingControls ranks={ranks} onCharge={setChargedCar} onFullyCharged={onChargeCar} />
+			<RacingControls
+				votes={votes}
+				ranks={ranks}
+				onCarFullyCharged={onCarFullyCharged}
+				onCharge={setChargedCar}
+			/>
 		</section>
 	);
 }

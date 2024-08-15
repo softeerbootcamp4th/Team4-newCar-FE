@@ -5,6 +5,6 @@ export type Rank = (typeof ranks)[number];
 
 type SocketCategory = 'P' | 'T' | 'S' | 'L';
 
-export type SocketData = Record<SocketCategory, bigint | number>;
-export type VoteStatus = Record<Category, bigint | number>;
+export type SocketData = Record<SocketCategory, number>;
+export type VoteStatus = Record<Category, number>;
 export type RankStatus = Record<Category, Rank>;

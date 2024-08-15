@@ -1766,6 +1766,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/numeral@npm:^2":
+  version: 2.0.5
+  resolution: "@types/numeral@npm:2.0.5"
+  checksum: 10c0/b18766cc97e79b5c59130ce1d5d5ad8b9287e1efd5ecac402e8a64e45c50aea8c8940c9974358983036d1abbed365a08f7f4d11b8af16874a5d4d0edce9aa4d4
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.12
   resolution: "@types/prop-types@npm:15.7.12"
@@ -5379,6 +5386,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"numeral@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "numeral@npm:2.0.6"
+  checksum: 10c0/5ed008d3fae05cfa4986b77a85ca10bff29ae6e1fa41a04cce05ea21f08a8a104226f88868930e2a94e3239708d6985d111b5d1291e8b9a3049ffc5365c332d4
+  languageName: node
+  linkType: hard
+
 "nwsapi@npm:^2.2.12":
   version: 2.2.12
   resolution: "nwsapi@npm:2.2.12"
@@ -7439,12 +7453,14 @@ __metadata:
     "@radix-ui/react-visually-hidden": "npm:^1.1.0"
     "@softeer/common": "npm:*"
     "@tanstack/react-query": "npm:^5.51.11"
+    "@types/numeral": "npm:^2"
     "@vitejs/plugin-react": "npm:^4.3.1"
     autoprefixer: "npm:^10.4.19"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
     jsdom: "npm:^24.1.1"
     lucide-react: "npm:^0.417.0"
+    numeral: "npm:^2.0.6"
     postcss: "npm:^8.4.39"
     rollup-plugin-visualizer: "npm:^5.12.0"
     tailwindcss: "npm:^3.4.6"

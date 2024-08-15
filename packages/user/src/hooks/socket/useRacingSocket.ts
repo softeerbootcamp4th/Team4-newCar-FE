@@ -72,7 +72,7 @@ export default function useRacingSocket() {
 }
 
 /**
- * Utility functions
+ * Helper Functions
  */
 
 function calculateRank(vote: VoteStatus): RankStatus {

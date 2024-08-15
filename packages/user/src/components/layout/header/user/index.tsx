@@ -15,7 +15,13 @@ export default function User() {
 			) : (
 				<>
 					<SpeechBubble />
-					<LoginModal openTrigger={<TriggerButtonWrapper><UserIcon /></TriggerButtonWrapper>} />
+					<LoginModal
+						openTrigger={
+							<TriggerButtonWrapper>
+								<UserIcon />
+							</TriggerButtonWrapper>
+						}
+					/>
 				</>
 			)}
 		</div>

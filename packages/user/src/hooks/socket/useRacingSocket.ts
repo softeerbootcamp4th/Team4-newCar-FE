@@ -58,11 +58,14 @@ export default function useRacingSocket() {
 	const handleCarFullyCharged = (category: Category) => {
 		const chargeData = { [categoryToSocketCategory[category]]: 1 };
 
-		const completeChargeData = Object.keys(categoryToSocketCategory).reduce((acc, key) => {
-			const socketCategory = categoryToSocketCategory[key as Category];
-			acc[socketCategory] = chargeData[socketCategory] ?? 0;
-			return acc;
-	}, {} as Record<SocketCategory, number>);
+		const completeChargeData = Object.keys(categoryToSocketCategory).reduce(
+			(acc, key) => {
+				const socketCategory = categoryToSocketCategory[key as Category];
+				acc[socketCategory] = chargeData[socketCategory] ?? 0;
+				return acc;
+			},
+			{} as Record<SocketCategory, number>,
+		);
 
 		socketClient.sendMessages({
 			destination: RACING_SOCKET_ENDPOINTS.PUBLISH,

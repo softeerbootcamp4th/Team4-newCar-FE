@@ -4,7 +4,7 @@ import OptionButton from 'src/components/common/OptionButton.tsx';
 import useGetFCFSQuiz from 'src/hooks/query/useGetFCFSQuiz.ts';
 import useSubmitFCFSQuiz, { SubmitFCFSQuizResponse } from 'src/hooks/query/useSubmitFCFSQuiz.ts';
 
-type ResultStepType = ReturnType<typeof getResultStepFromStatus>;
+export type ResultStepType = ReturnType<typeof getResultStepFromStatus>;
 interface QuizStepProps {
 	onStepChange: (step: ResultStepType | 'pending') => void;
 }

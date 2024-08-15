@@ -17,7 +17,7 @@ const ChargeButtonContent = memo(({ rank, vote, type }: ChargeButtonContentProps
 		<>
 			<h2 className="pt-2">{rank}</h2>
 			<div className="flex flex-col items-center">
-				<p className={`text-body-3 font-medium ${voteStyles[type]}`}>{formattedVote}%</p>
+				<p className={`text-body-3 font-medium ${voteStyles[type]}`}>{formattedVote}</p>
 				<h6>{displayTitle}</h6>
 			</div>
 		</>

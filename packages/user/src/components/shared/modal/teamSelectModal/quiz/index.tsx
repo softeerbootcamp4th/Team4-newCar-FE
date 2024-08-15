@@ -17,7 +17,7 @@ export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
 
 	const [Funnel, setStep] = useFunnel(steps);
 
-	const [answers, setAnswers] = useState<SubmitQuizAnswersRequest>({});
+	const [answers, setAnswers] = useState<Record<number, number>>({});
 
 	const handleNavigation = useCallback(
 		(quizIndex: number, direction: 'previous' | 'next') => {
@@ -39,6 +39,8 @@ export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
 		},
 		[steps, handleNavigation],
 	);
+
+	const handleSubmit = useCallback(() => onSubmit(transformRecordToArray(answers)), [answers]);
 
 	return (
 		<Funnel>
@@ -73,7 +75,7 @@ export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
 									<Button
 										className="flex-1"
 										disabled={disabledNextButton}
-										onClick={() => onSubmit(answers)}
+										onClick={handleSubmit}
 									>
 										결과 보기
 									</Button>
@@ -95,6 +97,8 @@ export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
 	);
 }
 
+/** Components */
+
 function StepWrapper({ children }: PropsWithChildren) {
 	return (
 		<div className="py-15 flex h-full flex-col items-center justify-center gap-4">{children}</div>
@@ -103,4 +107,12 @@ function StepWrapper({ children }: PropsWithChildren) {
 
 function ActionsWrapper({ children }: PropsWithChildren) {
 	return <div className="flex w-full min-w-[250px] max-w-[350px] gap-3">{children}</div>;
+}
+
+/** Helper Function */
+function transformRecordToArray(record: Record<number, number>): SubmitQuizAnswersRequest {
+	return Object.entries(record).map(([id, answer]) => ({
+			id: Number(id),
+			answer,
+	}));
 }

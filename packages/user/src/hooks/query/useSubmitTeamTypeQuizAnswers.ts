@@ -4,37 +4,30 @@ import { Category } from '@softeer/common/types';
 import { useMutation } from '@tanstack/react-query';
 import useTokenStorage from 'src/hooks/storage/useTokenStorage.ts';
 import useAuth from 'src/hooks/useAuth.tsx';
+import http from 'src/services/api/index.ts';
+import type { User } from 'src/types/user.d.ts';
 
-type QuizId = number;
-type ChoiceIndex = number;
-export type SubmitQuizAnswersRequest = Record<QuizId, ChoiceIndex>;
+export type SubmitQuizAnswersRequest = { id:number, answer: number }[];
 
 export interface SubmitQuizAnswersResponse {
-	team: Category;
-	accesstoken: string;
+	team: string;
+	accessToken: string;
 }
 
 export default function useSubmitTeamTypeQuizAnswers() {
-	const { setAuthData } = useAuth();
+	const { user, setAuthData } = useAuth();
 	const [_, setToken] = useTokenStorage();
 
 	const mutation = useMutation<SubmitQuizAnswersResponse, Error, SubmitQuizAnswersRequest>({
-		mutationFn: submitMockData,
-		onSuccess: ({ team, accesstoken }) => {
-			// TODO: replace
-			// setAuthData({ userData: { ...user, type } });
-			const mockUser = { id: 1, name: '보민', type: team };
-			setToken(accesstoken);
-			setAuthData({ userData: mockUser });
+		mutationFn: (data: SubmitQuizAnswersRequest) => http.post('/personailty-test', data),
+		onSuccess: ({ team, accessToken }) => {
+			const type = team === 'SPACE' ? 'place' : team;
+			const userData = { ...(user as User), type: type.toLowerCase() as Category };
+
+			setToken(accessToken);
+			setAuthData({ userData });
 		},
 	});
 
 	return mutation;
 }
-
-const submitMockData = (): Promise<SubmitQuizAnswersResponse> =>
-	new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ team: 'travel', accesstoken: 'mock-access-token' });
-		}, 4000);
-	});

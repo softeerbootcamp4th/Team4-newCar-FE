@@ -38,7 +38,7 @@ const useAuth = () => {
 	};
 
 	const logout = () => {
-		Cookie.setCookie<string>(ACCESS_TOKEN_KEY, '', 0);
+		Cookie.clearCookie(ACCESS_TOKEN_KEY);
 		navigate(RoutePaths.ROOT);
 	};
 

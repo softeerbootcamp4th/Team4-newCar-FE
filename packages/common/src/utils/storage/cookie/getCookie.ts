@@ -14,4 +14,5 @@ function getCookie<T>(name: string):T | null {
 	});
 	return returnValue;
 }
+
 export default getCookie;

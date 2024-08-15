@@ -82,7 +82,7 @@ function useGaugeProgress({
 			const resetTimer = setTimeout(resetProgress, RESET_SECOND);
 			return () => clearTimeout(resetTimer);
 		}
-	}, [clickCount, onFullyCharged, toast, updateProgress, resetProgress]);
+	}, [clickCount]);
 
 	const handleClick = useCallback(() => {
 		if (clickCount < MAX_CLICK) {

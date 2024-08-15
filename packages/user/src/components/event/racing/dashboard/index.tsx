@@ -1,15 +1,14 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import type { Category } from '@softeer/common/types';
 import { Suspense } from 'react';
-import type { RankStatus } from 'src/types/racing.d.ts';
+import { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import Background from './Background.tsx';
 import RacingCard from './card/index.tsx';
 import Casper from './Casper.tsx';
 import RacingTitle from './RacingTitle.tsx';
 import EventTimer from './timer/index.tsx';
 
-interface RacingDashboardProps {
-	ranks: RankStatus;
+interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> {
 	chargedCar: Category | null;
 }
 

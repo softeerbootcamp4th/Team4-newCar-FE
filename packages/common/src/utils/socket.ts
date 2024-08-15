@@ -1,6 +1,7 @@
 import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
+export type SocketSubscribeCallbackType = (data: unknown, messageId: string) => void;
 export default class Socket {
 	private client: Client;
 
@@ -25,7 +26,8 @@ export default class Socket {
 		this.client.onConnect = () => callback?.(true);
 
 		this.client.onStompError = (error) => {
-			console.error('STOMP Error', error);
+			alert(`실시간 데이터 연동에 실패했습니다. (${error})`);
+			console.error(error);
 			callback?.(false);
 		};
 
@@ -56,12 +58,12 @@ export default class Socket {
 		callback,
 	}: {
 		destination: string;
-		callback: (messageId: string, message: IMessage) => void;
+		callback: SocketSubscribeCallbackType;
 	}) {
 		const subscription = this.client.subscribe(destination, (message: IMessage) => {
 			const messageId = message.headers['message-id'];
-
-			callback(messageId, message);
+			const data = JSON.parse(message.body);
+			callback(data, messageId);
 		});
 		this.subscriptions.set(destination, subscription);
 	}
@@ -71,7 +73,7 @@ export default class Socket {
 		callback,
 	}: {
 		destination: string;
-		callback: (messageId: string, message: IMessage) => void;
+		callback: SocketSubscribeCallbackType;
 	}) {
 		if (this.client.connected) {
 			this.createSubscription({ destination, callback });

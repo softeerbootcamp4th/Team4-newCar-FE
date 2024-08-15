@@ -1,15 +1,11 @@
-import { ChatList, ChatProps } from '@softeer/common/components';
-import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
-import { IMessage } from '@stomp/stompjs';
-import { useEffect, useState } from 'react';
-import socketClient from 'src/services/socket.ts';
+import { ChatList } from '@softeer/common/components';
+import { UseChatSocketReturnType } from 'src/hooks/socket/useChatSocket.ts';
 import Chat from './Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
 
 /** 실시간 기대평 섹션 */
-export default function RealTimeChatting() {
-	const { onSendMessage, messages } = useChatSocket();
 
+export default function RealTimeChatting({ onSendMessage, messages }: UseChatSocketReturnType) {
 	return (
 		<section className="container flex max-w-[1200px] snap-start flex-col items-center pb-[115px] pt-[50px]">
 			<h6 className="text-heading-10 mb-[25px] font-medium">기대평을 남겨보세요!</h6>
@@ -23,40 +19,4 @@ export default function RealTimeChatting() {
 			</div>
 		</section>
 	);
-}
-
-function useChatSocket() {
-	const [messages, setMessages] = useState<ChatProps[]>([]);
-
-	const handleIncomingMessage = (messageId: string, message: IMessage) => {
-		const parsedMessage: ChatProps = { id: messageId, ...JSON.parse(message.body) };
-		setMessages((prevMessages) => [...prevMessages, parsedMessage]);
-	};
-
-	useEffect(() => {
-		socketClient.connect((isConnected) => {
-			if (isConnected) {
-				socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
-					callback: handleIncomingMessage,
-				});
-			}
-		});
-		return () => socketClient.disconnect();
-	}, [socketClient, handleIncomingMessage]);
-
-	const handleSendMessage = (text: string) => {
-		const chatMessage = {
-			sender: 1,
-			team: 'pet',
-			content: text,
-		};
-
-		socketClient.sendMessages({
-			destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
-			body: chatMessage,
-		});
-	};
-
-	return { onSendMessage: handleSendMessage, messages };
 }

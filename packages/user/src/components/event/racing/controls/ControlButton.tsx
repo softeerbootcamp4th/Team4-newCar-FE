@@ -1,73 +1,75 @@
 import type { Category } from '@softeer/common/types';
-import { useEffect, useRef, useState } from 'react';
-import Lightning from 'src/assets/icons/lighting.svg?react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useToast } from 'src/hooks/useToast.ts';
-import type { Rank } from 'src/types/rank.d.ts';
+import type { Rank } from 'src/types/racing.d.ts';
+import ChargeButtonContent from './ChargeButtonContent.tsx';
+import ChargeButtonWrapper from './ChargeButtonWrapper.tsx';
+import ControllButtonWrapper from './ControllButtonWrapper.tsx';
 import Gauge from './Gauge.tsx';
-import TeamButton from './TeamButton.tsx';
-
-interface ControlButtonProps {
-	type: Category;
-	rank: Rank;
-	percentage: number;
-	onScale: () => void;
-}
 
 const MAX_CLICK = 10;
 const MIN_PERCENT = 2;
 const RESET_SECOND = 10000;
-
 const MAX_CLICK_TOAST_DESCRIPTION = '배터리가 떨어질 때까지 기다려주세요!';
 
-export default function ControlButton({
-	type,
-	rank,
-	percentage: originPercentage,
-	onScale,
-}: ControlButtonProps) {
-	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onScale);
-
-	return (
-		<div
-			className={`absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${styles[rank]}`}
-		>
-			<div className="flex items-center gap-2">
-				<Lightning />
-				<Gauge percent={progress} />
-			</div>
-			<TeamButton
-				onClick={handleClick}
-				disabled={clickCount === MAX_CLICK}
-				rank={rank}
-				type={type}
-				percent={originPercentage}
-			/>
-		</div>
-	);
+interface ControlButtonProps {
+	type: Category;
+	data: ChargeButtonData;
+	onCharge: () => void;
+	onFullyCharged: () => void;
 }
 
-const styles: Record<Rank, string> = {
-	1: 'left-[40px] z-40',
-	2: 'left-[310px] z-30',
-	3: 'left-[580px] z-20',
-	4: 'left-[850px] z-10',
-};
+export interface ChargeButtonData {
+	rank: Rank;
+	vote: number;
+	percentage: number;
+}
 
-function useGaugeProgress(originPercentage: number, onClick: () => void) {
+const ControlButton = memo(
+	({ onCharge, onFullyCharged, type, data }: ControlButtonProps) => {
+		const { rank, percentage } = data;
+		const { progress, clickCount, handleClick } = useGaugeProgress({
+			percentage,
+			onCharge,
+			onFullyCharged,
+		});
+
+		return (
+			<ControllButtonWrapper rank={rank}>
+				<Gauge percent={progress} />
+				<ChargeButtonWrapper onClick={handleClick} disabled={clickCount === MAX_CLICK} type={type}>
+					<ChargeButtonContent type={type} {...data} />
+				</ChargeButtonWrapper>
+			</ControllButtonWrapper>
+		);
+	},
+);
+
+export default ControlButton;
+
+/** Custom Hook */
+function useGaugeProgress({
+	percentage,
+	onCharge,
+	onFullyCharged,
+}: {
+	percentage: number;
+	onCharge: () => void;
+	onFullyCharged: () => void;
+}) {
 	const { toast } = useToast();
-
-	const [progress, setProgress] = useState(0);
+	const [progress, setProgress] = useState(percentage);
 	const [clickCount, setClickCount] = useState(0);
-	const initPercentageRef = useRef(originPercentage);
 
-	useEffect(() => {
-		initPercentageRef.current = originPercentage;
-	}, [originPercentage]);
-
-	useEffect(() => {
-		const resetProgress = requestAnimationFrame(() => setProgress(initPercentageRef.current));
-		return () => cancelAnimationFrame(resetProgress);
+	const updateProgress = useCallback((count: number) => {
+		const newProgress = calculateProgress(count);
+		setProgress(newProgress);
 	}, []);
+
+	const resetProgress = useCallback(() => {
+		setClickCount(0);
+		setProgress(percentage);
+	}, [percentage]);
 
 	useEffect(() => {
 		if (clickCount > 0 && clickCount <= MAX_CLICK) {
@@ -75,28 +77,24 @@ function useGaugeProgress(originPercentage: number, onClick: () => void) {
 		}
 
 		if (clickCount === MAX_CLICK) {
+			onFullyCharged();
 			toast({ description: MAX_CLICK_TOAST_DESCRIPTION });
-			const resetTimer = setTimeout(resetToInitProgress, RESET_SECOND);
+			const resetTimer = setTimeout(resetProgress, RESET_SECOND);
 			return () => clearTimeout(resetTimer);
 		}
-	}, [clickCount, originPercentage]);
+	}, [clickCount]);
 
-	const handleClick = () => {
+	const handleClick = useCallback(() => {
 		if (clickCount < MAX_CLICK) {
 			setClickCount((count) => count + 1);
-			onClick();
+			onCharge();
 		}
-	};
-
-	const updateProgress = (count: number) => {
-		const newProgress = MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);
-		setProgress(newProgress);
-	};
-
-	const resetToInitProgress = () => {
-		setClickCount(0);
-		setProgress(initPercentageRef.current);
-	};
+	}, [clickCount, onCharge]);
 
 	return { progress, clickCount, handleClick };
+}
+
+/** Utility Function */
+function calculateProgress(count: number): number {
+	return MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);
 }

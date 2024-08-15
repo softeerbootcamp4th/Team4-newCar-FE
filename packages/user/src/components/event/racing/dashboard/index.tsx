@@ -13,8 +13,7 @@ interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> 
 }
 
 export default function RacingDashboard({ ranks, chargedCar }: RacingDashboardProps) {
-	return (
-		<div className="relative h-[685px] w-full">
+  return <div className="relative h-[685px] w-full">
 			<HeaderSection />
 			<RacingCardSection />
 			{CATEGORIES.map((type) => (
@@ -26,8 +25,7 @@ export default function RacingDashboard({ ranks, chargedCar }: RacingDashboardPr
 				/>
 			))}
 			<Background />
-		</div>
-	);
+         </div>;
 }
 
 function HeaderSection() {

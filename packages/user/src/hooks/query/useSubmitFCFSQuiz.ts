@@ -1,25 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { useMutation } from '@tanstack/react-query';
+import http from 'src/services/api/index.ts';
 
 export type SubmitFCFSQuizAnswerRequest = { answer: number };
 
-/** success 는 따로 status 내려주지 않음 */
 export interface SubmitFCFSQuizResponse {
-	status: 'WRONG' | 'END' | 'PARTICIPATED';
+	status: 'WRONG' | 'END' | 'PARTICIPATED' | 'RIGHT';
 }
 
 export default function useSubmitFCFSQuiz() {
 	const mutation = useMutation<SubmitFCFSQuizResponse, Error, SubmitFCFSQuizAnswerRequest>({
-		mutationFn: submitMockData,
+		mutationFn: (data) => http.post('/quiz-user', data),
 	});
 
 	return mutation;
 }
-
-const submitMockData = (): Promise<SubmitFCFSQuizResponse> =>
-	new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ status: 'END' });
-		}, 2000);
-	});

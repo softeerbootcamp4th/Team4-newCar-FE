@@ -32,7 +32,9 @@ export default function LoginStep({ onSuccess }: LoginStepProps) {
 			className="flex h-full w-full flex-col items-center justify-center gap-12"
 		>
 			<p className="text-heading-9 text-center font-bold">
-				이벤트 참여를 위해<br /><strong>로그인</strong>을 진행해주세요
+				이벤트 참여를 위해
+				<br />
+				<strong>로그인</strong>을 진행해주세요
 			</p>
 			<div className="flex flex-col items-center justify-center gap-5">
 				<input

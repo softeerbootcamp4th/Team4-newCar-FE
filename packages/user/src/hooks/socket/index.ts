@@ -10,6 +10,7 @@ export type UseSocketType = {
 };
 export default function useSocket() {
 	const chatSocket = useChatSocket();
+
 	const { onReceiveMessage } = chatSocket;
 
 	const racingSocket = useRacingSocket();
@@ -29,7 +30,7 @@ export default function useSocket() {
 			}
 		});
 		return () => socketClient.disconnect();
-	}, [socketClient]);
+	}, [socketClient, onReceiveMessage, onReceiveStatus]);
 
 	return { chatSocket, racingSocket };
 }

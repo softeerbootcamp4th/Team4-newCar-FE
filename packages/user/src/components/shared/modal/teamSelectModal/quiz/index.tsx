@@ -1,22 +1,23 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import Button from 'src/components/common/Button.tsx';
 import StepProgress from 'src/components/common/StepProgress.tsx';
-import { Quiz } from 'src/hooks/query/useGetTeamTypeQuiz.ts';
+import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import { SubmitQuizAnswersRequest } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
 import QuizStepContent from './QuizStepContent.tsx';
 
 interface QuizFunnelProps {
-	quizzes: Quiz[];
 	onSubmit: (data: SubmitQuizAnswersRequest) => void;
 }
 
-export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
+export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
+	const { quizzes } = useGetTeamTypeQuizzes();
+
 	const steps = useMemo(() => quizzes.map((q) => q.id) as NonEmptyArray<number>, [quizzes]);
 
 	const [Funnel, setStep] = useFunnel(steps);
 
-	const [answers, setAnswers] = useState<SubmitQuizAnswersRequest>({});
+	const [answers, setAnswers] = useState<Record<number, number>>({});
 
 	const handleNavigation = useCallback(
 		(quizIndex: number, direction: 'previous' | 'next') => {
@@ -38,6 +39,8 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 		},
 		[steps, handleNavigation],
 	);
+
+	const handleSubmit = useCallback(() => onSubmit(transformRecordToArray(answers)), [answers]);
 
 	return (
 		<Funnel>
@@ -69,11 +72,7 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 									</Button>
 								)}
 								{isLastQuestion ? (
-									<Button
-										className="flex-1"
-										disabled={disabledNextButton}
-										onClick={() => onSubmit(answers)}
-									>
+									<Button className="flex-1" disabled={disabledNextButton} onClick={handleSubmit}>
 										결과 보기
 									</Button>
 								) : (
@@ -94,6 +93,8 @@ export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
 	);
 }
 
+/** Components */
+
 function StepWrapper({ children }: PropsWithChildren) {
 	return (
 		<div className="py-15 flex h-full flex-col items-center justify-center gap-4">{children}</div>
@@ -102,4 +103,12 @@ function StepWrapper({ children }: PropsWithChildren) {
 
 function ActionsWrapper({ children }: PropsWithChildren) {
 	return <div className="flex w-full min-w-[250px] max-w-[350px] gap-3">{children}</div>;
+}
+
+/** Helper Function */
+function transformRecordToArray(record: Record<number, number>): SubmitQuizAnswersRequest {
+	return Object.entries(record).map(([id, answer]) => ({
+		id: Number(id),
+		answer,
+	}));
 }

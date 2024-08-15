@@ -16,7 +16,9 @@ export default function LoginModal({ openTrigger, ...props }: LoginModalProps) {
 				<Funnel.Step name="login">
 					<LoginStep onSuccess={() => setStep('success')} />
 				</Funnel.Step>
-				<Funnel.Step name="success"><SuccessStep /></Funnel.Step>
+				<Funnel.Step name="success">
+					<SuccessStep />
+				</Funnel.Step>
 			</Funnel>
 		</Modal>
 	);

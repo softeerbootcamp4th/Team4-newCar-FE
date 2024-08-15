@@ -1,7 +1,6 @@
 import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
-import getCookie from '../storage/cookie/getCookie.ts';
-// eslint-disable-next-line import/no-cycle
-import fetchWithInterceptors from './fetchInterceptors.ts';
+import fetchWithInterceptors from 'src/utils/api/fetchInterceptors.ts';
+import getCookie from 'src/utils/storage/cookie/getCookie.ts';
 
 interface Interceptors {
 	request?: (url: string, options: RequestInit) => Promise<RequestInit> | RequestInit;
@@ -12,7 +11,7 @@ export function generateDefaultHeaders(): HeadersInit {
 	const headers: HeadersInit = {
 		'Content-Type': 'application/json',
 	};
-	const accessToken = getCookie(ACCESS_TOKEN_KEY);
+	const accessToken = getCookie<string>(ACCESS_TOKEN_KEY);
 	if (accessToken) {
 		headers.Authorization = accessToken;
 	}

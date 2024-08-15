@@ -4,14 +4,14 @@ import useUserStorage from 'src/hooks/storage/useUserStorage.ts';
 import type { User } from 'src/types/user.d.ts';
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-	const [user, setUser] = useUserStorage();
+	const [user, setUser, clearUser] = useUserStorage();
 
 	const setAuthData = async ({ userData }: { userData: User }) => {
 		setUser(userData);
 	};
 
 	const clearAuthData = () => {
-		setUser(null);
+		clearUser();
 	};
 
 	const authContextValue = useMemo(

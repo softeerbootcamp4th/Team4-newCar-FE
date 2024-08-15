@@ -1,13 +1,15 @@
 import { Category } from '@softeer/common/types';
-import { FunctionComponent, PropsWithChildren } from 'react';
+import { FunctionComponent, PropsWithChildren, useMemo } from 'react';
 import LinkShare from 'src/components/shared/linkShare/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
-import type { SubmitQuizAnswersResponse } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
+import useAuth from 'src/hooks/useAuth.tsx';
 
-interface ResultStepProps extends SubmitQuizAnswersResponse {}
+export default function ResultStep() {
+	const { user } = useAuth();
 
-export default function ResultStep({ team: type }: ResultStepProps) {
+	const type = useMemo(() => (user?.type as Category), [user]);
+
 	const { title, shortTitle, details } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;
 

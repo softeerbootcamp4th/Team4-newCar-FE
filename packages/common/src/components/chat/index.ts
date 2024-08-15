@@ -1,4 +1,4 @@
-import { Category } from 'src/types/category.ts';
+import { SocketCategory } from 'src/types/category.ts';
 
 type NoticeChatProps = {
 	id: string;
@@ -13,7 +13,7 @@ export type MessageChatProps = {
 	type: 'm';
 	sender: number;
 	content: string;
-	team: Category;
+	team: SocketCategory;
 };
 
 type BlockedChatProps = {

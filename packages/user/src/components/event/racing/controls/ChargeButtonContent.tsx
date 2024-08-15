@@ -1,30 +1,29 @@
 import { Category } from '@softeer/common/types';
 import numeral from 'numeral';
-import { memo, useMemo } from 'react';
+import { useMemo } from 'react';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
 import type { ChargeButtonData } from './ControlButton.tsx';
 
-interface ChargeButtonContentProps extends Omit<ChargeButtonData, 'percentage'> {
+interface ChargeButtonContentProps extends ChargeButtonData {
 	type: Category;
 }
 
-const ChargeButtonContent = memo(({ rank, vote, type }: ChargeButtonContentProps) => {
+export default function ChargeButtonContent({
+	rank, vote, type, percentage }: ChargeButtonContentProps) {
 	const { shortTitle, title } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;
-	const formattedVote = useMemo(() => formatVoteCount(vote), [vote]);
+	const displayVoteStats = useMemo(() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`, [percentage, vote]);
 
 	return (
 		<>
 			<h2 className="pt-2">{rank}</h2>
 			<div className="flex flex-col items-center">
-				<p className={`text-body-3 font-medium ${voteStyles[type]}`}>{formattedVote}%</p>
+				<p className={`text-body-3 font-medium ${voteStyles[type]}`}>{displayVoteStats}</p>
 				<h6>{displayTitle}</h6>
 			</div>
 		</>
 	);
-});
-
-export default ChargeButtonContent;
+}
 
 /** Utility Functions */
 function formatVoteCount(count: number): string {

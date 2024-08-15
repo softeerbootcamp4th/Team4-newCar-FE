@@ -1,15 +1,12 @@
+import { Cookie } from '@softeer/common/utils';
 import { useState } from 'react';
 import { toast } from 'src/hooks/useToast.ts';
 
-function useStorage<T>(keyName: string, defaultValue: T) {
-	const [storedValue, setStoredValue] = useState(() => {
+function useStorage<T>(keyName: string, defaultValue: T): [T, (newValue: T) => void, () => void] {
+	const [storedValue, setStoredValue] = useState<T>(() => {
 		try {
-			const value = localStorage.getItem(keyName);
-			if (value) {
-				return JSON.parse(value);
-			}
-			localStorage.setItem(keyName, JSON.stringify(defaultValue));
-			return defaultValue;
+			const cookieValue = Cookie.getCookie<T>(keyName);
+			return cookieValue !== null ? cookieValue : defaultValue;
 		} catch (err) {
 			return defaultValue;
 		}
@@ -17,14 +14,23 @@ function useStorage<T>(keyName: string, defaultValue: T) {
 
 	const setValue = (newValue: T) => {
 		try {
-			localStorage.setItem(keyName, JSON.stringify(newValue));
+			Cookie.setCookie<T>(keyName, newValue);
+			setStoredValue(newValue);
 		} catch (error) {
-			toast({ description: `${error}` });
+			toast({ description: `${keyName} 저장 실패: ${error}` });
 		}
-		setStoredValue(newValue);
 	};
 
-	return [storedValue, setValue];
+	const clearValue = () => {
+		try {
+			Cookie.clearCookie(keyName);
+			setStoredValue(defaultValue);
+		} catch (error) {
+			toast({ description: `${keyName} 저장 실패: ${error}` });
+		}
+	};
+
+	return [storedValue, setValue, clearValue];
 }
 
 export default useStorage;

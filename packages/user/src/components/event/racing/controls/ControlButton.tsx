@@ -1,5 +1,6 @@
 import type { Category } from '@softeer/common/types';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import useAuth from 'src/hooks/useAuth.tsx';
 import { useToast } from 'src/hooks/useToast.ts';
 import type { Rank } from 'src/types/racing.d.ts';
 import ChargeButtonContent from './ChargeButtonContent.tsx';
@@ -11,7 +12,7 @@ const MAX_CLICK = 10;
 const MIN_PERCENT = 2;
 const RESET_SECOND = 10000;
 const MAX_CLICK_TOAST_DESCRIPTION = '배터리가 떨어질 때까지 기다려주세요!';
-
+const DISABLED_RACING_TOAST_DESCRIPTION = '로그인 후 레이싱에 참여할 수 있습니다!';
 interface ControlButtonProps {
 	type: Category;
 	data: ChargeButtonData;
@@ -25,7 +26,8 @@ export interface ChargeButtonData {
 	percentage: number;
 }
 
-const ControlButton = memo(({ onCharge, onFullyCharged, type, data }: ControlButtonProps) => {
+export default function ControlButton({
+	onCharge, onFullyCharged, type, data }: ControlButtonProps) {
 	const { rank, percentage } = data;
 	const { progress, clickCount, handleClick } = useGaugeProgress({
 		percentage,
@@ -41,9 +43,7 @@ const ControlButton = memo(({ onCharge, onFullyCharged, type, data }: ControlBut
 			</ChargeButtonWrapper>
 		</ControllButtonWrapper>
 	);
-});
-
-export default ControlButton;
+}
 
 /** Custom Hook */
 function useGaugeProgress({
@@ -56,18 +56,21 @@ function useGaugeProgress({
 	onFullyCharged: () => void;
 }) {
 	const { toast } = useToast();
+	const { isAuthenticated } = useAuth();
 	const [progress, setProgress] = useState(percentage);
 	const [clickCount, setClickCount] = useState(0);
 
 	const updateProgress = useCallback((count: number) => {
 		const newProgress = calculateProgress(count);
 		setProgress(newProgress);
-	}, []);
+}, [progress]);
 
 	const resetProgress = useCallback(() => {
 		setClickCount(0);
 		setProgress(percentage);
 	}, [percentage]);
+
+	useEffect(() => setProgress(percentage), [percentage]);
 
 	useEffect(() => {
 		if (clickCount > 0 && clickCount <= MAX_CLICK) {
@@ -75,12 +78,16 @@ function useGaugeProgress({
 		}
 
 		if (clickCount === MAX_CLICK) {
-			onFullyCharged();
+			if (!isAuthenticated) {
+				toast({ description: DISABLED_RACING_TOAST_DESCRIPTION });
+			} else {
+				onFullyCharged();
+			}
 			toast({ description: MAX_CLICK_TOAST_DESCRIPTION });
 			const resetTimer = setTimeout(resetProgress, RESET_SECOND);
 			return () => clearTimeout(resetTimer);
 		}
-	}, [clickCount]);
+	}, [clickCount, isAuthenticated]);
 
 	const handleClick = useCallback(() => {
 		if (clickCount < MAX_CLICK) {

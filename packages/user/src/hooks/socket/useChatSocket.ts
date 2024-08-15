@@ -4,7 +4,7 @@ import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useState } from 'react';
 import useAuth from 'src/hooks/useAuth.tsx';
 import socketClient from 'src/services/socket.ts';
-import { User } from 'src/types/user.js';
+import type { User } from 'src/types/user.d.ts';
 
 export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
 

@@ -13,7 +13,7 @@ export default function LoginModal({ openTrigger, ...props }: LoginModalProps) {
 		<Modal openTrigger={openTrigger} {...props}>
 			<Funnel>
 				<Funnel.Step name="login">
-					<LoginStep onMoveSuccessStep={() => setStep('success')} />
+					<LoginStep onSuccess={() => setStep('success')} />
 				</Funnel.Step>
 				<Funnel.Step name="success">로그인 성공</Funnel.Step>
 			</Funnel>

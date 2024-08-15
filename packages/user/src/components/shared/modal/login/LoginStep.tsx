@@ -7,11 +7,11 @@ import inputStyles from 'src/styles/input.ts';
 const SUBMIT_BUTTON_ID = 'submit-only-for-login';
 
 interface LoginStepProps {
-	onMoveSuccessStep: () => void;
+	onSuccess: () => void;
 }
 
 // TODO: KAKAO OAuth
-export default function LoginStep({ onMoveSuccessStep }: LoginStepProps) {
+export default function LoginStep({ onSuccess }: LoginStepProps) {
 	const { mutate: login } = useSubmitLogin();
 
 	const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -21,9 +21,7 @@ export default function LoginStep({ onMoveSuccessStep }: LoginStepProps) {
 		e.stopPropagation();
 		const submitData = { userId: inputRefs.current[0].value, password: inputRefs.current[1].value };
 		if (hasRequiredLoginFields(submitData)) {
-			login(submitData, {
-				onSuccess: onMoveSuccessStep,
-			});
+			login(submitData, { onSuccess });
 		}
 	};
 

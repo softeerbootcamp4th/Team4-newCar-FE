@@ -3,6 +3,7 @@ import { useState } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import TeamSelectModal from 'src/components/shared/modal/teamSelectModal/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
+import withAuth from 'src/components/shared/withAuthHOC.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
 import UnassignedCard from './UnassignedCard.tsx';
 
@@ -10,20 +11,24 @@ export default function RacingCard() {
 	const { user } = useAuth();
 	const [type, setType] = useState<Category | undefined>(user?.type);
 
+	const ProtectedTeamSelectModal = withAuth(() => (
+		<TeamSelectModal
+			openTrigger={
+				<TriggerButtonWrapper>
+					<UnassignedCard />
+				</TriggerButtonWrapper>
+			}
+			onClose={() => setType(user?.type)} // onClose를 사용해 타입을 설정
+		/>
+	));
+
 	return (
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">
 			<CardTitle name={user?.name} />
 			{type ? (
 				<ShareCountTeamCard type={type} size="racing" />
 			) : (
-				<TeamSelectModal
-					openTrigger={
-						<TriggerButtonWrapper>
-							<UnassignedCard />
-						</TriggerButtonWrapper>
-					}
-					onClose={() => setType(user?.type)}
-				/>
+				<ProtectedTeamSelectModal unauthenticatedDisplay={<UnassignedCard />} />
 			)}
 		</div>
 	);

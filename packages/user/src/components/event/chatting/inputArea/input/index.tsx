@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
-import LoginModal from 'src/components/shared/modal/login/index.tsx';
+import withAuth from 'src/components/shared/withAuthHOC.tsx';
 import useAuth from 'src/hooks/useAuth.tsx';
 import { useToast } from 'src/hooks/useToast.ts';
 import Input from './Input.tsx';
@@ -31,14 +31,14 @@ export default function ChatInput({ onSend }: ChatInputProps) {
 		}
 	}
 
+	const ProtectedWrapper = withAuth(() => <OutlinedButton type="submit">보내기</OutlinedButton>);
+
 	return (
 		<form className="flex items-center gap-4" onSubmit={handleSubmit}>
 			<Input ref={inputRef} name="input" required />
-			{isAuthenticated ? (
-				<OutlinedButton type="submit">보내기</OutlinedButton>
-			) : (
-				<LoginModal openTrigger={<OutlinedButton>로그인하고 채팅 보내기</OutlinedButton>} />
-			)}
+			<ProtectedWrapper
+				unauthenticatedDisplay={<OutlinedButton>로그인하고 채팅 보내기</OutlinedButton>}
+			/>
 		</form>
 	);
 }

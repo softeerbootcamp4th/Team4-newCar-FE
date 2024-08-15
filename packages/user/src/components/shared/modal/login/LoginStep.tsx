@@ -4,6 +4,8 @@ import Button from 'src/components/common/Button.tsx';
 import useSubmitLogin, { SubmitLoginRequest } from 'src/hooks/query/useSubmitLogin.ts';
 import inputStyles from 'src/styles/input.ts';
 
+const SUBMIT_BUTTON_ID = 'submit-only-for-login';
+
 interface LoginStepProps {
 	onMoveSuccessStep: () => void;
 }
@@ -16,6 +18,7 @@ export default function LoginStep({ onMoveSuccessStep }: LoginStepProps) {
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		e.stopPropagation();
 		const submitData = { userId: inputRefs.current[0].value, password: inputRefs.current[1].value };
 		if (hasRequiredLoginFields(submitData)) {
 			login(submitData, {
@@ -26,6 +29,7 @@ export default function LoginStep({ onMoveSuccessStep }: LoginStepProps) {
 
 	return (
 		<form
+			id={SUBMIT_BUTTON_ID}
 			onSubmit={handleSubmit}
 			className="flex h-full w-full flex-col items-center justify-center gap-5"
 		>
@@ -54,7 +58,7 @@ export default function LoginStep({ onMoveSuccessStep }: LoginStepProps) {
 					className={loginInputStyles}
 				/>
 			</div>
-			<Button type="submit" className="mt-12">
+			<Button type="submit" className="mt-12" form={SUBMIT_BUTTON_ID}>
 				회원가입
 			</Button>
 		</form>

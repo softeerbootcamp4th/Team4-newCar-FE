@@ -1,5 +1,6 @@
 import { RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { Category } from '@softeer/common/types';
+import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useRacingRankStorage from 'src/hooks/storage/useRacingRankStorage.ts';
 import socketClient from 'src/services/socket.ts';
@@ -49,7 +50,7 @@ export default function useRacingSocket() {
 		}
 	}, [newRankStatus, ranks, storeRank]);
 
-	const handleStatusChange = useCallback((data: unknown) => {
+	const handleStatusChange: SocketSubscribeCallbackType = useCallback((data: unknown) => {
 		const newVoteStatus = parseSocketVoteData(data as SocketData);
 		setVotes(newVoteStatus);
 	}, []);
@@ -57,9 +58,15 @@ export default function useRacingSocket() {
 	const handleCarFullyCharged = (category: Category) => {
 		const chargeData = { [categoryToSocketCategory[category]]: 1 };
 
+		const completeChargeData = Object.keys(categoryToSocketCategory).reduce((acc, key) => {
+			const socketCategory = categoryToSocketCategory[key as Category];
+			acc[socketCategory] = chargeData[socketCategory] ?? 0;
+			return acc;
+	}, {} as Record<SocketCategory, number>);
+
 		socketClient.sendMessages({
 			destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
-			body: chargeData,
+			body: completeChargeData,
 		});
 	};
 

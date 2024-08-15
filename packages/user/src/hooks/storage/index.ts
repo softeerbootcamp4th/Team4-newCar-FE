@@ -2,10 +2,7 @@ import { Cookie } from '@softeer/common/utils';
 import { useState } from 'react';
 import { toast } from 'src/hooks/useToast.ts';
 
-function useStorage<T>(
-	keyName: string,
-	defaultValue: T,
-): [T, (newValue: T) => void, () => void] {
+function useStorage<T>(keyName: string, defaultValue: T): [T, (newValue: T) => void, () => void] {
 	const [storedValue, setStoredValue] = useState<T>(() => {
 		try {
 			const cookieValue = Cookie.getCookie<T>(keyName);

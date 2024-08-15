@@ -72,11 +72,7 @@ export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
 									</Button>
 								)}
 								{isLastQuestion ? (
-									<Button
-										className="flex-1"
-										disabled={disabledNextButton}
-										onClick={handleSubmit}
-									>
+									<Button className="flex-1" disabled={disabledNextButton} onClick={handleSubmit}>
 										결과 보기
 									</Button>
 								) : (
@@ -112,7 +108,7 @@ function ActionsWrapper({ children }: PropsWithChildren) {
 /** Helper Function */
 function transformRecordToArray(record: Record<number, number>): SubmitQuizAnswersRequest {
 	return Object.entries(record).map(([id, answer]) => ({
-			id: Number(id),
-			answer,
+		id: Number(id),
+		answer,
 	}));
 }

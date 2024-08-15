@@ -1,4 +1,4 @@
-function getCookie(name: string) {
+function getCookie<T>(name: string):T | null {
 	const cookies = document.cookie.split('; ');
 	if (cookies.length === 1 && cookies[0] === '') {
 		return null;

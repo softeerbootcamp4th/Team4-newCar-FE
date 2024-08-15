@@ -26,7 +26,7 @@ const useAuth = () => {
 		onSuccess: (data) => {
 			openAlert(InfoMessage.WELCOME, 'alert');
 			navigate(RoutePaths.EVENT_PAGE);
-			Cookie.setCookie(ACCESS_TOKEN_KEY, data.accessToken, 7);
+			Cookie.setCookie<string>(ACCESS_TOKEN_KEY, data.accessToken, 7);
 		},
 		onError: () => {
 			openAlert(ErrorMessage.INVALID_INPUT, 'alert');
@@ -38,7 +38,7 @@ const useAuth = () => {
 	};
 
 	const logout = () => {
-		Cookie.setCookie(ACCESS_TOKEN_KEY, '', 0);
+		Cookie.setCookie<string>(ACCESS_TOKEN_KEY, '', 0);
 		navigate(RoutePaths.ROOT);
 	};
 

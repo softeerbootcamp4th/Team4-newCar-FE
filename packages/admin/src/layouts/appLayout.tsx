@@ -15,7 +15,7 @@ export default function AppLayout() {
 	const { headerTitle } = useHeader();
 	const location = useLocation();
 	const navigate = useNavigate();
-	const accessToken = Cookie.getCookie(ACCESS_TOKEN_KEY);
+	const accessToken = Cookie.getCookie<string>(ACCESS_TOKEN_KEY);
 	useEffect(() => {
 		if (location.pathname !== RoutePaths.ROOT) {
 			if (!accessToken) {

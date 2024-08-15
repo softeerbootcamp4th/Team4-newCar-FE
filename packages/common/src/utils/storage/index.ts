@@ -1,3 +1,3 @@
-import cookie from './cookie/index.ts';
+import Cookie from './cookie/index.ts';
 
-export default cookie;
+export default Cookie;

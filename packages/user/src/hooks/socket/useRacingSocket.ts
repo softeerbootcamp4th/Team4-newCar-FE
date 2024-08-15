@@ -16,17 +16,17 @@ import type {
  * Mapping between Category and SocketCategory
  */
 const categoryToSocketCategory: Record<Category, SocketCategory> = {
-	pet: 'P',
-	travel: 'T',
-	place: 'S',
-	leisure: 'L',
+	pet: 'p',
+	travel: 't',
+	place: 's',
+	leisure: 'l',
 };
 
 const socketCategoryToCategory: Record<SocketCategory, Category> = {
-	P: 'pet',
-	T: 'travel',
-	S: 'place',
-	L: 'leisure',
+	p: 'pet',
+	t: 'travel',
+	s: 'place',
+	l: 'leisure',
 };
 
 export type UseRacingSocketReturnType = ReturnType<typeof useRacingSocket>;

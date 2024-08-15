@@ -7,7 +7,7 @@ import useAuth from 'src/hooks/useAuth.tsx';
 import http from 'src/services/api/index.ts';
 import type { User } from 'src/types/user.d.ts';
 
-export type SubmitQuizAnswersRequest = { id:number, answer: number }[];
+export type SubmitQuizAnswersRequest = { id: number; answer: number }[];
 
 export interface SubmitQuizAnswersResponse {
 	team: string;
@@ -19,7 +19,7 @@ export default function useSubmitTeamTypeQuizAnswers() {
 	const [_, setToken] = useTokenStorage();
 
 	const mutation = useMutation<SubmitQuizAnswersResponse, Error, SubmitQuizAnswersRequest>({
-		mutationFn: (data: SubmitQuizAnswersRequest) => http.post('/personailty-test', data),
+		mutationFn: (data) => http.post('/personailty-test', data),
 		onSuccess: ({ team, accessToken }) => {
 			const type = team === 'SPACE' ? 'place' : team;
 			const userData = { ...(user as User), type: type.toLowerCase() as Category };

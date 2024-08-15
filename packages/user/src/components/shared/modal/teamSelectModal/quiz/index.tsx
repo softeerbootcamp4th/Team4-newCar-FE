@@ -1,17 +1,18 @@
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import Button from 'src/components/common/Button.tsx';
 import StepProgress from 'src/components/common/StepProgress.tsx';
-import { Quiz } from 'src/hooks/query/useGetTeamTypeQuiz.ts';
+import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import { SubmitQuizAnswersRequest } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
 import QuizStepContent from './QuizStepContent.tsx';
 
 interface QuizFunnelProps {
-	quizzes: Quiz[];
 	onSubmit: (data: SubmitQuizAnswersRequest) => void;
 }
 
-export default function QuizFunnel({ quizzes, onSubmit }: QuizFunnelProps) {
+export default function QuizFunnel({ onSubmit }: QuizFunnelProps) {
+	const { quizzes } = useGetTeamTypeQuizzes();
+
 	const steps = useMemo(() => quizzes.map((q) => q.id) as NonEmptyArray<number>, [quizzes]);
 
 	const [Funnel, setStep] = useFunnel(steps);

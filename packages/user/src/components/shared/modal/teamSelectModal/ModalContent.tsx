@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
-import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
 import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
 	type SubmitQuizAnswersResponse,
@@ -18,7 +17,6 @@ export default function TeamSelectModalContent() {
 		'error',
 	] as NonEmptyArray<string>);
 
-	const { quizzes } = useGetTeamTypeQuizzes();
 	const { mutate: submitAnswers, isPending } = useSubmitTeamTypeQuizAnswers();
 
 	const [result, setResult] = useState<SubmitQuizAnswersResponse | null>(null);
@@ -41,7 +39,7 @@ export default function TeamSelectModalContent() {
 		<Funnel>
 			<Funnel.Step name="quiz">
 				<Suspense fallback={<PendingStep>유형 검사 리스트 불러오는 중 ...</PendingStep>}>
-					<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
+					<QuizFunnel onSubmit={handleSubmit} />
 				</Suspense>
 			</Funnel.Step>
 			<Funnel.Step name="pending">

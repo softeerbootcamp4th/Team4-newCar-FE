@@ -10,7 +10,7 @@ interface VitestConfigExport extends UserConfig {
 
 export default defineConfig({
 	plugins: [react(), svgr(), visualizer()],
-	server: { port: 3000 },
+	// server: { port: 3000 },
 	cacheDir: './.yarn/.vite',
 	test: {
 		globals: true,

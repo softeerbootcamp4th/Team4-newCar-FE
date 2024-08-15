@@ -51,6 +51,7 @@ function getResultStepFromStatus({ status }: SubmitFCFSQuizResponse) {
 			return 'already-done';
 		case 'WRONG':
 			return 'wrong-answer';
+		case 'RIGHT':
 		default:
 			return 'correct-answer';
 	}

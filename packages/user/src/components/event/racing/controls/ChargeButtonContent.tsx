@@ -1,6 +1,6 @@
 import { Category } from '@softeer/common/types';
 import numeral from 'numeral';
-import { memo, useMemo } from 'react';
+import { useMemo } from 'react';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
 import type { ChargeButtonData } from './ControlButton.tsx';
 
@@ -8,7 +8,8 @@ interface ChargeButtonContentProps extends ChargeButtonData {
 	type: Category;
 }
 
-const ChargeButtonContent = memo(({ rank, vote, type, percentage }: ChargeButtonContentProps) => {
+export default function ChargeButtonContent({
+	rank, vote, type, percentage }: ChargeButtonContentProps) {
 	const { shortTitle, title } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;
 	const displayVoteStats = useMemo(() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`, [percentage, vote]);
@@ -22,9 +23,7 @@ const ChargeButtonContent = memo(({ rank, vote, type, percentage }: ChargeButton
 			</div>
 		</>
 	);
-});
-
-export default ChargeButtonContent;
+}
 
 /** Utility Functions */
 function formatVoteCount(count: number): string {

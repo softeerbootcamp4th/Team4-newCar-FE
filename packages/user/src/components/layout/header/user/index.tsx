@@ -4,18 +4,16 @@ import SpeechBubble from './SpeechBubble.tsx';
 
 const UserGreeting = withAuth(() => <p className="text-detail-1">김보민님 반갑습니다</p>);
 
+// TODO: 로그아웃
 export default function User() {
-	// TODO: 로그아웃
 	return (
-		<div className="flex items-center gap-2">
-			<UserGreeting
-				unauthenticatedDisplay={
-					<>
-						<SpeechBubble />
-						<UserIcon />
-					</>
-				}
-			/>
-		</div>
+		<UserGreeting
+			unauthenticatedDisplay={
+				<div className="flex items-center gap-2">
+					<SpeechBubble />
+					<UserIcon />
+				</div>
+			}
+		/>
 	);
 }

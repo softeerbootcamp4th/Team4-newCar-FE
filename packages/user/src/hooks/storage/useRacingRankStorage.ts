@@ -9,6 +9,6 @@ const INIT_RANK: RankStatus = {
 	leisure: 4,
 };
 
-const useRacingRankStorage = () => useStorage<RankStatus | null>(STORAGE_KEYS.RANK, INIT_RANK);
+const useRacingRankStorage = () => useStorage<RankStatus>(STORAGE_KEYS.RANK, INIT_RANK);
 
 export default useRacingRankStorage;

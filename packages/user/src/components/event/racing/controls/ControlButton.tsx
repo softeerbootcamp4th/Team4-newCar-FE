@@ -25,25 +25,23 @@ export interface ChargeButtonData {
 	percentage: number;
 }
 
-const ControlButton = memo(
-	({ onCharge, onFullyCharged, type, data }: ControlButtonProps) => {
-		const { rank, percentage } = data;
-		const { progress, clickCount, handleClick } = useGaugeProgress({
-			percentage,
-			onCharge,
-			onFullyCharged,
-		});
+const ControlButton = memo(({ onCharge, onFullyCharged, type, data }: ControlButtonProps) => {
+	const { rank, percentage } = data;
+	const { progress, clickCount, handleClick } = useGaugeProgress({
+		percentage,
+		onCharge,
+		onFullyCharged,
+	});
 
-		return (
-			<ControllButtonWrapper rank={rank}>
-				<Gauge percent={progress} />
-				<ChargeButtonWrapper onClick={handleClick} disabled={clickCount === MAX_CLICK} type={type}>
-					<ChargeButtonContent type={type} {...data} />
-				</ChargeButtonWrapper>
-			</ControllButtonWrapper>
-		);
-	},
-);
+	return (
+		<ControllButtonWrapper rank={rank}>
+			<Gauge percent={progress} />
+			<ChargeButtonWrapper onClick={handleClick} disabled={clickCount === MAX_CLICK} type={type}>
+				<ChargeButtonContent type={type} {...data} />
+			</ChargeButtonWrapper>
+		</ControllButtonWrapper>
+	);
+});
 
 export default ControlButton;
 

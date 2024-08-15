@@ -1,23 +1,19 @@
 import UserIcon from 'src/assets/icons/user.svg?react';
-import useAuth from 'src/hooks/useAuth.tsx';
+import withAuth from 'src/components/shared/withAuthHOC.tsx';
 import SpeechBubble from './SpeechBubble.tsx';
 
-export default function User() {
-	const { user } = useAuth();
+const UserGreeting = withAuth(() => <p className="text-detail-1">김보민님 반갑습니다</p>);
 
-	// TODO: 로그인, 로그아웃
+// TODO: 로그아웃
+export default function User() {
 	return (
-		<div className="flex items-center gap-2">
-			{user ? (
-				<p className="text-detail-1">김보민님 반갑습니다</p>
-			) : (
-				<>
+		<UserGreeting
+			unauthenticatedDisplay={
+				<div className="flex items-center gap-2">
 					<SpeechBubble />
-					<button type="button" aria-label="user-icon" className="p-[10px]">
-						<UserIcon />
-					</button>
-				</>
-			)}
-		</div>
+					<UserIcon />
+				</div>
+			}
+		/>
 	);
 }

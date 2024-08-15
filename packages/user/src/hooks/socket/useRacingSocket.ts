@@ -48,27 +48,34 @@ export default function useRacingSocket() {
 			setRanks(newRankStatus);
 			storeRank(newRankStatus);
 		}
-	}, [newRankStatus, ranks, storeRank]);
+	}, [newRankStatus, ranks]);
 
 	const handleStatusChange: SocketSubscribeCallbackType = useCallback((data: unknown) => {
 		const newVoteStatus = parseSocketVoteData(data as SocketData);
-		setVotes(newVoteStatus);
-	}, []);
+		const isVotesChanged = Object.keys(newVoteStatus).some(
+			(category) => newVoteStatus[category as Category] !== votes[category as Category],
+	);
 
-	const handleCarFullyCharged = (category: Category) => {
+		if (isVotesChanged) setVotes(newVoteStatus);
+	}, [votes]);
+
+	const handleCarFullyCharged = useCallback((category: Category) => {
 		const chargeData = { [categoryToSocketCategory[category]]: 1 };
 
-		const completeChargeData = Object.keys(categoryToSocketCategory).reduce((acc, key) => {
-			const socketCategory = categoryToSocketCategory[key as Category];
-			acc[socketCategory] = chargeData[socketCategory] ?? 0;
-			return acc;
-	}, {} as Record<SocketCategory, number>);
+		const completeChargeData = Object.keys(categoryToSocketCategory).reduce(
+			(acc, key) => {
+				const socketCategory = categoryToSocketCategory[key as Category];
+				acc[socketCategory] = chargeData[socketCategory] ?? 0;
+				return acc;
+			},
+			{} as Record<SocketCategory, number>,
+		);
 
 		socketClient.sendMessages({
 			destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
 			body: completeChargeData,
 		});
-	};
+	}, []);
 
 	return {
 		votes,

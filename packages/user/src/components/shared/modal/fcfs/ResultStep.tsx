@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import type { ResultStepType } from 'src/components/shared/modal/fcfs/index.tsx';
+import type { ResultStepType } from './QuizStep.tsx';
 
 interface ResultStepProps {
 	step: ResultStepType;
@@ -8,9 +8,10 @@ interface ResultStepProps {
 export default function ResultStep({ step }: ResultStepProps) {
 	const imageUrl = IMAGE_URLS[step];
 	const { title, subTitle, details } = DESCRIPTIONS[step];
+
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center p-[20px]">
-			<img src={imageUrl} alt="modal" className="h-[230px] object-contain" />
+			<img src={imageUrl} alt={`${step} 캐스퍼 캐릭터`} className="h-[230px] object-contain" />
 			<p className="text-heading-7 mb-9 font-bold">{title}</p>
 			<p className="text-body-1 mb-4 whitespace-pre-line text-center font-medium">{subTitle}</p>
 			<caption className="text-body-4 text-neutral-100">{details}</caption>

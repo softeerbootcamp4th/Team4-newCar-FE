@@ -8,7 +8,7 @@ import useAuth from 'src/hooks/useAuth.tsx';
 export default function ResultStep() {
 	const { user } = useAuth();
 
-	const type = useMemo(() => (user?.type as Category), [user]);
+	const type = useMemo(() => user?.type as Category, [user]);
 
 	const { title, shortTitle, details } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;

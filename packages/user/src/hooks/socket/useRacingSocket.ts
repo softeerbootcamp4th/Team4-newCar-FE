@@ -1,4 +1,8 @@
-import { categoryToSocketCategory, RACING_SOCKET_ENDPOINTS, socketCategoryToCategory } from '@softeer/common/constants';
+import {
+	categoryToSocketCategory,
+	RACING_SOCKET_ENDPOINTS,
+	socketCategoryToCategory,
+} from '@softeer/common/constants';
 import { Category } from '@softeer/common/types';
 import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';

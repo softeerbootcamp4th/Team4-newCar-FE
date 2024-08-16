@@ -9,10 +9,17 @@ interface ChargeButtonContentProps extends ChargeButtonData {
 }
 
 export default function ChargeButtonContent({
-	rank, vote, type, percentage }: ChargeButtonContentProps) {
+	rank,
+	vote,
+	type,
+	percentage,
+}: ChargeButtonContentProps) {
 	const { shortTitle, title } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;
-	const displayVoteStats = useMemo(() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`, [percentage, vote]);
+	const displayVoteStats = useMemo(
+		() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`,
+		[percentage, vote],
+	);
 
 	return (
 		<>

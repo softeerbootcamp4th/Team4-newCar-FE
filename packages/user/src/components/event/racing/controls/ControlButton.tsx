@@ -27,7 +27,11 @@ export interface ChargeButtonData {
 }
 
 export default function ControlButton({
-	onCharge, onFullyCharged, type, data }: ControlButtonProps) {
+	onCharge,
+	onFullyCharged,
+	type,
+	data,
+}: ControlButtonProps) {
 	const { rank, percentage } = data;
 	const { progress, clickCount, handleClick } = useGaugeProgress({
 		percentage,
@@ -60,10 +64,13 @@ function useGaugeProgress({
 	const [progress, setProgress] = useState(percentage);
 	const [clickCount, setClickCount] = useState(0);
 
-	const updateProgress = useCallback((count: number) => {
-		const newProgress = calculateProgress(count);
-		setProgress(newProgress);
-}, [progress]);
+	const updateProgress = useCallback(
+		(count: number) => {
+			const newProgress = calculateProgress(count);
+			setProgress(newProgress);
+		},
+		[progress],
+	);
 
 	const resetProgress = useCallback(() => {
 		setClickCount(0);

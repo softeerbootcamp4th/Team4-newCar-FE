@@ -1,5 +1,6 @@
 import { RouterProvider } from 'react-router-dom';
 import ToasterStack from 'src/components/common/toast/ToasterStack.tsx';
+import GlobalErrorBoundary from 'src/components/layout/ErrorBoundary.tsx';
 import AppProviders from 'src/libs/index.tsx';
 import router from 'src/routes/router.tsx';
 import CasperCursor from './components/cursor/CasperCursor.tsx';
@@ -10,8 +11,10 @@ export default function App() {
 	return (
 		<>
 			<AppProviders>
-				{/* TODO: create global loading component */}
-				<RouterProvider router={router} fallbackElement={<>loading...</>} />
+				<GlobalErrorBoundary>
+					{/* TODO: create global loading component */}
+					<RouterProvider router={router} fallbackElement={<>loading...</>} />
+				</GlobalErrorBoundary>
 				<ToasterStack />
 			</AppProviders>
 			<CasperCursor />

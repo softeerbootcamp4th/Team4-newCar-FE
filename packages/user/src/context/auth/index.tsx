@@ -6,11 +6,13 @@ import type { User } from 'src/types/user.d.ts';
 
 export default function AuthProvider({ children }: PropsWithChildren) {
 	const [user, setUser, clearUser] = useUserStorage();
-	const [,, clearToken] = useTokenStorage();
+	const [,setToken, clearToken] = useTokenStorage();
 
-	const setAuthData = async ({ userData }: { userData: User }) => {
+	const setAuthData = useCallback(
+		({ userData, accessToken }: { userData: User ;accessToken:string }) => {
 		setUser(userData);
-	};
+		setToken(accessToken);
+	}, [setUser, setToken]);
 
 	const clearAuthData = useCallback(() => {
 		clearUser();
@@ -18,10 +20,13 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 		window.location.reload();
 	}, [clearUser, clearToken]);
 
-	const authContextValue = useMemo(
-		() => ({ isAuthenticated: Boolean(user), user, setAuthData, clearAuthData }),
-		[user],
-	);
+	const authContext = useMemo(() => ({
+		isAuthenticated: Boolean(user),
+		user,
+		setAuthData,
+		clearAuthData,
+	}), [user]);
 
-	return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
+	return <AuthContext.Provider value={authContext}>{children}
+        </AuthContext.Provider>;
 }

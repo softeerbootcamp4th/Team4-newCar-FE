@@ -10,8 +10,10 @@ export default function AuthButton() {
 }
 
 function UnauthButton() {
-	return <div className="flex items-center gap-2">
-	<SpeechBubble />
-	<UserIcon />
-        </div>;
+	return (
+		<div className="flex items-center gap-2">
+			<SpeechBubble />
+			<UserIcon />
+		</div>
+	);
 }

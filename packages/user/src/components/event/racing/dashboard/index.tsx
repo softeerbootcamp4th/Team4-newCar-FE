@@ -13,35 +13,34 @@ interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> 
 }
 
 const RacingDashboard = memo(({ ranks, chargedCar }: RacingDashboardProps) => (
-		<div className="relative h-[685px] w-full">
-			<HeaderSection />
-			<RacingCardSection />
-			{CATEGORIES.map((type) => (
-				<Casper
-					key={type}
-					type={type}
-					rank={ranks[type]}
-					className={chargedCar === type ? 'scale-110' : ''}
-				/>
-			))}
-			<Background />
-		</div>
-	));
+	<div className="relative h-[685px] w-full">
+		<HeaderSection />
+		<RacingCardSection />
+		{CATEGORIES.map((type) => (
+			<Casper
+				key={type}
+				type={type}
+				rank={ranks[type]}
+				className={chargedCar === type ? 'scale-110' : ''}
+			/>
+		))}
+		<Background />
+	</div>
+));
 
 export default RacingDashboard;
 
 const HeaderSection = memo(() => (
-		<div className="absolute -top-[5px] flex w-full flex-col items-center">
-			<RacingTitle />
-			<Suspense>
-				<EventTimer />
-			</Suspense>
-		</div>
-	));
+	<div className="absolute -top-[5px] flex w-full flex-col items-center">
+		<RacingTitle />
+		<Suspense>
+			<EventTimer />
+		</Suspense>
+	</div>
+));
 
 const RacingCardSection = memo(() => (
-		<div className="absolute left-[27px] top-[95px]">
-			<RacingCard />
-		</div>
-	),
-);
+	<div className="absolute left-[27px] top-[95px]">
+		<RacingCard />
+	</div>
+));

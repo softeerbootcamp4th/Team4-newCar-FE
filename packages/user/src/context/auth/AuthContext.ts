@@ -4,7 +4,7 @@ import type { User } from 'src/types/user.d.ts';
 interface AuthContextType {
 	isAuthenticated: boolean;
 	user: User | null;
-	setAuthData: ({ userData, accessToken }: { userData: User;accessToken:string }) => void
+	setAuthData: ({ userData, accessToken }: { userData: User; accessToken: string }) => void;
 	clearAuthData: () => void;
 }
 

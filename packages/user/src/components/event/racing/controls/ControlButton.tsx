@@ -45,7 +45,9 @@ export default function ControlButton({
 		<ControllButtonWrapper rank={rank}>
 			<Gauge percent={progress} />
 			<ChargeButtonWrapper onClick={handleClick} type={type}>
-				<ChargeButtonContent type={type} rank={rank}>{displayVoteStats}</ChargeButtonContent>
+				<ChargeButtonContent type={type} rank={rank}>
+					{displayVoteStats}
+				</ChargeButtonContent>
 			</ChargeButtonWrapper>
 		</ControllButtonWrapper>
 	);

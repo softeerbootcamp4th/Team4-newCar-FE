@@ -27,7 +27,7 @@ export default function ChargeButtonWrapper({
 			<GradientBorderWrapper className={styles.borderWrapper}>
 				<div className={styles.innerborderWrapper}>{children}</div>
 			</GradientBorderWrapper>
-			<img src={imageUrl} alt={`${type} 팀 캐스퍼 실물`} className={styles.image} />=
+			<img src={imageUrl} alt={`${type} 팀 캐스퍼 실물`} className={styles.image} />
 		</button>
 	);
 }

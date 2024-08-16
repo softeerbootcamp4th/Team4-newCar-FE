@@ -1,4 +1,5 @@
 import type { Category } from '@softeer/common/types';
+import { memo } from 'react';
 import MarkerIcon from 'src/assets/icons/car-marker.svg?react';
 import useAuth from 'src/hooks/useAuth.tsx';
 import type { Rank } from 'src/types/racing.d.ts';
@@ -8,7 +9,8 @@ interface CasperProps {
 	rank: Rank;
 	className: string;
 }
-export default function Casper({ type, rank, className }: CasperProps) {
+
+const Casper = memo(({ type, rank, className }: CasperProps) => {
 	const { user } = useAuth();
 	const isMyCasper = user?.type === type;
 
@@ -20,7 +22,8 @@ export default function Casper({ type, rank, className }: CasperProps) {
 			<img src={imageUrls[type]} alt={`${rank}등 차`} className="object-contain" />
 		</div>
 	);
-}
+});
+export default Casper;
 
 const transitionStyles = 'transform transition-all duration-700 ease-in-out';
 

@@ -1,6 +1,6 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import type { Category } from '@softeer/common/types';
-import { Suspense } from 'react';
+import { Suspense, memo } from 'react';
 import { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import Background from './Background.tsx';
 import RacingCard from './card/index.tsx';
@@ -12,8 +12,7 @@ interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> 
 	chargedCar: Category | null;
 }
 
-export default function RacingDashboard({ ranks, chargedCar }: RacingDashboardProps) {
-	return (
+const RacingDashboard = memo(({ ranks, chargedCar }: RacingDashboardProps) => (
 		<div className="relative h-[685px] w-full">
 			<HeaderSection />
 			<RacingCardSection />
@@ -27,24 +26,22 @@ export default function RacingDashboard({ ranks, chargedCar }: RacingDashboardPr
 			))}
 			<Background />
 		</div>
-	);
-}
+	));
 
-function HeaderSection() {
-	return (
+export default RacingDashboard;
+
+const HeaderSection = memo(() => (
 		<div className="absolute -top-[5px] flex w-full flex-col items-center">
 			<RacingTitle />
 			<Suspense>
 				<EventTimer />
 			</Suspense>
 		</div>
-	);
-}
+	));
 
-function RacingCardSection() {
-	return (
+const RacingCardSection = memo(() => (
 		<div className="absolute left-[27px] top-[95px]">
 			<RacingCard />
 		</div>
-	);
-}
+	),
+);

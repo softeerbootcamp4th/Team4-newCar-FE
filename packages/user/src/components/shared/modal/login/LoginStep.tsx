@@ -17,7 +17,11 @@ export default function LoginStep() {
 				<strong>로그인</strong>을 진행해주세요
 			</p>
 			<button type="submit" onClick={handleSubmit}>
-				<img alt="카카오 로그인" src="/images/kakao-login.png" className="w-full object-contain hover:cursor-pointer" />
+				<img
+					alt="카카오 로그인"
+					src="/images/kakao-login.png"
+					className="w-full object-contain hover:cursor-pointer"
+				/>
 			</button>
 		</div>
 	);

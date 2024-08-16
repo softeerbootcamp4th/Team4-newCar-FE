@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
 
 interface GaugeProps {
 	percent: number;
 }
-export default function Gauge({ percent }: GaugeProps) {
+const Gauge = memo(({ percent }: GaugeProps) => {
 	const backgroundColor = useMemo(() => {
 		if (percent < 22) return 'bg-gradient-gauge1';
 		if (percent < 57) return 'bg-gradient-gauge2';
@@ -23,4 +23,6 @@ export default function Gauge({ percent }: GaugeProps) {
 			</div>
 		</div>
 	);
-}
+});
+
+export default Gauge;

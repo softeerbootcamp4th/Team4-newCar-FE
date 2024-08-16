@@ -1,5 +1,6 @@
 import type { Category } from '@softeer/common/types';
-import { useCallback, useEffect, useState } from 'react';
+import numeral from 'numeral';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useAuth from 'src/hooks/useAuth.tsx';
 import { useToast } from 'src/hooks/useToast.ts';
 import type { Rank } from 'src/types/racing.d.ts';
@@ -8,10 +9,6 @@ import ChargeButtonWrapper from './ChargeButtonWrapper.tsx';
 import ControllButtonWrapper from './ControllButtonWrapper.tsx';
 import Gauge from './Gauge.tsx';
 
-const MAX_CLICK = 10;
-const MIN_PERCENT = 2;
-const RESET_SECOND = 10000;
-const MAX_CLICK_TOAST_DESCRIPTION = '배터리가 떨어질 때까지 기다려주세요!';
 const DISABLED_RACING_TOAST_DESCRIPTION = '로그인 후 레이싱에 참여할 수 있습니다!';
 interface ControlButtonProps {
 	type: Category;
@@ -32,18 +29,25 @@ export default function ControlButton({
 	type,
 	data,
 }: ControlButtonProps) {
-	const { rank, percentage } = data;
-	const { progress, clickCount, handleClick } = useGaugeProgress({
+	const { rank, vote, percentage } = data;
+	const { progress, handleClick } = useGaugeProgress({
 		percentage,
 		onCharge,
 		onFullyCharged,
 	});
 
+	const displayVoteStats = useMemo(
+		() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`,
+		[percentage, vote],
+	);
+
 	return (
 		<ControllButtonWrapper rank={rank}>
 			<Gauge percent={progress} />
-			<ChargeButtonWrapper onClick={handleClick} disabled={clickCount === MAX_CLICK} type={type}>
-				<ChargeButtonContent type={type} {...data} />
+			<ChargeButtonWrapper onClick={handleClick} type={type}>
+				<ChargeButtonContent type={type} rank={rank}>
+					{displayVoteStats}
+				</ChargeButtonContent>
 			</ChargeButtonWrapper>
 		</ControllButtonWrapper>
 	);
@@ -61,52 +65,43 @@ function useGaugeProgress({
 }) {
 	const { toast } = useToast();
 	const { isAuthenticated } = useAuth();
+
 	const [progress, setProgress] = useState(percentage);
-	const [clickCount, setClickCount] = useState(0);
-
-	const updateProgress = useCallback(
-		(count: number) => {
-			const newProgress = calculateProgress(count);
-			setProgress(newProgress);
-		},
-		[progress],
-	);
-
-	const resetProgress = useCallback(() => {
-		setClickCount(0);
-		setProgress(percentage);
-	}, [percentage]);
+	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	useEffect(() => setProgress(percentage), [percentage]);
 
-	useEffect(() => {
-		if (clickCount > 0 && clickCount <= MAX_CLICK) {
-			updateProgress(clickCount);
-		}
-
-		if (clickCount === MAX_CLICK) {
-			if (!isAuthenticated) {
-				toast({ description: DISABLED_RACING_TOAST_DESCRIPTION });
-			} else {
-				onFullyCharged();
-			}
-			toast({ description: MAX_CLICK_TOAST_DESCRIPTION });
-			const resetTimer = setTimeout(resetProgress, RESET_SECOND);
-			return () => clearTimeout(resetTimer);
-		}
-	}, [clickCount, isAuthenticated]);
-
 	const handleClick = useCallback(() => {
-		if (clickCount < MAX_CLICK) {
-			setClickCount((count) => count + 1);
-			onCharge();
-		}
-	}, [clickCount, onCharge]);
+		onCharge();
+		setProgress(100);
 
-	return { progress, clickCount, handleClick };
+		if (!isAuthenticated) {
+			toast({ description: DISABLED_RACING_TOAST_DESCRIPTION });
+		} else {
+			onFullyCharged();
+		}
+
+		if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		timeoutRef.current = setTimeout(() => setProgress(percentage), 1000);
+	}, [onCharge, onFullyCharged, isAuthenticated, percentage, toast]);
+
+	return { progress, handleClick };
 }
 
-/** Utility Function */
-function calculateProgress(count: number): number {
-	return MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);
+/** Utility Functions */
+function formatVoteCount(count: number): string {
+	const formatted = numeral(count).format('0,0'); // 기본 포맷팅
+	return convertToKoreanUnit(formatted);
+}
+
+function convertToKoreanUnit(formatted: string): string {
+	const number = parseFloat(formatted.replace(/,/g, ''));
+
+	if (number >= 100000000) {
+		return `${(number / 100000000).toFixed(2)}억`;
+	}
+	if (number >= 10000) {
+		return `${(number / 10000).toFixed(2)}만`;
+	}
+	return formatted;
 }

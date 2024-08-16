@@ -36,7 +36,7 @@ export default function ShareCountTeamCard({ type, size }: ShareCountTeamCardPro
 
 function LinkShareCount() {
 	const {
-		linkShareCount: { count },
+		linkShareCount: { clickNumber: count },
 	} = useGetLinkShareCount();
 
 	return count;

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren, useCallback, useMemo } from 'react';
 import AuthContext from 'src/context/auth/AuthContext.ts';
 import useUserStorage from 'src/hooks/storage/useUserStorage.ts';
 import type { User } from 'src/types/user.d.ts';
@@ -10,9 +10,10 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 		setUser(userData);
 	};
 
-	const clearAuthData = () => {
+	const clearAuthData = useCallback(() => {
 		clearUser();
-	};
+		window.location.reload();
+	}, []);
 
 	const authContextValue = useMemo(
 		() => ({ isAuthenticated: Boolean(user), user, setAuthData, clearAuthData }),

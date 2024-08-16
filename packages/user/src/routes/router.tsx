@@ -5,6 +5,7 @@ import AuthProvider from 'src/context/auth/index.tsx';
 import ErrorPage from 'src/pages/ErrorPage.tsx';
 import EventPage from 'src/pages/EventPage.tsx';
 import HomePage from 'src/pages/HomePage.tsx';
+import NotFoundErrorPage from 'src/pages/NotFoundErrorPage.tsx';
 
 const routes: RouteObject[] = [
 	{
@@ -26,6 +27,7 @@ const routes: RouteObject[] = [
 			},
 		],
 	},
+	{ path: '*', element: <NotFoundErrorPage /> },
 ];
 
 const router = createBrowserRouter(routes);

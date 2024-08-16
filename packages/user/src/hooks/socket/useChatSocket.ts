@@ -1,5 +1,6 @@
 import { ChatProps } from '@softeer/common/components';
-import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
+import { categoryToSocketCategory, CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
+import { Category } from '@softeer/common/types';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useState } from 'react';
 import useAuth from 'src/hooks/useAuth.tsx';
@@ -26,8 +27,8 @@ export default function useChatSocket() {
 		(content: string) => {
 			console.assert(user !== null, '로그인 되지 않은 사용자가 메세지 전송을 시도했습니다.');
 
-			const { id: sender, type: team } = user as NonNullable<User>;
-			const chatMessage = { sender, team, content };
+			const { id: sender, type } = user as NonNullable<User>;
+			const chatMessage = { sender, team: categoryToSocketCategory[type as Category], content };
 
 			socketClient.sendMessages({
 				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,

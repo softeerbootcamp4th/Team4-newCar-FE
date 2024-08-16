@@ -9,7 +9,7 @@ export default function ErrorContainer({ errorMessage, reset }: ErrorFallbackPro
 	return (
 		<div
 			role="alert"
-			className="w-screen flex h-screen flex-col items-center gap-15 justify-center"
+			className="gap-15 flex h-screen w-screen flex-col items-center justify-center"
 		>
 			<img src="/images/fcfs/result/wrong.png" alt="오류 발생 이미지" />
 			<div className="flex flex-col items-center gap-5">

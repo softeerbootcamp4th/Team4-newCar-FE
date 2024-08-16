@@ -3,18 +3,15 @@ import withAuth from 'src/components/shared/withAuthHOC.tsx';
 import LogoutButton from './LogoutButton.tsx';
 import SpeechBubble from './SpeechBubble.tsx';
 
-const UserGreeting = withAuth(LogoutButton);
-
-// TODO: 로그아웃
 export default function AuthButton() {
-	return (
-		<UserGreeting
-			unauthenticatedDisplay={
-				<div className="flex items-center gap-2">
-					<SpeechBubble />
-					<UserIcon />
-				</div>
-			}
-		/>
-	);
+	const UserGreeting = withAuth(LogoutButton);
+
+	return <UserGreeting unauthenticatedDisplay={<UnauthButton />} />;
+}
+
+function UnauthButton() {
+	return <div className="flex items-center gap-2">
+	<SpeechBubble />
+	<UserIcon />
+        </div>;
 }

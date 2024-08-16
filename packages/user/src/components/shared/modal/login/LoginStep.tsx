@@ -1,4 +1,3 @@
-import Button from 'src/components/common/Button.tsx';
 import { API_BASE_URL } from 'src/constants/environments.ts';
 import RoutePaths from 'src/constants/routePath.ts';
 
@@ -17,9 +16,9 @@ export default function LoginStep() {
 				<br />
 				<strong>로그인</strong>을 진행해주세요
 			</p>
-			<Button type="submit" onClick={handleSubmit}>
-				카카오 로그인
-			</Button>
+			<button type="submit" onClick={handleSubmit}>
+				<img alt="카카오 로그인" src="/images/kakao-login.png" className="w-full object-contain hover:cursor-pointer" />
+			</button>
 		</div>
 	);
 }

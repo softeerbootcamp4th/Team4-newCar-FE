@@ -15,7 +15,10 @@ export default function withAuth<T extends object>(WrappedComponent: React.Compo
 		const { isAuthenticated } = useAuth();
 		const [isUnauthenticatedDisplay, setIsUnauthenticatedDisplay] = useState(false);
 
-		const handleLoginModalClose = useCallback(() => setIsUnauthenticatedDisplay(false), []);
+		const handleLoginModalClose = useCallback(() => {
+			setIsUnauthenticatedDisplay(false);
+			window.location.reload();
+		}, []);
 
 		if (!isAuthenticated || isUnauthenticatedDisplay) {
 			if (!isUnauthenticatedDisplay) setIsUnauthenticatedDisplay(true);

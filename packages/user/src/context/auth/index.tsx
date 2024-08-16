@@ -16,7 +16,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 		clearUser();
 		clearToken();
 		window.location.reload();
-	}, []);
+	}, [clearUser, clearToken]);
 
 	const authContextValue = useMemo(
 		() => ({ isAuthenticated: Boolean(user), user, setAuthData, clearAuthData }),

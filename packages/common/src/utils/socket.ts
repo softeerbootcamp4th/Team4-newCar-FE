@@ -3,6 +3,23 @@ import SockJS from 'sockjs-client';
 
 export type SocketSubscribeCallbackType = (data: unknown, messageId: string) => void;
 
+export interface SubscriptionProps {
+  destination: string;
+  callback: SocketSubscribeCallbackType;
+  headers?: Record<string, string>;
+}
+
+export interface SendMessageProps {
+  destination: string;
+  body: unknown;
+  headers?: Record<string, string>;
+}
+
+export interface ConnectProps {
+  isSuccess: boolean;
+  options?: IFrame;
+}
+
 export default class Socket {
 	private client: Client;
 
@@ -14,8 +31,9 @@ export default class Socket {
 		this.client = this.setup({ url, token });
 	}
 
-	private setup({ url }: { url: string; token?: string | null }): Client {
+	private setup({ url, token }: { url: string; token?: string | null }): Client {
 		const stompClient = new Client({
+			connectHeaders: token ? { Authorization: token } : {},
 			webSocketFactory: () => new SockJS(`${url}/ws`),
 			reconnectDelay: 5000, // Reconnect if the connection drops
 		});
@@ -23,19 +41,19 @@ export default class Socket {
 		return stompClient;
 	}
 
-	connect(callback?: (isSuccess: boolean, options?: IFrame) => void) {
-		this.client.onConnect = (options) => {
-			this.isConnected = true;
-			callback?.(true, options);
-		};
+  connect(callback?: (props: ConnectProps) => void) {
+    this.client.onConnect = (options) => {
+      this.isConnected = true;
+      callback?.({ isSuccess: true, options });
+    };
 
-		this.client.onStompError = (error) => {
-			this.isConnected = false;
-			callback?.(false, error);
-		};
+    this.client.onStompError = (error) => {
+      this.isConnected = false;
+      callback?.({ isSuccess: false, options: error });
+    };
 
-		this.client.activate();
-	}
+    this.client.activate();
+  }
 
 	disconnect() {
 		this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -47,57 +65,62 @@ export default class Socket {
 		}
 	}
 
-	reconnect(callback?: (isSuccess: boolean, options?: IFrame) => void) {
-		if (this.isConnected) {
-			this.disconnect();
-		}
-		this.connect(callback);
-	}
+  reconnect(callback?: (props: ConnectProps) => void) {
+    if (this.isConnected) {
+      this.disconnect();
+    }
+    this.connect(callback);
+  }
 
-	sendMessages({ destination, body }: { destination: string; body: unknown }) {
-		if (!this.client.connected) {
-			this.connect(() => {
-				this.client.publish({ destination, body: JSON.stringify(body) });
-			});
-		} else {
-			this.client.publish({ destination, body: JSON.stringify(body) });
-		}
-	}
+  sendMessages({ destination, body, headers = {} }: SendMessageProps) {
+    const messageProps = {
+      destination,
+      body: JSON.stringify(body),
+      headers: { ...this.client.connectHeaders, ...headers },
+    };
 
-	private createSubscription({
-		destination,
-		callback,
-	}: {
-		destination: string;
-		callback: SocketSubscribeCallbackType;
-	}) {
-		const subscription = this.client.subscribe(destination, (message: IMessage) => {
-			const messageId = message.headers['message-id'];
-			const data = JSON.parse(message.body);
-			callback(data, messageId);
-		});
-		this.subscriptions.set(destination, subscription);
-	}
+    if (!this.client.connected) {
+      this.connect(() => {
+        this.client.publish(messageProps);
+      });
+    } else {
+      this.client.publish(messageProps);
+    }
+  }
 
-	subscribe({
-		destination,
-		callback,
-	}: {
-		destination: string;
-		callback: SocketSubscribeCallbackType;
-	}) {
-		if (this.isConnected) {
-			this.createSubscription({ destination, callback });
-		} else {
-			this.connect(() => this.createSubscription({ destination, callback }));
-		}
-	}
+  private createSubscription({ destination, callback, headers = {} }: SubscriptionProps) {
+    const subscriptionProps = {
+      destination,
+      headers: { ...this.client.connectHeaders, ...headers },
+      callback: (message: IMessage) => {
+        const messageId = message.headers['message-id'];
+        const data = JSON.parse(message.body);
+        callback(data, messageId);
+      },
+    };
 
-	unsubscribe(destination: string) {
-		const subscription = this.subscriptions.get(destination);
-		if (subscription) {
-			subscription.unsubscribe();
-			this.subscriptions.delete(destination);
-		}
-	}
+    const subscription = this.client.subscribe(
+      subscriptionProps.destination,
+      subscriptionProps.callback,
+      subscriptionProps.headers,
+    );
+
+    this.subscriptions.set(destination, subscription);
+  }
+
+  subscribe(props: SubscriptionProps) {
+    if (this.isConnected) {
+      this.createSubscription(props);
+    } else {
+      this.connect(() => this.createSubscription(props));
+    }
+  }
+
+  unsubscribe(destination: string) {
+    const subscription = this.subscriptions.get(destination);
+    if (subscription) {
+      subscription.unsubscribe();
+      this.subscriptions.delete(destination);
+    }
+  }
 }

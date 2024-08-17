@@ -14,7 +14,7 @@ export default function KakaoRedirectPage() {
 
 	useEffect(() => {
 		if (!accessToken || !userId) {
-			throw new CustomError('정상적으로 유저 정보가 전달되지 않았습니다.', 400);
+			throw new CustomError('로그인 동작 중 정상적으로 유저 정보가 전달되지 않았습니다.', 400);
 		}
 
 		setAuthData({ userData: { id: userId, name: userName }, accessToken });

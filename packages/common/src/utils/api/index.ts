@@ -60,10 +60,10 @@ export default class FetchWrapper {
 		});
 	}
 
-	async post<T, U>(url: string, data: U): Promise<T> {
+	async post<T, U>(url: string, data?: U): Promise<T> {
 		return this.request<T>(url, {
 			method: 'POST',
-			body: JSON.stringify(data),
+			body: data ? JSON.stringify(data) : null,
 			headers: {
 				...generateDefaultHeaders(),
 			},

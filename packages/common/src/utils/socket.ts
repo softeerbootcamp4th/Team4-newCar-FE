@@ -2,10 +2,13 @@ import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 export type SocketSubscribeCallbackType = (data: unknown, messageId: string) => void;
+
 export default class Socket {
 	private client: Client;
 
 	private subscriptions: Map<string, StompSubscription> = new Map();
+
+	public isConnected: boolean = false;
 
 	constructor(url: string, token?: string | null) {
 		this.client = this.setup({ url, token });
@@ -20,15 +23,15 @@ export default class Socket {
 		return stompClient;
 	}
 
-	connect(callback?: (isConnected: boolean, options?: IFrame) => void) {
-		// TODO: 채팅 메시지 리스트 받아오기
-		// this.client.onConnect = (options) => callback?.(true, options);
-		this.client.onConnect = () => callback?.(true);
+	connect(callback?: (isSuccess: boolean, options?: IFrame) => void) {
+		this.client.onConnect = (options) => {
+			this.isConnected = true;
+			callback?.(true, options);
+		};
 
 		this.client.onStompError = (error) => {
-			alert(`실시간 데이터 연동에 실패했습니다. (${error})`);
-			console.error(error);
-			callback?.(false);
+			this.isConnected = false;
+			callback?.(false, error);
 		};
 
 		this.client.activate();
@@ -40,7 +43,15 @@ export default class Socket {
 
 		if (this.client.connected) {
 			this.client.deactivate();
+			this.isConnected = false;
 		}
+	}
+
+	reconnect(callback?: (isSuccess: boolean, options?: IFrame) => void) {
+		if (this.isConnected) {
+			this.disconnect();
+		}
+		this.connect(callback);
 	}
 
 	sendMessages({ destination, body }: { destination: string; body: unknown }) {
@@ -75,7 +86,7 @@ export default class Socket {
 		destination: string;
 		callback: SocketSubscribeCallbackType;
 	}) {
-		if (this.client.connected) {
+		if (this.isConnected) {
 			this.createSubscription({ destination, callback });
 		} else {
 			this.connect(() => this.createSubscription({ destination, callback }));

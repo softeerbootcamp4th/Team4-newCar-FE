@@ -13,8 +13,8 @@ export default function EventPage() {
 
 	return (
 		<>
-			<RealTimeRacing {...racingSocket} />
-			<RealTimeChatting {...chatSocket} />
+			<RealTimeRacing racingSocket={racingSocket} />
+			<RealTimeChatting chatSocket={chatSocket} />
 		</>
 	);
 }

@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import RoutePaths from 'src/constants/routePath.ts';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useTokenStorage from 'src/hooks/storage/useTokenStorage.ts';
+import useUserStorage from 'src/hooks/storage/useUserStorage.ts';
 import CustomError from 'src/utils/error.ts';
 
 export default function KakaoRedirectPage() {
-	const { setAuthData } = useAuth();
+	const [, setUser] = useUserStorage();
+	const [, setToken] = useTokenStorage();
+	const navigate = useNavigate();
+
 	const [searchParams] = useSearchParams();
 
 	const accessToken = searchParams.get('accessToken');
@@ -16,11 +20,11 @@ export default function KakaoRedirectPage() {
 		if (!accessToken || !userId) {
 			throw new CustomError('로그인 동작 중 정상적으로 유저 정보가 전달되지 않았습니다.', 400);
 		}
+		setUser({ id: userId, name: userName });
+		setToken(accessToken);
 
-		setAuthData({ userData: { id: userId, name: userName }, accessToken });
-		window.history.replaceState(null, '', RoutePaths.Home);
-		window.history.go(-1);
-	}, [accessToken, userId, userName, setAuthData]);
+		navigate(RoutePaths.Event, { replace: true });
+	}, [accessToken, userId, userName]);
 
 	return null;
 }

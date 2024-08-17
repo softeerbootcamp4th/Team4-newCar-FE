@@ -29,7 +29,6 @@ export default function useSocket() {
 				});
 			}
 		});
-		return () => socketClient.disconnect();
 	}, [socketClient, onReceiveMessage, onReceiveStatus]);
 
 	return { chatSocket, racingSocket };

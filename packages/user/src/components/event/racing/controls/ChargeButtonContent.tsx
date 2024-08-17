@@ -24,6 +24,7 @@ const ChargeButtonContent = memo(
 	},
 );
 export default ChargeButtonContent;
+
 /** Styles */
 const voteStyles: Record<Category, string> = {
 	travel: 'text-orange-500',

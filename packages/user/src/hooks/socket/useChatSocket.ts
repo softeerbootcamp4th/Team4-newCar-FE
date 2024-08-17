@@ -2,13 +2,14 @@ import { ChatProps } from '@softeer/common/components';
 import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useState } from 'react';
-import useAuth from 'src/hooks/useAuth.tsx';
-import { socketManager } from 'src/services/socket.ts';
+import { useToast } from 'src/hooks/useToast.ts';
+import socketManager from 'src/services/socket.ts';
 
 export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
 
 export default function useChatSocket() {
-	const { isAuthenticated } = useAuth();
+	const { toast } = useToast();
+
 	const socketClient = socketManager.getSocketClient();
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 
@@ -23,14 +24,17 @@ export default function useChatSocket() {
 
 	const handleSendMessage = useCallback(
 		(content: string) => {
-			console.assert(isAuthenticated, '로그인 되지 않은 사용자가 메세지 전송을 시도했습니다.');
+			try {
+				const chatMessage = { content };
 
-			const chatMessage = { content };
-
-			socketClient.sendMessages({
-				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
-				body: chatMessage,
-			});
+				socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
+					body: chatMessage,
+				});
+			} catch (error) {
+				const errorMessage = (error as Error).message;
+				toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+			}
 		},
 		[socketClient],
 	);

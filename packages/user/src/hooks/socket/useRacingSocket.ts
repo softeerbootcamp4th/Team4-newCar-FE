@@ -7,7 +7,8 @@ import { Category } from '@softeer/common/types';
 import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useMemo, useState } from 'react';
 import useRacingVoteStorage from 'src/hooks/storage/useRacingVoteStorage.ts';
-import { socketManager } from 'src/services/socket.ts';
+import { useToast } from 'src/hooks/useToast.ts';
+import socketManager from 'src/services/socket.ts';
 import type { Rank, SocketCategory, VoteStatus } from 'src/types/racing.d.ts';
 
 export type UseRacingSocketReturnType = ReturnType<typeof useRacingSocket>;
@@ -15,6 +16,8 @@ type RankStatus = Record<Category, Rank>;
 type SocketData = Record<SocketCategory, number>;
 
 export default function useRacingSocket() {
+	const { toast } = useToast();
+
 	const socketClient = socketManager.getSocketClient();
 
 	const [storedVote, storeVote] = useRacingVoteStorage();
@@ -51,10 +54,15 @@ export default function useRacingSocket() {
 			{} as Record<SocketCategory, number>,
 		);
 
+	try {
 		socketClient.sendMessages({
 			destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
 			body: completeChargeData,
 		});
+	} catch (error) {
+		const errorMessage = (error as Error).message;
+		toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+	}
 	}, []);
 
 	return {

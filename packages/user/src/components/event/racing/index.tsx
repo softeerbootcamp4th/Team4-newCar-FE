@@ -1,12 +1,12 @@
 import { Category } from '@softeer/common/types';
 import { useState } from 'react';
 import SECTION_ID from 'src/constants/sectionId.ts';
-import { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
+import { UseSocketReturnType } from 'src/hooks/socket/index.ts';
 import RacingControls from './controls/index.tsx';
 import RacingDashboard from './dashboard/index.tsx';
 
 /** 실시간 레이싱 섹션 */
-export default function RealTimeRacing(racingSocket: UseRacingSocketReturnType) {
+export default function RealTimeRacing({ racingSocket }: Pick<UseSocketReturnType, 'racingSocket'>) {
 	const [chargedCar, setChargedCar] = useState<Category | null>(null);
 
 	const { ranks, votes, onCarFullyCharged } = racingSocket;

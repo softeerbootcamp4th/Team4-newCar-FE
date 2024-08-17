@@ -17,7 +17,7 @@ export default function useSocket() {
 
 	useEffect(() => {
 		socketManager.connectSocketClient({ token, onReceiveMessage, onReceiveStatus });
-	}, [socketManager]);
+	}, [socketManager, token]);
 
 	return { chatSocket: chatSocketProps, racingSocket: racingSocketProps };
 }

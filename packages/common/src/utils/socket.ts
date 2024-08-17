@@ -65,13 +65,6 @@ export default class Socket {
 		}
 	}
 
-  reconnect(callback?: (props: ConnectProps) => void) {
-    if (this.isConnected) {
-      this.disconnect();
-    }
-    this.connect(callback);
-  }
-
   sendMessages({ destination, body, headers = {} }: SendMessageProps) {
     const messageProps = {
       destination,

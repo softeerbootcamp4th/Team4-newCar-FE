@@ -12,7 +12,7 @@ interface LinkShareProps {
 export default function LinkShare({ category }: LinkShareProps) {
 	const { user } = useAuth();
 
-	const url = getSharedLink({ type: user?.type });
+	const url = getSharedLink({ type: user?.type, encryptedUserId: user?.encryptedUserId });
 
 	const variants = category ?? 'default';
 

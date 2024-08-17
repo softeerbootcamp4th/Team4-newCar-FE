@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useAuth from 'src/hooks/useAuth.tsx';
 import { useToast } from 'src/hooks/useToast.ts';
-import { socketManager } from 'src/services/socket.ts';
+import socketManager from 'src/services/socket.ts';
 
 const LOGOUT_SUCCESS_TOAST_DECRIPTION = '로그아웃 완료! 꼭 다시 돌아와주세요!';
 const TOAST_DISPLAY_SECOND = 1000;

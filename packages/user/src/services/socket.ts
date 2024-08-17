@@ -3,7 +3,7 @@ import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
 import CustomError from 'src/utils/error.ts';
 
-export class SocketManager {
+class SocketManager {
 	private static instance: SocketManager | null = null;
 
 	private socketClient: Socket | null = null;
@@ -85,4 +85,5 @@ export class SocketManager {
 	}
 }
 
-export const socketManager = SocketManager.getInstance();
+const socketManager = SocketManager.getInstance();
+export default socketManager;

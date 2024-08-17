@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useAuth from 'src/hooks/useAuth.tsx';
-import { socketManager } from 'src/services/socket.ts';
+import socketManager from 'src/services/socket.ts';
 import useChatSocket from './useChatSocket.ts';
 import useRacingSocket from './useRacingSocket.ts';
 

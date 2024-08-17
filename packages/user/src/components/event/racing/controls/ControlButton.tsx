@@ -9,7 +9,6 @@ import ChargeButtonWrapper from './ChargeButtonWrapper.tsx';
 import ControllButtonWrapper from './ControllButtonWrapper.tsx';
 import Gauge from './Gauge.tsx';
 
-const DISABLED_RACING_TOAST_DESCRIPTION = '로그인 후 레이싱에 참여할 수 있습니다!';
 interface ControlButtonProps {
 	type: Category;
 	data: ChargeButtonData;
@@ -72,17 +71,12 @@ function useGaugeProgress({
 	useEffect(() => setProgress(percentage), [percentage]);
 
 	const handleClick = useCallback(() => {
-		onCharge();
 		setProgress(100);
-
-		if (!isAuthenticated) {
-			toast({ description: DISABLED_RACING_TOAST_DESCRIPTION });
-		} else {
-			onFullyCharged();
-		}
+		onCharge();
+		onFullyCharged();
 
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		timeoutRef.current = setTimeout(() => setProgress(percentage), 1000);
+		timeoutRef.current = setTimeout(() => setProgress(percentage), 500);
 	}, [onCharge, onFullyCharged, isAuthenticated, percentage, toast]);
 
 	return { progress, handleClick };

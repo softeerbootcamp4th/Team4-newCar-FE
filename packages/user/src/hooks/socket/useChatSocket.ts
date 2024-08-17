@@ -1,17 +1,16 @@
 import { ChatProps } from '@softeer/common/components';
-import { categoryToSocketCategory, CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
-import { Category } from '@softeer/common/types';
+import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useState } from 'react';
-import useAuth from 'src/hooks/useAuth.tsx';
-import socketClient from 'src/services/socket.ts';
-import type { User } from 'src/types/user.d.ts';
+import { useToast } from 'src/hooks/useToast.ts';
+import socketManager from 'src/services/socket.ts';
 
 export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
 
 export default function useChatSocket() {
-	const { user } = useAuth();
+	const { toast } = useToast();
 
+	const socketClient = socketManager.getSocketClient();
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 
 	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
@@ -25,15 +24,17 @@ export default function useChatSocket() {
 
 	const handleSendMessage = useCallback(
 		(content: string) => {
-			console.assert(user !== null, '로그인 되지 않은 사용자가 메세지 전송을 시도했습니다.');
+			try {
+				const chatMessage = { content };
 
-			const { id: sender, type } = user as NonNullable<User>;
-			const chatMessage = { sender, team: categoryToSocketCategory[type as Category], content };
-
-			socketClient.sendMessages({
-				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
-				body: chatMessage,
-			});
+				socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
+					body: chatMessage,
+				});
+			} catch (error) {
+				const errorMessage = (error as Error).message;
+				toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+			}
 		},
 		[socketClient],
 	);

@@ -3,39 +3,56 @@ import SockJS from 'sockjs-client';
 
 export type SocketSubscribeCallbackType = (data: unknown, messageId: string) => void;
 
+export interface SubscriptionProps {
+  destination: string;
+  callback: SocketSubscribeCallbackType;
+  headers?: Record<string, string>;
+}
+
+export interface SendMessageProps {
+  destination: string;
+  body: unknown;
+  headers?: Record<string, string>;
+}
+
+export interface ConnectProps {
+  isSuccess: boolean;
+  options?: IFrame;
+}
+
 export default class Socket {
 	private client: Client;
 
 	private subscriptions: Map<string, StompSubscription> = new Map();
 
-	public isConnected: boolean = false;
+  private headers?: Record<string, string> = {};
 
 	constructor(url: string, token?: string | null) {
-		this.client = this.setup({ url, token });
+		this.client = this.setup(url);
+    this.headers = token ? { Authorization: token } : {};
 	}
 
-	private setup({ url }: { url: string; token?: string | null }): Client {
+	private setup(url: string): Client {
 		const stompClient = new Client({
-			webSocketFactory: () => new SockJS(`${url}/ws`),
+      webSocketFactory: () => new SockJS(`${url}/ws`),
+			connectHeaders: this.headers,
 			reconnectDelay: 5000, // Reconnect if the connection drops
 		});
 		this.client = stompClient;
 		return stompClient;
 	}
 
-	connect(callback?: (isSuccess: boolean, options?: IFrame) => void) {
-		this.client.onConnect = (options) => {
-			this.isConnected = true;
-			callback?.(true, options);
-		};
+  connect(callback?: (props: ConnectProps) => void) {
+    this.client.onConnect = (options) => {
+      callback?.({ isSuccess: true, options });
+    };
 
-		this.client.onStompError = (error) => {
-			this.isConnected = false;
-			callback?.(false, error);
-		};
+    this.client.onStompError = (error) => {
+      callback?.({ isSuccess: false, options: error });
+    };
 
-		this.client.activate();
-	}
+    this.client.activate();
+  }
 
 	disconnect() {
 		this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -43,61 +60,62 @@ export default class Socket {
 
 		if (this.client.connected) {
 			this.client.deactivate();
-			this.isConnected = false;
 		}
 	}
 
-	reconnect(callback?: (isSuccess: boolean, options?: IFrame) => void) {
-		if (this.isConnected) {
-			this.disconnect();
-		}
-		this.connect(callback);
-	}
+  sendMessages({ destination, body, headers = {} }: SendMessageProps) {
+    if (!this.headers?.Authorization) {
+      throw new Error('로그인 후 참여할 수 있어요!');
+    }
 
-	sendMessages({ destination, body }: { destination: string; body: unknown }) {
-		if (!this.client.connected) {
-			this.connect(() => {
-				this.client.publish({ destination, body: JSON.stringify(body) });
-			});
-		} else {
-			this.client.publish({ destination, body: JSON.stringify(body) });
-		}
-	}
+    const messageProps = {
+      destination,
+      body: JSON.stringify(body),
+      headers: { ...this.headers, ...headers },
+    };
 
-	private createSubscription({
-		destination,
-		callback,
-	}: {
-		destination: string;
-		callback: SocketSubscribeCallbackType;
-	}) {
-		const subscription = this.client.subscribe(destination, (message: IMessage) => {
-			const messageId = message.headers['message-id'];
-			const data = JSON.parse(message.body);
-			callback(data, messageId);
-		});
-		this.subscriptions.set(destination, subscription);
-	}
+    if (!this.client.connected) {
+      this.connect(() => {
+        this.client.publish(messageProps);
+      });
+    } else {
+      this.client.publish(messageProps);
+    }
+  }
 
-	subscribe({
-		destination,
-		callback,
-	}: {
-		destination: string;
-		callback: SocketSubscribeCallbackType;
-	}) {
-		if (this.isConnected) {
-			this.createSubscription({ destination, callback });
-		} else {
-			this.connect(() => this.createSubscription({ destination, callback }));
-		}
-	}
+  private createSubscription({ destination, callback, headers = {} }: SubscriptionProps) {
+    const subscriptionProps = {
+      destination,
+      headers: { ...this.headers, ...headers },
+      callback: (message: IMessage) => {
+        const messageId = message.headers['message-id'];
+        const data = JSON.parse(message.body);
+        callback(data, messageId);
+      },
+    };
 
-	unsubscribe(destination: string) {
-		const subscription = this.subscriptions.get(destination);
-		if (subscription) {
-			subscription.unsubscribe();
-			this.subscriptions.delete(destination);
-		}
-	}
+    const subscription = this.client.subscribe(
+      subscriptionProps.destination,
+      subscriptionProps.callback,
+      subscriptionProps.headers,
+    );
+
+    this.subscriptions.set(destination, subscription);
+  }
+
+  subscribe(props: SubscriptionProps) {
+    if (this.client.connected) {
+      this.createSubscription(props);
+    } else {
+      this.connect(() => this.createSubscription(props));
+    }
+  }
+
+  unsubscribe(destination: string) {
+    const subscription = this.subscriptions.get(destination);
+    if (subscription) {
+      subscription.unsubscribe();
+      this.subscriptions.delete(destination);
+    }
+  }
 }

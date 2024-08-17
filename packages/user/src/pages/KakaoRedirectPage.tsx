@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import RoutePaths from 'src/constants/routePath.ts';
 import useTokenStorage from 'src/hooks/storage/useTokenStorage.ts';
 import useUserStorage from 'src/hooks/storage/useUserStorage.ts';
+import socketManager from 'src/services/socket.ts';
 import CustomError from 'src/utils/error.ts';
 
 export default function KakaoRedirectPage() {
@@ -22,6 +23,8 @@ export default function KakaoRedirectPage() {
 		}
 		setUser({ id: userId, name: userName });
 		setToken(accessToken);
+
+		socketManager.reconnectSocketClient(accessToken);
 
 		navigate(RoutePaths.Event, { replace: true });
 	}, [accessToken, userId, userName]);

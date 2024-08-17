@@ -25,6 +25,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 	const authContext = useMemo(
 		() => ({
 			isAuthenticated: Boolean(token),
+			token,
 			user,
 			setAuthData,
 			clearAuthData,

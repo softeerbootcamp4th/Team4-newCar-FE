@@ -1,5 +1,5 @@
 import { useNavigate, useRouteError } from 'react-router-dom';
-import ErrorContainer from 'src/components/layout/ErrorContainer.tsx';
+import ErrorContainer from 'src/components/common/ErrorContainer.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import CustomError from 'src/utils/error.ts';
 

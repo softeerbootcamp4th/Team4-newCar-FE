@@ -19,7 +19,7 @@ export default function RacingCard() {
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">
 			<CardTitle name={user?.name} />
 			{type ? (
-				<ShareCountTeamCard type={type} size="racing" />
+				<ShareCountTeamCard type={type} encryptedUserId={user?.encryptedUserId} size="racing" />
 			) : (
 				<ProtectedTeamSelectModal
 					openTrigger={

@@ -7,8 +7,13 @@ import EventPage from 'src/pages/EventPage.tsx';
 import HomePage from 'src/pages/HomePage.tsx';
 import KakaoRedirectPage from 'src/pages/KakaoRedirectPage.tsx';
 import NotFoundErrorPage from 'src/pages/NotFoundErrorPage.tsx';
+import ShareRedirectPage from 'src/pages/ShareRedirectPage.tsx';
 
 const routes: RouteObject[] = [
+	{
+    path: '/:id',
+    element: <ShareRedirectPage />,
+  },
 	{
 		path: RoutePaths.Index,
 		element: (

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Category } from '@softeer/common/types';
 import { useMutation } from '@tanstack/react-query';
+import serverTeamEnumToClient, { type SocketTeamEnum } from 'src/constants/serverMapping.ts';
 import useAuth from 'src/hooks/useAuth.tsx';
 import http from 'src/services/api/index.ts';
 import type { User } from 'src/types/user.d.ts';
@@ -9,8 +9,9 @@ import type { User } from 'src/types/user.d.ts';
 export type SubmitQuizAnswersRequest = { id: number; answer: number }[];
 
 export interface SubmitQuizAnswersResponse {
-	team: string;
+	team: SocketTeamEnum;
 	accessToken: string;
+	url:string
 }
 
 export default function useSubmitTeamTypeQuizAnswers() {
@@ -18,9 +19,9 @@ export default function useSubmitTeamTypeQuizAnswers() {
 
 	const mutation = useMutation<SubmitQuizAnswersResponse, Error, SubmitQuizAnswersRequest>({
 		mutationFn: (data) => http.post('/personality-test', data),
-		onSuccess: ({ team, accessToken }) => {
-			const type = team === 'SPACE' ? 'place' : team.toLowerCase();
-			const userData = { ...(user as User), type: type.toLowerCase() as Category };
+		onSuccess: ({ team, accessToken, url: encryptedUserId }) => {
+			const type = serverTeamEnumToClient[team];
+			const userData = { ...(user as User), type, encryptedUserId };
 			setAuthData({ userData, accessToken });
 		},
 	});

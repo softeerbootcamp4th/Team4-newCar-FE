@@ -4,4 +4,5 @@ export interface User {
 	id: string;
 	name: string;
 	type?: Category;
+	encryptedUserId?: string
 }

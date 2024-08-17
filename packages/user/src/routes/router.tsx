@@ -26,12 +26,9 @@ const routes: RouteObject[] = [
 				path: RoutePaths.Event,
 				element: <EventPage />,
 			},
-			{
-				path: RoutePaths.KakaoOauthRedirect,
-				element: <KakaoRedirectPage />,
-			},
 		],
 	},
+	{ path: RoutePaths.KakaoOauthRedirect, element: <KakaoRedirectPage /> },
 	{ path: '*', element: <NotFoundErrorPage /> },
 ];
 

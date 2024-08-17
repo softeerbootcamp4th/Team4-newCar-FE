@@ -9,8 +9,9 @@ export default function ErrorPage({ message = '문제가 발생했어요!' }: { 
 	const navigate = useNavigate();
 
 	return (
-	<ErrorContainer
-		errorMessage={error?.message ?? message}
+		<ErrorContainer
+			errorMessage={error?.message ?? message}
 			reset={() => navigate(RoutePaths.Home)}
-	/>);
+		/>
+	);
 }

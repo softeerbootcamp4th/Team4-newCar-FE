@@ -8,9 +8,7 @@ import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useMemo, useState } from 'react';
 import useRacingVoteStorage from 'src/hooks/storage/useRacingVoteStorage.ts';
 import socketClient from 'src/services/socket.ts';
-import type {
-	Rank, SocketCategory, VoteStatus,
-} from 'src/types/racing.d.ts';
+import type { Rank, SocketCategory, VoteStatus } from 'src/types/racing.d.ts';
 
 export type UseRacingSocketReturnType = ReturnType<typeof useRacingSocket>;
 type RankStatus = Record<Category, Rank>;

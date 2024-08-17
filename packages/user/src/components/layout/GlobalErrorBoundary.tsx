@@ -1,6 +1,6 @@
 import { PropsWithChildren, useMemo } from 'react';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
-import ErrorContainer from 'src/components/layout/ErrorContainer.tsx';
+import ErrorContainer from 'src/components/common/ErrorContainer.tsx';
 
 export default function GlobalErrorBoundary({ children }: PropsWithChildren) {
 	return (

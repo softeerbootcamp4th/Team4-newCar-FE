@@ -14,7 +14,7 @@ const { toast } = useToast();
 	const mutation = useMutation<null, Error, SubmitQuizAnswersRequest>({
 		mutationFn: ({ id }) => http.post(`/share-link/${id}`),
 		onSettled: () => navigate(RoutePaths.Home, { replace: true }),
-    onError: () => toast({ description: '공유 링크 클릭 수를 업데이트하는 중에 문제가 발생했습니다.' }),
+    onError: () => toast({ description: '공유 링크 클릭 수 업데이트 중에 문제가 발생했습니다.' }),
 	});
 
 	return mutation;

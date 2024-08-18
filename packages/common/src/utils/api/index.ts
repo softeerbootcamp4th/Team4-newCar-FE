@@ -27,11 +27,15 @@ export default class FetchWrapper {
 		this.baseUrl = baseUrl;
 		this.interceptors = {
 			response: async <T>(response: Response): Promise<T> => {
+				const textResult = await response.text();
 				if (!response.ok) {
-					// eslint-disable-next-line @typescript-eslint/no-throw-literal
-					throw new Error(await response.text()) ;
+					throw new Error(textResult);
 				}
-				return response.json();
+				try {
+					return await response.json();
+				} catch (err) {
+					throw new Error(textResult);
+				}
 			},
 		};
 	}

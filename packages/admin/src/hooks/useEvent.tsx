@@ -7,7 +7,7 @@ import {
 	Response,
 	WinnerSetting,
 } from 'src/services/api/types/apiType.ts';
-import { useAlert } from "src/store/provider/AlertProvider.tsx";
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
@@ -79,6 +79,9 @@ const useEvent = () => {
 		onSuccess: () => {
 			quizEventQuery.refetch();
 		},
+		onError: (error) => {
+			openAlert(error.message, 'alert');
+		},
 	});
 
 	const updateQuizEvent = (quizEvent: Quiz) => {
@@ -97,24 +100,23 @@ const useEvent = () => {
 	});
 
 	const racingWinnerMutation = useMutation({
-		mutationFn: async (winnerSettings: WinnerSetting[]) => {
-			const response = await fetchData({
+		mutationFn: async (winnerSettings: WinnerSetting[]) =>
+			fetchData({
 				path: API.RACING_WINNERS,
 				method: METHOD.POST,
 				payload: winnerSettings,
-			});
-			console.log(response)
-			if(status!=="200")throw response;
-			return response;
-		},
+			}),
 		onSuccess: () => {
+			console.log('success');
 			racingWinnerQuery.refetch();
-			
 		},
-		onError: async(error) => {
-			openAlert(error.message,"alert")
+		onError: async (error) => {
+			console.log(error.message);
+			// console.log('error');
+			if (error.name !== 'SyntaxError') {
+				openAlert(error.message, 'alert');
+			}
 		},
-		
 	});
 
 	const updateRacingWinner = (winnerSettings: WinnerSetting[]) => {
@@ -143,6 +145,9 @@ const useEvent = () => {
 		},
 		onSuccess: () => {
 			personalityTestListQuery.refetch();
+		},
+		onError: (error) => {
+			openAlert(error.message, 'alert');
 		},
 	});
 

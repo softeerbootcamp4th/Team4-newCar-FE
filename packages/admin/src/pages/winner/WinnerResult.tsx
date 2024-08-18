@@ -26,7 +26,7 @@ const quizHeaders = [
 	{ text: '당첨 날짜 ', width: '33%' },
 ];
 
-const getRows = (pageIndex: number, rawList: (RacingWinner[] | QuizWinner[])) => {
+const getRows = (pageIndex: number, rawList: RacingWinner[] | QuizWinner[]) => {
 	const rows = rawList
 		.slice(pageIndex * 10, pageIndex * 10 + 10)
 		.map((winner) => Object.values(winner));
@@ -37,7 +37,7 @@ const getRows = (pageIndex: number, rawList: (RacingWinner[] | QuizWinner[])) =>
 };
 
 function WinnerResult() {
-	const { racingWinners, refetchRacingWinners, quizWinner, refetchQuizWinner } = useEvent();
+	const { racingWinners, quizWinner } = useEvent();
 
 	// useLayoutEffect(() => {
 	// 	refetchRacingWinners();
@@ -49,16 +49,25 @@ function WinnerResult() {
 	const [rows, setRows] = useState<string[][]>([]);
 	const [headers, setHeaders] = useState<{ text: string; width: string }[]>([]);
 
+	const resetList = () => {
+		setTotal(0);
+		setRows(getRows(0, []));
+	};
+
 	useEffect(() => {
-		if (tabName === TabName.QUIZ && quizWinner !== undefined) {
-			setTotal(quizWinner.length);
-			setRows(getRows(pageIndex, quizWinner));
+		if (tabName === TabName.QUIZ) {
 			setHeaders(quizHeaders);
+			if (quizWinner !== undefined) {
+				setTotal(quizWinner.length);
+				setRows(getRows(pageIndex, quizWinner));
+			} else resetList();
 		}
-		if (tabName === TabName.RACE && racingWinners !== undefined) {
-			setTotal(racingWinners.length);
-			setRows(getRows(pageIndex, racingWinners));
+		if (tabName === TabName.RACE) {
 			setHeaders(racingHeaders);
+			if (racingWinners !== undefined) {
+				setTotal(racingWinners.length);
+				setRows(getRows(pageIndex, racingWinners));
+			} else resetList();
 		}
 	}, [racingWinners, pageIndex, tabName]);
 

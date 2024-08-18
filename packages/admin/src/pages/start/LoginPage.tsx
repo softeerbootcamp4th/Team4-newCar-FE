@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from 'src/components/ui/button.tsx';
 import { Input } from 'src/components/ui/input.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 function LoginPage() {
 	const { login } = useAuth();

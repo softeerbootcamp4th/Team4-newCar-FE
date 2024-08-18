@@ -3,7 +3,7 @@ import { FunctionComponent, PropsWithChildren, useMemo } from 'react';
 import LinkShare from 'src/components/shared/linkShare/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 export default function ResultStep() {
 	const { user } = useAuth();
@@ -18,7 +18,7 @@ export default function ResultStep() {
 
 	return (
 		<div className="grid h-full items-center gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16">
-			<ShareCountTeamCard type={type} size="modal" />
+			<ShareCountTeamCard type={type} size="modal" encryptedUserId={user?.encryptedUserId} />
 			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pb-12 pt-5 sm:max-w-xl md:max-h-[400px] md:pb-2">
 				<div>
 					<p className={`${titleStyles} text-heading-8 mb-6 whitespace-pre-line font-bold`}>

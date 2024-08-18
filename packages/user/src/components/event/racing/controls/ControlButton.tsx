@@ -1,7 +1,7 @@
 import type { Category } from '@softeer/common/types';
 import numeral from 'numeral';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 import { useToast } from 'src/hooks/useToast.ts';
 import type { Rank } from 'src/types/racing.d.ts';
 import ChargeButtonContent from './ChargeButtonContent.tsx';

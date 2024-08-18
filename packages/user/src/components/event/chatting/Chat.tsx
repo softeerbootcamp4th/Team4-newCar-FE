@@ -1,7 +1,7 @@
 import { BlockedChat, ChatProps, Message, Notice } from '@softeer/common/components';
 import { FunctionComponent, useCallback } from 'react';
 import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 export default function Chat({ type, team, sender, content }: ChatProps) {
 	const { user: me } = useAuth();

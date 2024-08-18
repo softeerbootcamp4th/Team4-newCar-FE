@@ -6,7 +6,7 @@ import TeamSelectModal, {
 } from 'src/components/shared/modal/teamSelectModal/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import withAuth from 'src/components/shared/withAuthHOC.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 import UnassignedCard from './UnassignedCard.tsx';
 
 const ProtectedTeamSelectModal = memo(withAuth<TeamSelectModalProps>(TeamSelectModal));

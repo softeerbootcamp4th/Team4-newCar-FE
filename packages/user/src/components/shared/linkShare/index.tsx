@@ -2,7 +2,7 @@ import type { Category } from '@softeer/common/types';
 import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
 import LinkDisplay from 'src/components/shared/LinkDisplay.tsx';
 import LinkShareButton from 'src/components/shared/linkShare/LinkShareButton.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 import copyLink from 'src/utils/copyLink.ts';
 import getSharedLink from 'src/utils/getSharedLink.ts';
 

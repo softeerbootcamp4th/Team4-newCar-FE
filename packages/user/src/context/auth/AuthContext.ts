@@ -5,7 +5,10 @@ interface AuthContextType {
 	isAuthenticated: boolean;
 	token: string | null;
 	user: User | null;
-	setAuthData: ({ userData, accessToken }: { userData: User; accessToken: string }) => void;
+	setAuthData: ({
+		userData,
+		accessToken,
+	}: Partial<{ userData: User; accessToken: string }>) => void;
 	clearAuthData: () => void;
 }
 

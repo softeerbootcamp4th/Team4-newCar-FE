@@ -9,9 +9,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 	const [token, setToken, clearToken] = useTokenStorage();
 
 	const setAuthData = useCallback(
-		({ userData, accessToken }: { userData: User; accessToken: string }) => {
-			setUser(userData);
-			setToken(accessToken);
+		({ userData, accessToken }: Partial<{ userData: User; accessToken: string }>) => {
+			if (userData) setUser(userData);
+			if (accessToken) setToken(accessToken);
 		},
 		[setUser, setToken],
 	);

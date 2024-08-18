@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import Modal, { ModalProps } from 'src/components/common/Modal.tsx';
 import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 import TeamSelectModalContent from './ModalContent.tsx';
 
 export interface TeamSelectModalProps extends Omit<ModalProps, 'children'> {}

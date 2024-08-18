@@ -1,4 +1,4 @@
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 export default function SuccessStep() {
 	const { user } = useAuth();

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import serverTeamEnumToClient from 'src/constants/serverMapping.ts';
 import useGetUserInfo from 'src/hooks/query/useGetUserInfo.ts';
 import useAuth from 'src/hooks/useAuth.ts';
@@ -15,10 +15,13 @@ export default function useInitialize() {
 			const type = team ? serverTeamEnumToClient[team] : null;
 
 			const userData: User = { id, name, type, encryptedUserId };
-			setAuthData({ userData });
 			return userData;
 		}
 	}, [userInfo]);
+
+	useEffect(() => {
+		setAuthData({ userData: newUser });
+	}, [newUser]);
 
 	return { user, newUser, ...options };
 }

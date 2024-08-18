@@ -17,7 +17,7 @@ export default function NotStartedEventPage() {
 				<EventTimer endTime={startTime} />
 				<p className="text-detail-1 min-w-max font-medium text-neutral-300">{formattedDuration}</p>
 			</div>
-			<img src="/images/fcfs/modal.png" alt="오류 발생 이미지" className="w-full" />
+			<img src="/images/fcfs/modal.png" alt="오류 발생 이미지" className="w-full max-w-[1000px]" />
 		</div>
 	);
 }

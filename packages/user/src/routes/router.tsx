@@ -11,9 +11,9 @@ import ShareRedirectPage from 'src/pages/ShareRedirectPage.tsx';
 
 const routes: RouteObject[] = [
 	{
-    path: '/:id',
-    element: <ShareRedirectPage />,
-  },
+		path: '/:id',
+		element: <ShareRedirectPage />,
+	},
 	{
 		path: RoutePaths.Index,
 		element: (

@@ -9,11 +9,14 @@ import TeamCardTemplate from './teamCardTemplate/index.tsx';
 
 type ShareCountTeamCardProps = {
 	type: Category;
-	encryptedUserId: string | undefined
+	encryptedUserId: string | undefined;
 	size: 'racing' | 'modal';
 };
 export default function ShareCountTeamCard({
-	type, encryptedUserId, size }: ShareCountTeamCardProps) {
+	type,
+	encryptedUserId,
+	size,
+}: ShareCountTeamCardProps) {
 	const url = getSharedLink({ type, encryptedUserId });
 
 	return (

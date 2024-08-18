@@ -2,6 +2,7 @@ import type { Category } from '@softeer/common/types';
 import numeral from 'numeral';
 
 import { useMemo } from 'react';
+import useAuth from 'src/hooks/useAuth.ts';
 import type { Rank } from 'src/types/racing.d.ts';
 import ChargeButtonContent from './ChargeButtonContent.tsx';
 import ChargeButtonWrapper from './ChargeButtonWrapper.tsx';
@@ -21,6 +22,7 @@ export interface ChargeButtonData {
 }
 
 export default function ControlButton({ isActive, type, data }: ControlButtonProps) {
+	const { user } = useAuth();
 	const { rank, vote, percentage } = data;
 
 	const displayVoteStats = useMemo(
@@ -28,10 +30,12 @@ export default function ControlButton({ isActive, type, data }: ControlButtonPro
 		[percentage, vote],
 	);
 
+	const isMyCasperActivated = isActive && user?.type === type;
+
 	return (
 		<ControllButtonWrapper rank={rank}>
-			<Gauge percentage={percentage} isActive={isActive} />
-			<ChargeButtonWrapper type={type} isActive={isActive}>
+			<Gauge percentage={percentage} isActive={isMyCasperActivated} />
+			<ChargeButtonWrapper type={type} isActive={isMyCasperActivated}>
 				<ChargeButtonContent type={type} rank={rank}>
 					{displayVoteStats}
 				</ChargeButtonContent>

@@ -1,7 +1,8 @@
-import { Category } from '@softeer/common/types';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import ChargeButton from 'src/components/event/racing/dashboard/chargeButton.tsx';
 import SECTION_ID from 'src/constants/sectionId.ts';
 import { UseSocketReturnType } from 'src/hooks/socket/index.ts';
+import useTimeoutEffect from 'src/hooks/useTimeoutEffect.ts';
 import RacingRankingDisplay from './controls/index.tsx';
 import RacingDashboard from './dashboard/index.tsx';
 
@@ -9,17 +10,33 @@ import RacingDashboard from './dashboard/index.tsx';
 export default function RealTimeRacing({
 	racingSocket,
 }: Pick<UseSocketReturnType, 'racingSocket'>) {
-	const [chargedCar] = useState<Category | null>(null);
+	const { ranks, votes, onCarFullyCharged } = racingSocket;
 
-	const { ranks, votes } = racingSocket;
+	const { isCharged, handleCharge } = useChargeHandler(onCarFullyCharged);
 
 	return (
 		<section
 			id={SECTION_ID.RACING}
 			className="container flex w-[1200px] snap-start flex-col items-center gap-4 pb-[50px] pt-[80px]"
 		>
-			<RacingDashboard ranks={ranks} chargedCar={chargedCar} />
-			<RacingRankingDisplay votes={votes} ranks={ranks} isActive />
+			<div className="relative h-[685px] w-full">
+				<RacingDashboard ranks={ranks} isActive={isCharged} />
+				<ChargeButton onCharge={handleCharge} />
+			</div>
+			<RacingRankingDisplay votes={votes} ranks={ranks} isActive={isCharged} />
 		</section>
 	);
+}
+
+function useChargeHandler(onCarFullyCharged: () => void) {
+	const [isCharged, setCharge] = useState(false);
+
+	useTimeoutEffect(() => setCharge(false), 200, [isCharged]);
+
+	const handleCharge = useCallback(() => {
+		setCharge(true);
+		onCarFullyCharged();
+	}, [onCarFullyCharged]);
+
+	return { isCharged, handleCharge };
 }

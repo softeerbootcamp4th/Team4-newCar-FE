@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
+import useTimeoutEffect from 'src/hooks/useTimeoutEffect.ts';
 
 interface GaugeProps {
 	percentage: number;
@@ -34,15 +35,13 @@ export default Gauge;
 
 function useGaugeProgress({ percentage, isActive }: GaugeProps) {
 	const [progress, setProgress] = useState(percentage);
-	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	useEffect(() => setProgress(percentage), [percentage]);
+	useTimeoutEffect(() => setProgress(percentage), 200, [isActive]);
 
 	useEffect(() => {
-		setProgress(100);
-
-		if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		timeoutRef.current = setTimeout(() => setProgress(percentage), 700);
+		if (isActive) {
+			setProgress(100);
+		}
 	}, [isActive]);
 
 	return { progress };

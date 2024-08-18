@@ -9,14 +9,16 @@ import ErrorStep from './ErrorStep.tsx';
 import ResultStep from './ResultStep.tsx';
 import QuizFunnel from './quiz/index.tsx';
 
-export default function TeamSelectModalContent() {
-	const [Funnel, setStep] = useFunnel([
-		'quiz',
-		'pending',
-		'success',
-		'error',
-		'already-done',
-	] as NonEmptyArray<string>);
+interface TeamSelectModalContentProps {
+	initialStep?: 'already-done' | 'quiz';
+}
+export default function TeamSelectModalContent({
+	initialStep = 'quiz',
+}: TeamSelectModalContentProps) {
+	const [Funnel, setStep] = useFunnel(
+		['quiz', 'pending', 'success', 'error', 'already-done'] as NonEmptyArray<string>,
+		{ initialStep },
+	);
 
 	const { mutate: submitAnswers, isPending } = useSubmitTeamTypeQuizAnswers();
 

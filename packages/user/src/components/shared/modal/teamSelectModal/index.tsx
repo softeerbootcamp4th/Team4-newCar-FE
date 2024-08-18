@@ -12,7 +12,7 @@ export default function TeamSelectModal({ openTrigger, ...props }: TeamSelectMod
 	return (
 		<Modal variants={user?.type} openTrigger={openTrigger} {...props}>
 			<Suspense fallback={<PendingStep>유형 검사 리스트 불러오는 중 ...</PendingStep>}>
-				<TeamSelectModalContent />
+				<TeamSelectModalContent initialStep={user?.type ? 'already-done' : 'quiz'} />
 			</Suspense>
 		</Modal>
 	);

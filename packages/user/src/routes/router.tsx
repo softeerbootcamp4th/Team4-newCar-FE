@@ -30,6 +30,7 @@ const routes: RouteObject[] = [
 			{
 				path: '/:id',
 				element: <ShareRedirectPage />,
+				errorElement: <ErrorPage />,
 			},
 			{
 				element: (
@@ -49,7 +50,11 @@ const routes: RouteObject[] = [
 					},
 				],
 			},
-			{ path: RoutePaths.KakaoOauthRedirect, element: <KakaoRedirectPage /> },
+			{
+				path: RoutePaths.KakaoOauthRedirect,
+				errorElement: <ErrorPage />,
+				element: <KakaoRedirectPage />,
+			},
 		],
 	},
 	{ path: '*', element: <NotFoundErrorPage /> },

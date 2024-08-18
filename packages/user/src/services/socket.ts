@@ -1,26 +1,21 @@
-import { CHAT_SOCKET_ENDPOINTS, RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
-import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
+import {
+	ACCESS_TOKEN_KEY,
+	CHAT_SOCKET_ENDPOINTS,
+	RACING_SOCKET_ENDPOINTS,
+} from '@softeer/common/constants';
+import { Cookie, Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
 import CustomError from 'src/utils/error.ts';
 
 class SocketManager {
-	private static instance: SocketManager | null = null;
-
 	private socketClient: Socket | null = null;
 
 	private onReceiveMessage: SocketSubscribeCallbackType | null = null;
 
 	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
 
-	private constructor() {
-		this.initializeSocketClient();
-	}
-
-	public static getInstance() {
-		if (!SocketManager.instance) {
-			SocketManager.instance = new SocketManager();
-		}
-		return SocketManager.instance;
+	constructor(token: string | null) {
+		this.initializeSocketClient(token);
 	}
 
 	private initializeSocketClient(token?: string | null) {
@@ -85,5 +80,5 @@ class SocketManager {
 	}
 }
 
-const socketManager = SocketManager.getInstance();
+const socketManager = new SocketManager(Cookie.getCookie(ACCESS_TOKEN_KEY));
 export default socketManager;

@@ -30,7 +30,7 @@ export default RealTimeRacing;
 function useChargeHandler(onCarFullyCharged: () => void) {
 	const [isCharged, setCharge] = useState(false);
 
-	useTimeoutEffect(() => setCharge(false), 200, [isCharged]);
+	useTimeoutEffect(() => setCharge(false), 2960, [isCharged]);
 
 	const handleCharge = useCallback(() => {
 		setCharge(true);

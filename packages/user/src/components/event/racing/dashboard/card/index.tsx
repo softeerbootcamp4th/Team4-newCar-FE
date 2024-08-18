@@ -1,5 +1,4 @@
-import { Category } from '@softeer/common/types';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx';
 import TeamSelectModal, {
 	type TeamSelectModalProps,
@@ -13,24 +12,22 @@ const ProtectedTeamSelectModal = memo(withAuth<TeamSelectModalProps>(TeamSelectM
 
 export default function RacingCard() {
 	const { user } = useAuth();
-	const [type, setType] = useState<Category | null | undefined>(user?.type);
 
 	return (
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">
 			<CardTitle name={user?.name} />
-			{type && user?.encryptedUserId ? (
-				<ShareCountTeamCard type={type} encryptedUserId={user.encryptedUserId} size="racing" />
-			) : (
-				<ProtectedTeamSelectModal
-					openTrigger={
-						<TriggerButtonWrapper>
+			<ProtectedTeamSelectModal
+				openTrigger={
+					<TriggerButtonWrapper>
+						{user?.type ? (
+							<ShareCountTeamCard type={user.type} size="racing" />
+						) : (
 							<UnassignedCard />
-						</TriggerButtonWrapper>
-					}
-					onClose={() => setType(user?.type)}
-					unauthenticatedDisplay={<UnassignedCard />}
-				/>
-			)}
+						)}
+					</TriggerButtonWrapper>
+				}
+				unauthenticatedDisplay={<UnassignedCard />}
+			/>
 		</div>
 	);
 }

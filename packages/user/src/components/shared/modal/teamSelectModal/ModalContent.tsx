@@ -4,24 +4,34 @@ import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
+import CustomError from 'src/utils/error.ts';
 import ErrorStep from './ErrorStep.tsx';
 import ResultStep from './ResultStep.tsx';
 import QuizFunnel from './quiz/index.tsx';
 
-export default function TeamSelectModalContent() {
-	const [Funnel, setStep] = useFunnel([
-		'quiz',
-		'pending',
-		'success',
-		'error',
-	] as NonEmptyArray<string>);
+interface TeamSelectModalContentProps {
+	initialStep?: 'already-done' | 'quiz';
+}
+export default function TeamSelectModalContent({
+	initialStep = 'quiz',
+}: TeamSelectModalContentProps) {
+	const [Funnel, setStep] = useFunnel(
+		['quiz', 'pending', 'success', 'error', 'already-done'] as NonEmptyArray<string>,
+		{ initialStep },
+	);
 
 	const { mutate: submitAnswers, isPending } = useSubmitTeamTypeQuizAnswers();
 
 	const handleSubmit = (request: SubmitQuizAnswersRequest) =>
 		submitAnswers(request, {
 			onSuccess: () => setStep('success'),
-			onError: () => setStep('error'),
+			onError: (error) => {
+				if ((error as CustomError)?.status === 400) {
+					setStep('already-done');
+				} else {
+					setStep('error');
+				}
+			},
 		});
 
 	useEffect(() => {
@@ -41,8 +51,17 @@ export default function TeamSelectModalContent() {
 			<Funnel.Step name="success">
 				<ResultStep />
 			</Funnel.Step>
+			<Funnel.Step name="already-done">
+				<ResultStep>
+					<p className="text-detail-1">
+						이미 유형 검사를 완료하셨군요! 이전 검사 결과를 보여드릴게요
+					</p>
+				</ResultStep>
+			</Funnel.Step>
 			<Funnel.Step name="error">
-				<ErrorStep setQuizStep={() => setStep('quiz')}>유형 검사 결과를 잃어버렸어요...</ErrorStep>
+				<ErrorStep setQuizStep={() => setStep('quiz')}>
+					유형 검사 결과 제출 중 오류가 발생했습니다
+				</ErrorStep>
 			</Funnel.Step>
 		</Funnel>
 	);

@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/naming-convention */
+import type { ServerCategoryEnum } from '@softeer/common/types';
 import { useMutation } from '@tanstack/react-query';
-import serverTeamEnumToClient, { type SocketTeamEnum } from 'src/constants/serverMapping.ts';
-import useAuth from 'src/hooks/useAuth.tsx';
+import serverTeamEnumToClient from 'src/constants/serverMapping.ts';
+import useAuth from 'src/hooks/useAuth.ts';
 import http from 'src/services/api/index.ts';
 import type { User } from 'src/types/user.d.ts';
 
 export type SubmitQuizAnswersRequest = { id: number; answer: number }[];
 
 export interface SubmitQuizAnswersResponse {
-	team: SocketTeamEnum;
+	team: ServerCategoryEnum;
 	accessToken: string;
 	url: string;
 }

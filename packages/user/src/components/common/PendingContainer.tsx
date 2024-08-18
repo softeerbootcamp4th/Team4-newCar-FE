@@ -1,4 +1,4 @@
-export default function PendingContainer({ message }: { message?: string }) {
+export default function PendingContainer({ message }: { message: string }) {
 	return (
 		<div
 			role="status"
@@ -6,8 +6,8 @@ export default function PendingContainer({ message }: { message?: string }) {
 		>
 			<img src="/images/fcfs/result/correct.png" alt="로딩 중 이미지" />
 			<div className="flex flex-col items-center gap-5">
-				<h4>{message || '잠시만 기다려주세요...'}</h4>
-				<p>데이터를 불러오는 중입니다. 완료되면 자동으로 이동됩니다.</p>
+				<h4>{message}</h4>
+				<p>잠시만 기다려주세요...</p>
 			</div>
 		</div>
 	);

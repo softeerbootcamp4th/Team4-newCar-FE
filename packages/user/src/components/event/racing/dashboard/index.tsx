@@ -1,6 +1,6 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import type { Category } from '@softeer/common/types';
-import { Suspense, memo } from 'react';
+import { memo } from 'react';
 import { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import Background from './Background.tsx';
 import RacingCard from './card/index.tsx';
@@ -33,9 +33,7 @@ export default RacingDashboard;
 const HeaderSection = memo(() => (
 	<div className="absolute -top-[5px] flex w-full flex-col items-center">
 		<RacingTitle />
-		<Suspense>
-			<EventTimer />
-		</Suspense>
+		<EventTimer />
 	</div>
 ));
 

@@ -1,4 +1,4 @@
-import { PropsWithChildren, Suspense } from 'react';
+import { PropsWithChildren } from 'react';
 import EventDurationText from './EventDurationText.tsx';
 
 export default function LandingTitle() {
@@ -14,9 +14,7 @@ export default function LandingTitle() {
 			<div className="flex items-center gap-3">
 				<Chip>이벤트 기간</Chip>
 				<p className="text-detail-1 h-[22px] w-[180px] min-w-max">
-					<Suspense fallback="불러오는 중...">
-						<EventDurationText />
-					</Suspense>
+					<EventDurationText />
 				</p>
 			</div>
 		</Header>

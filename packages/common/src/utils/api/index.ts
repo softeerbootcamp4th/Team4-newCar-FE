@@ -32,7 +32,7 @@ export default class FetchWrapper {
 					throw new Error(textResult);
 				}
 				try {
-					return await response.json();
+					return JSON.parse(textResult);
 				} catch (err) {
 					throw new Error(textResult);
 				}

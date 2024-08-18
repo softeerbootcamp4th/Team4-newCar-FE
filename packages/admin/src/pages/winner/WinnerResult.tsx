@@ -39,10 +39,6 @@ const getRows = (pageIndex: number, rawList: RacingWinner[] | QuizWinner[]) => {
 function WinnerResult() {
 	const { racingWinners, quizWinner } = useEvent();
 
-	// useLayoutEffect(() => {
-	// 	refetchRacingWinners();
-	// }, []);
-
 	const [pageIndex, setPageIndex] = useState(0);
 	const [tabName, setTabName] = useState(TabName.QUIZ);
 	const [total, setTotal] = useState(0);
@@ -65,6 +61,7 @@ function WinnerResult() {
 		if (tabName === TabName.RACE) {
 			setHeaders(racingHeaders);
 			if (racingWinners !== undefined) {
+				console.log('hi2');
 				setTotal(racingWinners.length);
 				setRows(getRows(pageIndex, racingWinners));
 			} else resetList();

@@ -107,12 +107,9 @@ const useEvent = () => {
 				payload: winnerSettings,
 			}),
 		onSuccess: () => {
-			console.log('success');
 			racingWinnerQuery.refetch();
 		},
 		onError: async (error) => {
-			console.log(error.message);
-			// console.log('error');
 			if (error.name !== 'SyntaxError') {
 				openAlert(error.message, 'alert');
 			}

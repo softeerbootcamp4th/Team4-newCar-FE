@@ -26,6 +26,7 @@ const Casper = memo(({ type, rank, isActive }: CasperProps) => {
 		</div>
 	);
 });
+
 export default Casper;
 
 const transitionStyles = 'transform transition-all duration-700 ease-in-out';

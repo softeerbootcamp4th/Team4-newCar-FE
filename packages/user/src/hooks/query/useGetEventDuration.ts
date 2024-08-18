@@ -5,10 +5,12 @@ import QUERY_KEYS from 'src/services/api/queryKey.ts';
 export type EventDuration = { startTime: string; endTime: string };
 
 export default function useGetEventDuration() {
-	const { data: duration } = useSuspenseQuery<EventDuration>({
-		queryKey: [QUERY_KEYS.EVENT_DURATION],
-		queryFn: () => http.get('/event-time'),
-	});
+	const { data: duration } = useSuspenseQuery<EventDuration>(eventDurationQueryOptions);
 
 	return { duration };
 }
+
+export const eventDurationQueryOptions = {
+	queryKey: [QUERY_KEYS.EVENT_DURATION],
+	queryFn: () => http.get<EventDuration>('/event-time'),
+};

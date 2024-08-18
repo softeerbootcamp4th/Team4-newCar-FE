@@ -11,10 +11,10 @@ import {
 	KakaoRedirectPage,
 	NotFoundErrorPage,
 	NotStartedEventPage,
-	ShareRedirectPage,
 } from 'src/pages/index.ts';
 
 import indexLoader from 'src/routes/loader/index.ts';
+import shareRedirectLoader from 'src/routes/loader/share-redirect.ts';
 
 const routes: RouteObject[] = [
 	{
@@ -29,8 +29,8 @@ const routes: RouteObject[] = [
 		children: [
 			{
 				path: '/:id',
-				element: <ShareRedirectPage />,
-				errorElement: <ErrorPage />,
+				loader: shareRedirectLoader,
+				element: null,
 			},
 			{
 				element: (

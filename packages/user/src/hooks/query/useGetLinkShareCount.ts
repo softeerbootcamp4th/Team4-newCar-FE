@@ -6,7 +6,7 @@ export type LinkShareCount = { clickNumber: number };
 
 export default function useGetLinkShareCount() {
 	const { data: linkShareCount } = useSuspenseQuery<LinkShareCount>({
-		queryKey: [QUERY_KEYS.LINK_SHARE_COUNT],
+		queryKey: [QUERY_KEYS.GET_LINK_SHARE_COUNT],
 		queryFn: () => http.get('/click-number'),
 	});
 

@@ -34,6 +34,14 @@ const keyframes = {
 		'0%, 100%': { opacity: '0.5' },
 		'50%': { opacity: '1' },
 	},
+	fold: {
+		'0%': { transform: 'rotateX(0deg)' },
+		'100%': { transform: 'rotateX(-90deg)' },
+	},
+	unfold: {
+		'0%': { transform: 'rotateX(90deg)' },
+		'100%': { transform: 'rotateX(0deg)' },
+	},
 };
 
 const animation = {
@@ -46,6 +54,8 @@ const animation = {
 	rotate1: 'rotate1 1s ease-in-out 5 forwards',
 	rotate2: 'rotate2 1s ease-in-out 5 forwards',
 	rotate3: 'rotate3 1s ease-in-out 5 forwards',
+	fold: 'fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards',
+	unfold: 'unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards',
 };
 
 export { animation, keyframes };

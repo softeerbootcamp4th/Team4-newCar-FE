@@ -7,10 +7,11 @@ import {
 	Response,
 	WinnerSetting,
 } from 'src/services/api/types/apiType.ts';
+import { useAlert } from "src/store/provider/AlertProvider.tsx";
 import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
-	// const { openAlert } = useAlert();
+	const { openAlert } = useAlert();
 
 	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
@@ -52,6 +53,17 @@ const useEvent = () => {
 		queryKey: [API.QUIZ_LIST],
 	});
 
+	const quizWinnerQuery = useQuery<Response[API.QUIZ_WINNER][METHOD.GET]>({
+		queryFn: async () => {
+			const response = await fetchData({
+				path: API.QUIZ_WINNER,
+				method: METHOD.GET,
+			});
+			return response;
+		},
+		queryKey: [API.QUIZ_WINNER],
+	});
+
 	const quizEventMutation = useMutation({
 		mutationFn: async (quizEvent: Quiz) => {
 			const tmp = quizEvent;
@@ -91,18 +103,18 @@ const useEvent = () => {
 				method: METHOD.POST,
 				payload: winnerSettings,
 			});
+			console.log(response)
+			if(status!=="200")throw response;
 			return response;
-			// response
-			// openAlert(await response.text(), 'alert');
-			// if (response.status === 200) {
-			// 	openAlert('추첨이 완료되었습니다.', 'alert');
-			// 	const result = await response.json();
-			// 	return result;
-			// }
 		},
 		onSuccess: () => {
 			racingWinnerQuery.refetch();
+			
 		},
+		onError: async(error) => {
+			openAlert(error.message,"alert")
+		},
+		
 	});
 
 	const updateRacingWinner = (winnerSettings: WinnerSetting[]) => {
@@ -142,9 +154,14 @@ const useEvent = () => {
 		commonEvent: commonEventQuery.data,
 		updateCommonEvent,
 		refechCommonEvent: commonEventQuery.refetch,
+
 		quizEvent: quizEventQuery.data,
+		quizWinner: quizWinnerQuery.data,
+		refetchQuizWinner: quizWinnerQuery.refetch,
+
 		updateQuizEvent,
 		refechQuizEvent: quizEventQuery.refetch,
+
 		racingWinners: racingWinnerQuery.data,
 		refetchRacingWinners: racingWinnerQuery.refetch,
 		updateRacingWinner,

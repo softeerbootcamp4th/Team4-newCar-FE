@@ -29,7 +29,7 @@ export default class FetchWrapper {
 			response: async <T>(response: Response): Promise<T> => {
 				if (!response.ok) {
 					// eslint-disable-next-line @typescript-eslint/no-throw-literal
-					throw response;
+					throw new Error(await response.text()) ;
 				}
 				return response.json();
 			},

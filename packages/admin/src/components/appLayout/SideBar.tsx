@@ -6,7 +6,7 @@ import {
 	AccordionTrigger,
 } from 'src/components/ui/accordion.tsx';
 import SideBarRoutes from 'src/constants/sideBarRoutes.ts';
-import useAuth from 'src/hooks/useAuth.ts';
+import useAuth from 'src/hooks/useAuth.tsx';
 
 interface SideBarProps {
 	isChecked: boolean;
@@ -24,7 +24,7 @@ function SideBar({ isChecked, handleClose }: SideBarProps) {
 	};
 	return (
 		<div
-			className={`absolute m-[-100px_0_0_-50px] h-screen w-[300px] origin-[0%_0%] transform list-none bg-slate-200 px-10 pt-[125px] font-sans antialiased transition-all duration-500 ease-[cubic-bezier(0.77,0.2,0.05,1.0)] ${
+			className={`absolute m-[-100px_0_0_-50px] min-h-screen w-[300px] origin-[0%_0%] transform list-none bg-slate-200 px-10 pt-[125px] font-sans antialiased transition-all duration-500 ease-[cubic-bezier(0.77,0.2,0.05,1.0)] ${
 				isChecked ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
 			} bg-khaki-100`}
 		>

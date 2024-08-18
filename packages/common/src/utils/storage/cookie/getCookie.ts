@@ -7,7 +7,11 @@ function getCookie<T>(name: string): T | null {
 	cookies.some((cookie) => {
 		const [key, value] = cookie.split('=');
 		if (key === name) {
-			returnValue = JSON.parse(value);
+			try {
+				returnValue = JSON.parse(value);
+			} catch (_) {
+				returnValue = value as T;
+			}
 			return true;
 		}
 		return false;

@@ -6,14 +6,13 @@ interface HeaderProps {
 }
 
 function Header({ headerTitle, navTitles }: HeaderProps) {
-	const h2Styled = 'font-bold text-3xl';
+	const h2Styled = 'font-bold text-4xl';
 
 	if (!navTitles) return <h2 className={`${h2Styled}`}>{headerTitle}</h2>;
 
 	return (
 		<div className="flex flex-col">
 			<h2 className={`${h2Styled}`}>{headerTitle}</h2>
-
 			<ul className="flex gap-2 rounded-sm bg-slate-200">
 				{navTitles.map((navTitle) => (
 					<li key={navTitle.navTitleId}>{navTitle.navTitle}</li>

@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import useInitialize from 'src/hooks/useInitialize.ts';
 import Banner from './banner/index.tsx';
 import BodyContainer from './BodyContainer.tsx';
 import FCFSFloatingButtonController from './fcfsController/index.tsx';
@@ -7,6 +8,8 @@ import Header from './header/index.tsx';
 import TopSectionContainer from './TopSectionContainer.tsx';
 
 export default function Layout() {
+	useInitialize();
+
 	return (
 		<div className="relative flex h-screen min-w-max flex-col overflow-hidden">
 			<TopSectionContainer>

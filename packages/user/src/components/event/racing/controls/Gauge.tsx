@@ -42,7 +42,7 @@ function useGaugeProgress({ percentage, isActive }: GaugeProps) {
 		setProgress(100);
 
 		if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		timeoutRef.current = setTimeout(() => setProgress(percentage), 500);
+		timeoutRef.current = setTimeout(() => setProgress(percentage), 700);
 	}, [isActive]);
 
 	return { progress };

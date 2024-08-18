@@ -1,8 +1,6 @@
-import { Category } from '@softeer/common/types';
+import { Category, ServerCategoryEnum } from '@softeer/common/types';
 
-export type SocketTeamEnum = 'TRAVEL' | 'SPACE' | 'LEISURE' | 'PET';
-
-const serverTeamEnumToClient: Record<SocketTeamEnum, Category> = {
+const serverTeamEnumToClient: Record<ServerCategoryEnum, Category> = {
 	LEISURE: 'leisure',
 	SPACE: 'place',
 	PET: 'pet',

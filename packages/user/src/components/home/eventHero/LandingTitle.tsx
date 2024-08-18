@@ -1,7 +1,9 @@
-import { PropsWithChildren, Suspense } from 'react';
-import EventDurationText from './EventDurationText.tsx';
+import { PropsWithChildren } from 'react';
+import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
 
 export default function LandingTitle() {
+	const { formattedDuration } = useGetEventDuration();
+
 	return (
 		<Header>
 			<p className="text-body-4 font-medium">CASPER Electric 출시 이벤트</p>
@@ -13,11 +15,7 @@ export default function LandingTitle() {
 			</Subtitle>
 			<div className="flex items-center gap-3">
 				<Chip>이벤트 기간</Chip>
-				<p className="text-detail-1 h-[22px] w-[180px] min-w-max">
-					<Suspense fallback="불러오는 중...">
-						<EventDurationText />
-					</Suspense>
-				</p>
+				<p className="text-detail-1 h-[22px] w-[180px] min-w-max">{formattedDuration}</p>
 			</div>
 		</Header>
 	);

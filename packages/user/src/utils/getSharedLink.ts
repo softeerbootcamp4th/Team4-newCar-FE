@@ -9,7 +9,10 @@ const DOMAIN: Record<Category | 'default', string> = {
 	place: 'space.batro.org',
 };
 
-export default function getSharedLink({ type, encryptedUserId }: Pick<User, 'type' | 'encryptedUserId'>) {
+export default function getSharedLink({
+	type,
+	encryptedUserId,
+}: Pick<User, 'type' | 'encryptedUserId'>) {
 	const url = type ? `${DOMAIN[type]}/${encryptedUserId}` : DOMAIN.default;
 	return url;
 }

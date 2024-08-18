@@ -54,15 +54,15 @@ export default function useRacingSocket() {
 			{} as Record<SocketCategory, number>,
 		);
 
-	try {
-		socketClient.sendMessages({
-			destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
-			body: completeChargeData,
-		});
-	} catch (error) {
-		const errorMessage = (error as Error).message;
-		toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
-	}
+		try {
+			socketClient.sendMessages({
+				destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
+				body: completeChargeData,
+			});
+		} catch (error) {
+			const errorMessage = (error as Error).message;
+			toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+		}
 	}, []);
 
 	return {

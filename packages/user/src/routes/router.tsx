@@ -1,39 +1,57 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import { Suspense } from 'react';
+import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 import Layout from 'src/components/layout/index.tsx';
+import LayoutSuspenseFallback from 'src/components/layout/LayoutSuspenseFallback.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import AuthProvider from 'src/context/auth/index.tsx';
-import ErrorPage from 'src/pages/ErrorPage.tsx';
-import EventPage from 'src/pages/EventPage.tsx';
-import HomePage from 'src/pages/HomePage.tsx';
-import KakaoRedirectPage from 'src/pages/KakaoRedirectPage.tsx';
-import NotFoundErrorPage from 'src/pages/NotFoundErrorPage.tsx';
-import ShareRedirectPage from 'src/pages/ShareRedirectPage.tsx';
+import {
+	ErrorPage,
+	EventPage,
+	HomePage,
+	KakaoRedirectPage,
+	NotFoundErrorPage,
+	NotStartedEventPage,
+	ShareRedirectPage,
+} from 'src/pages/index.ts';
+
+import indexLoader from 'src/routes/loader/index.ts';
 
 const routes: RouteObject[] = [
 	{
-    path: '/:id',
-    element: <ShareRedirectPage />,
-  },
-	{
 		path: RoutePaths.Index,
+		loader: indexLoader,
+		errorElement: <NotStartedEventPage />,
 		element: (
-			<AuthProvider>
-				<Layout />
-			</AuthProvider>
+			<Suspense fallback={<LayoutSuspenseFallback />}>
+				<Outlet />
+			</Suspense>
 		),
-		errorElement: <ErrorPage />,
 		children: [
 			{
-				index: true,
-				element: <HomePage />,
+				path: '/:id',
+				element: <ShareRedirectPage />,
 			},
 			{
-				path: RoutePaths.Event,
-				element: <EventPage />,
+				element: (
+					<AuthProvider>
+						<Layout />
+					</AuthProvider>
+				),
+				errorElement: <ErrorPage />,
+				children: [
+					{
+						index: true,
+						element: <HomePage />,
+					},
+					{
+						path: RoutePaths.Event,
+						element: <EventPage />,
+					},
+				],
 			},
+			{ path: RoutePaths.KakaoOauthRedirect, element: <KakaoRedirectPage /> },
 		],
 	},
-	{ path: RoutePaths.KakaoOauthRedirect, element: <KakaoRedirectPage /> },
 	{ path: '*', element: <NotFoundErrorPage /> },
 ];
 

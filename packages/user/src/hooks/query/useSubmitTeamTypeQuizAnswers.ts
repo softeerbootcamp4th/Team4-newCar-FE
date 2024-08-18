@@ -11,7 +11,7 @@ export type SubmitQuizAnswersRequest = { id: number; answer: number }[];
 export interface SubmitQuizAnswersResponse {
 	team: SocketTeamEnum;
 	accessToken: string;
-	url:string
+	url: string;
 }
 
 export default function useSubmitTeamTypeQuizAnswers() {

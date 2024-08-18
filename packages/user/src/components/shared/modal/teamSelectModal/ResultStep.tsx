@@ -3,7 +3,7 @@ import { FunctionComponent, PropsWithChildren, useMemo } from 'react';
 import LinkShare from 'src/components/shared/linkShare/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 export default function ResultStep() {
 	const { user } = useAuth();

@@ -6,7 +6,7 @@ import {
 	AccordionTrigger,
 } from 'src/components/ui/accordion.tsx';
 import SideBarRoutes from 'src/constants/sideBarRoutes.ts';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 interface SideBarProps {
 	isChecked: boolean;

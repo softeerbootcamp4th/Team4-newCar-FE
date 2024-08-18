@@ -1,7 +1,7 @@
 import { memo, useCallback, useRef } from 'react';
 import OutlinedButton from 'src/components/common/OutlinedButton.tsx';
 import withAuth from 'src/components/shared/withAuthHOC.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 import { useToast } from 'src/hooks/useToast.ts';
 import Input from './Input.tsx';
 

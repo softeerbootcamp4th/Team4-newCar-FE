@@ -1,13 +1,13 @@
 import { CATEGORIES } from '@softeer/common/constants';
 import type { Category } from '@softeer/common/types';
 import { memo } from 'react';
+import EventTimer from 'src/components/shared/timer/index.tsx';
 import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
 import { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import Background from './Background.tsx';
 import RacingCard from './card/index.tsx';
 import Casper from './Casper.tsx';
 import RacingTitle from './RacingTitle.tsx';
-import EventTimer from './timer/index.tsx';
 
 interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> {
 	chargedCar: Category | null;

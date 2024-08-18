@@ -1,4 +1,4 @@
-import EventTimer from 'src/components/event/racing/dashboard/timer/index.tsx';
+import EventTimer from 'src/components/shared/timer/index.tsx';
 import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
 
 export default function NotStartedEventErrorPage() {

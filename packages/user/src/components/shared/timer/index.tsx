@@ -9,12 +9,12 @@ interface TimeLeft {
 	seconds: number;
 }
 
-export default function EventTimer({ endTime: endDate }: Pick<EventDuration, 'endTime'>) {
-	const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(endDate));
+export default function EventTimer({ endTime }: Pick<EventDuration, 'endTime'>) {
+	const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(endTime));
 
 	const updateTimer = useCallback(() => {
-		setTimeLeft(calculateTimeLeft(endDate));
-	}, [endDate]);
+		setTimeLeft(calculateTimeLeft(endTime));
+	}, [endTime]);
 
 	useEffect(() => {
 		const timerId = setInterval(updateTimer, 1000);

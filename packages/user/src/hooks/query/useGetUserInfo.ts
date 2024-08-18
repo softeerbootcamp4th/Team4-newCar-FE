@@ -14,10 +14,10 @@ export type UserResponse = {
 };
 
 export default function useGetUserInfo() {
-	const { isAuthenticated } = useAuth();
+	const { isAuthenticated, token } = useAuth();
 
 	const { data: userInfo, status } = useQuery<UserResponse>({
-		queryKey: [QUERY_KEYS.USER_INFO],
+		queryKey: [QUERY_KEYS.USER_INFO, token],
 		queryFn: () => http.get('/user-info'),
 		enabled: isAuthenticated,
 	});

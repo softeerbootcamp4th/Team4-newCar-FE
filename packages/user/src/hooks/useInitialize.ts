@@ -5,7 +5,7 @@ import useAuth from 'src/hooks/useAuth.ts';
 import type { User } from 'src/types/user.d.ts';
 
 export default function useInitialize() {
-	const { setAuthData } = useAuth();
+	const { user, setAuthData } = useAuth();
 	const { userInfo } = useGetUserInfo();
 
 	useEffect(() => {
@@ -16,6 +16,12 @@ export default function useInitialize() {
 
 			const userData: User = { id, name, type, encryptedUserId };
 			setAuthData({ userData });
+			/**
+			 * 유저 정보를 사용하는 컴포넌트 강제 리렌더링을 위함
+			 */
+			if (user?.encryptedUserId !== userData.encryptedUserId) {
+				window.location.reload();
+			}
 		}
 	}, [userInfo]);
 }

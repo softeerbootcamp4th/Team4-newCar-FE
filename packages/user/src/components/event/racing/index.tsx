@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import ChargeButton from 'src/components/event/racing/dashboard/chargeButton.tsx';
 import SECTION_ID from 'src/constants/sectionId.ts';
 import { UseSocketReturnType } from 'src/hooks/socket/index.ts';
+import useAuth from 'src/hooks/useAuth.ts';
 import useTimeoutEffect from 'src/hooks/useTimeoutEffect.ts';
 import RacingRankingDisplay from './controls/index.tsx';
 import RacingDashboard from './dashboard/index.tsx';
@@ -11,7 +12,7 @@ export default function RealTimeRacing({
 	racingSocket,
 }: Pick<UseSocketReturnType, 'racingSocket'>) {
 	const { ranks, votes, onCarFullyCharged } = racingSocket;
-
+	const { user } = useAuth();
 	const { isCharged, handleCharge } = useChargeHandler(onCarFullyCharged);
 
 	return (
@@ -21,7 +22,7 @@ export default function RealTimeRacing({
 		>
 			<div className="relative h-[685px] w-full">
 				<RacingDashboard ranks={ranks} isActive={isCharged} />
-				<ChargeButton onCharge={handleCharge} />
+				{user?.type && <ChargeButton onCharge={handleCharge} />}
 			</div>
 			<RacingRankingDisplay votes={votes} ranks={ranks} isActive={isCharged} />
 		</section>

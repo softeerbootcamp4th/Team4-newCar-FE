@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
+import { EventDuration } from 'src/hooks/query/useGetEventDuration.ts';
 import TimeUnit from './TimeUnit.tsx';
 
 interface TimeLeft {
@@ -9,11 +9,7 @@ interface TimeLeft {
 	seconds: number;
 }
 
-export default function EventTimer() {
-	const {
-		duration: { endTime: endDate },
-	} = useGetEventDuration();
-
+export default function EventTimer({ endTime: endDate }: Pick<EventDuration, 'endTime'>) {
 	const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(endDate));
 
 	const updateTimer = useCallback(() => {

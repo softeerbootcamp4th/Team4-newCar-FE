@@ -1,19 +1,17 @@
 import { CATEGORIES } from '@softeer/common/constants';
-import { Category } from '@softeer/common/types';
 import { useMemo } from 'react';
 import type { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import type { VoteStatus } from 'src/types/racing.d.ts';
 import ControlButton from './ControlButton.tsx';
 
-interface RacingControlsProps extends Omit<UseRacingSocketReturnType, 'onReceiveStatus'> {
-	onCharge: (type: Category) => void;
+interface RacingRankingDisplayProps extends Pick<UseRacingSocketReturnType, 'ranks' | 'votes'> {
+	isActive: boolean;
 }
-export default function RacingControls({
+export default function RacingRankingDisplay({
+	isActive,
 	ranks,
 	votes,
-	onCharge,
-	onCarFullyCharged,
-}: RacingControlsProps) {
+}: RacingRankingDisplayProps) {
 	const percentage = useMemo(() => calculatePercentage(votes), [votes]);
 
 	return (
@@ -22,13 +20,12 @@ export default function RacingControls({
 				<ControlButton
 					key={type}
 					type={type}
+					isActive={isActive}
 					data={{
 						rank: ranks[type],
 						percentage: percentage[type],
 						vote: votes[type],
 					}}
-					onFullyCharged={() => onCarFullyCharged(type)}
-					onCharge={() => onCharge(type)}
 				/>
 			))}
 		</div>

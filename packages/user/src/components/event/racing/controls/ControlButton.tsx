@@ -1,8 +1,8 @@
 import type { Category } from '@softeer/common/types';
 import numeral from 'numeral';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+import { useMemo } from 'react';
 import useAuth from 'src/hooks/useAuth.ts';
-import { useToast } from 'src/hooks/useToast.ts';
 import type { Rank } from 'src/types/racing.d.ts';
 import ChargeButtonContent from './ChargeButtonContent.tsx';
 import ChargeButtonWrapper from './ChargeButtonWrapper.tsx';
@@ -12,8 +12,7 @@ import Gauge from './Gauge.tsx';
 interface ControlButtonProps {
 	type: Category;
 	data: ChargeButtonData;
-	onCharge: () => void;
-	onFullyCharged: () => void;
+	isActive: boolean;
 }
 
 export interface ChargeButtonData {
@@ -22,64 +21,27 @@ export interface ChargeButtonData {
 	percentage: number;
 }
 
-export default function ControlButton({
-	onCharge,
-	onFullyCharged,
-	type,
-	data,
-}: ControlButtonProps) {
+export default function ControlButton({ isActive, type, data }: ControlButtonProps) {
+	const { user } = useAuth();
 	const { rank, vote, percentage } = data;
-	const { progress, handleClick } = useGaugeProgress({
-		percentage,
-		onCharge,
-		onFullyCharged,
-	});
 
 	const displayVoteStats = useMemo(
 		() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`,
 		[percentage, vote],
 	);
 
+	const isMyCasperActivated = isActive && user?.type === type;
+
 	return (
-		<ControllButtonWrapper rank={rank}>
-			<Gauge percent={progress} />
-			<ChargeButtonWrapper onClick={handleClick} type={type}>
+		<ControllButtonWrapper isMyCasper={user?.type ? user?.type === type : true} rank={rank}>
+			<Gauge percentage={percentage} isActive={isMyCasperActivated} />
+			<ChargeButtonWrapper type={type} isActive={isMyCasperActivated}>
 				<ChargeButtonContent type={type} rank={rank}>
 					{displayVoteStats}
 				</ChargeButtonContent>
 			</ChargeButtonWrapper>
 		</ControllButtonWrapper>
 	);
-}
-
-/** Custom Hook */
-function useGaugeProgress({
-	percentage,
-	onCharge,
-	onFullyCharged,
-}: {
-	percentage: number;
-	onCharge: () => void;
-	onFullyCharged: () => void;
-}) {
-	const { toast } = useToast();
-	const { isAuthenticated } = useAuth();
-
-	const [progress, setProgress] = useState(percentage);
-	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-	useEffect(() => setProgress(percentage), [percentage]);
-
-	const handleClick = useCallback(() => {
-		setProgress(100);
-		onCharge();
-		onFullyCharged();
-
-		if (timeoutRef.current) clearTimeout(timeoutRef.current);
-		timeoutRef.current = setTimeout(() => setProgress(percentage), 500);
-	}, [onCharge, onFullyCharged, isAuthenticated, percentage, toast]);
-
-	return { progress, handleClick };
 }
 
 /** Utility Functions */

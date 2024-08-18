@@ -1,5 +1,4 @@
 import { CATEGORIES } from '@softeer/common/constants';
-import type { Category } from '@softeer/common/types';
 import { memo } from 'react';
 import EventTimer from 'src/components/shared/timer/index.tsx';
 import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
@@ -10,23 +9,18 @@ import Casper from './Casper.tsx';
 import RacingTitle from './RacingTitle.tsx';
 
 interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> {
-	chargedCar: Category | null;
+	isActive: boolean;
 }
 
-const RacingDashboard = memo(({ ranks, chargedCar }: RacingDashboardProps) => (
-	<div className="relative h-[685px] w-full">
+const RacingDashboard = memo(({ ranks, isActive }: RacingDashboardProps) => (
+	<>
 		<HeaderSection />
 		<RacingCardSection />
 		{CATEGORIES.map((type) => (
-			<Casper
-				key={type}
-				type={type}
-				rank={ranks[type]}
-				className={chargedCar === type ? 'scale-110' : ''}
-			/>
+			<Casper key={type} type={type} rank={ranks[type]} isActive={isActive} />
 		))}
 		<Background />
-	</div>
+	</>
 ));
 
 export default RacingDashboard;

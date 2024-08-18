@@ -7,6 +7,7 @@ import { Category } from '@softeer/common/types';
 import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useMemo, useState } from 'react';
 import useRacingVoteStorage from 'src/hooks/storage/useRacingVoteStorage.ts';
+import useAuth from 'src/hooks/useAuth.ts';
 import { useToast } from 'src/hooks/useToast.ts';
 import socketManager from 'src/services/socket.ts';
 import type { Rank, SocketCategory, VoteStatus } from 'src/types/racing.d.ts';
@@ -17,6 +18,7 @@ type SocketData = Record<SocketCategory, number>;
 
 export default function useRacingSocket() {
 	const { toast } = useToast();
+	const { user } = useAuth();
 
 	const socketClient = socketManager.getSocketClient();
 
@@ -42,7 +44,9 @@ export default function useRacingSocket() {
 		[votes],
 	);
 
-	const handleCarFullyCharged = useCallback((category: Category) => {
+	const handleCarFullyCharged = useCallback(() => {
+		const category = user?.type as Category;
+
 		const chargeData = { [categoryToSocketCategory[category].toLowerCase()]: 1 };
 
 		const completeChargeData = Object.keys(categoryToSocketCategory).reduce(
@@ -63,7 +67,7 @@ export default function useRacingSocket() {
 			const errorMessage = (error as Error).message;
 			toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
 		}
-	}, []);
+	}, [user?.type]);
 
 	return {
 		votes,

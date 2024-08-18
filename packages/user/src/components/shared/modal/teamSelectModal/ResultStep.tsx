@@ -5,7 +5,7 @@ import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
 import useAuth from 'src/hooks/useAuth.ts';
 
-export default function ResultStep() {
+export default function ResultStep({ children }: PropsWithChildren) {
 	const { user } = useAuth();
 
 	const type = useMemo(() => user?.type as Category, [user]);
@@ -25,7 +25,8 @@ export default function ResultStep() {
 			/>
 			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pb-12 pt-5 sm:max-w-xl md:max-h-[400px] md:pb-2">
 				<div>
-					<p className={`${titleStyles} text-heading-8 mb-6 whitespace-pre-line font-bold`}>
+					<div className="mb-4">{children}</div>
+					<p className={`${titleStyles} text-heading-8 mb-4 whitespace-pre-line font-bold`}>
 						<CategoryTitleTemplate>
 							<strong className="text-foreground">{displayTitle}</strong>
 						</CategoryTitleTemplate>
@@ -33,7 +34,7 @@ export default function ResultStep() {
 					<p className={`text-body-3 ${detailsStyles} break-words`}>{details}</p>
 				</div>
 				<div>
-					<p className="text-body-3 mb-4">내 링크 공유하고 추첨 당첨확률을 높여보세요!</p>
+					<p className="text-body-3 mb-3">내 링크 공유하고 추첨 당첨확률을 높여보세요!</p>
 					<LinkShare category={type} />
 				</div>
 			</div>

@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Lightning from 'src/assets/icons/lighting.svg?react';
-import useTimeoutEffect from 'src/hooks/useTimeoutEffect.ts';
 
 interface GaugeProps {
 	percentage: number;
@@ -23,7 +22,7 @@ const Gauge = memo((props: GaugeProps) => {
 			<Lightning />
 			<div className="relative h-[4px] w-full rounded-[2px] bg-neutral-600">
 				<div
-					className={`ease-&lsqb;cubic-bezier(0.14,0.63,0.82,0.72)&rsqb; absolute z-10 h-full transform rounded-[2px] transition-all duration-700 ${backgroundColor}`}
+					className={`ease-&lsqb;cubic-bezier(0.14,0.63,0.82,0.72)&rsqb; absolute z-10 h-full transform rounded-[2px] transition-all duration-1000 ${backgroundColor}`}
 					style={{ width: `${progress.toFixed(0)}%` }}
 				/>
 			</div>
@@ -35,14 +34,37 @@ export default Gauge;
 
 function useGaugeProgress({ percentage, isActive }: GaugeProps) {
 	const [progress, setProgress] = useState(percentage);
+	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	useTimeoutEffect(() => setProgress(percentage), 200, [isActive]);
+	const resetProgress = useCallback(() => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+	}, [percentage]);
 
 	useEffect(() => {
+		resetProgress();
+
 		if (isActive) {
-			setProgress(100);
+			setProgress(80);
+			timeoutRef.current = setTimeout(() => {
+				timeoutRef.current = setTimeout(() => {
+					setProgress(100);
+					timeoutRef.current = setTimeout(() => setProgress(percentage), 700); // 사용자가 인식한 후 내려옴
+				}, 100);
+			}, 400);
+		} else {
+			setProgress(percentage);
 		}
-	}, [isActive]);
+	}, [isActive, percentage, resetProgress]);
+
+	useEffect(
+		() => () => {
+			if (timeoutRef.current) clearTimeout(timeoutRef.current);
+		},
+		[],
+	);
 
 	return { progress };
 }

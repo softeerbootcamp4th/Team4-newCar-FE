@@ -13,13 +13,33 @@ interface CasperProps {
 const Casper = memo(({ type, rank, isActive }: CasperProps) => {
 	const { user } = useAuth();
 	const isMyCasper = useMemo(() => user?.type === type, [user?.type, type]);
-	const activeStyles = useMemo(
-		() => (isActive && isMyCasper ? 'scale-125' : ''),
-		[isActive, isMyCasper],
-	);
+
+	const animationClasses = useMemo(() => {
+		if (isMyCasper && isActive) {
+			return 'animate-engine-start';
+		}
+
+		if (isMyCasper) {
+			return 'animate-special-my-casper';
+		}
+
+		switch (rank) {
+			case 1:
+				return 'animate-drive-rank-1';
+			case 2:
+				return 'animate-drive-rank-2';
+			case 3:
+				return 'animate-drive-rank-3';
+			case 4:
+				return 'animate-drive-rank-4';
+			default:
+				return '';
+		}
+	}, [isMyCasper, isActive, rank]);
+
 	return (
 		<div
-			className={`absolute flex flex-col items-center gap-8 ${activeStyles} ${rankStyles[rank]} ${transitionStyles}`}
+			className={`absolute flex flex-col items-center gap-8 ${animationClasses} ${transitionStyles} ${rankStyles[rank]}`}
 		>
 			<div className="h-[20px]">{isMyCasper && <MarkerIcon />}</div>
 			<img src={imageUrls[type]} alt={`${rank}등 차`} className="object-contain" />
@@ -29,7 +49,7 @@ const Casper = memo(({ type, rank, isActive }: CasperProps) => {
 
 export default Casper;
 
-const transitionStyles = 'transform transition-all duration-700 ease-in-out';
+const transitionStyles = 'transform transition-all ease-in-out duration-1500';
 
 const rankStyles: Record<Rank, string> = {
 	1: 'w-[335px] left-[380px] top-[285px] z-40 rotate-0',

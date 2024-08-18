@@ -1,7 +1,7 @@
 import EventTimer from 'src/components/shared/timer/index.tsx';
 import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
 
-export default function NotStartedEventErrorPage() {
+export default function NotStartedEventPage() {
 	const {
 		duration: { startTime },
 		formattedDuration,

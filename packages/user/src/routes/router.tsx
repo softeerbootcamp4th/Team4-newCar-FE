@@ -4,12 +4,12 @@ import Layout from 'src/components/layout/index.tsx';
 import LayoutSuspenseFallback from 'src/components/layout/LayoutSuspenseFallback.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import AuthProvider from 'src/context/auth/index.tsx';
-import ErrorPage from 'src/pages/ErrorPage.tsx';
+import ErrorPage from 'src/pages/error/ErrorPage.tsx';
+import NotFoundErrorPage from 'src/pages/error/NotFoundErrorPage.tsx';
 import EventPage from 'src/pages/EventPage.tsx';
 import HomePage from 'src/pages/HomePage.tsx';
 import KakaoRedirectPage from 'src/pages/KakaoRedirectPage.tsx';
-import NotFoundErrorPage from 'src/pages/NotFoundErrorPage.tsx';
-import NotStartedEventErrorPage from 'src/pages/NotStartedEventErrorPage.tsx';
+import NotStartedEventPage from 'src/pages/NotStartedEventPage.tsx';
 import ShareRedirectPage from 'src/pages/ShareRedirectPage.tsx';
 import indexLoader from 'src/routes/loader/index.ts';
 
@@ -17,7 +17,7 @@ const routes: RouteObject[] = [
 	{
 		path: RoutePaths.Index,
 		loader: indexLoader,
-		errorElement: <NotStartedEventErrorPage />,
+		errorElement: <NotStartedEventPage />,
 		element: (
 			<Suspense fallback={<LayoutSuspenseFallback />}>
 				<Outlet />

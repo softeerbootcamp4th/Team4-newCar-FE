@@ -33,7 +33,7 @@ export default function ControlButton({ isActive, type, data }: ControlButtonPro
 	const isMyCasperActivated = isActive && user?.type === type;
 
 	return (
-		<ControllButtonWrapper rank={rank}>
+		<ControllButtonWrapper isMyCasper={user?.type ? user?.type === type : true} rank={rank}>
 			<Gauge percentage={percentage} isActive={isMyCasperActivated} />
 			<ChargeButtonWrapper type={type} isActive={isMyCasperActivated}>
 				<ChargeButtonContent type={type} rank={rank}>

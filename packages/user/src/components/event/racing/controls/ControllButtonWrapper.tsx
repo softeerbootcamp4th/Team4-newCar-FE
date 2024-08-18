@@ -3,17 +3,19 @@ import type { Rank } from 'src/types/racing.d.ts';
 
 interface ControllButtonWrapperProps {
 	rank: Rank;
+	isMyCasper: boolean;
 }
 
 export default function ControllButtonWrapper({
 	rank,
+	isMyCasper,
 	children,
 }: PropsWithChildren<ControllButtonWrapperProps>) {
 	const rankStyle = useMemo(() => styles[rank], [rank]);
 
 	return (
 		<div
-			className={`absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${rankStyle}`}
+			className={`${isMyCasper ? 'scale-100' : 'scale-75 opacity-60'} absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${rankStyle}`}
 		>
 			{children}
 		</div>

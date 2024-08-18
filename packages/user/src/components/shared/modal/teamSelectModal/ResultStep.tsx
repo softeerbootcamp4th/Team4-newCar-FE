@@ -18,7 +18,11 @@ export default function ResultStep() {
 
 	return (
 		<div className="grid h-full items-center gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16">
-			<ShareCountTeamCard type={type} size="modal" encryptedUserId={user?.encryptedUserId} />
+			<ShareCountTeamCard
+				type={type}
+				size="modal"
+				encryptedUserId={user?.encryptedUserId as string}
+			/>
 			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pb-12 pt-5 sm:max-w-xl md:max-h-[400px] md:pb-2">
 				<div>
 					<p className={`${titleStyles} text-heading-8 mb-6 whitespace-pre-line font-bold`}>

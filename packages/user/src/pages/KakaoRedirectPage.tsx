@@ -16,10 +16,8 @@ export default function KakaoRedirectPage() {
 		if (!accessToken) {
 			throw new CustomError('로그인이 성공적으로 완료되지 않았습니다.', 400);
 		}
-		setToken(accessToken);
-
 		socketManager.reconnectSocketClient(accessToken);
-
+		setToken(accessToken);
 		navigate(RoutePaths.Event, { replace: true });
 	}, [accessToken]);
 

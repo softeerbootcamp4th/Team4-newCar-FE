@@ -13,13 +13,13 @@ const ProtectedTeamSelectModal = memo(withAuth<TeamSelectModalProps>(TeamSelectM
 
 export default function RacingCard() {
 	const { user } = useAuth();
-	const [type, setType] = useState<Category | undefined>(user?.type);
+	const [type, setType] = useState<Category | null | undefined>(user?.type);
 
 	return (
 		<div className="bg-foreground/10 flex flex-col items-center rounded-[5px] p-4 pt-2 backdrop-blur-sm">
 			<CardTitle name={user?.name} />
-			{type ? (
-				<ShareCountTeamCard type={type} encryptedUserId={user?.encryptedUserId} size="racing" />
+			{type && user?.encryptedUserId ? (
+				<ShareCountTeamCard type={type} encryptedUserId={user.encryptedUserId} size="racing" />
 			) : (
 				<ProtectedTeamSelectModal
 					openTrigger={

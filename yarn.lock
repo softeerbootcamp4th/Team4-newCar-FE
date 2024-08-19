@@ -2056,6 +2056,7 @@ __metadata:
     tsc: "npm:^2.0.4"
     typescript: "npm:^5.5.4"
     vite: "npm:^5.3.4"
+    xlsx: "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   peerDependencies:
     react: ^18.3.1
     react-dom: ^18.3.1

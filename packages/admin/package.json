@@ -26,7 +26,8 @@
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.414.0",
 		"tailwindcss-animate": "^1.0.7",
-		"vite": "^5.3.4"
+		"vite": "^5.3.4",
+		"xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.19",

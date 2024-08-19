@@ -67,7 +67,7 @@ function WinnerResult() {
 				setRows(getRows(pageIndex, racingWinners));
 			} else resetList();
 		}
-	}, [racingWinners, pageIndex, tabName]);
+	}, [racingWinners, quizWinner, pageIndex, tabName]);
 
 	useEffect(() => {
 		setPageIndex(0);

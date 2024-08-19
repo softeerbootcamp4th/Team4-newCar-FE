@@ -8,7 +8,15 @@ import useAuth from 'src/hooks/useAuth.ts';
 export default function ResultStep({ children }: PropsWithChildren) {
 	const { user } = useAuth();
 
-	const type = useMemo(() => user?.type as Category, [user]);
+	const type = useMemo(() => {
+		if (user?.type) {
+			return user.type;
+		}
+	}, [user?.type]);
+
+	if (!type) {
+		return null;
+	}
 
 	const { title, shortTitle, details } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;

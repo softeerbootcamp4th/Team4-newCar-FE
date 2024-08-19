@@ -11,7 +11,11 @@ function CasperCursor() {
 				pointerEvents: 'none',
 			}}
 		>
-			<img src="/cursor/cursor-100.png" alt="커서" style={{ pointerEvents: 'none' }} />
+			<img
+				src="/cursor/cursor-100.png"
+				alt="커서"
+				style={{ pointerEvents: 'none', width: 25, height: 25 }}
+			/>
 		</div>
 	);
 }

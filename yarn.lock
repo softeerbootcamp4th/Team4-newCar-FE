@@ -5727,7 +5727,7 @@ __metadata:
     "@babel/runtime": "npm:^7.12.5"
   peerDependencies:
     react: ">=16.13.1"
-  checksum: 10c0/f5ba3a0e87a98d65f6cdc012e17ac746b3510a3d75a4319b0ea3bb581dc38bb2a69584afa5f34732d1764ef7cedc7c2cd3734b8881ca753483d0d94249c7944e
+  checksum: 10c0/6f3e0e4d7669f680ccf49c08c9571519c6e31f04dcfc30a765a7136c7e6fbbbe93423dd5a9fce12107f8166e54133e9dd5c2079a00c7a38201ac811f7a28b8e7
   languageName: node
   linkType: hard
 

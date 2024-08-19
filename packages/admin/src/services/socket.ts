@@ -38,7 +38,6 @@ class SocketManager {
 		token: string | null | undefined;
 		onReceiveMessage: SocketSubscribeCallbackType;
 	}) {
-		console.log('con token', token);
 		this.initializeSocketClient(token);
 
 		this.onReceiveMessage = onReceiveMessage;
@@ -56,7 +55,6 @@ class SocketManager {
 		if (this.socketClient) {
 			this.socketClient.disconnect();
 		}
-		console.log('recon token', token);
 		this.connectSocketClient({
 			token,
 			onReceiveMessage: this.onReceiveMessage!,

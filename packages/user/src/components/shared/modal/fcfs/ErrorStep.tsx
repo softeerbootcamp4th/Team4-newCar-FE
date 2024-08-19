@@ -26,7 +26,6 @@ export default function ErrorStep({ error, resetErrorBoundary }: FallbackProps) 
 				</InfoStep>
 			);
 		default:
-			console.error(error);
 			return (
 				<InfoStep>
 					<p className="text-heading-10 font-medium">선착순 퀴즈 정보를 불러올 수 없어요</p>

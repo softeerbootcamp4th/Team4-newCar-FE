@@ -1,7 +1,6 @@
 import * as XLSX from 'xlsx';
 
 const excelDownload = (data: object[], fileName: string) => {
-	console.log(data);
 	const excelFileName = `${fileName}.xlsx`;
 	const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
 	const wb: XLSX.WorkBook = XLSX.utils.book_new();

@@ -16,6 +16,12 @@ export default function ErrorStep({ error, resetErrorBoundary }: FallbackProps) 
 					</Button>
 				</InfoStep>
 			);
+		case 400:
+			return (
+				<InfoStep>
+					<p className="text-heading-10 font-medium">이미 마감된 이벤트입니다.</p>
+				</InfoStep>
+			);
 		case 404:
 			return (
 				<InfoStep>

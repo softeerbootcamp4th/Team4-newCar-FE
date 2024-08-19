@@ -1,10 +1,10 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pagination from 'src/components/common/Pagination.tsx';
 import Tab from 'src/components/common/Tab.tsx';
 import ResultTable from 'src/components/table/ResultTable.tsx';
 import { Button } from 'src/components/ui/button.tsx';
 import useEvent from 'src/hooks/useEvent.tsx';
-import { RacingWinner } from 'src/services/api/types/apiType.ts';
+import { QuizWinner, RacingWinner } from 'src/services/api/types/apiType.ts';
 import excelDownload from 'src/utils/xlsx.ts';
 
 const TabName = {
@@ -26,10 +26,10 @@ const quizHeaders = [
 	{ text: '당첨 날짜 ', width: '33%' },
 ];
 
-const getRows = (pageIndex: number, rawList: RacingWinner[]) => {
+const getRows = (pageIndex: number, rawList: RacingWinner[] | QuizWinner[]) => {
 	const rows = rawList
 		.slice(pageIndex * 10, pageIndex * 10 + 10)
-		.map((racingWinner) => Object.values(racingWinner));
+		.map((winner) => Object.values(winner));
 	while (rows.length < 10) {
 		rows.push(['ㅤ']);
 	}
@@ -37,11 +37,7 @@ const getRows = (pageIndex: number, rawList: RacingWinner[]) => {
 };
 
 function WinnerResult() {
-	const { racingWinners, refetchRacingWinners } = useEvent();
-
-	useLayoutEffect(() => {
-		refetchRacingWinners();
-	}, []);
+	const { racingWinners, quizWinner } = useEvent();
 
 	const [pageIndex, setPageIndex] = useState(0);
 	const [tabName, setTabName] = useState(TabName.QUIZ);
@@ -49,16 +45,26 @@ function WinnerResult() {
 	const [rows, setRows] = useState<string[][]>([]);
 	const [headers, setHeaders] = useState<{ text: string; width: string }[]>([]);
 
+	const resetList = () => {
+		setTotal(0);
+		setRows(getRows(0, []));
+	};
+
 	useEffect(() => {
-		if (tabName === TabName.QUIZ && racingWinners !== undefined) {
-			setTotal(racingWinners.length);
-			setRows(getRows(pageIndex, racingWinners));
+		if (tabName === TabName.QUIZ) {
 			setHeaders(quizHeaders);
+			if (quizWinner !== undefined) {
+				setTotal(quizWinner.length);
+				setRows(getRows(pageIndex, quizWinner));
+			} else resetList();
 		}
-		if (tabName === TabName.RACE && racingWinners !== undefined) {
-			setTotal(racingWinners.length);
-			setRows(getRows(pageIndex, racingWinners));
+		if (tabName === TabName.RACE) {
 			setHeaders(racingHeaders);
+			if (racingWinners !== undefined) {
+				console.log('hi2');
+				setTotal(racingWinners.length);
+				setRows(getRows(pageIndex, racingWinners));
+			} else resetList();
 		}
 	}, [racingWinners, pageIndex, tabName]);
 

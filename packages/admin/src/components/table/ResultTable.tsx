@@ -34,8 +34,8 @@ function ResultTable({ headers, rows }: ResultTableProps) {
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{rows.map((row) => (
-					<TableRow key={`row-${row.join()}`}>
+				{rows.map((row,rowIndex) => (
+					<TableRow key={rowIndex}>
 						{row.map((item, colIndex) => (
 							<TableCell className="font-medium" key={colIndex}>
 								{item}

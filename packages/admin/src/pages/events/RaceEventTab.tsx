@@ -21,11 +21,10 @@ function RaceEventBox({
 
 	return (
 		<div>
-			<div>{quizIndex + 1}</div>
-			<div className="flex flex-col gap-8 bg-[#EFEFEF] p-4">
-				<div className="font-bold">Q. {personalityTest.question}</div>
+			<div className="flex flex-col gap-8 bg-[#EFEFEF] p-4 rounded-3">
+				<div className="font-bold">Q.{quizIndex+1} {personalityTest.question}</div>
 				{personalityTest.choices.map((choice, choiceIndex) => (
-					<div>
+					<div className='border-2 border-khaki-600 p-4 rounded-3' >
 						<div>
 							<span className="mr-1 font-bold">{String.fromCharCode(65 + choiceIndex)}</span>
 							{choice.text}

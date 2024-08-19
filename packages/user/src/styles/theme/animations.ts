@@ -34,6 +34,14 @@ const keyframes = {
 		'0%, 100%': { opacity: '0.5' },
 		'50%': { opacity: '1' },
 	},
+	fold: {
+		'0%': { transform: 'rotateX(0deg)' },
+		'100%': { transform: 'rotateX(-90deg)' },
+	},
+	unfold: {
+		'0%': { transform: 'rotateX(90deg)' },
+		'100%': { transform: 'rotateX(0deg)' },
+	},
 	'special-my-casper': {
 		'0%, 100%': { transform: 'translateY(0) scale(1)' },
 		'50%': { transform: 'translateY(-10px) scale(1.05)' },
@@ -79,6 +87,8 @@ const animation = {
 	rotate1: 'rotate1 1s ease-in-out 5 forwards',
 	rotate2: 'rotate2 1s ease-in-out 5 forwards',
 	rotate3: 'rotate3 1s ease-in-out 5 forwards',
+	fold: 'fold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards',
+	unfold: 'unfold 0.6s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards',
 	'special-my-casper': 'special-my-casper 2s infinite cubic-bezier(0.4, 0.0, 0.2, 1)',
 	'drive-active-my-casper': 'drive-active-my-casper 1.5s infinite cubic-bezier(0.4, 0.0, 0.2, 1)',
 	'drive-rank-1': 'drive-rank-1 3s infinite cubic-bezier(0.4, 0.0, 0.2, 1)',

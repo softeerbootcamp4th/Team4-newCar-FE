@@ -11,16 +11,18 @@ function Tab({ selectedTabName, setSelectedTabName, tabNames }: CommonTabProps) 
 		setSelectedTabName(tabname);
 	};
 	return (
-		<div className="flex flex-row">
-			{tabNames.map((tabName) => (
-				<Button
-					key={tabName}
-					disabled={selectedTabName === tabName}
-					onClick={() => handleSelect(tabName)}
-				>
-					{tabName}
-				</Button>
-			))}
+		<div className="flex flex-row mb-4" >
+			<div className="border-cream-900 flex-0 bg-khaki-500 flex flex-row gap-2 border-2 rounded-4 p-3">
+				{tabNames.map((tabName) => (
+					<Button
+						key={tabName}
+						disabled={selectedTabName === tabName}
+						onClick={() => handleSelect(tabName)}
+					>
+						{tabName}
+					</Button>
+				))}
+			</div>
 		</div>
 	);
 }

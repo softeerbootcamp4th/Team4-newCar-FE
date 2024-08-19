@@ -1,7 +1,6 @@
-// export const BASE_URL = 'http://localhost:5173/src/services/api/mock';
-export const BASE_URL = 'http://ec2-3-39-67-88.ap-northeast-2.compute.amazonaws.com:8080/admin';
-// export const BASE_URL = 'http://api.softeer.kro.kr:8080/admin';
-// export const BASE_URL = 'http://dating.batro.org:8080/admin';
+import { API_BASE_URL } from './environments.ts';
+
+export const BASE_URL = API_BASE_URL;
 
 export const enum METHOD {
 	GET = 'GET',
@@ -14,6 +13,7 @@ export const enum API {
 	COMMON_EVENT = '/common-event',
 	QUIZ_LIST = '/quiz-list',
 	QUIZ = '/quiz',
+	QUIZ_WINNER = '/quiz-winner',
 	RACING_WINNERS = '/racing-winners',
 	PERSONALITY_TEST_LIST = '/personality-test-list',
 	PERSONALITY_TEST = '/personality-test',

@@ -16,6 +16,7 @@ export default function AppLayout() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const accessToken = Cookie.getCookie<string>(ACCESS_TOKEN_KEY);
+
 	useEffect(() => {
 		if (location.pathname !== RoutePaths.ROOT) {
 			if (!accessToken) {
@@ -31,9 +32,9 @@ export default function AppLayout() {
 	}, [location.pathname]);
 
 	return (
-		<div className="mx-auto flex h-screen w-screen min-w-[1200px]">
+		<div className="mx-auto flex min-h-screen w-screen min-w-[1200px]">
 			{accessToken && <SideBarContainer />}
-			<div className="mx-auto flex h-screen w-full max-w-[1200px] gap-10">
+			<div className="mx-auto flex min-h-screen h-full w-full max-w-[1200px] gap-10">
 				<SystemContainer />
 				<div className="flex w-full flex-col p-4 pb-8 pt-8">
 					<Header headerTitle={headerTitle} />

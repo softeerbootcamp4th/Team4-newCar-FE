@@ -33,6 +33,7 @@ export default class Socket {
 	}
 
 	private setup(url: string): Client {
+		console.log(url);
 		const stompClient = new Client({
 			webSocketFactory: () => new SockJS(`${url}/ws`),
 			connectHeaders: this.headers,

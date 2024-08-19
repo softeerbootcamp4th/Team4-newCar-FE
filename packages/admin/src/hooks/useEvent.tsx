@@ -120,17 +120,6 @@ const useEvent = () => {
 		racingWinnerMutation.mutate(winnerSettings);
 	};
 
-	const quizWinnerQuery = useQuery<Response[API.QUIZ_WINNER][METHOD.GET]>({
-		queryFn: async () => {
-			const response = await fetchData({
-				path: API.QUIZ_WINNER,
-				method: METHOD.GET,
-			});
-			return response;
-		},
-		queryKey: [API.QUIZ_WINNER],
-	});
-
 	const personalityTestListQuery = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({

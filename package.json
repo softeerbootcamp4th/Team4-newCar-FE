@@ -28,8 +28,7 @@
 		"react-router-dom": "^6.25.1",
 		"react-toastify": "^10.0.5",
 		"sockjs-client": "^1.6.1",
-		"tailwind-merge": "^2.4.0",
-		"xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+		"tailwind-merge": "^2.4.0"
 	},
 	"devDependencies": {
 		"@types/eslint": "^8",

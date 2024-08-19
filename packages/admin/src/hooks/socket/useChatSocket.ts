@@ -9,7 +9,6 @@ export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
 
 export default function useChatSocket() {
 	// const { toast } = useToast();
-
 	const socketClient = socketManager.getSocketClient();
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 

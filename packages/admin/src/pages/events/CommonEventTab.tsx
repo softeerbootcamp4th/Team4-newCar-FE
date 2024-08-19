@@ -15,12 +15,12 @@ import {
 
 function CommonEventItem({ description, element }: { description: string; element: JSX.Element }) {
 	return (
-		<div className="w-1/2 p-1">
+		<div className="w-1/2 p-2">
 			<div className="flex rounded-sm border-[1px] border-black">
 				<div className="flex min-h-[40px] w-32 items-center justify-center border-r-[1px] border-black">
 					{description}
 				</div>
-				<div className="flex w-full items-center justify-center">{element}</div>
+				<div className="flex w-full items-center justify-center gap-4">{element}</div>
 			</div>
 		</div>
 	);
@@ -42,7 +42,6 @@ function CommonEventBox({
 	handleUpdateEvent: (newCommonEvent: CommonEvent) => void;
 }) {
 	const { openAlert, addAlertCallback } = useAlert();
-	// 흠 이거 reduce 쓰면 뭔가 더 복잡해 보임 -> 유사하게 날짜 수정 로직 생기면 공통 util로 빼는 방식으로 변경
 	const [startDate, setStartDate] = useState('');
 	const [endDate, setEndDate] = useState('');
 
@@ -126,7 +125,7 @@ function CommonEventBox({
 	};
 
 	return (
-		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black p-1">
+		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black- p-4">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
 			<CommonEventItem description="상태" element={<div>{status}</div>} />
 			<CommonEventItem

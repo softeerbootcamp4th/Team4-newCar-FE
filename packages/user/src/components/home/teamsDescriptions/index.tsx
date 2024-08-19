@@ -29,7 +29,7 @@ export default function TeamsDescriptions() {
 						/>
 					))}
 				</div>
-				<Button size="lg" onClick={goDetailDescriptions}>
+				<Button className="underline" size="lg" onClick={goDetailDescriptions}>
 					자세한 설명 보러가기
 				</Button>
 			</div>

@@ -1,40 +1,28 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/naming-convention */
-import { Category } from '@softeer/common/types';
+import type { ServerCategoryEnum } from '@softeer/common/types';
 import { useMutation } from '@tanstack/react-query';
-import useTokenStorage from 'src/hooks/storage/useTokenStorage.ts';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
+import { queryClient } from 'src/libs/query/index.tsx';
+import http from 'src/services/api/index.ts';
+import QUERY_KEYS from 'src/services/api/queryKey.ts';
 
-type QuizId = number;
-type ChoiceIndex = number;
-export type SubmitQuizAnswersRequest = Record<QuizId, ChoiceIndex>;
+export type SubmitQuizAnswersRequest = { id: number; answer: number }[];
 
 export interface SubmitQuizAnswersResponse {
-	team: Category;
-	accesstoken: string;
+	team: ServerCategoryEnum;
+	accessToken: string;
+	url: string;
 }
 
 export default function useSubmitTeamTypeQuizAnswers() {
 	const { setAuthData } = useAuth();
-	const [_, setToken] = useTokenStorage();
 
 	const mutation = useMutation<SubmitQuizAnswersResponse, Error, SubmitQuizAnswersRequest>({
-		mutationFn: submitMockData,
-		onSuccess: ({ team, accesstoken }) => {
-			// TODO: replace
-			// setAuthData({ userData: { ...user, type } });
-			const mockUser = { id: 1, name: '보민', type: team };
-			setToken(accesstoken);
-			setAuthData({ userData: mockUser });
+		mutationFn: (data) => http.post('/personality-test', data),
+		onSuccess: ({ accessToken }) => {
+			setAuthData({ accessToken });
+			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_INFO] });
 		},
 	});
 
 	return mutation;
 }
-
-const submitMockData = (): Promise<SubmitQuizAnswersResponse> =>
-	new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ team: 'travel', accesstoken: 'mock-access-token' });
-		}, 4000);
-	});

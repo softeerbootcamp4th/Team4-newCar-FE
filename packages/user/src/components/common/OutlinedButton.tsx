@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import { cn } from '@softeer/common/utils';
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, forwardRef } from 'react';
@@ -11,13 +10,17 @@ const styles = clsx(
 	'active:border-primary active:text-primary',
 );
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	as?: 'button' | 'div' | 'span';
+}
 
 /** 기대평 등록, 랜딩 페이지 링크 공유 버튼 */
 const OutlinedButton = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, ...props }, ref) => (
-		<button className={cn(buttonStyles, styles, className)} ref={ref} {...props} />
-	),
+	({ as: Component = 'button', className, ...props }, ref) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const Tag = Component as any;
+		return <Tag className={cn(buttonStyles, styles, className)} ref={ref} {...props} />;
+	},
 );
 
 export default OutlinedButton;

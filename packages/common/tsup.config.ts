@@ -21,4 +21,6 @@ export default defineConfig({
 	loader: {
 		'.svg': 'file',
 	},
+	noExternal: ['sockjs-client', '@stomp/stompjs'],
+	platform: 'browser',
 });

@@ -1,59 +1,45 @@
 import { CATEGORIES } from '@softeer/common/constants';
-import type { Category } from '@softeer/common/types';
-import { Suspense } from 'react';
-import type { CategoryRankMap } from 'src/types/rank.d.ts';
+import { memo } from 'react';
+import EventTimer from 'src/components/shared/timer/index.tsx';
+import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
+import { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import Background from './Background.tsx';
+import RacingCard from './card/index.tsx';
 import Casper from './Casper.tsx';
-import RacingCard from './RacingCard.tsx';
 import RacingTitle from './RacingTitle.tsx';
-import EventTimer from './timer/index.tsx';
 
-interface RacingDashboardProps {
-	ranks: CategoryRankMap;
-	scaledType: Category | null;
+interface RacingDashboardProps extends Pick<UseRacingSocketReturnType, 'ranks'> {
+	isActive: boolean;
 }
 
-export default function RacingDashboard({ ranks, scaledType }: RacingDashboardProps) {
-	return (
-		<div className="relative h-[685px] w-full">
-			<HeaderSection />
-			<RacingCardSection />
-			<CaspersSection ranks={ranks} scaledType={scaledType} />
-			<Background />
-		</div>
-	);
-}
+const RacingDashboard = memo(({ ranks, isActive }: RacingDashboardProps) => (
+	<>
+		<HeaderSection />
+		<RacingCardSection />
+		{CATEGORIES.map((type) => (
+			<Casper key={type} type={type} rank={ranks[type]} isActive={isActive} />
+		))}
+		<Background />
+	</>
+));
 
-function HeaderSection() {
+export default RacingDashboard;
+
+const HeaderSection = memo(() => {
+	const {
+		duration: { endTime },
+	} = useGetEventDuration();
+
 	return (
 		<div className="absolute -top-[5px] flex w-full flex-col items-center">
 			<RacingTitle />
-			<Suspense>
-				<EventTimer />
-			</Suspense>
+			<EventTimer endTime={endTime} />
 		</div>
 	);
-}
+});
 
-function RacingCardSection() {
-	return (
-		<div className="absolute left-[27px] top-[95px]">
-			<RacingCard />
-		</div>
-	);
-}
-
-function CaspersSection({ ranks, scaledType }: RacingDashboardProps) {
-	return (
-		<>
-			{CATEGORIES.map((type) => (
-				<Casper
-					key={type}
-					type={type}
-					rank={ranks[type]}
-					className={scaledType === type ? 'scale-110' : ''}
-				/>
-			))}
-		</>
-	);
-}
+const RacingCardSection = memo(() => (
+	<div className="absolute left-[27px] top-[95px]">
+		<RacingCard />
+	</div>
+));

@@ -7,10 +7,11 @@ import {
 	Response,
 	WinnerSetting,
 } from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
-	// const { openAlert } = useAlert();
+	const { openAlert } = useAlert();
 
 	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
@@ -52,6 +53,17 @@ const useEvent = () => {
 		queryKey: [API.QUIZ_LIST],
 	});
 
+	const quizWinnerQuery = useQuery<Response[API.QUIZ_WINNER][METHOD.GET]>({
+		queryFn: async () => {
+			const response = await fetchData({
+				path: API.QUIZ_WINNER,
+				method: METHOD.GET,
+			});
+			return response;
+		},
+		queryKey: [API.QUIZ_WINNER],
+	});
+
 	const quizEventMutation = useMutation({
 		mutationFn: async (quizEvent: Quiz) => {
 			const tmp = quizEvent;
@@ -66,6 +78,9 @@ const useEvent = () => {
 		},
 		onSuccess: () => {
 			quizEventQuery.refetch();
+		},
+		onError: (error) => {
+			openAlert(error.message, 'alert');
 		},
 	});
 
@@ -85,16 +100,19 @@ const useEvent = () => {
 	});
 
 	const racingWinnerMutation = useMutation({
-		mutationFn: async (winnerSettings: WinnerSetting[]) => {
-			const response = await fetchData({
+		mutationFn: async (winnerSettings: WinnerSetting[]) =>
+			fetchData({
 				path: API.RACING_WINNERS,
 				method: METHOD.POST,
 				payload: winnerSettings,
-			});
-			return response;
-		},
+			}),
 		onSuccess: () => {
 			racingWinnerQuery.refetch();
+		},
+		onError: async (error) => {
+			if (error.name !== 'SyntaxError') {
+				openAlert(error.message, 'alert');
+			}
 		},
 	});
 
@@ -136,6 +154,9 @@ const useEvent = () => {
 		onSuccess: () => {
 			personalityTestListQuery.refetch();
 		},
+		onError: (error) => {
+			openAlert(error.message, 'alert');
+		},
 	});
 
 	const updatePersonalityTest = (personalityTest: PersonalityTest) => {
@@ -148,6 +169,9 @@ const useEvent = () => {
 		refechCommonEvent: commonEventQuery.refetch,
 
 		quizEvent: quizEventQuery.data,
+		quizWinner: quizWinnerQuery.data,
+		refetchQuizWinner: quizWinnerQuery.refetch,
+
 		updateQuizEvent,
 		refechQuizEvent: quizEventQuery.refetch,
 

@@ -1,5 +1,5 @@
+import OptionButton from 'src/components/common/OptionButton.tsx';
 import type { Quiz } from 'src/hooks/query/useGetTeamTypeQuiz.ts';
-import OptionButton from './OptionButton.tsx';
 
 interface QuizStepContentProps {
 	quiz: Quiz;
@@ -21,7 +21,7 @@ export default function QuizStepContent({
 				{question}
 			</p>
 			<ul className="my-8 flex w-full min-w-[300px] max-w-[400px] flex-col items-center gap-4">
-				{choices.map(({ text }, choiceIndex) => (
+				{choices.map((text, choiceIndex) => (
 					<li className="w-full" key={text}>
 						<OptionButton
 							isActive={selectedChoice === choiceIndex}

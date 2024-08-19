@@ -1,13 +1,15 @@
 import { Category } from '@softeer/common/types';
-import { FunctionComponent, PropsWithChildren } from 'react';
+import { FunctionComponent, PropsWithChildren, useMemo } from 'react';
 import LinkShare from 'src/components/shared/linkShare/index.tsx';
-import RacingTeamCard from 'src/components/shared/RacingTeamCard.tsx';
+import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
-import type { SubmitQuizAnswersResponse } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
+import useAuth from 'src/hooks/useAuth.ts';
 
-interface ResultStepProps extends SubmitQuizAnswersResponse {}
+export default function ResultStep({ children }: PropsWithChildren) {
+	const { user } = useAuth();
 
-export default function ResultStep({ team: type }: ResultStepProps) {
+	const type = useMemo(() => user?.type as Category, [user]);
+
 	const { title, shortTitle, details } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;
 
@@ -16,10 +18,11 @@ export default function ResultStep({ team: type }: ResultStepProps) {
 
 	return (
 		<div className="grid h-full items-center gap-11 p-8 sm:p-12 md:grid-flow-col lg:p-16">
-			<RacingTeamCard type={type} size="modal" />
+			<ShareCountTeamCard type={type} size="modal" />
 			<div className="flex h-full max-w-lg flex-col justify-between gap-10 pb-12 pt-5 sm:max-w-xl md:max-h-[400px] md:pb-2">
 				<div>
-					<p className={`${titleStyles} text-heading-8 mb-6 whitespace-pre-line font-bold`}>
+					<div className="mb-4">{children}</div>
+					<p className={`${titleStyles} text-heading-8 mb-4 whitespace-pre-line font-bold`}>
 						<CategoryTitleTemplate>
 							<strong className="text-foreground">{displayTitle}</strong>
 						</CategoryTitleTemplate>
@@ -27,7 +30,7 @@ export default function ResultStep({ team: type }: ResultStepProps) {
 					<p className={`text-body-3 ${detailsStyles} break-words`}>{details}</p>
 				</div>
 				<div>
-					<p className="text-body-3 mb-4">내 링크 공유하고 추첨 당첨확률을 높여보세요!</p>
+					<p className="text-body-3 mb-3">내 링크 공유하고 추첨 당첨확률을 높여보세요!</p>
 					<LinkShare category={type} />
 				</div>
 			</div>

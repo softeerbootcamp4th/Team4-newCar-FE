@@ -1,7 +1,8 @@
 import type { Category } from '@softeer/common/types';
 
 export interface User {
-	id: number;
+	id: string;
 	name: string;
-	type?: Category;
+	type: Category | null | undefined;
+	encryptedUserId?: string | null | undefined;
 }

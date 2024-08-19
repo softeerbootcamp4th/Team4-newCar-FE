@@ -1,21 +1,21 @@
 import { BlockedChat, ChatProps, Message, Notice } from '@softeer/common/components';
 import { FunctionComponent, useCallback } from 'react';
 import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
-import useAuth from 'src/hooks/useAuth.tsx';
+import useAuth from 'src/hooks/useAuth.ts';
 
 export default function Chat({ type, team, sender, content }: ChatProps) {
 	const { user: me } = useAuth();
 
 	const render: FunctionComponent = useCallback(() => {
 		switch (type) {
-			case 'notice':
+			case 'n':
 				return <Notice>{content}</Notice>;
-			case 'blocked':
+			case 'b':
 				return <BlockedChat />;
-			case 'message':
+			case 'm':
 			default:
 				return (
-					<Message sender={sender} team={team} isMyMessage={me?.id === sender}>
+					<Message sender={sender} team={team} isMyMessage={me?.id === sender.toString()}>
 						{content}
 					</Message>
 				);

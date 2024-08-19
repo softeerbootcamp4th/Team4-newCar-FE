@@ -1,102 +1,63 @@
 import type { Category } from '@softeer/common/types';
-import { useEffect, useRef, useState } from 'react';
-import Lightning from 'src/assets/icons/lighting.svg?react';
-import { useToast } from 'src/hooks/useToast.ts';
-import type { Rank } from 'src/types/rank.d.ts';
+import numeral from 'numeral';
+
+import { useMemo } from 'react';
+import useAuth from 'src/hooks/useAuth.ts';
+import type { Rank } from 'src/types/racing.d.ts';
+import ChargeButtonContent from './ChargeButtonContent.tsx';
+import ChargeButtonWrapper from './ChargeButtonWrapper.tsx';
+import ControllButtonWrapper from './ControllButtonWrapper.tsx';
 import Gauge from './Gauge.tsx';
-import TeamButton from './TeamButton.tsx';
 
 interface ControlButtonProps {
 	type: Category;
-	rank: Rank;
-	percentage: number;
-	onScale: () => void;
+	data: ChargeButtonData;
+	isActive: boolean;
 }
 
-const MAX_CLICK = 10;
-const MIN_PERCENT = 2;
-const RESET_SECOND = 10000;
+export interface ChargeButtonData {
+	rank: Rank;
+	vote: number;
+	percentage: number;
+}
 
-const MAX_CLICK_TOAST_DESCRIPTION = '배터리가 떨어질 때까지 기다려주세요!';
+export default function ControlButton({ isActive, type, data }: ControlButtonProps) {
+	const { user } = useAuth();
+	const { rank, vote, percentage } = data;
 
-export default function ControlButton({
-	type,
-	rank,
-	percentage: originPercentage,
-	onScale,
-}: ControlButtonProps) {
-	const { progress, clickCount, handleClick } = useGaugeProgress(originPercentage, onScale);
+	const displayVoteStats = useMemo(
+		() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`,
+		[percentage, vote],
+	);
+
+	const isMyCasperActivated = isActive && user?.type === type;
 
 	return (
-		<div
-			className={`absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${styles[rank]}`}
-		>
-			<div className="flex items-center gap-2">
-				<Lightning />
-				<Gauge percent={progress} />
-			</div>
-			<TeamButton
-				onClick={handleClick}
-				disabled={clickCount === MAX_CLICK}
-				rank={rank}
-				type={type}
-				percent={originPercentage}
-			/>
-		</div>
+		<ControllButtonWrapper isMyCasper={user?.type ? user?.type === type : true} rank={rank}>
+			<Gauge percentage={percentage} isActive={isMyCasperActivated} />
+			<ChargeButtonWrapper type={type} isActive={isMyCasperActivated}>
+				<ChargeButtonContent type={type} rank={rank}>
+					{displayVoteStats}
+				</ChargeButtonContent>
+			</ChargeButtonWrapper>
+		</ControllButtonWrapper>
 	);
 }
 
-const styles: Record<Rank, string> = {
-	1: 'left-[40px] z-40',
-	2: 'left-[310px] z-30',
-	3: 'left-[580px] z-20',
-	4: 'left-[850px] z-10',
-};
+/** Utility Functions */
+function formatVoteCount(count: number): string {
+	const formatted = numeral(count).format('0,0'); // 기본 포맷팅
+	return convertToKoreanUnit(formatted);
+}
 
-function useGaugeProgress(originPercentage: number, onClick: () => void) {
-	const { toast } = useToast();
+function convertToKoreanUnit(formatted: string): string {
+	const number = parseFloat(formatted.replace(/,/g, ''));
 
-	const [progress, setProgress] = useState(0);
-	const [clickCount, setClickCount] = useState(0);
-	const initPercentageRef = useRef(originPercentage);
-
-	useEffect(() => {
-		initPercentageRef.current = originPercentage;
-	}, [originPercentage]);
-
-	useEffect(() => {
-		const resetProgress = requestAnimationFrame(() => setProgress(initPercentageRef.current));
-		return () => cancelAnimationFrame(resetProgress);
-	}, []);
-
-	useEffect(() => {
-		if (clickCount > 0 && clickCount <= MAX_CLICK) {
-			updateProgress(clickCount);
-		}
-
-		if (clickCount === MAX_CLICK) {
-			toast({ description: MAX_CLICK_TOAST_DESCRIPTION });
-			const resetTimer = setTimeout(resetToInitProgress, RESET_SECOND);
-			return () => clearTimeout(resetTimer);
-		}
-	}, [clickCount, originPercentage]);
-
-	const handleClick = () => {
-		if (clickCount < MAX_CLICK) {
-			setClickCount((count) => count + 1);
-			onClick();
-		}
-	};
-
-	const updateProgress = (count: number) => {
-		const newProgress = MIN_PERCENT + (100 - MIN_PERCENT) * (count / MAX_CLICK);
-		setProgress(newProgress);
-	};
-
-	const resetToInitProgress = () => {
-		setClickCount(0);
-		setProgress(initPercentageRef.current);
-	};
-
-	return { progress, clickCount, handleClick };
+	if (number >= 100000000) {
+		return `${(number / 100000000).toFixed(2)}억`;
+	}
+	if (number >= 10000) {
+		return `${(number / 10000).toFixed(2)}만`;
+	}
+	return formatted;
 }

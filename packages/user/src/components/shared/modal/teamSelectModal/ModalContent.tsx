@@ -1,58 +1,67 @@
-import { useEffect, useState } from 'react';
-import DeferredWrapper from 'src/components/common/DeferredWrapper.tsx';
-import useGetTeamTypeQuizzes from 'src/hooks/query/useGetTeamTypeQuiz.ts';
+import { Suspense, useEffect } from 'react';
+import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
-	type SubmitQuizAnswersResponse,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
-import { useFunnel } from 'src/hooks/useFunnel.ts';
+import useFunnel from 'src/hooks/useFunnel.ts';
+import CustomError from 'src/utils/error.ts';
 import ErrorStep from './ErrorStep.tsx';
-import PendingStatus from './PendingStatus.tsx';
 import ResultStep from './ResultStep.tsx';
 import QuizFunnel from './quiz/index.tsx';
 
-export default function TeamSelectModalContent() {
-	const [Funnel, setStep] = useFunnel([
-		'quiz',
-		'pending',
-		'success',
-		'error',
-	] as NonEmptyArray<string>);
+interface TeamSelectModalContentProps {
+	initialStep?: 'already-done' | 'quiz';
+}
+export default function TeamSelectModalContent({
+	initialStep = 'quiz',
+}: TeamSelectModalContentProps) {
+	const [Funnel, setStep] = useFunnel(
+		['quiz', 'pending', 'success', 'error', 'already-done'] as NonEmptyArray<string>,
+		{ initialStep },
+	);
 
-	const { quizzes } = useGetTeamTypeQuizzes();
 	const { mutate: submitAnswers, isPending } = useSubmitTeamTypeQuizAnswers();
-
-	const [result, setResult] = useState<SubmitQuizAnswersResponse | null>(null);
 
 	const handleSubmit = (request: SubmitQuizAnswersRequest) =>
 		submitAnswers(request, {
-			onSuccess: setResult,
-			onError: () => setStep('error'),
+			onSuccess: () => setStep('success'),
+			onError: (error) => {
+				if ((error as CustomError)?.status === 400) {
+					setStep('already-done');
+				} else {
+					setStep('error');
+				}
+			},
 		});
 
 	useEffect(() => {
 		if (isPending) setStep('pending');
 	}, [isPending]);
 
-	useEffect(() => {
-		if (result) setStep('success');
-	}, [result]);
-
 	return (
 		<Funnel>
 			<Funnel.Step name="quiz">
-				<QuizFunnel quizzes={quizzes} onSubmit={handleSubmit} />
+				<Suspense fallback={<PendingStep>유형 검사 리스트 불러오는 중 ...</PendingStep>}>
+					<QuizFunnel onSubmit={handleSubmit} />
+				</Suspense>
 			</Funnel.Step>
 			<Funnel.Step name="pending">
-				<DeferredWrapper>
-					<PendingStatus>내 유형 불러오는 중 ...</PendingStatus>
-				</DeferredWrapper>
+				<PendingStep>내 유형 불러오는 중 ...</PendingStep>
 			</Funnel.Step>
 			<Funnel.Step name="success">
-				<ResultStep {...(result as NonNullable<SubmitQuizAnswersResponse>)} />
+				<ResultStep />
+			</Funnel.Step>
+			<Funnel.Step name="already-done">
+				<ResultStep>
+					<p className="text-detail-1">
+						이미 유형 검사를 완료하셨군요! 이전 검사 결과를 보여드릴게요
+					</p>
+				</ResultStep>
 			</Funnel.Step>
 			<Funnel.Step name="error">
-				<ErrorStep setQuizStep={() => setStep('quiz')} />
+				<ErrorStep setQuizStep={() => setStep('quiz')}>
+					유형 검사 결과 제출 중 오류가 발생했습니다
+				</ErrorStep>
 			</Funnel.Step>
 		</Funnel>
 	);

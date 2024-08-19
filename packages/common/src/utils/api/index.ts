@@ -1,7 +1,6 @@
 import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
-import getCookie from '../storage/cookie/getCookie.ts';
-// eslint-disable-next-line import/no-cycle
-import fetchWithInterceptors from './fetchInterceptors.ts';
+import fetchWithInterceptors from 'src/utils/api/fetchInterceptors.ts';
+import getCookie from 'src/utils/storage/cookie/getCookie.ts';
 
 interface Interceptors {
 	request?: (url: string, options: RequestInit) => Promise<RequestInit> | RequestInit;
@@ -12,7 +11,7 @@ export function generateDefaultHeaders(): HeadersInit {
 	const headers: HeadersInit = {
 		'Content-Type': 'application/json',
 	};
-	const accessToken = getCookie(ACCESS_TOKEN_KEY);
+	const accessToken = getCookie<string>(ACCESS_TOKEN_KEY);
 	if (accessToken) {
 		headers.Authorization = accessToken;
 	}
@@ -28,11 +27,15 @@ export default class FetchWrapper {
 		this.baseUrl = baseUrl;
 		this.interceptors = {
 			response: async <T>(response: Response): Promise<T> => {
+				const textResult = await response.text();
 				if (!response.ok) {
-					// eslint-disable-next-line @typescript-eslint/no-throw-literal
-					throw response;
+					throw new Error(textResult);
 				}
-				return response.json();
+				try {
+					return JSON.parse(textResult);
+				} catch (err) {
+					throw new Error(textResult);
+				}
 			},
 		};
 	}
@@ -61,10 +64,10 @@ export default class FetchWrapper {
 		});
 	}
 
-	async post<T, U>(url: string, data: U): Promise<T> {
+	async post<T, U>(url: string, data?: U): Promise<T> {
 		return this.request<T>(url, {
 			method: 'POST',
-			body: JSON.stringify(data),
+			body: data ? JSON.stringify(data) : null,
 			headers: {
 				...generateDefaultHeaders(),
 			},

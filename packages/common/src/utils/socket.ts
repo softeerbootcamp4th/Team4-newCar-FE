@@ -25,17 +25,20 @@ export default class Socket {
 
 	private subscriptions: Map<string, StompSubscription> = new Map();
 
-	private headers?: Record<string, string> = {};
+	private token?: string | undefined | null = undefined;
 
 	constructor(url: string, token?: string | null) {
-		this.client = this.setup(url);
-		this.headers = token ? { Authorization: token } : {};
+		let baseUrl = url;
+		if (token) {
+			this.token = token;
+			baseUrl += `?Authorization=${token}`;
+		}
+		this.client = this.setup(baseUrl);
 	}
 
 	private setup(url: string): Client {
 		const stompClient = new Client({
-			webSocketFactory: () => new SockJS(`${url}/ws`),
-			connectHeaders: this.headers,
+			webSocketFactory: () => new SockJS(url),
 			reconnectDelay: 5000, // Reconnect if the connection drops
 		});
 		this.client = stompClient;
@@ -63,15 +66,14 @@ export default class Socket {
 		}
 	}
 
-	sendMessages({ destination, body, headers = {} }: SendMessageProps) {
-		if (!this.headers?.Authorization) {
+	sendMessages({ destination, body }: SendMessageProps) {
+		if (!this.token) {
 			throw new Error('로그인 후 참여할 수 있어요!');
 		}
 
 		const messageProps = {
 			destination,
 			body: JSON.stringify(body),
-			headers: { ...this.headers, ...headers },
 		};
 
 		if (!this.client.connected) {
@@ -86,7 +88,7 @@ export default class Socket {
 	private createSubscription({ destination, callback, headers = {} }: SubscriptionProps) {
 		const subscriptionProps = {
 			destination,
-			headers: { ...this.headers, ...headers },
+			headers,
 			callback: (message: IMessage) => {
 				const messageId = message.headers['message-id'];
 				const data = JSON.parse(message.body);

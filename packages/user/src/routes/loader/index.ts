@@ -11,14 +11,9 @@ export default async function indexLoader() {
 	await queryClient.prefetchQuery(eventDurationQueryOptions);
 
 	const duration = queryClient.getQueryData<EventDuration>([QUERY_KEYS.EVENT_DURATION]);
+
 	if (!duration) {
 		throw new CustomError('이벤트 기간 데이터를 불러올 수 없습니다.', 500);
-	}
-
-	const token = Cookie.getCookie<string | null>(ACCESS_TOKEN_KEY);
-
-	if (token) {
-		await queryClient.prefetchQuery(userInfoQueryOptions(token));
 	}
 
 	const currentTime = new Date();
@@ -26,6 +21,12 @@ export default async function indexLoader() {
 
 	if (startTime > currentTime) {
 		throw new CustomError('이벤트가 아직 시작되지 않았습니다.', 403);
+	}
+
+	const token = Cookie.getCookie<string | null>(ACCESS_TOKEN_KEY);
+
+	if (token) {
+		await queryClient.prefetchQuery(userInfoQueryOptions(token));
 	}
 
 	return defer({ duration });

@@ -14,7 +14,7 @@ export type UserResponse = {
 };
 
 export default function useGetUserInfo() {
-	const { isAuthenticated, token } = useAuth();
+	const { isAuthenticated, token, clearAuthData } = useAuth();
 
 	const {
 		data: userInfo,
@@ -28,6 +28,7 @@ export default function useGetUserInfo() {
 
 	useEffect(() => {
 		if (status === 'error') {
+			clearAuthData();
 			throw new CustomError('유저 정보를 불러오는 중에 문제가 발생하였습니다.', 400);
 		}
 	}, [status]);

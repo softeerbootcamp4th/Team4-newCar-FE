@@ -1,5 +1,5 @@
 name: React build
-on: 
+on:
   push:
     branches:
       - deploy
@@ -21,6 +21,10 @@ jobs:
       - name: Create .env in user package
         run: |
           echo "${{ secrets.USER_ENV }}" > packages/user/.env
+
+      - name: Create .env in admin package
+        run: |
+          echo "${{ secrets.ADMIN_ENV }}" > packages/admin/.env
 
       - name: Build Common
         run: yarn run build:common

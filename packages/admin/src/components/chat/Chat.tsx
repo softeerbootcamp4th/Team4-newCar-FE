@@ -12,7 +12,7 @@ export default function Chat({ type, team, sender, content }: ChatProps) {
 			default:
 				return (
 					<Message sender={sender} team={team} isMyMessage={false}>
-						{content}
+						<div className="text-cream-100">{content}</div>
 					</Message>
 				);
 		}

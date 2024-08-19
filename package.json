@@ -29,7 +29,7 @@
 		"react-toastify": "^10.0.5",
 		"sockjs-client": "^1.6.1",
 		"tailwind-merge": "^2.4.0",
-		"xlsx": "^0.18.5"
+		"xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
 	},
 	"devDependencies": {
 		"@types/eslint": "^8",

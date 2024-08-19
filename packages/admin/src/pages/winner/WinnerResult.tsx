@@ -5,6 +5,7 @@ import ResultTable from 'src/components/table/ResultTable.tsx';
 import { Button } from 'src/components/ui/button.tsx';
 import useEvent from 'src/hooks/useEvent.tsx';
 import { QuizWinner, RacingWinner } from 'src/services/api/types/apiType.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 import excelDownload from 'src/utils/xlsx.ts';
 
 const TabName = {
@@ -38,6 +39,7 @@ const getRows = (pageIndex: number, rawList: RacingWinner[] | QuizWinner[]) => {
 
 function WinnerResult() {
 	const { racingWinners, quizWinner } = useEvent();
+	const { openAlert } = useAlert();
 
 	const [pageIndex, setPageIndex] = useState(0);
 	const [tabName, setTabName] = useState(TabName.QUIZ);
@@ -61,7 +63,6 @@ function WinnerResult() {
 		if (tabName === TabName.RACE) {
 			setHeaders(racingHeaders);
 			if (racingWinners !== undefined) {
-				console.log('hi2');
 				setTotal(racingWinners.length);
 				setRows(getRows(pageIndex, racingWinners));
 			} else resetList();
@@ -73,10 +74,16 @@ function WinnerResult() {
 	}, [tabName]);
 
 	const hnadleDownload = () => {
-		if (tabName === TabName.QUIZ && racingWinners !== undefined) {
-			excelDownload(racingWinners, '퀴즈 위너');
+		if (tabName === TabName.QUIZ) {
+			if (quizWinner === undefined) {
+				return openAlert('데이터가 없습니다.', 'alert');
+			}
+			excelDownload(quizWinner, '퀴즈 위너');
 		}
-		if (tabName === TabName.RACE && racingWinners !== undefined) {
+		if (tabName === TabName.RACE) {
+			if (racingWinners === undefined) {
+				return openAlert('데이터가 없습니다.', 'alert');
+			}
 			excelDownload(racingWinners, '레이싱 위너');
 		}
 	};

@@ -6,25 +6,21 @@ import http from 'src/services/api/index.ts';
 import QUERY_KEYS from 'src/services/api/queryKey.ts';
 import CustomError from 'src/utils/error.ts';
 
-export type UserResponse = {
+export interface UserInfoResponse {
 	userId: string;
 	userName: string;
 	team: ServerCategoryEnum | null;
 	url: string | null;
-};
+}
 
 export default function useGetUserInfo() {
-	const { isAuthenticated, token, clearAuthData } = useAuth();
+	const { token, clearAuthData } = useAuth();
 
 	const {
 		data: userInfo,
 		status,
 		...props
-	} = useQuery<UserResponse>({
-		queryKey: [QUERY_KEYS.USER_INFO, token],
-		queryFn: () => http.get('/user-info'),
-		enabled: isAuthenticated,
-	});
+	} = useQuery<UserInfoResponse>(userInfoQueryOptions(token));
 
 	useEffect(() => {
 		if (status === 'error') {
@@ -35,3 +31,9 @@ export default function useGetUserInfo() {
 
 	return { userInfo, ...props };
 }
+
+export const userInfoQueryOptions = (token: string | null) => ({
+	queryKey: [QUERY_KEYS.USER_INFO, token],
+	queryFn: () => http.get<UserInfoResponse>('/user-info'),
+	enabled: Boolean(token),
+});

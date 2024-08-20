@@ -24,20 +24,13 @@ export default function useChatSocket() {
 
 	const handleIncomingBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
-			const { blockId } = data as { blockId: string };
-			setChatMessages((prevMessages) => {
-				const tmpMessages = prevMessages.slice();
-				tmpMessages.some((tmpMessage, index) => {
-					if (tmpMessage.id === blockId) {
-						tmpMessages[index].type = 'b';
-						return true;
-					}
-					return false;
-				});
-				return tmpMessages;
-			});
+			const { id, blockId } = data as { id: string; blockId: string };
+
+			setChatMessages((prevMessages) =>
+				prevMessages.map((message) => (message.id === blockId ? { id, type: 'b' } : message)),
+			);
 		},
-		[chatMessages],
+		[setChatMessages],
 	);
 
 	const handleSendMessage = useCallback(

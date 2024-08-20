@@ -59,8 +59,8 @@ const rankStyles: Record<Rank, string> = {
 };
 
 const imageUrls: Record<Category, string> = {
-	travel: '/images/racing/front/travel.png',
-	leisure: '/images/racing/front/leisure.png',
-	place: '/images/racing/front/place.png',
-	pet: '/images/racing/front/pet.png',
+	travel: '/images/racing/front/travel.webp',
+	leisure: '/images/racing/front/leisure.webp',
+	place: '/images/racing/front/place.webp',
+	pet: '/images/racing/front/pet.webp',
 };

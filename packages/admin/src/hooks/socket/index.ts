@@ -9,9 +9,12 @@ export type UseSocketReturnType = ReturnType<typeof useSocket>;
 export default function useSocket() {
 	const accessToken = Cookie.getCookie<string>(ACCESS_TOKEN_KEY) ?? '';
 	const chatSocket = useChatSocket();
+	console.log(chatSocket)
 	const { onReceiveMessage, ...chatSocketProps } = chatSocket;
 	useEffect(() => {
-		socketManager.connectSocketClient({ token: accessToken, onReceiveMessage });
+		if(accessToken !== ""){
+			socketManager.connectSocketClient({ token: accessToken, onReceiveMessage });
+		}
 	}, [socketManager, accessToken]);
 
 	return { chatSocket: chatSocketProps };

@@ -1,5 +1,8 @@
+import { ACCESS_TOKEN_KEY } from '@softeer/common/constants';
+import { Cookie } from '@softeer/common/utils';
 import { defer } from 'react-router-dom';
 import { EventDuration, eventDurationQueryOptions } from 'src/hooks/query/useGetEventDuration.ts';
+import { userInfoQueryOptions } from 'src/hooks/query/useGetUserInfo.ts';
 import { queryClient } from 'src/libs/query/index.tsx';
 import QUERY_KEYS from 'src/services/api/queryKey.ts';
 import CustomError from 'src/utils/error.ts';
@@ -18,6 +21,12 @@ export default async function indexLoader() {
 
 	if (startTime > currentTime) {
 		throw new CustomError('이벤트가 아직 시작되지 않았습니다.', 403);
+	}
+
+	const token = Cookie.getCookie<string | null>(ACCESS_TOKEN_KEY);
+
+	if (token) {
+		await queryClient.prefetchQuery(userInfoQueryOptions(token));
 	}
 
 	return defer({ duration });

@@ -12,7 +12,7 @@ function CasperCursor() {
 			}}
 		>
 			<img
-				src="/cursor/cursor-100.png"
+				src="/cursor/cursor-50.png"
 				alt="커서"
 				style={{ pointerEvents: 'none', width: 25, height: 25 }}
 			/>

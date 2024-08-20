@@ -49,7 +49,7 @@ export default class FetchWrapper {
 
 	async get<T>(url: string): Promise<T> {
 		return this.request<T>(url, {
-			// credentials: 'include',
+			credentials: 'include',
 		});
 	}
 
@@ -60,7 +60,7 @@ export default class FetchWrapper {
 			headers: {
 				...generateDefaultHeaders(),
 			},
-			// credentials: 'include',
+			credentials: 'include',
 		});
 	}
 
@@ -71,7 +71,7 @@ export default class FetchWrapper {
 			headers: {
 				...generateDefaultHeaders(),
 			},
-			// credentials: 'include',
+			credentials: 'include',
 		});
 	}
 

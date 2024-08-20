@@ -10,6 +10,7 @@ export default defineConfig({
 			src: path.resolve(__dirname, './src'),
 		},
 	},
+	publicDir: './public',
 	define: {
 		global: 'window', // web socket
 	},

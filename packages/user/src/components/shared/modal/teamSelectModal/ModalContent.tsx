@@ -3,6 +3,7 @@ import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useSubmitTeamTypeQuizAnswers, {
 	type SubmitQuizAnswersRequest,
 } from 'src/hooks/query/useSubmitTeamTypeQuizAnswers.ts';
+import useAuth from 'src/hooks/useAuth.ts';
 import useFunnel from 'src/hooks/useFunnel.ts';
 import CustomError from 'src/utils/error.ts';
 import ErrorStep from './ErrorStep.tsx';
@@ -15,6 +16,8 @@ interface TeamSelectModalContentProps {
 export default function TeamSelectModalContent({
 	initialStep = 'quiz',
 }: TeamSelectModalContentProps) {
+	const { user } = useAuth();
+
 	const [Funnel, setStep] = useFunnel(
 		['quiz', 'pending', 'success', 'error', 'already-done'] as NonEmptyArray<string>,
 		{ initialStep },
@@ -48,15 +51,15 @@ export default function TeamSelectModalContent({
 			<Funnel.Step name="pending">
 				<PendingStep>내 유형 불러오는 중 ...</PendingStep>
 			</Funnel.Step>
-			<Funnel.Step name="success">
-				<ResultStep />
-			</Funnel.Step>
+			<Funnel.Step name="success">{user?.type && <ResultStep />}</Funnel.Step>
 			<Funnel.Step name="already-done">
-				<ResultStep>
-					<p className="text-detail-1">
-						이미 유형 검사를 완료하셨군요! 이전 검사 결과를 보여드릴게요
-					</p>
-				</ResultStep>
+				{user?.type && (
+					<ResultStep>
+						<p className="text-detail-1">
+							이미 유형 검사를 완료하셨군요! 이전 검사 결과를 보여드릴게요
+						</p>
+					</ResultStep>
+				)}
 			</Funnel.Step>
 			<Funnel.Step name="error">
 				<ErrorStep setQuizStep={() => setStep('quiz')}>

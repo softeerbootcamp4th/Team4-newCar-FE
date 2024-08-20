@@ -1,9 +1,9 @@
 import type { ServerCategoryEnum } from '@softeer/common/types';
 import { useMutation } from '@tanstack/react-query';
+import serverTeamEnumToClient from 'src/constants/serverMapping.ts';
 import useAuth from 'src/hooks/useAuth.ts';
-import { queryClient } from 'src/libs/query/index.tsx';
 import http from 'src/services/api/index.ts';
-import QUERY_KEYS from 'src/services/api/queryKey.ts';
+import type { User } from 'src/types/user.d.ts';
 
 export type SubmitQuizAnswersRequest = { id: number; answer: number }[];
 
@@ -14,13 +14,17 @@ export interface SubmitQuizAnswersResponse {
 }
 
 export default function useSubmitTeamTypeQuizAnswers() {
-	const { setAuthData } = useAuth();
+	const { user, setAuthData } = useAuth();
 
 	const mutation = useMutation<SubmitQuizAnswersResponse, Error, SubmitQuizAnswersRequest>({
 		mutationFn: (data) => http.post('/personality-test', data),
-		onSuccess: ({ accessToken }) => {
-			setAuthData({ accessToken });
-			queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_INFO] });
+		onSuccess: ({ accessToken, team }) => {
+			const userData = {
+				...(user as User),
+				type: serverTeamEnumToClient[team],
+			};
+
+			setAuthData({ accessToken, userData });
 		},
 	});
 

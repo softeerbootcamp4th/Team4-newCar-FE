@@ -26,7 +26,7 @@ export default function NotStartedEventPage() {
 					</p>
 				</div>
 				<img
-					src="/images/fcfs/modal.png"
+					src="/images/thumbnail.webp"
 					alt="오류 발생 이미지"
 					className="w-full max-w-[1000px]"
 				/>

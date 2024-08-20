@@ -8,11 +8,10 @@ import {
 	ErrorPage,
 	EventPage,
 	HomePage,
-	KakaoRedirectPage,
 	NotFoundErrorPage,
 	NotStartedEventPage,
 } from 'src/pages/index.ts';
-import { rootLoader, shareRedirectLoader } from 'src/routes/loader/index.ts';
+import { kakaoRedirectLoader, rootLoader, shareRedirectLoader } from 'src/routes/loader/index.ts';
 
 const routes: RouteObject[] = [
 	{
@@ -49,9 +48,10 @@ const routes: RouteObject[] = [
 				],
 			},
 			{
+				loader: kakaoRedirectLoader,
 				path: RoutePaths.KakaoOauthRedirect,
 				errorElement: <ErrorPage />,
-				element: <KakaoRedirectPage />,
+				element: null,
 			},
 		],
 	},

@@ -8,7 +8,7 @@ const shareRedirectLoader: LoaderFunction = async ({ params }) => {
 
 	await queryClient.prefetchQuery(clickCountQueryOptions(id));
 
-	redirect(RoutePaths.Home);
+	return redirect(RoutePaths.Home);
 };
 
 export default shareRedirectLoader;

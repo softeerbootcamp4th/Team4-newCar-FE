@@ -15,11 +15,6 @@ export interface SendMessageProps {
 	headers?: Record<string, string>;
 }
 
-export interface ConnectProps {
-	isSuccess: boolean;
-	options?: IFrame;
-}
-
 export default class Socket {
 	private client: Client;
 
@@ -47,21 +42,23 @@ export default class Socket {
 		return stompClient;
 	}
 
-	connect(callback?: (props: ConnectProps) => void) {
-		this.client.onConnect = (options) => {
-			this.isConnected = true;
-			callback?.({ isSuccess: true, options });
-		};
+	async connect(): Promise<IFrame> {
+		return new Promise((resolve, reject) => {
+			this.client.onConnect = (options) => {
+				this.isConnected = true;
+				resolve(options);
+			};
 
-		this.client.onStompError = (error) => {
-			this.isConnected = false;
-			callback?.({ isSuccess: false, options: error });
-		};
+			this.client.onStompError = (error) => {
+				this.isConnected = false;
+				reject(error);
+			};
 
-		this.client.activate();
+			this.client.activate();
+		});
 	}
 
-	disconnect() {
+	async disconnect() {
 		this.subscriptions.forEach((subscription) => subscription.unsubscribe());
 		this.subscriptions.clear();
 
@@ -71,7 +68,7 @@ export default class Socket {
 		}
 	}
 
-	sendMessages({ destination, body }: SendMessageProps) {
+	async sendMessages({ destination, body }: SendMessageProps) {
 		if (!this.token) {
 			throw new Error('로그인 후 참여할 수 있어요!');
 		}
@@ -82,12 +79,9 @@ export default class Socket {
 		};
 
 		if (!this.client.connected) {
-			this.connect(() => {
-				this.client.publish(messageProps);
-			});
-		} else {
-			this.client.publish(messageProps);
+			await this.connect();
 		}
+		this.client.publish(messageProps);
 	}
 
 	private createSubscription({ destination, callback, headers = {} }: SubscriptionProps) {
@@ -110,12 +104,11 @@ export default class Socket {
 		this.subscriptions.set(destination, subscription);
 	}
 
-	subscribe(props: SubscriptionProps) {
-		if (this.client.connected) {
-			this.createSubscription(props);
-		} else {
-			this.connect(() => this.createSubscription(props));
+	async subscribe(props: SubscriptionProps) {
+		if (!this.isConnected) {
+			await this.connect();
 		}
+		this.createSubscription(props);
 	}
 
 	unsubscribe(destination: string) {

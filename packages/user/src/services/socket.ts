@@ -28,7 +28,7 @@ class SocketManager {
 		return this.socketClient!;
 	}
 
-	connectSocketClient({
+	async connectSocketClient({
 		token,
 		onReceiveMessage,
 		onReceiveBlock,
@@ -39,27 +39,26 @@ class SocketManager {
 		onReceiveBlock: SocketSubscribeCallbackType;
 		onReceiveStatus: SocketSubscribeCallbackType;
 	}) {
+		if (this.socketClient) {
+			await this.socketClient.disconnect();
+		}
+
 		this.initializeSocketClient(token);
 
 		this.onReceiveMessage = onReceiveMessage;
 		this.onReceiveBlock = onReceiveBlock;
 		this.onReceiveStatus = onReceiveStatus;
 
-		this.socketClient!.connect((isConnected) => {
-			if (isConnected) {
-				this.subscribeToTopics();
-			} else {
-				throw new CustomError('서버에서 데이터를 불러오는 데 실패했습니다.', 500);
-			}
-		});
+		try {
+			await this.socketClient!.connect();
+			this.subscribeToTopics();
+		} catch (error) {
+			throw new CustomError('서버에서 데이터를 불러오는 데 실패했습니다.', 500);
+		}
 	}
 
-	reconnectSocketClient(token?: string | null) {
-		if (this.socketClient) {
-			this.socketClient.disconnect();
-		}
-
-		this.connectSocketClient({
+	async reconnectSocketClient(token?: string | null) {
+		await this.connectSocketClient({
 			token,
 			onReceiveBlock: this.onReceiveBlock!,
 			onReceiveMessage: this.onReceiveMessage!,

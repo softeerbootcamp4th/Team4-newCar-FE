@@ -26,7 +26,6 @@ const IMAGE_URLS: Record<ResultStepType, string> = {
 	end: '/images/fcfs/result/already-done.png',
 };
 
-/** TODO: 이벤트 마지막 날에는 '내일 퀴즈' 관련 문구 제거 */
 const DESCRIPTIONS: Record<
 	ResultStepType,
 	{

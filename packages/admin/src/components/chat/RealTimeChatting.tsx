@@ -1,6 +1,6 @@
 import { ChatList } from '@softeer/common/components';
 import { useRef } from 'react';
-import { UseSocketReturnType } from 'src/hooks/socket/index.ts';
+import { AdminSocketReturnType } from 'src/hooks/socket/index.ts';
 import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 import { Button } from '../ui/button.tsx';
 import { Input } from '../ui/input.tsx';
@@ -8,8 +8,9 @@ import Chat from './Chat.tsx';
 
 /** 실시간 기대평 섹션 */
 
-function RealTimeChatting({ chatSocket: { messages } }: Pick<UseSocketReturnType, 'chatSocket'>) {
+function RealTimeChatting({ chatSocket: { messages, onBlock } }: Pick<AdminSocketReturnType, 'chatSocket'>) {
 	const { openAlert, addAlertCallback } = useAlert();
+
 	const noticeInputRef = useRef<HTMLInputElement>(null);
 	const handleSend: React.FormEventHandler<HTMLFormElement> = (event) => {
 		event.preventDefault();
@@ -30,7 +31,7 @@ function RealTimeChatting({ chatSocket: { messages } }: Pick<UseSocketReturnType
 			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
 				<ChatList>
 					{messages.map((message) => (
-						<Chat key={message.id} {...message} />
+						<Chat onBlock={onBlock} key={message.id} {...message} />
 					))}
 				</ChatList>
 			</div>

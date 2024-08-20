@@ -3,6 +3,7 @@ import { Category, SocketCategory } from 'src/types/category.ts';
 export const CHAT_SOCKET_ENDPOINTS = {
 	SUBSCRIBE: '/topic/chat',
 	PUBLISH: '/app/chat.sendMessage',
+	BLOCK: '/topic/block',
 } as const;
 
 export const RACING_SOCKET_ENDPOINTS = {

@@ -2,14 +2,16 @@ import { ChatProps } from '@softeer/common/components';
 import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useState } from 'react';
-// import { useToast } from 'src/hooks/useToast.ts';
 import socketManager from 'src/services/socket.ts';
+import { useAlert } from 'src/store/provider/AlertProvider.tsx';
 
-export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
+export type AdminChatSocketReturnType = ReturnType<typeof useChatSocket>;
 
 export default function useChatSocket() {
-	// const { toast } = useToast();
+	const { openAlert } = useAlert();
+
 	const socketClient = socketManager.getSocketClient();
+
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 
 	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
@@ -21,18 +23,37 @@ export default function useChatSocket() {
 		[],
 	);
 
-	const handleSendMessage = useCallback(
-		(content: string) => {
-			try {
-				const chatMessage = { content };
+	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
+		(data: unknown, messageId: string) => {
+			const { blockId } = data as { blockId: string };
+			setChatMessages(prevMessages => {
+				const tmpMessages = prevMessages.slice();
+				// console.log(chatMessages);
+				tmpMessages.some((tmpMessage, index) => {
+					if (tmpMessage.id === blockId) {
+						tmpMessages[index].type = 'b';
+						return true;
+					} return false;
+				});
+				return tmpMessages;
+			});
+		},
+		[chatMessages],
+	);
 
+	const handleBlock = useCallback(
+		(id: string) => {
+			const blockId = {
+				blockId: id,
+			};
+			try {
 				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
-					body: chatMessage,
+					destination: CHAT_SOCKET_ENDPOINTS.BLOCK,
+					body: blockId,
 				});
 			} catch (error) {
-				// const errorMessage = (error as Error).message;
-				// toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+				const errorMessage = (error as Error).message;
+				openAlert(errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.', 'alert');
 			}
 		},
 		[socketClient],
@@ -40,7 +61,8 @@ export default function useChatSocket() {
 
 	return {
 		onReceiveMessage: handleIncomingMessage,
-		onSendMessage: handleSendMessage,
+		onReceiveBlock: handleIncomintBlock,
+		onBlock: handleBlock,
 		messages: chatMessages,
 	};
 }

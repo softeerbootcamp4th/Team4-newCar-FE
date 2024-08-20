@@ -39,7 +39,7 @@ export default function EventPrizes() {
 					<PrizeCard
 						key={drawCount}
 						badge={<Chip variants="secondary">{drawCount}명</Chip>}
-						imageUrl={`images/prize/${index + 1}.png`}
+						imageUrl={`images/prize/${index + 1}.webp`}
 					>
 						{description}
 					</PrizeCard>

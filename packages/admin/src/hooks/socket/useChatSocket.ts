@@ -15,14 +15,9 @@ export default function useChatSocket() {
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
 	const [notice, setNotice] = useState<string>('');
 
-	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
-		(data: unknown, messageId: string) => {
-			const parsedData = data as Omit<ChatProps, 'id'>;
-			const parsedMessage = { id: messageId, ...parsedData };
-			setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
-		},
-		[],
-	);
+	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback((data: unknown) => {
+		setChatMessages((prevMessages) => [...prevMessages, data] as ChatProps[]);
+	}, []);
 
 	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {

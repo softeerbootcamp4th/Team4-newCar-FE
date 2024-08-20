@@ -28,7 +28,6 @@ export default function useChatSocket() {
 			const { blockId } = data as { blockId: string };
 			setChatMessages(prevMessages => {
 				const tmpMessages = prevMessages.slice();
-				// console.log(chatMessages);
 				tmpMessages.some((tmpMessage, index) => {
 					if (tmpMessage.id === blockId) {
 						tmpMessages[index].type = 'b';
@@ -43,7 +42,6 @@ export default function useChatSocket() {
 
 	const handleIncomingNotice: SocketSubscribeCallbackType = useCallback(
 		(data: unknown, messageId: string) => {
-			console.log(data);
 			const parsedData = data as Omit<ChatProps, 'id'>;
 			const parsedMessage = { id: messageId, ...parsedData };
 			setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);

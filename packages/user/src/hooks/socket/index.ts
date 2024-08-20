@@ -10,13 +10,13 @@ export default function useSocket() {
 	const { token } = useAuth();
 	const chatSocket = useChatSocket();
 
-	const { onReceiveMessage, ...chatSocketProps } = chatSocket;
+	const { onReceiveMessage, onReceiveBlock, ...chatSocketProps } = chatSocket;
 
 	const racingSocket = useRacingSocket();
 	const { onReceiveStatus, ...racingSocketProps } = racingSocket;
 
 	useEffect(() => {
-		socketManager.connectSocketClient({ token, onReceiveMessage, onReceiveStatus });
+		socketManager.connectSocketClient({ token, onReceiveMessage, onReceiveStatus, onReceiveBlock });
 	}, [socketManager, token]);
 
 	return { chatSocket: chatSocketProps, racingSocket: racingSocketProps };

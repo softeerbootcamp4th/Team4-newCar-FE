@@ -22,6 +22,23 @@ export default function useChatSocket() {
 		[],
 	);
 
+	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
+		(data: unknown) => {
+			const { blockId } = data as { blockId: string };
+			setChatMessages(prevMessages => {
+				const tmpMessages = prevMessages.slice();
+				tmpMessages.some((tmpMessage, index) => {
+					if (tmpMessage.id === blockId) {
+						tmpMessages[index].type = 'b';
+						return true;
+					} return false;
+				});
+				return tmpMessages;
+			});
+		},
+		[chatMessages],
+	);
+
 	const handleSendMessage = useCallback(
 		(content: string) => {
 			try {
@@ -41,6 +58,7 @@ export default function useChatSocket() {
 
 	return {
 		onReceiveMessage: handleIncomingMessage,
+		onReceiveBlock: handleIncomintBlock,
 		onSendMessage: handleSendMessage,
 		messages: chatMessages,
 	};

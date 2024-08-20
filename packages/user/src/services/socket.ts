@@ -12,6 +12,8 @@ class SocketManager {
 
 	private onReceiveMessage: SocketSubscribeCallbackType | null = null;
 
+	private onReceiveBlock: SocketSubscribeCallbackType | null = null;
+
 	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
 
 	constructor(token: string | null) {
@@ -29,15 +31,18 @@ class SocketManager {
 	connectSocketClient({
 		token,
 		onReceiveMessage,
+		onReceiveBlock,
 		onReceiveStatus,
 	}: {
 		token: string | null | undefined;
 		onReceiveMessage: SocketSubscribeCallbackType;
+		onReceiveBlock: SocketSubscribeCallbackType;
 		onReceiveStatus: SocketSubscribeCallbackType;
 	}) {
 		this.initializeSocketClient(token);
 
 		this.onReceiveMessage = onReceiveMessage;
+		this.onReceiveBlock = onReceiveBlock;
 		this.onReceiveStatus = onReceiveStatus;
 
 		this.socketClient!.connect((isConnected) => {
@@ -56,6 +61,7 @@ class SocketManager {
 
 		this.connectSocketClient({
 			token,
+			onReceiveBlock: this.onReceiveBlock!,
 			onReceiveMessage: this.onReceiveMessage!,
 			onReceiveStatus: this.onReceiveStatus!,
 		});
@@ -67,6 +73,13 @@ class SocketManager {
 				this.socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
 					callback: this.onReceiveMessage,
+				});
+			}
+
+			if (this.onReceiveBlock) {
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.BLOCK,
+					callback: this.onReceiveBlock,
 				});
 			}
 

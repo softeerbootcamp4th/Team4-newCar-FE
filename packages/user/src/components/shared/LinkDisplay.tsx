@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { cn } from '@softeer/common/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
@@ -30,13 +31,19 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & VariantProps<typ
 /** 유저 별 이벤트 공유 링크 */
 const LinkDisplay = forwardRef<HTMLInputElement, InputProps>(
 	({ className, variants, ...props }, ref) => (
-		<input
-			type="text"
-			readOnly
-			className={cn(inputVariants({ variants, className }))}
-			ref={ref}
-			{...props}
-		/>
+		<>
+			<label htmlFor="sharedLink" className="sr-only">
+				유저 별 이벤트 공유 링크
+			</label>
+			<input
+				id="shareLink"
+				type="text"
+				readOnly
+				className={cn(inputVariants({ variants, className }))}
+				ref={ref}
+				{...props}
+			/>
+		</>
 	),
 );
 

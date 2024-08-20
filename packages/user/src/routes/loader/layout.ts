@@ -19,4 +19,6 @@ export default async function layoutLoader() {
 
 		return defer({ userStatus });
 	}
+
+	return null;
 }

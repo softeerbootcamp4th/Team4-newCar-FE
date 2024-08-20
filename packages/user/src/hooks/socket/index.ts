@@ -16,6 +16,7 @@ export default function useSocket() {
 	const { onReceiveStatus, ...racingSocketProps } = racingSocket;
 
 	useEffect(() => {
+		if (socketManager.getSocketClient().isConnected) return;
 		socketManager.connectSocketClient({ token, onReceiveMessage, onReceiveStatus, onReceiveBlock });
 	}, [socketManager, token]);
 

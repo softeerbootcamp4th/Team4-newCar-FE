@@ -27,6 +27,8 @@ export default class Socket {
 
 	private token?: string | undefined | null = undefined;
 
+	isConnected: boolean = false;
+
 	constructor(url: string, token?: string | null) {
 		let baseUrl = url;
 		if (token) {
@@ -47,10 +49,12 @@ export default class Socket {
 
 	connect(callback?: (props: ConnectProps) => void) {
 		this.client.onConnect = (options) => {
+			this.isConnected = true;
 			callback?.({ isSuccess: true, options });
 		};
 
 		this.client.onStompError = (error) => {
+			this.isConnected = false;
 			callback?.({ isSuccess: false, options: error });
 		};
 
@@ -63,6 +67,7 @@ export default class Socket {
 
 		if (this.client.connected) {
 			this.client.deactivate();
+			this.isConnected = false;
 		}
 	}
 

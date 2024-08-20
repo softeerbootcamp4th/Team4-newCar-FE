@@ -1,23 +1,10 @@
 import { Category } from '@softeer/common/types';
-import { FunctionComponent, PropsWithChildren, useMemo } from 'react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 import LinkShare from 'src/components/shared/linkShare/index.tsx';
 import ShareCountTeamCard from 'src/components/shared/ShareCountTeamCard.tsx';
 import { TEAM_DESCRIPTIONS } from 'src/constants/teamDescriptions.ts';
-import useAuth from 'src/hooks/useAuth.ts';
 
-export default function ResultStep({ children }: PropsWithChildren) {
-	const { user } = useAuth();
-
-	const type = useMemo(() => {
-		if (user?.type) {
-			return user.type;
-		}
-	}, [user?.type]);
-
-	if (!type) {
-		return null;
-	}
-
+export default function ResultStep({ type, children }: PropsWithChildren<{ type: Category }>) {
 	const { title, shortTitle, details } = TEAM_DESCRIPTIONS[type];
 	const displayTitle = shortTitle ?? title;
 

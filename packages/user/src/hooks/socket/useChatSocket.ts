@@ -25,13 +25,14 @@ export default function useChatSocket() {
 	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const { blockId } = data as { blockId: string };
-			setChatMessages(prevMessages => {
+			setChatMessages((prevMessages) => {
 				const tmpMessages = prevMessages.slice();
 				tmpMessages.some((tmpMessage, index) => {
 					if (tmpMessage.id === blockId) {
 						tmpMessages[index].type = 'b';
 						return true;
-					} return false;
+					}
+					return false;
 				});
 				return tmpMessages;
 			});
@@ -45,7 +46,7 @@ export default function useChatSocket() {
 				const chatMessage = { content };
 
 				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT,
 					body: chatMessage,
 				});
 			} catch (error) {

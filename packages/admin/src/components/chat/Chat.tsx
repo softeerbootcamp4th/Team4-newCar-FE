@@ -1,6 +1,6 @@
 import { BlockedChat, ChatProps, Message, Notice } from '@softeer/common/components';
 import { FunctionComponent, useCallback } from 'react';
-import { Button } from '../ui/button.tsx';
+import { Button } from '../ui/button.js';
 
 type AdminChatProps = {
 	onBlock: (id: string) => void

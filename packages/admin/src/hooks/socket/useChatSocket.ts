@@ -13,6 +13,7 @@ export default function useChatSocket() {
 	const socketClient = socketManager.getSocketClient();
 
 	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
+	const [notice, setNotice] = useState<string>('');
 
 	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
 		(data: unknown, messageId: string) => {
@@ -26,13 +27,14 @@ export default function useChatSocket() {
 	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const { blockId } = data as { blockId: string };
-			setChatMessages(prevMessages => {
+			setChatMessages((prevMessages) => {
 				const tmpMessages = prevMessages.slice();
 				tmpMessages.some((tmpMessage, index) => {
 					if (tmpMessage.id === blockId) {
 						tmpMessages[index].type = 'b';
 						return true;
-					} return false;
+					}
+					return false;
 				});
 				return tmpMessages;
 			});
@@ -41,12 +43,11 @@ export default function useChatSocket() {
 	);
 
 	const handleIncomingNotice: SocketSubscribeCallbackType = useCallback(
-		(data: unknown, messageId: string) => {
-			const parsedData = data as Omit<ChatProps, 'id'>;
-			const parsedMessage = { id: messageId, ...parsedData };
-			setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
+		(data: unknown) => {
+			const { content } = data as { content: string };
+			setNotice(content);
 		},
-		[],
+		[socketClient],
 	);
 
 	const handleBlock = useCallback(
@@ -56,7 +57,7 @@ export default function useChatSocket() {
 			};
 			try {
 				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.BLOCK,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_BLOCK,
 					body: blockId,
 				});
 			} catch (error) {
@@ -71,9 +72,8 @@ export default function useChatSocket() {
 		(content: string) => {
 			try {
 				const chatMessage = { content };
-
 				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.NOTICE,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_NOTICE,
 					body: chatMessage,
 				});
 			} catch (error) {
@@ -91,5 +91,6 @@ export default function useChatSocket() {
 		onBlock: handleBlock,
 		onNotice: handleSendNotice,
 		messages: chatMessages,
+		notice,
 	};
 }

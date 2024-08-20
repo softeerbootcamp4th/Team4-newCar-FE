@@ -71,14 +71,14 @@ class SocketManager {
 		if (this.socketClient) {
 			if (this.onReceiveMessage) {
 				this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_CHAT,
 					callback: this.onReceiveMessage,
 				});
 			}
 
 			if (this.onReceiveBlock) {
 				this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.BLOCK,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_BLOCK,
 					callback: this.onReceiveBlock,
 				});
 			}

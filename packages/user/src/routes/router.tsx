@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 import GlobalFallback from 'src/components/layout/GlobalFallback.tsx';
 import Layout from 'src/components/layout/index.tsx';
+import LayoutFallback from 'src/components/layout/LayoutFallback.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import AuthProvider from 'src/context/auth/index.tsx';
 import {
@@ -11,7 +12,12 @@ import {
 	NotFoundErrorPage,
 	NotStartedEventPage,
 } from 'src/pages/index.ts';
-import { kakaoRedirectLoader, rootLoader, shareRedirectLoader } from 'src/routes/loader/index.ts';
+import {
+	kakaoRedirectLoader,
+	layoutLoader,
+	rootLoader,
+	shareRedirectLoader,
+} from 'src/routes/loader/index.ts';
 
 const routes: RouteObject[] = [
 	{
@@ -30,10 +36,13 @@ const routes: RouteObject[] = [
 				element: null,
 			},
 			{
+				loader: layoutLoader,
 				element: (
-					<AuthProvider>
-						<Layout />
-					</AuthProvider>
+					<Suspense fallback={<LayoutFallback />}>
+						<AuthProvider>
+							<Layout />
+						</AuthProvider>
+					</Suspense>
 				),
 				errorElement: <ErrorPage />,
 				children: [

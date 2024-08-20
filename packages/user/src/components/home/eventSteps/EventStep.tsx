@@ -9,7 +9,7 @@ export default function EventStep({ step, title, children }: PropsWithChildren<E
 
 	return (
 		<div className="flex flex-col items-center">
-			<h6 className="text-primary text-heading-8 mb-[30px] font-medium">{stepLabel}</h6>
+			<p className="text-primary text-heading-8 mb-[30px] font-medium">{stepLabel}</p>
 			<p className="text-heading-10 font-medium">{title}</p>
 			{children}
 		</div>

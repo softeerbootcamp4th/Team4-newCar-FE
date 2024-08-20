@@ -1,8 +1,8 @@
 import { ChatList } from '@softeer/common/components';
-import ChatInput from 'src/components/event/chatting/inputArea/input/index.tsx';
 import { UseSocketReturnType } from 'src/hooks/socket/index.ts';
 import Chat from './Chat.tsx';
 import ChatInputArea from './inputArea/index.tsx';
+import ChatInput from './inputArea/input/index.tsx';
 
 /** 실시간 기대평 섹션 */
 

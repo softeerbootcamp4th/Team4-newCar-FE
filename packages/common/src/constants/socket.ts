@@ -7,6 +7,12 @@ export const CHAT_SOCKET_ENDPOINTS = {
 	PUBLISH_BLOCK: '/app/chat.sendBlock',
 	SUBSCRIBE_NOTICE: '/topic/notice',
 	PUBLISH_NOTICE: '/app/chat.sendNotice',
+	SUBSCRIBE: '/topic/chat',
+	PUBLISH: '/app/chat.sendMessage',
+	BLOCK: '/topic/block',
+	NOTICE: '/app/chat.sendNotice',
+	SUBSCRIBE_CHAT_LIST: '/user/queue/chatHistory',
+	PUBLISH_CHAT_LIST: '/app/chat.getHistory',
 } as const;
 
 export const RACING_SOCKET_ENDPOINTS = {

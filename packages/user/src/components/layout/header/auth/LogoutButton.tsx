@@ -9,11 +9,13 @@ const TOAST_DISPLAY_SECOND = 1000;
 export default function LogoutButton() {
 	const { toast } = useToast();
 	const { user, clearAuthData } = useAuth();
+
 	const name = user?.name ?? '캐스퍼';
 
 	const logout = useCallback(() => {
 		toast({ description: LOGOUT_SUCCESS_TOAST_DECRIPTION });
 		setTimeout(() => clearAuthData(), TOAST_DISPLAY_SECOND);
+
 		socketManager.reconnectSocketClient();
 	}, [toast]);
 

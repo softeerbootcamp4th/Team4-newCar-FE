@@ -43,7 +43,7 @@ export default function useChatSocket() {
 				const chatMessage = { content };
 
 				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT,
 					body: chatMessage,
 				});
 			} catch (error) {

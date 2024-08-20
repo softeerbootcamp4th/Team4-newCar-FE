@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './environments.ts';
+import { API_BASE_URL } from './environments.js';
 
 export const BASE_URL = API_BASE_URL;
 

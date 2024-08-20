@@ -71,7 +71,7 @@ class SocketManager {
 		if (this.socketClient) {
 			if (this.onReceiveMessage) {
 				this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_CHAT,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE,
 					callback: this.onReceiveMessage,
 				});
 			}

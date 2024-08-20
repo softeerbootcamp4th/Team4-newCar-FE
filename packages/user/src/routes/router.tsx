@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
+import GlobalFallback from 'src/components/layout/GlobalFallback.tsx';
 import Layout from 'src/components/layout/index.tsx';
-import LayoutSuspenseFallback from 'src/components/layout/LayoutSuspenseFallback.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import AuthProvider from 'src/context/auth/index.tsx';
 import {
@@ -12,17 +12,15 @@ import {
 	NotFoundErrorPage,
 	NotStartedEventPage,
 } from 'src/pages/index.ts';
-
-import indexLoader from 'src/routes/loader/index.ts';
-import shareRedirectLoader from 'src/routes/loader/share-redirect.ts';
+import { rootLoader, shareRedirectLoader } from 'src/routes/loader/index.ts';
 
 const routes: RouteObject[] = [
 	{
 		path: RoutePaths.Index,
-		loader: indexLoader,
+		loader: rootLoader,
 		errorElement: <NotStartedEventPage />,
 		element: (
-			<Suspense fallback={<LayoutSuspenseFallback />}>
+			<Suspense fallback={<GlobalFallback />}>
 				<Outlet />
 			</Suspense>
 		),

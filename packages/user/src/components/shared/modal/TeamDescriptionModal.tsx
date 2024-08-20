@@ -22,8 +22,8 @@ export default function TeamDescriptionModal({ type, openTrigger }: TeamDescript
 						<h3>{title}</h3>
 					</div>
 					<div className="mb-7 grid grid-flow-row sm:grid-flow-col">
-						<DescriptionImage src={`${imageBaseUrl}-1.png`} />
-						<DescriptionImage src={`${imageBaseUrl}-2.png`} />
+						<DescriptionImage src={`${imageBaseUrl}-1.webp`} />
+						<DescriptionImage src={`${imageBaseUrl}-2.webp`} />
 					</div>
 					<p className="text-body-4 text-neutral-100">{details}</p>
 				</div>

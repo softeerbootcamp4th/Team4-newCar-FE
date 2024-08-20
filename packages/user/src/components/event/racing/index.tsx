@@ -7,23 +7,26 @@ import RacingRankingDisplay from './controls/index.tsx';
 import RacingDashboard from './dashboard/index.tsx';
 
 /** 실시간 레이싱 섹션 */
-const RealTimeRacing = memo(({ racingSocket }: Pick<UseSocketReturnType, 'racingSocket'>) => {
-	const { ranks, votes, onCarFullyCharged } = racingSocket;
-	const { isCharged, handleCharge } = useChargeHandler(onCarFullyCharged);
+const RealTimeRacing = memo(
+	({
+		racingSocket: { ranks, votes, onCarFullyCharged },
+	}: Pick<UseSocketReturnType, 'racingSocket'>) => {
+		const { isCharged, handleCharge } = useChargeHandler(onCarFullyCharged);
 
-	return (
-		<section
-			id={SECTION_ID.RACING}
-			className="container flex w-[1200px] snap-start flex-col items-center gap-4 pb-[50px] pt-[80px]"
-		>
-			<div className="relative h-[685px] w-full">
-				<RacingDashboard ranks={ranks} isActive={isCharged} />
-				<ChargeButton onCharge={handleCharge} />
-			</div>
-			<RacingRankingDisplay votes={votes} ranks={ranks} isActive={isCharged} />
-		</section>
-	);
-});
+		return (
+			<section
+				id={SECTION_ID.RACING}
+				className="container flex w-[1200px] snap-start flex-col items-center gap-4 pb-[50px] pt-[80px]"
+			>
+				<div className="relative h-[685px] w-full">
+					<RacingDashboard ranks={ranks} isActive={isCharged} />
+					<ChargeButton onCharge={handleCharge} />
+				</div>
+				<RacingRankingDisplay votes={votes} ranks={ranks} isActive={isCharged} />
+			</section>
+		);
+	},
+);
 
 export default RealTimeRacing;
 

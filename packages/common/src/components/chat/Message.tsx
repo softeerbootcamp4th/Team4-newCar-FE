@@ -29,7 +29,11 @@ export default function Message({
 				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {sender} </p>
 				{isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
 			</div>
-			<p className={`flex flex-row justify-between flex-1 text-body-3 truncate ${isMyMessage && 'font-medium'}`}>{children}</p>
+			<p
+				className={`text-body-3 flex flex-1 flex-row justify-between truncate ${isMyMessage && 'font-medium'}`}
+			>
+				{children}
+			</p>
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-export type SocketSubscribeCallbackType = (data: unknown, messageId: string) => void;
+export type SocketSubscribeCallbackType = (data: unknown) => void;
 
 export interface SubscriptionProps {
 	destination: string;
@@ -88,11 +88,7 @@ export default class Socket {
 		const subscriptionProps = {
 			destination,
 			headers,
-			callback: (message: IMessage) => {
-				const messageId = message.headers['message-id'];
-				const data = JSON.parse(message.body);
-				callback(data, messageId);
-			},
+			callback: (message: IMessage) => callback(JSON.parse(message.body)),
 		};
 
 		const subscription = this.client.subscribe(

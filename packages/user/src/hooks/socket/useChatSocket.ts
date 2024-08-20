@@ -14,21 +14,20 @@ export default function useChatSocket() {
 	const [storedChatList, storeChatList] = useChatListStorage();
 	const [chatList, setChatList] = useState<ChatProps[]>(storedChatList);
 
+	const [isChatListSubscribed, setIsChatListSubscribed] = useState(false);
+
 	useEffect(() => storeChatList(chatList), [chatList]);
 
 	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
-		(data: unknown, messageId: string) => {
-			const parsedData = data as Omit<ChatProps, 'id'>;
-			const parsedMessage = { id: messageId, ...parsedData };
-			setChatList((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
+		(data: unknown) => {
+			setChatList((prevMessages) => [...prevMessages, data] as ChatProps[]);
 		},
-		[],
+		[setChatList],
 	);
 
 	const handleIncomingBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const { id, blockId } = data as { id: string; blockId: string };
-
 			setChatList((prevMessages) =>
 				prevMessages.map((message) => (message.id === blockId ? { id, type: 'b' } : message)),
 			);
@@ -36,28 +35,65 @@ export default function useChatSocket() {
 		[setChatList],
 	);
 
-	const handleSendMessage = useCallback((content: string) => {
+	const socketClient = socketManager.getSocketClient();
+
+	const handleSendMessage = useCallback(
+		(content: string) => {
+			try {
+				const chatMessage = { content };
+
+				socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
+					body: chatMessage,
+				});
+			} catch (error) {
+				const errorMessage = (error as Error).message;
+				toast({
+					description:
+						errorMessage.length > 0 ? errorMessage : '기대평 전송 중 문제가 발생했습니다.',
+				});
+			}
+		},
+		[socketClient],
+	);
+
+	const handleIncomingChatHistory: SocketSubscribeCallbackType = useCallback(
+		(data: unknown) => {
+			setChatList(data as ChatProps[]);
+		},
+		[setChatList],
+	);
+
+	const handleRequestForSendingChatHistory = useCallback(async () => {
 		try {
-			const socketClient = socketManager.getSocketClient();
-
-			const chatMessage = { content };
-
-			socketClient.sendMessages({
-				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH,
-				body: chatMessage,
+			await socketClient.sendMessages({
+				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT_LIST,
+				body: {},
 			});
+			setIsChatListSubscribed(true);
 		} catch (error) {
 			const errorMessage = (error as Error).message;
 			toast({
 				description:
-					errorMessage.length > 0 ? errorMessage : '기대평을 보내는 중 문제가 발생했습니다.',
+					errorMessage.length > 0 ? errorMessage : '기대평 내역을 불러오는 중 문제가 발생했습니다.',
 			});
 		}
-	}, []);
+	}, [setIsChatListSubscribed, socketClient]);
+
+	const handleReceiveChatList: SocketSubscribeCallbackType = useCallback(
+		(data: unknown) => {
+			if (!isChatListSubscribed) {
+				handleRequestForSendingChatHistory();
+			}
+			handleIncomingChatHistory(data);
+		},
+		[isChatListSubscribed],
+	);
 
 	return {
 		onReceiveMessage: handleIncomingMessage,
 		onReceiveBlock: handleIncomingBlock,
+		onReceiveChatList: handleReceiveChatList,
 		onSendMessage: handleSendMessage,
 		messages: chatList,
 	};

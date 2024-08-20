@@ -5,7 +5,7 @@ import serverTeamEnumToClient from 'src/constants/serverMapping.ts';
 import useAuth from 'src/hooks/useAuth.ts';
 import http from 'src/services/api/index.ts';
 import QUERY_KEYS from 'src/services/api/queryKey.ts';
-import { User } from 'src/types/user.js';
+import type { User } from 'src/types/user.d.ts';
 import CustomError from 'src/utils/error.ts';
 
 export interface UserInfoResponse {

@@ -12,6 +12,10 @@ class SocketManager {
 
 	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
 
+	private onReceiveBlock: SocketSubscribeCallbackType | null = null;
+
+	private onReceiveNotice: SocketSubscribeCallbackType | null = null;
+
 	private constructor() {
 		this.initializeSocketClient();
 	}
@@ -34,13 +38,19 @@ class SocketManager {
 	connectSocketClient({
 		token,
 		onReceiveMessage,
+		onReceiveBlock,
+		onReceiveNotice,
 	}: {
 		token: string | null | undefined;
 		onReceiveMessage: SocketSubscribeCallbackType;
+		onReceiveBlock: SocketSubscribeCallbackType;
+		onReceiveNotice: SocketSubscribeCallbackType;
 	}) {
 		this.initializeSocketClient(token);
 
 		this.onReceiveMessage = onReceiveMessage;
+		this.onReceiveBlock = onReceiveBlock;
+		this.onReceiveNotice = onReceiveNotice;
 
 		this.socketClient!.connect((isConnected) => {
 			if (isConnected) {
@@ -57,7 +67,9 @@ class SocketManager {
 		}
 		this.connectSocketClient({
 			token,
+			onReceiveBlock: this.onReceiveBlock!,
 			onReceiveMessage: this.onReceiveMessage!,
+			onReceiveNotice: this.onReceiveNotice!,
 		});
 	}
 
@@ -73,6 +85,18 @@ class SocketManager {
 				this.socketClient.subscribe({
 					destination: RACING_SOCKET_ENDPOINTS.SUBSCRIBE,
 					callback: this.onReceiveStatus,
+				});
+			}
+			if (this.onReceiveBlock) {
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.BLOCK,
+					callback: this.onReceiveBlock,
+				});
+			}
+			if (this.onReceiveNotice) {
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.NOTICE,
+					callback: this.onReceiveNotice,
 				});
 			}
 		}

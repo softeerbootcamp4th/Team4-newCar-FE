@@ -66,8 +66,8 @@ class SocketManager {
 		});
 	}
 
-	private subscribeToTopics() {
-		if (this.socketClient) {
+	subscribeToTopics() {
+		if (this.socketClient && this.socketClient.client.connected) {
 			if (this.onReceiveMessage) {
 				this.socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,

@@ -16,7 +16,7 @@ export interface SendMessageProps {
 }
 
 export default class Socket {
-	private client: Client;
+	client: Client;
 
 	private subscriptions: Map<string, StompSubscription> = new Map();
 
@@ -36,7 +36,7 @@ export default class Socket {
 	private setup(url: string): Client {
 		const stompClient = new Client({
 			webSocketFactory: () => new SockJS(url),
-			reconnectDelay: 5000, // Reconnect if the connection drops
+			reconnectDelay: 5000,
 		});
 		this.client = stompClient;
 		return stompClient;

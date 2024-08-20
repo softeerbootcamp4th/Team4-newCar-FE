@@ -5,7 +5,7 @@ import {
 } from '@softeer/common/constants';
 import { Category } from '@softeer/common/types';
 import type { SocketSubscribeCallbackType } from '@softeer/common/utils';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useRacingVoteStorage from 'src/hooks/storage/useRacingVoteStorage.ts';
 import useAuth from 'src/hooks/useAuth.ts';
 import { useToast } from 'src/hooks/useToast.ts';
@@ -20,17 +20,12 @@ export default function useRacingSocket() {
 	const { toast } = useToast();
 	const { user } = useAuth();
 
-	const socketClient = socketManager.getSocketClient();
-
 	const [storedVote, storeVote] = useRacingVoteStorage();
 	const [votes, setVotes] = useState<VoteStatus>(storedVote);
 
 	const ranks = useMemo(() => calculateRank(votes), [votes]);
 
-	const handleVoteChage = (newVoteStatus: VoteStatus) => {
-		setVotes(newVoteStatus);
-		storeVote(newVoteStatus);
-	};
+	useEffect(() => storeVote(votes), [votes]);
 
 	const handleStatusChange: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
@@ -39,35 +34,27 @@ export default function useRacingSocket() {
 				(category) => newVoteStatus[category as Category] !== votes[category as Category],
 			);
 
-			if (isVotesChanged) handleVoteChage(newVoteStatus);
+			if (isVotesChanged) setVotes(newVoteStatus);
 		},
 		[votes],
 	);
 
+	const socketClient = socketManager.getSocketClient();
+
 	const handleCarFullyCharged = useCallback(() => {
-		const category = user?.type as Category;
-
-		const chargeData = { [categoryToSocketCategory[category].toLowerCase()]: 1 };
-
-		const completeChargeData = Object.keys(categoryToSocketCategory).reduce(
-			(acc, key) => {
-				const socketCategory = categoryToSocketCategory[key as Category];
-				acc[socketCategory] = chargeData[socketCategory] ?? 0;
-				return acc;
-			},
-			{} as Record<SocketCategory, number>,
-		);
-
 		try {
+			const category = user?.type as Category;
+			const completeChargeData = prepareChargeData(category, categoryToSocketCategory);
+
 			socketClient.sendMessages({
 				destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
 				body: completeChargeData,
 			});
 		} catch (error) {
-			const errorMessage = (error as Error).message;
-			toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+			const errorMessage = (error as Error).message || '문제가 발생했습니다.';
+			toast({ description: errorMessage });
 		}
-	}, [user?.type]);
+	}, [user?.type, socketClient]);
 
 	return {
 		votes,
@@ -95,16 +82,27 @@ function calculateRank(vote: VoteStatus): RankStatus {
 	);
 }
 
-// function hasRankChanged(newRank: RankStatus, currentRank: RankStatus): boolean {
-// 	return Object.keys(newRank).some(
-// 		(category) => newRank[category as Category] !== currentRank[category as Category],
-// 	);
-// }
-
 function parseSocketVoteData(data: SocketData): VoteStatus {
 	return Object.entries(data).reduce<VoteStatus>((acc, [socketCategory, value]) => {
 		const category = socketCategoryToCategory[socketCategory.toLowerCase() as SocketCategory];
 		acc[category] = value;
 		return acc;
 	}, {} as VoteStatus);
+}
+
+function prepareChargeData(
+	category: Category,
+	categoryMap: Record<Category, SocketCategory>,
+): Record<SocketCategory, number> {
+	const chargeData = {
+		[categoryMap[category].toLowerCase()]: 1,
+	};
+
+	return Object.entries(categoryMap).reduce(
+		(acc, [, socketCategory]) => {
+			acc[socketCategory] = chargeData[socketCategory.toLowerCase()] ?? 0;
+			return acc;
+		},
+		{} as Record<SocketCategory, number>,
+	);
 }

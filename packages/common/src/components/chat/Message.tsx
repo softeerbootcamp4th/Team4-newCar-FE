@@ -7,7 +7,8 @@ interface MessageProps extends Pick<MessageChatProps, 'sender' | 'team'> {
 	isMyMessage?: boolean;
 }
 
-const TYPES: Record<SocketCategory, { casper: string; textColor: string }> = {
+const TYPES: Record<SocketCategory | 'default', { casper: string; textColor: string }> = {
+	default: { casper: '/casper/white.svg', textColor: 'text-skyblue-500' },
 	p: { casper: '/casper/yellow.svg', textColor: 'text-cream-600' },
 	l: { casper: '/casper/khaki.svg', textColor: 'text-khaki-400' },
 	t: { casper: '/casper/orange.svg', textColor: 'text-orange-500' },
@@ -20,7 +21,10 @@ export default function Message({
 	isMyMessage = false,
 	children,
 }: PropsWithChildren<MessageProps>) {
-	const { casper, textColor } = TYPES[team.toLowerCase() as SocketCategory];
+	const category = ['p', 't', 'l', 's'].includes(team)
+		? (team.toLowerCase() as SocketCategory)
+		: 'default';
+	const { casper, textColor } = TYPES[category];
 
 	return (
 		<div className="flex w-full items-center gap-12">

@@ -12,11 +12,11 @@ export default function UnassignedCard() {
 				<p className="text-heading-1 z-10 mt-[20px] text-[110px] font-extrabold leading-[70px]">
 					?
 				</p>
-				<h5 className="z-10 whitespace-pre-line text-center text-[20px] leading-[25px]">
+				<p className="text-body-3 z-10 whitespace-pre-line text-center font-extrabold">
 					당신은
 					<br />
 					<strong>어떤 팀</strong>인가요?
-				</h5>
+				</p>
 				<p className="text-background bg-primary z-10 w-full whitespace-nowrap rounded-[30px] py-[6px] text-center text-[10px] leading-[10px]">
 					자신의 유형 카드를 뽑아보세요!
 				</p>

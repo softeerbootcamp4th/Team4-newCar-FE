@@ -10,7 +10,7 @@ export default function TeamSelectModal({ openTrigger, ...props }: TeamSelectMod
 	const { user } = useAuth();
 
 	return (
-		<Modal variants={user?.type} openTrigger={openTrigger} {...props}>
+		<Modal variants={user?.type ?? 'default'} openTrigger={openTrigger} {...props}>
 			<Suspense fallback={<PendingStep>유형 검사 리스트 불러오는 중 ...</PendingStep>}>
 				<TeamSelectModalContent initialStep={user?.type ? 'already-done' : 'quiz'} />
 			</Suspense>

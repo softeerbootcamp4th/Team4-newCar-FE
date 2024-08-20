@@ -10,10 +10,15 @@ export default function useSocket() {
 	const accessToken = Cookie.getCookie<string>(ACCESS_TOKEN_KEY) ?? '';
 	const chatSocket = useChatSocket();
 
-	const { onReceiveMessage, onReceiveBlock, ...chatSocketProps } = chatSocket;
+	const { onReceiveMessage, onReceiveBlock, onReceiveNotice, ...chatSocketProps } = chatSocket;
 	useEffect(() => {
 		if (accessToken !== '') {
-			socketManager.connectSocketClient({ token: accessToken, onReceiveMessage, onReceiveBlock });
+			socketManager.connectSocketClient({
+				token: accessToken,
+				onReceiveMessage,
+				onReceiveBlock,
+				onReceiveNotice,
+			});
 		}
 	}, [socketManager, accessToken]);
 

@@ -24,7 +24,7 @@ export default function useChatSocket() {
 	);
 
 	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
-		(data: unknown, messageId: string) => {
+		(data: unknown) => {
 			const { blockId } = data as { blockId: string };
 			setChatMessages(prevMessages => {
 				const tmpMessages = prevMessages.slice();
@@ -39,6 +39,16 @@ export default function useChatSocket() {
 			});
 		},
 		[chatMessages],
+	);
+
+	const handleIncomingNotice: SocketSubscribeCallbackType = useCallback(
+		(data: unknown, messageId: string) => {
+			console.log(data);
+			const parsedData = data as Omit<ChatProps, 'id'>;
+			const parsedMessage = { id: messageId, ...parsedData };
+			setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
+		},
+		[],
 	);
 
 	const handleBlock = useCallback(
@@ -59,10 +69,29 @@ export default function useChatSocket() {
 		[socketClient],
 	);
 
+	const handleSendNotice = useCallback(
+		(content: string) => {
+			try {
+				const chatMessage = { content };
+
+				socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.NOTICE,
+					body: chatMessage,
+				});
+			} catch (error) {
+				const errorMessage = (error as Error).message;
+				openAlert(errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.', 'alert');
+			}
+		},
+		[socketClient],
+	);
+
 	return {
 		onReceiveMessage: handleIncomingMessage,
 		onReceiveBlock: handleIncomintBlock,
+		onReceiveNotice: handleIncomingNotice,
 		onBlock: handleBlock,
+		onNotice: handleSendNotice,
 		messages: chatMessages,
 	};
 }

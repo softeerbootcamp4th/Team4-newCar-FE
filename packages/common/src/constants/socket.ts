@@ -4,6 +4,7 @@ export const CHAT_SOCKET_ENDPOINTS = {
 	SUBSCRIBE: '/topic/chat',
 	PUBLISH: '/app/chat.sendMessage',
 	BLOCK: '/topic/block',
+	NOTICE: '/app/chat.sendNotice',
 } as const;
 
 export const RACING_SOCKET_ENDPOINTS = {

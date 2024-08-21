@@ -23,7 +23,10 @@ export default function RealTimeChatting({
 			<ChatInputArea>
 				<ChatInput onSend={onSendMessage} />
 			</ChatInputArea>
-			<div ref={chatListRef} className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
+			<div
+				ref={chatListRef}
+				className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10"
+			>
 				<ChatList>
 					{messages.map((message) => (
 						<Chat key={message.id} {...message} />

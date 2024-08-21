@@ -17,15 +17,12 @@
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.1",
-		"@radix-ui/react-slot": "^1.1.0",
 		"@radix-ui/react-toast": "^1.2.1",
 		"@radix-ui/react-visually-hidden": "^1.1.0",
 		"@softeer/common": "*",
 		"@tanstack/react-query": "^5.51.11",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
-		"jsdom": "^24.1.1",
-		"lucide-react": "^0.417.0",
 		"numeral": "^2.0.6"
 	},
 	"devDependencies": {
@@ -41,8 +38,7 @@
 		"vite": "^5.3.4",
 		"vite-plugin-compression": "^0.5.1",
 		"vite-plugin-imagemin": "^0.6.1",
-		"vite-plugin-svgr": "^4.2.0",
-		"vitest": "^2.0.4"
+		"vite-plugin-svgr": "^4.2.0"
 	},
 	"packageManager": "yarn@4.3.1"
 }

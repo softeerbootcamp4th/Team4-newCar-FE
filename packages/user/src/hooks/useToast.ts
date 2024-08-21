@@ -1,6 +1,5 @@
 // https://ui.shadcn.com/docs/components/toast
-import React from 'react';
-
+import { ReactNode, useEffect, useState } from 'react';
 import type { ToastActionElement, ToastProps } from 'src/components/common/toast/Toast.tsx';
 
 const TOAST_LIMIT = 5;
@@ -8,7 +7,7 @@ const TOAST_REMOVE_DELAY = 1000000;
 
 type ToasterToast = ToastProps & {
 	id: string;
-	description: React.ReactNode;
+	description: ReactNode;
 	action?: ToastActionElement;
 };
 
@@ -154,9 +153,9 @@ function toast({ ...props }: Toast) {
 }
 
 function useToast() {
-	const [state, setState] = React.useState<State>(memoryState);
+	const [state, setState] = useState<State>(memoryState);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		listeners.push(setState);
 		return () => {
 			const index = listeners.indexOf(setState);

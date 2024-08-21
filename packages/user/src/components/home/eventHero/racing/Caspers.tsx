@@ -1,12 +1,3 @@
-import CreamBubble from 'src/assets/landing-racing/casper/cream-bubble.svg?react';
-import CreamCharacter from 'src/assets/landing-racing/casper/cream.svg?react';
-import KhakiCharacter from 'src/assets/landing-racing/casper/khaki.svg?react';
-import Lighting1 from 'src/assets/landing-racing/casper/lighting-1.svg?react';
-import Lighting2 from 'src/assets/landing-racing/casper/lighting-2.svg?react';
-import OrangeBubble from 'src/assets/landing-racing/casper/orange-bubble.svg?react';
-import OrangeCharacter from 'src/assets/landing-racing/casper/orange.svg?react';
-import WhiteCharacter from 'src/assets/landing-racing/casper/white.svg?react';
-
 export default function Caspers() {
 	return (
 		<>
@@ -24,8 +15,8 @@ function OrangeCasper() {
 			<p className="text-detail-3 text-background absolute right-[18px] top-[2px] z-10 font-medium">
 				&quot;거침없이 누구보다 빠르게&quot;
 			</p>
-			<OrangeBubble className="absolute right-0" />
-			<OrangeCharacter className="absolute right-[100px] top-[35px]" />
+			<img src="src/assets/landing-racing/casper/orange-bubble.webp" alt="여행 팀 캐스퍼 말풍선" className="absolute right-0" />
+			<img src="src/assets/landing-racing/casper/orange.webp" alt="여행 팀 캐스퍼 캐릭터" className="absolute right-[100px] top-[35px]" />
 		</div>
 	);
 }
@@ -36,10 +27,10 @@ function CreamCasper() {
 			<p className="text-detail-3 text-background absolute left-[20px] top-[2px] font-medium">
 				&quot;캐스퍼의 주인공은 누구?&quot;
 			</p>
-			<CreamBubble />
-			<CreamCharacter className="absolute left-[110px] top-[35px]" />
-			<Lighting1 className="animate-sparkle absolute -top-[2px] right-[4px]" />
-			<Lighting2 className="animate-sparkle-reverse absolute right-0 top-[22px]" />
+			<img src="src/assets/landing-racing/casper/cream-bubble.webp" alt="펫 팀 캐스퍼 말풍선" />
+			<img src="src/assets/landing-racing/casper/cream.webp" alt="펫 팀 캐스퍼 캐릭터" />
+			<img src="src/assets/landing-racing/casper/lighting-1.webp" alt="펫 팀 캐릭터 옆 큰 번개" className="animate-sparkle absolute -top-[2px] right-[4px]" />
+			<img src="src/assets/landing-racing/casper/lighting-2.webp" alt="펫 팀 캐릭터 옆 작은 번개" className="animate-sparkle-reverse absolute right-0 top-[22px]" />
 		</div>
 	);
 }
@@ -47,7 +38,7 @@ function CreamCasper() {
 function WhiteCasper() {
 	return (
 		<div className="animate-casper-float-reverse absolute left-[270px] top-[55px]">
-			<WhiteCharacter />
+			<img src="src/assets/landing-racing/casper/white.webp" alt="공간 팀 캐스퍼 캐릭터" />
 		</div>
 	);
 }
@@ -55,7 +46,7 @@ function WhiteCasper() {
 function KhakiCasper() {
 	return (
 		<div className="animate-casper-float absolute -top-[2px] right-[295px]">
-			<KhakiCharacter />
+			<img src="src/assets/landing-racing/casper/khaki.webp" alt="레저 팀 캐스퍼 캐릭터" />
 		</div>
 	);
 }

@@ -44,7 +44,7 @@ function CreamCasper() {
 			<img
 				src="images/hero/casper/lighting.webp"
 				alt="펫 팀 캐릭터 옆 큰 번개"
-				className="animate-sparkle absolute -top-[2px] right-[4px]"
+				className="animate-sparkle absolute -top-[2px] right-[4px] w-[20px]"
 			/>
 			<img
 				src="images/hero/casper/lighting.webp"

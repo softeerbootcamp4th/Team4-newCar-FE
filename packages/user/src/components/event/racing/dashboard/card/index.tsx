@@ -1,10 +1,10 @@
-import { memo } from 'react';
-import TeamSelectModal, {
-	type TeamSelectModalProps,
-} from 'src/components/shared/modal/teamSelectModal/index.tsx';
+import { lazy, memo } from 'react';
+import type { TeamSelectModalProps } from 'src/components/shared/modal/teamSelectModal/index.tsx';
 import withAuth from 'src/components/shared/withAuthHOC.tsx';
 import useGetUserInfo from 'src/hooks/query/useGetUserInfo.ts';
 import UnassignedCard from './UnassignedCard.tsx';
+
+const TeamSelectModal = lazy(() => import('src/components/shared/modal/teamSelectModal/index.tsx'));
 
 const ProtectedTeamSelectModal = withAuth<TeamSelectModalProps>(TeamSelectModal);
 

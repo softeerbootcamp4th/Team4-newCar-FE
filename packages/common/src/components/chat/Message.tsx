@@ -22,8 +22,8 @@ export default function Message({
 	children,
 }: PropsWithChildren<MessageProps>) {
 	const category = ['P', 'T', 'L', 'S'].includes(team)
-	? (team.toLowerCase() as SocketCategory)
-	: 'default';
+		? (team.toLowerCase() as SocketCategory)
+		: 'default';
 
 	const { casper, textColor } = TYPES[category];
 

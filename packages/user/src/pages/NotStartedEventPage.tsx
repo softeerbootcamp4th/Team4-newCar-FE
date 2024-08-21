@@ -14,21 +14,21 @@ export default function NotStartedEventPage() {
 		formattedDuration,
 	} = useGetEventDuration();
 
-  useEffect(() => {
-    if (error.status === 403 && startTime) {
-      const current = new Date().getTime();
-      const start = new Date(startTime).getTime();
-      const timeUntilStart = start - current;
+	useEffect(() => {
+		if (error.status === 403 && startTime) {
+			const current = new Date().getTime();
+			const start = new Date(startTime).getTime();
+			const timeUntilStart = start - current;
 
-      if (timeUntilStart > 0) {
-        timerRef.current = setTimeout(() => window.location.reload(), timeUntilStart);
-      }
-    }
+			if (timeUntilStart > 0) {
+				timerRef.current = setTimeout(() => window.location.reload(), timeUntilStart);
+			}
+		}
 
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [startTime, error.status]);
+		return () => {
+			if (timerRef.current) clearTimeout(timerRef.current);
+		};
+	}, [startTime, error.status]);
 
 	if (error.status === 403) {
 		return (

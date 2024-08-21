@@ -1,4 +1,4 @@
-import { ChatList } from '@softeer/common/components';
+import { ChatList, Notice } from '@softeer/common/components';
 import { useEffect, useRef } from 'react';
 import { UseSocketReturnType } from 'src/hooks/socket/index.ts';
 import Chat from './Chat.tsx';
@@ -7,7 +7,7 @@ import ChatInput from './inputArea/input/index.tsx';
 
 /** 실시간 기대평 섹션 */
 export default function RealTimeChatting({
-	chatSocket: { onSendMessage, messages },
+	chatSocket: { onSendMessage, notice, messages },
 }: Pick<UseSocketReturnType, 'chatSocket'>) {
 	const chatListRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,7 +23,11 @@ export default function RealTimeChatting({
 			<ChatInputArea>
 				<ChatInput onSend={onSendMessage} />
 			</ChatInputArea>
-			<div ref={chatListRef} className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
+			<Notice>{notice.content}</Notice>
+			<div
+				ref={chatListRef}
+				className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10 mt-5"
+			>
 				<ChatList>
 					{messages.map((message) => (
 						<Chat key={message.id} {...message} />

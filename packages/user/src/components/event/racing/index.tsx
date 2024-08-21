@@ -16,9 +16,9 @@ const RealTimeRacing = memo(
 		return (
 			<section
 				id={SECTION_ID.RACING}
-				className="container flex w-[1200px] snap-start flex-col items-center gap-4 pb-[50px] pt-[80px]"
+				className="container flex w-[1200px] snap-start flex-col items-center gap-15 pb-[50px] pt-[80px]"
 			>
-				<div className="relative h-[685px] w-full">
+				<div className="relative h-[685px] w-full flex justify-center items-center">
 					<RacingDashboard ranks={ranks} isActive={isCharged} />
 					<ChargeButton onCharge={handleCharge} />
 				</div>

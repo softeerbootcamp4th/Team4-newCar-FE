@@ -1,7 +1,4 @@
-import {
-	CHAT_SOCKET_ENDPOINTS,
-	RACING_SOCKET_ENDPOINTS,
-} from '@softeer/common/constants';
+import { CHAT_SOCKET_ENDPOINTS, RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
 import { toast } from 'src/hooks/useToast.ts';

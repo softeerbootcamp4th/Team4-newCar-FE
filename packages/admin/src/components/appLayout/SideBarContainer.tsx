@@ -16,8 +16,8 @@ function SideBarContainer() {
 		'block w-8 h-1 mb-1 relative bg-[#cdcdcd] rounded z-10 origin-[4px_0px] transition-transform transition-bg duration-500 ease-custom-bezier';
 
 	return (
-		<nav role="navigation" className="ml-5 mt-10"  >
-			<div id="menuToggle" className="fixed top-10 z-10 select-none"  >
+		<nav role="navigation" className="ml-5 mt-10">
+			<div id="menuToggle" className="fixed top-10 z-10 select-none">
 				<input
 					type="checkbox"
 					checked={isChecked}
@@ -28,17 +28,17 @@ function SideBarContainer() {
 				<span
 					className={`${spanStyled} ${
 						isChecked
-							? 'translate-x-[-2px] translate-y-[-1px] rotate-45 transform bg-slate-500 bg-[#000000]'
+							? 'translate-x-[-2px] translate-y-[-1px] rotate-45 transform bg-[#000000] bg-slate-500'
 							: ''
 					}`}
 				/>
 				<span
-					className={` ${spanStyled} ${isChecked ? 'rotate-0 scale-[0.2,0.2] transform opacity-0 bg-[#000000]' : ''}`}
+					className={` ${spanStyled} ${isChecked ? 'rotate-0 scale-[0.2,0.2] transform bg-[#000000] opacity-0' : ''}`}
 				/>
 				<span
 					className={`${spanStyled} ${
 						isChecked
-							? 'translate-x-[-2px] translate-y-[-1px] rotate-[-45deg] transform bg-slate-500 bg-[#000000]'
+							? 'translate-x-[-2px] translate-y-[-1px] rotate-[-45deg] transform bg-[#000000] bg-slate-500'
 							: ''
 					}`}
 				/>

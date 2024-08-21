@@ -34,7 +34,9 @@ export default function NavigateTabs() {
 						isSelected={selectedTab === tab}
 						onSelect={() => handleTabClick(tab)}
 					>
-						{tab === 'Event' && <p className="text-detail-2 text-primary font-medium uppercase">event</p>}
+						{tab === 'Event' && (
+							<p className="text-detail-2 text-primary font-medium uppercase">event</p>
+						)}
 						{label}
 					</NavigateTab>
 				))}

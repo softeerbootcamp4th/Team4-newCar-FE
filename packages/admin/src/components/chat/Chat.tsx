@@ -3,7 +3,7 @@ import { FunctionComponent, useCallback } from 'react';
 import { Button } from '../ui/button.js';
 
 type AdminChatProps = {
-	onBlock: (id: string) => void
+	onBlock: (id: string) => void;
 } & ChatProps;
 
 export default function Chat({ type, team, sender, content, id, onBlock }: AdminChatProps) {
@@ -19,13 +19,9 @@ export default function Chat({ type, team, sender, content, id, onBlock }: Admin
 			case 'm':
 			default:
 				return (
-					<Message
-						sender={sender}
-						team={team}
-						isMyMessage={false}
-					>
-						<div className="flex flex-row flex-1 w-full justify-between">
-							<div className="text-cream-100 flex mi-w-fit flex-1">{content}</div>
+					<Message sender={sender} team={team} isMyMessage={false}>
+						<div className="flex w-full flex-1 flex-row justify-between">
+							<div className="text-cream-100 mi-w-fit flex flex-1">{content}</div>
 							<Button onClick={handleHide}>hide</Button>
 						</div>
 					</Message>

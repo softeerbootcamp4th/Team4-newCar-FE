@@ -6,9 +6,9 @@ import { queryClient } from 'src/libs/query/index.tsx';
 const shareRedirectLoader: LoaderFunction = async ({ params }) => {
 	const { id } = params;
 
-	queryClient.fetchQuery(clickCountQueryOptions(id));
+	await queryClient.prefetchQuery(clickCountQueryOptions(id));
 
-	redirect(RoutePaths.Home);
+	return redirect(RoutePaths.Home);
 };
 
 export default shareRedirectLoader;

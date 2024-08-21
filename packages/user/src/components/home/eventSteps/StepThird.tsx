@@ -23,8 +23,7 @@ function CopyAndShare() {
 					'링크를 복사하고 친구에게 공유하기'
 				) : (
 					<>
-						나의 <strong>캐스퍼 유형</strong> 확인하고 <strong>나만의 공유 링크</strong>를 만들어
-						보세요!
+						나의 <strong>캐스퍼 유형</strong> 확인하고, 친구들과 <strong>공유</strong>해보세요!
 					</>
 				)}
 			</p>
@@ -34,7 +33,7 @@ function CopyAndShare() {
 
 function ShareCountExample() {
 	return (
-		<ContentCard size={{ width: '280px', height: '420px' }} imageUrl="images/step/3.png">
+		<ContentCard size={{ width: '280px', height: '420px' }} imageUrl="images/step/3.webp">
 			내 링크로 접속한
 			<br />
 			친구 수 확인하기

@@ -25,14 +25,9 @@ export default function useChatSocket() {
 		eventBus.on('socket_connected', updateSocket);
 	}, []);
 
-	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
-		(data: unknown, messageId: string) => {
-			const parsedData = data as Omit<ChatProps, 'id'>;
-			const parsedMessage = { id: messageId, ...parsedData };
-			setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
-		},
-		[],
-	);
+	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback((data: unknown) => {
+		setChatMessages((prevMessages) => [...prevMessages, data] as ChatProps[]);
+	}, []);
 
 	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
@@ -63,8 +58,7 @@ export default function useChatSocket() {
 	const handleIncomingMessageHistory: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const parsedDataList = data as Omit<ChatProps, 'id'>[];
-			const parsedMessage = parsedDataList.map(parsedData => ({ ...parsedData }));
-			setChatMessages((prevMessages) => [...parsedMessage, ...prevMessages] as ChatProps[]);
+			setChatMessages((prevMessages) => [...parsedDataList, ...prevMessages] as ChatProps[]);
 		},
 		[chatMessages],
 	);

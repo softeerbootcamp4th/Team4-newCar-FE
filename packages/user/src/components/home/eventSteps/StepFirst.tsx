@@ -15,7 +15,7 @@ export default function StepFirst() {
 					key={content}
 					step={index + 1}
 					size={{ width: '293px', height: '390px' }}
-					imageUrl={`images/step/1-${index + 1}.png`}
+					imageUrl={`images/step/1-${index + 1}.webp`}
 				>
 					{content}
 				</ContentCard>

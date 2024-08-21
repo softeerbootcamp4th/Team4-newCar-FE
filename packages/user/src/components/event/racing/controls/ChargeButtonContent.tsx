@@ -14,10 +14,10 @@ const ChargeButtonContent = memo(
 
 		return (
 			<>
-				<h2 className="pt-2">{rank}</h2>
+				<p className="text-heading-2 pt-2 font-extrabold">{rank}</p>
 				<div className="flex flex-col items-center">
-					<p className={`text-body-3 font-medium ${voteStyles[type]}`}>{children}</p>
-					<h6>{displayTitle}</h6>
+					<p className={`text-detail-1 font-medium ${voteStyles[type]}`}>{children}</p>
+					<p className="text-heading-6 font-extrabold">{displayTitle}</p>
 				</div>
 			</>
 		);

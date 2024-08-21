@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { cn } from '@softeer/common/utils';
 import { cva, VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
@@ -31,6 +32,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & VariantProps<typ
 const LinkDisplay = forwardRef<HTMLInputElement, InputProps>(
 	({ className, variants, ...props }, ref) => (
 		<input
+			aria-label="유저 별 이벤트 공유 링크"
 			type="text"
 			readOnly
 			className={cn(inputVariants({ variants, className }))}

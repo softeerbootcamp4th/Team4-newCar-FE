@@ -1,11 +1,10 @@
 import {
-	ACCESS_TOKEN_KEY,
 	CHAT_SOCKET_ENDPOINTS,
 	RACING_SOCKET_ENDPOINTS,
 } from '@softeer/common/constants';
-import { Cookie, Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
+import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
-import CustomError from 'src/utils/error.ts';
+import { toast } from 'src/hooks/useToast.ts';
 
 class SocketManager {
 	private socketClient: Socket | null = null;
@@ -14,11 +13,9 @@ class SocketManager {
 
 	private onReceiveBlock: SocketSubscribeCallbackType | null = null;
 
-	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
+	private onReceiveChatList: SocketSubscribeCallbackType | null = null;
 
-	constructor(token: string | null) {
-		this.initializeSocketClient(token);
-	}
+	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
 
 	private initializeSocketClient(token?: string | null) {
 		this.socketClient = new Socket(SOCKET_BASE_URL, token);
@@ -28,47 +25,70 @@ class SocketManager {
 		return this.socketClient!;
 	}
 
-	connectSocketClient({
+	async connectSocketClient({
 		token,
 		onReceiveMessage,
 		onReceiveBlock,
 		onReceiveStatus,
+		onReceiveChatList,
 	}: {
 		token: string | null | undefined;
 		onReceiveMessage: SocketSubscribeCallbackType;
 		onReceiveBlock: SocketSubscribeCallbackType;
 		onReceiveStatus: SocketSubscribeCallbackType;
+		onReceiveChatList: SocketSubscribeCallbackType;
 	}) {
 		this.initializeSocketClient(token);
 
+		this.onReceiveChatList = onReceiveChatList;
 		this.onReceiveMessage = onReceiveMessage;
 		this.onReceiveBlock = onReceiveBlock;
 		this.onReceiveStatus = onReceiveStatus;
 
-		this.socketClient!.connect((isConnected) => {
-			if (isConnected) {
-				this.subscribeToTopics();
-			} else {
-				throw new CustomError('서버에서 데이터를 불러오는 데 실패했습니다.', 500);
-			}
-		});
-	}
-
-	reconnectSocketClient(token?: string | null) {
-		if (this.socketClient) {
-			this.socketClient.disconnect();
+		try {
+			await this.socketClient!.connect();
+		} catch (error) {
+			toast({ description: '새로고침 후 다시 시도해주세요.' });
+			console.error('[Socket Connection Error]', error);
 		}
 
-		this.connectSocketClient({
+		try {
+			await this.subscribeToTopics();
+		} catch (error) {
+			toast({ description: '새로고침 후 다시 시도해주세요.' });
+			console.error('[Socket Subscribe Error]', error);
+		}
+	}
+
+	async reconnectSocketClient(token?: string | null) {
+		await this.connectSocketClient({
 			token,
 			onReceiveBlock: this.onReceiveBlock!,
 			onReceiveMessage: this.onReceiveMessage!,
 			onReceiveStatus: this.onReceiveStatus!,
+			onReceiveChatList: this.onReceiveChatList!,
 		});
 	}
 
-	private subscribeToTopics() {
-		if (this.socketClient) {
+	async subscribeToTopics() {
+		if (this.socketClient && this.socketClient.client.connected) {
+			this.socketClient.subscribe({
+				destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_ERROR,
+				callback: (errorMessage) => console.error(errorMessage),
+			});
+
+			if (this.onReceiveChatList) {
+				await this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE_HISTORY,
+					callback: this.onReceiveChatList,
+				});
+				this.socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_MESSAGE_HISTORY,
+					body: {},
+					requiresAuth: false,
+				});
+			}
+
 			if (this.onReceiveMessage) {
 				this.socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE,
@@ -93,5 +113,5 @@ class SocketManager {
 	}
 }
 
-const socketManager = new SocketManager(Cookie.getCookie(ACCESS_TOKEN_KEY));
+const socketManager = new SocketManager();
 export default socketManager;

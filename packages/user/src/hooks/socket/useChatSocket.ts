@@ -1,7 +1,8 @@
 import { ChatProps } from '@softeer/common/components';
 import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import useChatListStorage from 'src/hooks/storage/useChatStorage.ts';
 import { useToast } from 'src/hooks/useToast.ts';
 import socketManager from 'src/services/socket.ts';
 
@@ -10,39 +11,34 @@ export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
 export default function useChatSocket() {
 	const { toast } = useToast();
 
-	const socketClient = socketManager.getSocketClient();
-	const [chatMessages, setChatMessages] = useState<ChatProps[]>([]);
+	const [storedChatList, storeChatList] = useChatListStorage();
+	const [chatList, setChatList] = useState<ChatProps[]>(storedChatList);
+
+	useEffect(() => storeChatList(chatList), [chatList]);
 
 	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
-		(data: unknown, messageId: string) => {
-			const parsedData = data as Omit<ChatProps, 'id'>;
-			const parsedMessage = { id: messageId, ...parsedData };
-			setChatMessages((prevMessages) => [...prevMessages, parsedMessage] as ChatProps[]);
-		},
-		[],
-	);
-
-	const handleIncomintBlock: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
-			const { blockId } = data as { blockId: string };
-			setChatMessages((prevMessages) => {
-				const tmpMessages = prevMessages.slice();
-				tmpMessages.some((tmpMessage, index) => {
-					if (tmpMessage.id === blockId) {
-						tmpMessages[index].type = 'b';
-						return true;
-					}
-					return false;
-				});
-				return tmpMessages;
-			});
+			setChatList((prevMessages) => [...prevMessages, data] as ChatProps[]);
 		},
-		[chatMessages],
+		[setChatList],
 	);
 
+	const handleIncomingBlock: SocketSubscribeCallbackType = useCallback(
+		(data: unknown) => {
+			const { id, blockId } = data as { id: string; blockId: string };
+			setChatList((prevMessages) =>
+				prevMessages.map((message) => (message.id === blockId ? { id, type: 'b' } : message)),
+			);
+		},
+		[setChatList],
+	);
+
+	
 	const handleSendMessage = useCallback(
 		(content: string) => {
 			try {
+				const socketClient = socketManager.getSocketClient();
+
 				const chatMessage = { content };
 
 				socketClient.sendMessages({
@@ -51,16 +47,27 @@ export default function useChatSocket() {
 				});
 			} catch (error) {
 				const errorMessage = (error as Error).message;
-				toast({ description: errorMessage.length > 0 ? errorMessage : '문제가 발생했습니다.' });
+				toast({
+					description:
+						errorMessage.length > 0 ? errorMessage : '기대평 전송 중 문제가 발생했습니다.',
+				});
 			}
 		},
-		[socketClient],
+		[],
 	);
 
+	const handleIncomingChatHistory: SocketSubscribeCallbackType = useCallback(
+		(data: unknown) => {
+			setChatList(data as ChatProps[]);
+		},
+		[setChatList],
+	);
+	
 	return {
 		onReceiveMessage: handleIncomingMessage,
-		onReceiveBlock: handleIncomintBlock,
+		onReceiveBlock: handleIncomingBlock,
+		onReceiveChatList: handleIncomingChatHistory,
 		onSendMessage: handleSendMessage,
-		messages: chatMessages,
+		messages: chatList,
 	};
 }

@@ -7,11 +7,12 @@ interface MessageProps extends Pick<MessageChatProps, 'sender' | 'team'> {
 	isMyMessage?: boolean;
 }
 
-const TYPES: Record<SocketCategory, { casper: string; textColor: string }> = {
-	p: { casper: '/casper/yellow.svg', textColor: 'text-cream-600' },
-	l: { casper: '/casper/khaki.svg', textColor: 'text-khaki-400' },
-	t: { casper: '/casper/orange.svg', textColor: 'text-orange-500' },
-	s: { casper: '/casper/white.svg', textColor: 'text-gray-300' },
+const TYPES: Record<SocketCategory | 'default', { casper: string; textColor: string }> = {
+	default: { casper: '/casper/white.webp', textColor: 'text-skyblue-500' },
+	p: { casper: '/casper/yellow.webp', textColor: 'text-cream-600' },
+	l: { casper: '/casper/khaki.webp', textColor: 'text-khaki-400' },
+	t: { casper: '/casper/orange.webp', textColor: 'text-orange-500' },
+	s: { casper: '/casper/white.webp', textColor: 'text-gray-300' },
 };
 
 export default function Message({
@@ -20,7 +21,10 @@ export default function Message({
 	isMyMessage = false,
 	children,
 }: PropsWithChildren<MessageProps>) {
-	const { casper, textColor } = TYPES[team.toLowerCase() as SocketCategory];
+	const category = ['p', 't', 'l', 's'].includes(team?.toLowerCase())
+		? (team.toLowerCase() as SocketCategory)
+		: 'default';
+	const { casper, textColor } = TYPES[category];
 
 	return (
 		<div className="flex w-full items-center gap-12">
@@ -29,7 +33,11 @@ export default function Message({
 				<p className={cn(textColor, 'text-body-3 truncate font-medium')}>익명 {sender} </p>
 				{isMyMessage && <p className={cn(textColor, 'text-body-3 font-medium')}>(나)</p>}
 			</div>
-			<p className={`flex flex-row justify-between flex-1 text-body-3 truncate ${isMyMessage && 'font-medium'}`}>{children}</p>
+			<p
+				className={`text-body-3 flex flex-1 flex-row justify-between truncate ${isMyMessage && 'font-medium'}`}
+			>
+				{children}
+			</p>
 		</div>
 	);
 }

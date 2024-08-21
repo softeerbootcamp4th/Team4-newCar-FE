@@ -1,7 +1,7 @@
 import ContentCard from './ContentCard.tsx';
 import ContentsContainer from './ContentsContainer.tsx';
 
-const CONTENTS = ['내 캐스퍼 유형의 버튼 클릭!', '버튼 클릭 수에 따라 실시간 순위 변동'];
+const CONTENTS = ['버튼을 연타해 캐스퍼가 가득 충전되면', '우리 팀이 이길 확률이 올라가요!'];
 
 export default function StepSecond() {
 	return (
@@ -11,7 +11,7 @@ export default function StepSecond() {
 					key={content}
 					step={index + 1}
 					size={{ width: '470px', height: '427px' }}
-					imageUrl={`images/step/2-${index + 1}.png`}
+					imageUrl={`images/step/2-${index + 1}.webp`}
 				>
 					{content}
 				</ContentCard>

@@ -1,7 +1,7 @@
 import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-export type SocketSubscribeCallbackType = (data: unknown, messageId: string) => void;
+export type SocketSubscribeCallbackType = (data: unknown) => void;
 
 export interface SubscriptionProps {
 	destination: string;
@@ -13,19 +13,17 @@ export interface SendMessageProps {
 	destination: string;
 	body: unknown;
 	headers?: Record<string, string>;
-}
-
-export interface ConnectProps {
-	isSuccess: boolean;
-	options?: IFrame;
+	requiresAuth?: boolean;
 }
 
 export default class Socket {
-	private client: Client;
+	client: Client;
 
 	private subscriptions: Map<string, StompSubscription> = new Map();
 
 	private token?: string | undefined | null = undefined;
+
+	isConnected: boolean = false;
 
 	constructor(url: string, token?: string | null) {
 		let baseUrl = url;
@@ -39,61 +37,57 @@ export default class Socket {
 	private setup(url: string): Client {
 		const stompClient = new Client({
 			webSocketFactory: () => new SockJS(url),
-			reconnectDelay: 5000, // Reconnect if the connection drops
+			reconnectDelay: 5000,
 		});
 		this.client = stompClient;
 		return stompClient;
 	}
 
-	connect(callback?: (props: ConnectProps) => void) {
-		this.client.onConnect = (options) => {
-			callback?.({ isSuccess: true, options });
-		};
+	async connect(): Promise<IFrame> {
+		return new Promise((resolve, reject) => {
+			this.client.onConnect = (options) => {
+				this.isConnected = true;
+				resolve(options);
+			};
 
-		this.client.onStompError = (error) => {
-			callback?.({ isSuccess: false, options: error });
-		};
+			this.client.onStompError = (error) => {
+				this.isConnected = false;
+				reject(error);
+			};
 
-		this.client.activate();
+			this.client.activate();
+		});
 	}
 
-	disconnect() {
+	async disconnect() {
 		this.subscriptions.forEach((subscription) => subscription.unsubscribe());
 		this.subscriptions.clear();
 
 		if (this.client.connected) {
 			this.client.deactivate();
+			this.isConnected = false;
 		}
 	}
 
-	sendMessages({ destination, body }: SendMessageProps) {
-		if (!this.token) {
+	async sendMessages({ destination, body, headers, requiresAuth = true}: SendMessageProps) {
+		if (requiresAuth && !this.token) {
 			throw new Error('로그인 후 참여할 수 있어요!');
 		}
 
 		const messageProps = {
 			destination,
+			headers,
 			body: JSON.stringify(body),
 		};
 
-		if (!this.client.connected) {
-			this.connect(() => {
-				this.client.publish(messageProps);
-			});
-		} else {
-			this.client.publish(messageProps);
-		}
+		this.client.publish(messageProps);
 	}
 
 	private createSubscription({ destination, callback, headers = {} }: SubscriptionProps) {
 		const subscriptionProps = {
 			destination,
 			headers,
-			callback: (message: IMessage) => {
-				const messageId = message.headers['message-id'];
-				const data = JSON.parse(message.body);
-				callback(data, messageId);
-			},
+			callback: (message: IMessage) => callback(JSON.parse(message.body)),
 		};
 
 		const subscription = this.client.subscribe(
@@ -105,12 +99,11 @@ export default class Socket {
 		this.subscriptions.set(destination, subscription);
 	}
 
-	subscribe(props: SubscriptionProps) {
-		if (this.client.connected) {
-			this.createSubscription(props);
-		} else {
-			this.connect(() => this.createSubscription(props));
+	async subscribe(props: SubscriptionProps) {
+		if (!this.isConnected) {
+			await this.connect();
 		}
+		this.createSubscription(props);
 	}
 
 	unsubscribe(destination: string) {

@@ -32,7 +32,7 @@ class SocketManager {
 		}
 	}
 
-	connectSocketClient({
+	async connectSocketClient({
 		token,
 		onReceiveMessage,
 		onReceiveBlock,
@@ -45,6 +45,10 @@ class SocketManager {
 		onReceiveNotice: SocketSubscribeCallbackType;
 		onReceiveMessageHistory: SocketSubscribeCallbackType;
 	}) {
+		if (this.socketClient) {
+			await this.socketClient.disconnect();
+		}
+
 		this.initializeSocketClient(token);
 
 		this.onReceiveMessage = onReceiveMessage;
@@ -52,23 +56,18 @@ class SocketManager {
 		this.onReceiveNotice = onReceiveNotice;
 		this.onReceiveMessageHistory = onReceiveMessageHistory;
 
-		this.socketClient!.connect((isConnected) => {
-			if (isConnected) {
-				eventBus.emit('socket_connected', {});
-				this.subscribeToTopics();
-				this.isConnected = true;
-			} else {
-				this.isConnected = false;
-				// throw new CustomError('서버에서 데이터를 불러오는 데 실패했습니다.', 500);
-			}
-		});
+		try {
+			await this.socketClient!.connect();
+			this.subscribeToTopics();
+			this.isConnected = true;
+			eventBus.emit('socket_connected', {});
+		} catch (error) {
+			throw new Error('서버에서 데이터를 불러오는 데 실패했습니다.');
+		}
 	}
 
-	reconnectSocketClient(token?: string | null) {
-		if (this.socketClient) {
-			this.socketClient.disconnect();
-		}
-		this.connectSocketClient({
+	async reconnectSocketClient(token?: string | null) {
+		await this.connectSocketClient({
 			token,
 			onReceiveBlock: this.onReceiveBlock!,
 			onReceiveMessage: this.onReceiveMessage!,

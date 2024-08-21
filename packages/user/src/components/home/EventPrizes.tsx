@@ -33,13 +33,13 @@ export default function EventPrizes() {
 	return (
 		<section className="gap-15 flex snap-start flex-col items-center pt-[80px]">
 			<h2>이벤트 경품</h2>
-			<h6 className="text-heading-10">캐스퍼 레이싱</h6>
+			<p className="text-heading-10 font-bold">캐스퍼 레이싱</p>
 			<div className="mb-8 flex gap-3">
 				{EVENT_PRIZES.map(({ drawCount, description }, index) => (
 					<PrizeCard
 						key={drawCount}
 						badge={<Chip variants="secondary">{drawCount}명</Chip>}
-						imageUrl={`images/prize/${index + 1}.png`}
+						imageUrl={`images/prize/${index + 1}.webp`}
 					>
 						{description}
 					</PrizeCard>

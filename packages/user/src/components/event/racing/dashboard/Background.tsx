@@ -3,7 +3,7 @@ export default function Background() {
 		<img
 			className="absolute -z-10 h-full w-full object-contain"
 			alt="레이싱 배경"
-			src="/images/racing/background.png"
+			src="/images/racing/background.webp"
 		/>
 	);
 }

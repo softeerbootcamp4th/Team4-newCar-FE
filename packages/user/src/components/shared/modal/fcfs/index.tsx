@@ -12,7 +12,6 @@ export default function FCFSModal(props: ModalProps) {
 	const [Funnel, setStep] = useFunnel(
 		[
 			'quiz',
-			'pending',
 			'already-done',
 			'correct-answer',
 			'wrong-answer',
@@ -38,11 +37,6 @@ export default function FCFSModal(props: ModalProps) {
 							)}
 						</QueryErrorResetBoundary>
 					</Funnel.Step>
-
-					<Funnel.Step name="pending">
-						<PendingStep>선착순 퀴즈 결과 불러오는 중...</PendingStep>
-					</Funnel.Step>
-
 					<Funnel.Step name="end">
 						<ResultStep step="end" />
 					</Funnel.Step>

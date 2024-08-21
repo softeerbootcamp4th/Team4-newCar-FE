@@ -1,6 +1,8 @@
 import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
+import { eventBus } from './eventBus.ts';
+
 // import CustomError from 'src/utils/error.ts';
 
 class SocketManager {
@@ -15,10 +17,6 @@ class SocketManager {
 	private onReceiveMessageHistory: SocketSubscribeCallbackType | null = null;
 
 	private isConnected: boolean = false;
-
-	// constructor(token: string | null) {
-	// 	this.initializeSocketClient(token);
-	// }
 
 	public getSocketClient() {
 		return this.socketClient!;
@@ -56,6 +54,7 @@ class SocketManager {
 
 		this.socketClient!.connect((isConnected) => {
 			if (isConnected) {
+				eventBus.emit('socket_connected', {});
 				this.subscribeToTopics();
 				this.isConnected = true;
 			} else {

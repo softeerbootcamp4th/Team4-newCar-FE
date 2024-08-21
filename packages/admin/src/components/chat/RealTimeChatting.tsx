@@ -27,17 +27,12 @@ function RealTimeChatting({
 		}
 	};
 
-	const handleLoadHistory = () => {
-		onRequestMessageHistory();
-	};
-
 	return (
 		<section className="container flex max-w-[1200px] snap-start flex-col items-center pb-[115px] pt-[50px]">
 			<form className="mb-4 flex w-full flex-row gap-2" onSubmit={handleSend}>
 				<Input ref={noticeInputRef} className="flex flex-1" placeholder="공지사항을 입력하세요." />
 				<Button type="submit">공지사항 변경</Button>
 			</form>
-			<Button onClick={handleLoadHistory}>HI</Button>
 			<div className="rounded-4 mb-4 w-full border-2 border-yellow-900 p-6">
 				공지사항 : {notice}
 			</div>

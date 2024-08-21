@@ -76,11 +76,11 @@ class SocketManager {
 
 			if (this.onReceiveChatList) {
 				await this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE_HISTORY,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIB_HISTORY,
 					callback: this.onReceiveChatList,
 				});
 				this.socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_MESSAGE_HISTORY,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_HISTORY,
 					body: {},
 					requiresAuth: false,
 				});

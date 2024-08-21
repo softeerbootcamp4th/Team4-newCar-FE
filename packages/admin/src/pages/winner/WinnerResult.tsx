@@ -16,14 +16,14 @@ const TabName = {
 const racingHeaders = [
 	{ text: '당첨 등수', width: '20%' },
 	{ text: '유저 이름', width: '20%' },
-	{ text: '유저 전화번호', width: '20%' },
+	{ text: '유저 이메일', width: '20%' },
 	{ text: '공유 링크 접속 ', width: '20%' },
 	{ text: '유형카드 ', width: '20%' },
 ];
 
 const quizHeaders = [
 	{ text: '유저 이름', width: '33%' },
-	{ text: '유저 전화번호', width: '33%' },
+	{ text: '유저 이메일', width: '33%' },
 	{ text: '당첨 날짜 ', width: '33%' },
 ];
 
@@ -38,7 +38,7 @@ const getRows = (pageIndex: number, rawList: RacingWinner[] | QuizWinner[]) => {
 };
 
 function WinnerResult() {
-	const { racingWinners, quizWinner } = useEvent();
+	const { racingWinners, quizWinner, refechQuizEvent, refetchRacingWinners } = useEvent();
 	const { openAlert } = useAlert();
 
 	const [pageIndex, setPageIndex] = useState(0);
@@ -51,6 +51,14 @@ function WinnerResult() {
 		setTotal(0);
 		setRows(getRows(0, []));
 	};
+
+	useEffect(() => {
+		if (tabName === TabName.QUIZ) {
+			refechQuizEvent();
+		} else {
+			refetchRacingWinners();
+		}
+	}, [tabName]);
 
 	useEffect(() => {
 		if (tabName === TabName.QUIZ) {

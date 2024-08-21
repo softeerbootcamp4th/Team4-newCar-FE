@@ -56,7 +56,7 @@ export default function useChatSocket() {
 	const handleIncomingChatHistory: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const parsedData = Array.isArray(data) ? [...data] : [] as ChatProps[];
-			if (parsedData.length > 0 && parsedData[0]?.type === 'n') {
+			if (parsedData.length > 0 && parsedData.at(-1).type === 'n') {
 				storeNotice(parsedData.shift());
 			}
 			setChatList(parsedData);

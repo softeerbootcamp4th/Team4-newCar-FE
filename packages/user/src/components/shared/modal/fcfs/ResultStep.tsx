@@ -20,10 +20,10 @@ export default function ResultStep({ step }: ResultStepProps) {
 }
 
 const IMAGE_URLS: Record<ResultStepType, string> = {
-	'already-done': '/images/fcfs/result/already-done.png',
-	'correct-answer': '/images/fcfs/result/correct.png',
-	'wrong-answer': '/images/fcfs/result/wrong.png',
-	end: '/images/fcfs/result/already-done.png',
+	'already-done': '/images/fcfs/result/already-done.webp',
+	'correct-answer': '/images/fcfs/result/correct.webp',
+	'wrong-answer': '/images/fcfs/result/wrong.webp',
+	end: '/images/fcfs/result/end.webp',
 };
 
 const DESCRIPTIONS: Record<

@@ -5,9 +5,9 @@ export default function UnassignedCard() {
 		<GradientBorderWrapper>
 			<div className="relative flex h-[234px] w-[160px] flex-col items-center justify-center gap-[8px] px-[14px]">
 				<img
-					src="/images/racing/casper.png"
+					src="/images/racing/front/pet.webp"
 					alt="캐스퍼 일렉트릭"
-					className="absolute w-[140px] object-contain"
+					className="absolute w-[140px] opacity-20 object-contain"
 				/>
 				<p className="text-heading-1 z-10 mt-[20px] text-[110px] font-extrabold leading-[70px]">
 					?

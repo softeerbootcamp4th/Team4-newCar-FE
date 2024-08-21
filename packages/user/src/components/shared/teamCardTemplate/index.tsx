@@ -18,7 +18,7 @@ export default function TeamCardTemplate({
 	children,
 }: PropsWithChildren<TeamCardProps>) {
 	const { title, subTitle } = TEAM_DESCRIPTIONS[type];
-	const src = `images/card/${type}.png`;
+	const src = `images/card/${type}.webp`;
 
 	const { cardStyles, titleStyles, descriptionStyles } = styles[size];
 

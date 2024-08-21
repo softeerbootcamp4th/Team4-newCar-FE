@@ -1,7 +1,7 @@
 import type { Category } from '@softeer/common/types';
 import numeral from 'numeral';
 
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import useAuth from 'src/hooks/useAuth.ts';
 import type { Rank } from 'src/types/racing.d.ts';
 import ChargeButtonContent from './ChargeButtonContent.tsx';
@@ -21,19 +21,24 @@ export interface ChargeButtonData {
 	percentage: number;
 }
 
-export default function ControlButton({ isActive, type, data }: ControlButtonProps) {
+const ControlButton = memo(({ isActive, type, data }: ControlButtonProps) => {
 	const { user } = useAuth();
 	const { rank, vote, percentage } = data;
 
 	const displayVoteStats = useMemo(
-		() => `${percentage.toFixed(1)}% (${formatVoteCount(vote)})`,
+		() => `${percentage}% (${formatVoteCount(vote)})`,
 		[percentage, vote],
 	);
 
-	const isMyCasperActivated = isActive && user?.type === type;
+	const isMyCasperActivated = useMemo(
+		() => isActive && user?.type === type,
+		[isActive, user?.type, type],
+	);
+
+	const isMyCasper = useMemo(() => (user?.type ? user.type === type : true), [user?.type, type]);
 
 	return (
-		<ControllButtonWrapper isMyCasper={user?.type ? user?.type === type : true} rank={rank}>
+		<ControllButtonWrapper isMyCasper={isMyCasper} rank={rank}>
 			<Gauge percentage={percentage} isActive={isMyCasperActivated} />
 			<ChargeButtonWrapper type={type} isActive={isMyCasperActivated}>
 				<ChargeButtonContent type={type} rank={rank}>
@@ -42,7 +47,9 @@ export default function ControlButton({ isActive, type, data }: ControlButtonPro
 			</ChargeButtonWrapper>
 		</ControllButtonWrapper>
 	);
-}
+});
+
+export default ControlButton;
 
 /** Utility Functions */
 function formatVoteCount(count: number): string {

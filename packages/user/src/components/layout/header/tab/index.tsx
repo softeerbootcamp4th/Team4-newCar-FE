@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import EventTag from 'src/assets/icons/event-tab-tag.svg?react';
 import RoutePaths from 'src/constants/routePath.ts';
 import NavigateTab from './NavigateTab.tsx';
 import SelectedTabIndicator from './SelectedTabIndicator.tsx';
@@ -35,7 +34,7 @@ export default function NavigateTabs() {
 						isSelected={selectedTab === tab}
 						onSelect={() => handleTabClick(tab)}
 					>
-						{tab === 'Event' && <EventTag />}
+						{tab === 'Event' && <p className="text-detail-2 text-primary font-medium uppercase">event</p>}
 						{label}
 					</NavigateTab>
 				))}

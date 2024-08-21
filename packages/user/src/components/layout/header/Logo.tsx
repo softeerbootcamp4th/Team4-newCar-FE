@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import LogoIcon from 'src/assets/icons/casper-white.svg?react';
 import RoutePaths from 'src/constants/routePath.ts';
 
 export default function Logo() {
@@ -8,7 +7,7 @@ export default function Logo() {
 
 	return (
 		<button type="button" onClick={handleClick} className="flex items-center gap-7">
-			<LogoIcon />
+			<img src="/casper/white.webp" alt="캐스퍼 로고" className="w-[50px]" />
 			<p className="text-heading-11 font-medium">CASPER Electric</p>
 		</button>
 	);

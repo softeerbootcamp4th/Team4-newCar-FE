@@ -61,23 +61,27 @@ export default function useChatSocket() {
 		[setMessages],
 	);
 
-	const handleSendMessage = useCallback((content: string) => {
-		try {
-			const socketClient = socketManager.getSocketClient();
+	const handleSendMessage = useCallback(
+		(content: string) => {
+			try {
+				const socketClient = socketManager.getSocketClient();
 
-			const chatMessage = { content };
+				const chatMessage = { content };
 
-			socketClient.sendMessages({
-				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT,
-				body: chatMessage,
-			});
-		} catch (error) {
-			const errorMessage = (error as Error).message;
-			toast({
-				description: errorMessage.length > 0 ? errorMessage : '기대평 전송 중 문제가 발생했습니다.',
-			});
-		}
-	}, []);
+				socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT,
+					body: chatMessage,
+				});
+			} catch (error) {
+				const errorMessage = (error as Error).message;
+				toast({
+					description:
+						errorMessage.length > 0 ? errorMessage : '기대평 전송 중 문제가 발생했습니다.',
+				});
+			}
+		},
+		[socketManager],
+	);
 
 	return {
 		onReceiveMessage: handleIncomingData,

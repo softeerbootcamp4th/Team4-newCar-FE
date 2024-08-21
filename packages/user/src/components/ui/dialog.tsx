@@ -2,7 +2,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { cn } from '@softeer/common/utils';
 import { cva, VariantProps } from 'class-variance-authority';
-import React from 'react';
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, HTMLAttributes } from 'react';
 import Close from 'src/assets/icons/close.svg?react';
 
 const Dialog = DialogPrimitive.Root;
@@ -13,9 +13,9 @@ const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
 
-const DialogOverlay = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Overlay>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+const DialogOverlay = forwardRef<
+	ElementRef<typeof DialogPrimitive.Overlay>,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Overlay
 		ref={ref}
@@ -46,34 +46,33 @@ const dialogVariants = cva(
 	},
 );
 
-export type DialogProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
+export type DialogProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> &
 	VariantProps<typeof dialogVariants>;
 
-const DialogContent = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Content>,
-	DialogProps
->(({ className, variants, children, ...props }, ref) => (
-	<DialogPortal>
-		<DialogOverlay />
-		<DialogPrimitive.Content
-			className={cn(dialogVariants({ variants, className }))}
-			ref={ref}
-			{...props}
-		>
-			<VisuallyHidden.Root>
-				<DialogTitle />
-				<DialogDescription />
-			</VisuallyHidden.Root>
-			<div className="min-h-max w-full min-w-max overflow-scroll">{children}</div>
-			<DialogPrimitive.Close className="ring-offset-background focus:ring-foreground data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-[30px] top-[30px] h-[30px] w-[30px] rounded-[2px] p-[4px] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
-				<Close className="h-full w-full" />
-			</DialogPrimitive.Close>
-		</DialogPrimitive.Content>
-	</DialogPortal>
-));
+const DialogContent = forwardRef<ElementRef<typeof DialogPrimitive.Content>, DialogProps>(
+	({ className, variants, children, ...props }, ref) => (
+		<DialogPortal>
+			<DialogOverlay />
+			<DialogPrimitive.Content
+				className={cn(dialogVariants({ variants, className }))}
+				ref={ref}
+				{...props}
+			>
+				<VisuallyHidden.Root>
+					<DialogTitle />
+					<DialogDescription />
+				</VisuallyHidden.Root>
+				<div className="min-h-max w-full min-w-max overflow-scroll">{children}</div>
+				<DialogPrimitive.Close className="ring-offset-background focus:ring-foreground data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-[30px] top-[30px] h-[30px] w-[30px] rounded-[2px] p-[4px] opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
+					<Close className="h-full w-full" />
+				</DialogPrimitive.Close>
+			</DialogPrimitive.Content>
+		</DialogPortal>
+	),
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+function DialogHeader({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div
 			className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)}
@@ -83,9 +82,9 @@ function DialogHeader({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 }
 DialogHeader.displayName = 'DialogHeader';
 
-const DialogTitle = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Title>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+const DialogTitle = forwardRef<
+	ElementRef<typeof DialogPrimitive.Title>,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Title
 		ref={ref}
@@ -95,9 +94,9 @@ const DialogTitle = React.forwardRef<
 ));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-const DialogDescription = React.forwardRef<
-	React.ElementRef<typeof DialogPrimitive.Description>,
-	React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+const DialogDescription = forwardRef<
+	ElementRef<typeof DialogPrimitive.Description>,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Description
 		ref={ref}

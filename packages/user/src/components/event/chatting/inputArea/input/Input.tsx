@@ -1,10 +1,10 @@
 import { cn } from '@softeer/common/utils';
-import * as React from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 import inputStyles from 'src/styles/input.ts';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
+const Input = forwardRef<HTMLInputElement, InputProps>(({ className, ...props }, ref) => (
 	<input
 		type="text"
 		autoComplete="off"

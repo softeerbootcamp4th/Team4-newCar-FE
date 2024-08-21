@@ -1,17 +1,8 @@
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 import GlobalFallback from 'src/components/layout/GlobalFallback.tsx';
-import Layout from 'src/components/layout/index.tsx';
 import LayoutFallback from 'src/components/layout/LayoutFallback.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
-import AuthProvider from 'src/context/auth/index.tsx';
-import {
-	ErrorPage,
-	EventPage,
-	HomePage,
-	NotFoundErrorPage,
-	NotStartedEventPage,
-} from 'src/pages/index.ts';
 import {
 	kakaoRedirectLoader,
 	layoutLoader,
@@ -19,11 +10,23 @@ import {
 	shareRedirectLoader,
 } from 'src/routes/loader/index.ts';
 
+const AuthProvider = lazy(() => import('src/context/auth/index.tsx'));
+const Layout = lazy(() => import('src/components/layout/index.tsx'));
+const HomePage = lazy(() => import('src/pages/HomePage.tsx'));
+const EventPage = lazy(() => import('src/pages/EventPage.tsx'));
+const ErrorPage = lazy(() => import('src/pages/error/ErrorPage.tsx'));
+const NotFoundErrorPage = lazy(() => import('src/pages/error/NotFoundErrorPage.tsx'));
+const NotStartedEventPage = lazy(() => import('src/pages/NotStartedEventPage.tsx'));
+
 const routes: RouteObject[] = [
 	{
 		path: RoutePaths.Index,
 		loader: rootLoader,
-		errorElement: <NotStartedEventPage />,
+		errorElement: (
+			<Suspense fallback={<GlobalFallback />}>
+				<NotStartedEventPage />
+			</Suspense>
+		),
 		element: (
 			<Suspense fallback={<GlobalFallback />}>
 				<Outlet />
@@ -44,27 +47,50 @@ const routes: RouteObject[] = [
 						</AuthProvider>
 					</Suspense>
 				),
-				errorElement: <ErrorPage />,
+				errorElement: (
+					<Suspense fallback={<GlobalFallback />}>
+						<ErrorPage />
+					</Suspense>
+				),
 				children: [
 					{
 						index: true,
-						element: <HomePage />,
+						element: (
+							<Suspense fallback={<LayoutFallback />}>
+								<HomePage />
+							</Suspense>
+						),
 					},
 					{
 						path: RoutePaths.Event,
-						element: <EventPage />,
+						element: (
+							<Suspense fallback={<LayoutFallback />}>
+								<EventPage />
+							</Suspense>
+						),
 					},
 				],
 			},
 			{
 				loader: kakaoRedirectLoader,
 				path: RoutePaths.KakaoOauthRedirect,
-				errorElement: <ErrorPage />,
+				errorElement: (
+					<Suspense fallback={<GlobalFallback />}>
+						<ErrorPage />
+					</Suspense>
+				),
 				element: null,
 			},
 		],
 	},
-	{ path: '*', element: <NotFoundErrorPage /> },
+	{
+		path: '*',
+		element: (
+			<Suspense fallback={<GlobalFallback />}>
+				<NotFoundErrorPage />
+			</Suspense>
+		),
+	},
 ];
 
 const router = createBrowserRouter(routes);

@@ -6,6 +6,23 @@ import compression from 'vite-plugin-compression';
 import viteImagemin from 'vite-plugin-imagemin';
 import svgr from 'vite-plugin-svgr';
 
+import { dependencies } from './package.json';
+
+const reactDeps = Object.keys(dependencies).filter(
+	(key) => key === 'react' || key.startsWith('react-'),
+);
+
+const manualChunks = {
+	vendor: reactDeps,
+	...Object.keys(dependencies).reduce((chunks, name) => {
+		if (!reactDeps.includes(name) && name !== '@softeer/common') {
+			// eslint-disable-next-line no-param-reassign
+			chunks[name] = [name];
+		}
+		return chunks;
+	}, {}),
+};
+
 export default defineConfig({
 	plugins: [
 		react(),
@@ -62,9 +79,7 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			output: {
-				manualChunks: {
-					'react-vendor': ['react', 'react-dom'],
-				},
+				manualChunks,
 			},
 		},
 	},

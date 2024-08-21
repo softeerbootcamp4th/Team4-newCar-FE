@@ -79,11 +79,11 @@ class SocketManager {
 
 			if (this.onReceiveChatList) {
 				await this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_CHAT_LIST,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE_HISTORY,
 					callback: this.onReceiveChatList,
 				});
 				this.socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT_LIST,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_MESSAGE_HISTORY,
 					body: {},
 					requiresAuth: false,
 				});
@@ -91,7 +91,7 @@ class SocketManager {
 
 			if (this.onReceiveMessage) {
 				this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_CHAT,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE,
 					callback: this.onReceiveMessage,
 				});
 			}

@@ -9,7 +9,15 @@ export type AdminSocketReturnType = ReturnType<typeof useSocket>;
 export default function useSocket() {
 	const accessToken = Cookie.getCookie<string>(ACCESS_TOKEN_KEY) ?? '';
 	const chatSocket = useChatSocket();
-	const { onReceiveMessage, onReceiveBlock, onReceiveNotice, ...chatSocketProps } = chatSocket;
+
+	const {
+		onReceiveMessage,
+		onReceiveBlock,
+		onReceiveNotice,
+		onReceiveMessageHistory,
+		...chatSocketProps
+	} = chatSocket;
+
 	useEffect(() => {
 		if (accessToken !== '') {
 			socketManager.connectSocketClient({
@@ -17,9 +25,10 @@ export default function useSocket() {
 				onReceiveMessage,
 				onReceiveBlock,
 				onReceiveNotice,
+				onReceiveMessageHistory,
 			});
 		}
-	}, [socketManager, accessToken]);
+	}, []);
 
 	return { chatSocket: chatSocketProps };
 }

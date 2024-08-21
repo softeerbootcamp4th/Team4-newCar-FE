@@ -2,8 +2,8 @@ import { ChatList } from '@softeer/common/components';
 import { useRef } from 'react';
 import { AdminSocketReturnType } from 'src/hooks/socket/index.ts';
 import { useAlert } from 'src/store/provider/AlertProvider.tsx';
-import { Button } from '../ui/button.js';
-import { Input } from '../ui/input.js';
+import { Button } from '../ui/button.tsx';
+import { Input } from '../ui/input.tsx';
 import Chat from './Chat.js';
 
 /** 실시간 기대평 섹션 */
@@ -13,6 +13,7 @@ function RealTimeChatting({
 }: Pick<AdminSocketReturnType, 'chatSocket'>) {
 	const { openAlert, addAlertCallback } = useAlert();
 	const noticeInputRef = useRef<HTMLInputElement>(null);
+
 	const handleSend: React.FormEventHandler<HTMLFormElement> = (event) => {
 		event.preventDefault();
 		const { value } = noticeInputRef!.current!;

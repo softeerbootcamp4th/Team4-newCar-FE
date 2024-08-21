@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
 	dts: true,
-	splitting: false,
+	splitting: true,
 	sourcemap: true,
 	clean: true,
 	treeshake: true,

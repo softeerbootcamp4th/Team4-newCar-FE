@@ -69,7 +69,7 @@ export default class Socket {
 		}
 	}
 
-	async sendMessages({ destination, body, headers, requiresAuth = true}: SendMessageProps) {
+	async sendMessages({ destination, body, headers, requiresAuth = true }: SendMessageProps) {
 		if (requiresAuth && !this.token) {
 			throw new Error('로그인 후 참여할 수 있어요!');
 		}

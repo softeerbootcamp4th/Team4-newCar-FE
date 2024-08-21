@@ -7,7 +7,7 @@ export default function UnassignedCard() {
 				<img
 					src="/images/racing/front/pet.webp"
 					alt="캐스퍼 일렉트릭"
-					className="absolute w-[140px] opacity-20 object-contain"
+					className="absolute w-[140px] object-contain opacity-20"
 				/>
 				<p className="text-heading-1 z-10 mt-[20px] text-[110px] font-extrabold leading-[70px]">
 					?

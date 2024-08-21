@@ -10,13 +10,7 @@ import ResultStep from './ResultStep.tsx';
 
 export default function FCFSModal(props: ModalProps) {
 	const [Funnel, setStep] = useFunnel(
-		[
-			'quiz',
-			'already-done',
-			'correct-answer',
-			'wrong-answer',
-			'end',
-		] as NonEmptyArray<string>,
+		['quiz', 'already-done', 'correct-answer', 'wrong-answer', 'end'] as NonEmptyArray<string>,
 		{
 			initialStep: 'quiz',
 		},

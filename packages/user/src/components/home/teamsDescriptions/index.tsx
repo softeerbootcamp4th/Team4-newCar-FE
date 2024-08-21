@@ -5,7 +5,9 @@ import TriggerButtonWrapper from 'src/components/common/TriggerButtonWrapper.tsx
 import EXTERNAL_LINKS from 'src/constants/externalLinks.ts';
 import TeamInfoCard from './TeamInfoCard.tsx';
 
-const TeamDescriptionModal = lazy(() => import('src/components/shared/modal/TeamDescriptionModal.tsx'));
+const TeamDescriptionModal = lazy(
+	() => import('src/components/shared/modal/TeamDescriptionModal.tsx'),
+);
 
 /** 팀 소개 섹션 */
 export default function TeamsDescriptions() {

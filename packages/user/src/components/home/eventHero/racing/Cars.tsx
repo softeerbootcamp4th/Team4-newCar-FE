@@ -36,7 +36,7 @@ function SecondCar() {
 			<img
 				alt="2등으로 달리고 있는 차"
 				src="/images/racing/front/leisure.webp"
-				className="animate-rotate2 blur-[1.5px] absolute bottom-[70px] z-20"
+				className="animate-rotate2 absolute bottom-[70px] z-20 blur-[1.5px]"
 			/>
 		</div>
 	);
@@ -53,7 +53,7 @@ function ThirdCar() {
 			<img
 				alt="3등으로 달리고 있는 차"
 				src="/images/racing/front/pet.webp"
-				className="animate-rotate3 absolute blur-[2.5px] bottom-[70px] right-0 z-10"
+				className="animate-rotate3 absolute bottom-[70px] right-0 z-10 blur-[2.5px]"
 			/>
 		</div>
 	);

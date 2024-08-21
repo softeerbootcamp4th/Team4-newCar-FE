@@ -125,7 +125,7 @@ function CommonEventBox({
 	};
 
 	return (
-		<div className="flex flex-row flex-wrap rounded-sm border-[1px] border-black- p-4">
+		<div className="border-black- flex flex-row flex-wrap rounded-sm border-[1px] p-4">
 			<CommonEventItem description="이벤트 명" element={<div>{commonEvent.eventName}</div>} />
 			<CommonEventItem description="상태" element={<div>{status}</div>} />
 			<CommonEventItem

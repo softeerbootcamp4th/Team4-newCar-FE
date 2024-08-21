@@ -54,8 +54,7 @@ export default function useChatSocket() {
 		(data: unknown) => {
 			const parsedData = Array.isArray(data) ? [...data] : ([] as ChatProps[]);
 			if (parsedData.length > 0 && !parsedData.at(-1)?.sender) {
-				const notice = { ...parsedData.pop(), type: 'n' };
-				setNotice(notice);
+				setNotice({ ...parsedData.pop(), type: 'n' });
 			}
 			setMessages(parsedData);
 		},
@@ -93,10 +92,6 @@ export default function useChatSocket() {
 
 type BlockData = { id: string; blockId: string };
 
-const isBlockData = (data: unknown): data is BlockData => {
-	return (data as BlockData).blockId !== undefined;
-};
+const isBlockData = (data: unknown): data is BlockData => (data as BlockData).blockId !== undefined;
 
-const isNoticeData = (data: ChatProps): data is NoticeChatProps => {
-	return data.sender === undefined;
-};
+const isNoticeData = (data: ChatProps): data is NoticeChatProps => data.sender === undefined;

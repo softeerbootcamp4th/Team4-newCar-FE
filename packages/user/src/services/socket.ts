@@ -1,7 +1,4 @@
-import {
-	CHAT_SOCKET_ENDPOINTS,
-	RACING_SOCKET_ENDPOINTS,
-} from '@softeer/common/constants';
+import { CHAT_SOCKET_ENDPOINTS, RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
 import { toast } from 'src/hooks/useToast.ts';
@@ -79,11 +76,11 @@ class SocketManager {
 
 			if (this.onReceiveChatList) {
 				await this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE_HISTORY,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIB_HISTORY,
 					callback: this.onReceiveChatList,
 				});
 				this.socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_MESSAGE_HISTORY,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_HISTORY,
 					body: {},
 					requiresAuth: false,
 				});

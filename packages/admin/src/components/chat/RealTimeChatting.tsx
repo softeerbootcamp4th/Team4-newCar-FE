@@ -36,7 +36,7 @@ function RealTimeChatting({
 			<div className="rounded-4 mb-4 w-full border-2 border-yellow-900 p-6">
 				공지사항 : {notice}
 			</div>
-			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10">
+			<div className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-yellow-300 py-10">
 				<ChatList>
 					{messages.map((message) => (
 						<Chat onBlock={onBlock} key={message.id} {...message} />

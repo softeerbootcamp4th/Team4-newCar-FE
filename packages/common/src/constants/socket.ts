@@ -7,8 +7,8 @@ export const CHAT_SOCKET_ENDPOINTS = {
 	PUBLISH_BLOCK: '/app/chat.sendBlock',
 	SUBSCRIBE_NOTICE: '/topic/notice',
 	PUBLISH_NOTICE: '/app/chat.sendNotice',
-	SUBSCRIBE_MESSAGE_HISTORY: '/user/queue/chatHistory',
-	PUBLISH_MESSAGE_HISTORY: '/app/chat.getHistory',
+	SUBSCRIB_HISTORY: '/user/queue/chatHistory',
+	PUBLISH_HISTORY: '/app/chat.getHistory',
 	SUBSCRIBE_ERROR: '/user/queue/errors',
 } as const;
 

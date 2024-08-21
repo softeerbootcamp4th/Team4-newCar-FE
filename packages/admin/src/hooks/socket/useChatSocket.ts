@@ -55,9 +55,11 @@ export default function useChatSocket() {
 		[chatMessages],
 	);
 
-	const handleIncomingMessageHistory: SocketSubscribeCallbackType = useCallback(
+	const handleIncomingHistory: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const parsedDataList = data as Omit<ChatProps, 'id'>[];
+			const tmpNotice = parsedDataList.pop();
+			setNotice(tmpNotice?.content ?? '');
 			setChatMessages((prevMessages) => [...parsedDataList, ...prevMessages] as ChatProps[]);
 		},
 		[chatMessages],
@@ -105,11 +107,11 @@ export default function useChatSocket() {
 		[socketClient],
 	);
 
-	const handleRequestMessageHistory = useCallback(() => {
+	const handleRequestHistory = useCallback(() => {
 		try {
 			if (socketClient) {
 				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_MESSAGE_HISTORY,
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_HISTORY,
 					body: {},
 				});
 			} else {
@@ -125,10 +127,10 @@ export default function useChatSocket() {
 		onReceiveMessage: handleIncomingMessage,
 		onReceiveBlock: handleIncomintBlock,
 		onReceiveNotice: handleIncomingNotice,
-		onReceiveMessageHistory: handleIncomingMessageHistory,
+		onReceiveMessageHistory: handleIncomingHistory,
 		onBlock: handleBlock,
 		onNotice: handleSendNotice,
-		onRequestMessageHistory: handleRequestMessageHistory,
+		onRequestMessageHistory: handleRequestHistory,
 		messages: chatMessages,
 		notice,
 		isValid,

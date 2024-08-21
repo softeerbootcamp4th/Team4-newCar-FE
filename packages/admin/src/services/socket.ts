@@ -100,7 +100,7 @@ class SocketManager {
 
 			if (this.onReceiveMessageHistory) {
 				this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE_HISTORY,
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIB_HISTORY,
 					callback: this.onReceiveMessageHistory,
 				});
 			}

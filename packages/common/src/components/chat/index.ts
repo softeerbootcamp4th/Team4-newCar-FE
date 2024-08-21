@@ -1,6 +1,6 @@
 import { SocketCategory } from 'src/types/category.ts';
 
-type NoticeChatProps = {
+export type NoticeChatProps = {
 	id: string;
 	type: 'n';
 	content: string;

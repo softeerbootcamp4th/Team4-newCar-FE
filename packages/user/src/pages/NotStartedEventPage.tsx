@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useRouteError } from 'react-router-dom';
 import EventTimer from 'src/components/shared/timer/index.tsx';
 import useGetEventDuration from 'src/hooks/query/useGetEventDuration.ts';
@@ -6,11 +7,28 @@ import CustomError from 'src/utils/error.ts';
 
 export default function NotStartedEventPage() {
 	const error = useRouteError() as CustomError;
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
 	const {
 		duration: { startTime },
 		formattedDuration,
 	} = useGetEventDuration();
+
+	useEffect(() => {
+		if (error.status === 403 && startTime) {
+			const current = new Date().getTime();
+			const start = new Date(startTime).getTime();
+			const timeUntilStart = start - current;
+
+			if (timeUntilStart > 0) {
+				timerRef.current = setTimeout(() => window.location.reload(), timeUntilStart);
+			}
+		}
+
+		return () => {
+			if (timerRef.current) clearTimeout(timerRef.current);
+		};
+	}, [startTime, error.status]);
 
 	if (error.status === 403) {
 		return (

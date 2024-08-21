@@ -3,6 +3,7 @@ import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useEffect, useState } from 'react';
 import useChatListStorage from 'src/hooks/storage/useChatStorage.ts';
+import useChatNoticeStorage from 'src/hooks/storage/useNoticeStorage.ts';
 import { useToast } from 'src/hooks/useToast.ts';
 import socketManager from 'src/services/socket.ts';
 
@@ -12,6 +13,7 @@ export default function useChatSocket() {
 	const { toast } = useToast();
 
 	const [storedChatList, storeChatList] = useChatListStorage();
+	const [storedNotice, storeNotice] = useChatNoticeStorage();
 	const [chatList, setChatList] = useState<ChatProps[]>(storedChatList);
 
 	useEffect(() => storeChatList(chatList), [chatList]);
@@ -33,41 +35,41 @@ export default function useChatSocket() {
 		[setChatList],
 	);
 
-	
-	const handleSendMessage = useCallback(
-		(content: string) => {
-			try {
-				const socketClient = socketManager.getSocketClient();
+	const handleSendMessage = useCallback((content: string) => {
+		try {
+			const socketClient = socketManager.getSocketClient();
 
-				const chatMessage = { content };
+			const chatMessage = { content };
 
-				socketClient.sendMessages({
-					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT,
-					body: chatMessage,
-				});
-			} catch (error) {
-				const errorMessage = (error as Error).message;
-				toast({
-					description:
-						errorMessage.length > 0 ? errorMessage : '기대평 전송 중 문제가 발생했습니다.',
-				});
-			}
-		},
-		[],
-	);
+			socketClient.sendMessages({
+				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT,
+				body: chatMessage,
+			});
+		} catch (error) {
+			const errorMessage = (error as Error).message;
+			toast({
+				description: errorMessage.length > 0 ? errorMessage : '기대평 전송 중 문제가 발생했습니다.',
+			});
+		}
+	}, []);
 
 	const handleIncomingChatHistory: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
-			setChatList(data as ChatProps[]);
+			const parsedData = Array.isArray(data) ? [...data] : [] as ChatProps[];
+			if (parsedData.length > 0 && parsedData[0]?.type === 'n') {
+				storeNotice(parsedData.shift());
+			}
+			setChatList(parsedData);
 		},
 		[setChatList],
 	);
-	
+
 	return {
 		onReceiveMessage: handleIncomingMessage,
 		onReceiveBlock: handleIncomingBlock,
 		onReceiveChatList: handleIncomingChatHistory,
 		onSendMessage: handleSendMessage,
 		messages: chatList,
+		notice: storedNotice
 	};
 }

@@ -1,11 +1,10 @@
 import {
-	ACCESS_TOKEN_KEY,
 	CHAT_SOCKET_ENDPOINTS,
 	RACING_SOCKET_ENDPOINTS,
 } from '@softeer/common/constants';
-import { Cookie, Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
+import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
-import CustomError from 'src/utils/error.ts';
+import { toast } from 'src/hooks/useToast.ts';
 
 class SocketManager {
 	private socketClient: Socket | null = null;
@@ -17,10 +16,6 @@ class SocketManager {
 	private onReceiveChatList: SocketSubscribeCallbackType | null = null;
 
 	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
-
-	constructor(token: string | null) {
-		this.initializeSocketClient(token);
-	}
 
 	private initializeSocketClient(token?: string | null) {
 		this.socketClient = new Socket(SOCKET_BASE_URL, token);
@@ -43,10 +38,6 @@ class SocketManager {
 		onReceiveStatus: SocketSubscribeCallbackType;
 		onReceiveChatList: SocketSubscribeCallbackType;
 	}) {
-		if (this.socketClient) {
-			await this.socketClient.disconnect();
-		}
-
 		this.initializeSocketClient(token);
 
 		this.onReceiveChatList = onReceiveChatList;
@@ -56,9 +47,16 @@ class SocketManager {
 
 		try {
 			await this.socketClient!.connect();
-			this.subscribeToTopics();
 		} catch (error) {
-			throw new CustomError('서버에서 데이터를 불러오는 데 실패했습니다.', 500);
+			toast({ description: '새로고침 후 다시 시도해주세요.' });
+			console.error('[Socket Connection Error]', error);
+		}
+
+		try {
+			await this.subscribeToTopics();
+		} catch (error) {
+			toast({ description: '새로고침 후 다시 시도해주세요.' });
+			console.error('[Socket Subscribe Error]', error);
 		}
 	}
 
@@ -72,12 +70,17 @@ class SocketManager {
 		});
 	}
 
-	subscribeToTopics() {
+	async subscribeToTopics() {
 		if (this.socketClient && this.socketClient.client.connected) {
 			if (this.onReceiveChatList) {
-				this.socketClient.subscribe({
+				await this.socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_CHAT_LIST,
 					callback: this.onReceiveChatList,
+				});
+				this.socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT_LIST,
+					body: {},
+					requiresAuth: false,
 				});
 			}
 
@@ -105,5 +108,5 @@ class SocketManager {
 	}
 }
 
-const socketManager = new SocketManager(Cookie.getCookie(ACCESS_TOKEN_KEY));
+const socketManager = new SocketManager();
 export default socketManager;

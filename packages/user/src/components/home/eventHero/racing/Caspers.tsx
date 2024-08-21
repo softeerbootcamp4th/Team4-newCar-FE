@@ -29,8 +29,8 @@ function CreamCasper() {
 			</p>
 			<img src="images/hero/casper/cream-bubble.webp" alt="펫 팀 캐스퍼 말풍선" />
 			<img src="images/hero/casper/cream.webp" alt="펫 팀 캐스퍼 캐릭터" className="absolute w-[100px] left-[90px]" />
-			<img src="images/hero/casper/lighting-1.webp" alt="펫 팀 캐릭터 옆 큰 번개" className="animate-sparkle absolute -top-[2px] right-[4px]" />
-			<img src="images/hero/casper/lighting-2.webp" alt="펫 팀 캐릭터 옆 작은 번개" className="animate-sparkle-reverse absolute right-0 top-[22px]" />
+			<img src="images/hero/casper/lighting.webp" alt="펫 팀 캐릭터 옆 큰 번개" className="animate-sparkle absolute -top-[2px] right-[4px]" />
+			<img src="images/hero/casper/lighting.webp" alt="펫 팀 캐릭터 옆 작은 번개" className="animate-sparkle-reverse absolute right-0 top-[22px] w-[10px]" />
 		</div>
 	);
 }

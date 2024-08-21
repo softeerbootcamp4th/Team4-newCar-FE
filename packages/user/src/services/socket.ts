@@ -72,6 +72,11 @@ class SocketManager {
 
 	async subscribeToTopics() {
 		if (this.socketClient && this.socketClient.client.connected) {
+			this.socketClient.subscribe({
+				destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_ERROR,
+				callback: (errorMessage) => console.error(errorMessage),
+			});
+
 			if (this.onReceiveChatList) {
 				await this.socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_CHAT_LIST,

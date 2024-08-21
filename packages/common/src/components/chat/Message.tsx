@@ -8,11 +8,11 @@ interface MessageProps extends Pick<MessageChatProps, 'sender' | 'team'> {
 }
 
 const TYPES: Record<SocketCategory | 'default', { casper: string; textColor: string }> = {
-	default: { casper: '/casper/white.svg', textColor: 'text-skyblue-500' },
-	p: { casper: '/casper/yellow.svg', textColor: 'text-cream-600' },
-	l: { casper: '/casper/khaki.svg', textColor: 'text-khaki-400' },
-	t: { casper: '/casper/orange.svg', textColor: 'text-orange-500' },
-	s: { casper: '/casper/white.svg', textColor: 'text-gray-300' },
+	default: { casper: '/casper/white.webp', textColor: 'text-skyblue-500' },
+	p: { casper: '/casper/yellow.webp', textColor: 'text-cream-600' },
+	l: { casper: '/casper/khaki.webp', textColor: 'text-khaki-400' },
+	t: { casper: '/casper/orange.webp', textColor: 'text-orange-500' },
+	s: { casper: '/casper/white.webp', textColor: 'text-gray-300' },
 };
 
 export default function Message({
@@ -21,7 +21,7 @@ export default function Message({
 	isMyMessage = false,
 	children,
 }: PropsWithChildren<MessageProps>) {
-	const category = ['p', 't', 'l', 's'].includes(team)
+	const category = ['p', 't', 'l', 's'].includes(team?.toLowerCase())
 		? (team.toLowerCase() as SocketCategory)
 		: 'default';
 	const { casper, textColor } = TYPES[category];

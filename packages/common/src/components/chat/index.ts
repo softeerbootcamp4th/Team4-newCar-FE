@@ -11,7 +11,7 @@ export type NoticeChatProps = {
 export type MessageChatProps = {
 	id: string;
 	type: 'm';
-	sender: number;
+	sender: string;
 	content: string;
 	team: SocketCategory;
 };

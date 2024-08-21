@@ -1,7 +1,7 @@
 export default function RacingTitle() {
 	return (
 		<>
-			<h2>
+			<h2 className="h-[71px]">
 				버튼을 연타해 승리를 <strong>CHARGE</strong>하세요!
 			</h2>
 			<div className="mb-5 flex items-center gap-3">

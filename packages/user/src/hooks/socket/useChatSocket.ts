@@ -57,7 +57,7 @@ export default function useChatSocket() {
 		(data: unknown) => {
 			const parsedData = Array.isArray(data) ? [...data] : [] as ChatProps[];
 			if (parsedData.length > 0 && parsedData[0]?.type === 'n') {
-				storeNotice(parsedData.shift());
+				storeNotice(parsedData.pop());
 			}
 			setChatList(parsedData);
 		},

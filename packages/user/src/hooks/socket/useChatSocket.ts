@@ -14,8 +14,6 @@ export default function useChatSocket() {
 	const [storedChatList, storeChatList] = useChatListStorage();
 	const [chatList, setChatList] = useState<ChatProps[]>(storedChatList);
 
-	const [isChatListSubscribed, setIsChatListSubscribed] = useState(false);
-
 	useEffect(() => storeChatList(chatList), [chatList]);
 
 	const handleIncomingMessage: SocketSubscribeCallbackType = useCallback(
@@ -35,11 +33,12 @@ export default function useChatSocket() {
 		[setChatList],
 	);
 
-	const socketClient = socketManager.getSocketClient();
-
+	
 	const handleSendMessage = useCallback(
 		(content: string) => {
 			try {
+				const socketClient = socketManager.getSocketClient();
+
 				const chatMessage = { content };
 
 				socketClient.sendMessages({
@@ -54,7 +53,7 @@ export default function useChatSocket() {
 				});
 			}
 		},
-		[socketClient],
+		[],
 	);
 
 	const handleIncomingChatHistory: SocketSubscribeCallbackType = useCallback(
@@ -63,37 +62,11 @@ export default function useChatSocket() {
 		},
 		[setChatList],
 	);
-
-	const handleRequestForSendingChatHistory = useCallback(async () => {
-		try {
-			await socketClient.sendMessages({
-				destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_CHAT_LIST,
-				body: {},
-			});
-			setIsChatListSubscribed(true);
-		} catch (error) {
-			const errorMessage = (error as Error).message;
-			toast({
-				description:
-					errorMessage.length > 0 ? errorMessage : '기대평 내역을 불러오는 중 문제가 발생했습니다.',
-			});
-		}
-	}, [setIsChatListSubscribed, socketClient]);
-
-	const handleReceiveChatList: SocketSubscribeCallbackType = useCallback(
-		(data: unknown) => {
-			if (!isChatListSubscribed) {
-				handleRequestForSendingChatHistory();
-			}
-			handleIncomingChatHistory(data);
-		},
-		[isChatListSubscribed],
-	);
-
+	
 	return {
 		onReceiveMessage: handleIncomingMessage,
 		onReceiveBlock: handleIncomingBlock,
-		onReceiveChatList: handleReceiveChatList,
+		onReceiveChatList: handleIncomingChatHistory,
 		onSendMessage: handleSendMessage,
 		messages: chatList,
 	};

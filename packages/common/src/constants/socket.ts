@@ -9,6 +9,8 @@ export const CHAT_SOCKET_ENDPOINTS = {
 	PUBLISH_NOTICE: '/app/chat.sendNotice',
 	SUBSCRIBE_CHAT_LIST: '/user/queue/chatHistory',
 	PUBLISH_CHAT_LIST: '/app/chat.getHistory',
+	SUBSCRIBE_ERROR: '/user/queue/errors',
+
 } as const;
 
 export const RACING_SOCKET_ENDPOINTS = {

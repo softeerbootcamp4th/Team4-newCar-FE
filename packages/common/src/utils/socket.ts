@@ -13,6 +13,7 @@ export interface SendMessageProps {
 	destination: string;
 	body: unknown;
 	headers?: Record<string, string>;
+	requiresAuth?: boolean;
 }
 
 export default class Socket {
@@ -68,19 +69,17 @@ export default class Socket {
 		}
 	}
 
-	async sendMessages({ destination, body }: SendMessageProps) {
-		if (!this.token) {
+	async sendMessages({ destination, body, headers, requiresAuth = true}: SendMessageProps) {
+		if (requiresAuth && !this.token) {
 			throw new Error('로그인 후 참여할 수 있어요!');
 		}
 
 		const messageProps = {
 			destination,
+			headers,
 			body: JSON.stringify(body),
 		};
 
-		if (!this.client.connected) {
-			await this.connect();
-		}
 		this.client.publish(messageProps);
 	}
 

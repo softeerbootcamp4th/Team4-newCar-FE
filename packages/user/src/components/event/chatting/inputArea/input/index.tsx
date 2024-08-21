@@ -38,7 +38,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
 
 	return (
 		<form className="flex items-center gap-4" onSubmit={handleSubmit}>
-			<Input ref={inputRef} name="input" required />
+			<Input ref={inputRef} maxLength={50} name="input" required />
 			<ProtectedWrapper
 				unauthenticatedDisplay={<OutlinedButton as="div">로그인하고 채팅 보내기</OutlinedButton>}
 			/>

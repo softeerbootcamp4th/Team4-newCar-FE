@@ -3,6 +3,7 @@ import { CHAT_SOCKET_ENDPOINTS } from '@softeer/common/constants';
 import { SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { useCallback, useEffect, useState } from 'react';
 import useChatListStorage from 'src/hooks/storage/useChatStorage.ts';
+import useChatNoticeStorage from 'src/hooks/storage/useNoticeStorage.ts';
 import { useToast } from 'src/hooks/useToast.ts';
 import socketManager from 'src/services/socket.ts';
 
@@ -12,6 +13,7 @@ export default function useChatSocket() {
 	const { toast } = useToast();
 
 	const [storedChatList, storeChatList] = useChatListStorage();
+	const [storedNotice, storeNotice] = useChatNoticeStorage();
 	const [chatList, setChatList] = useState<ChatProps[]>(storedChatList);
 
 	useEffect(() => storeChatList(chatList), [chatList]);
@@ -53,7 +55,11 @@ export default function useChatSocket() {
 
 	const handleIncomingChatHistory: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
-			setChatList(data as ChatProps[]);
+			const parsedData = Array.isArray(data) ? [...data] : [] as ChatProps[];
+			if (parsedData.length > 0 && parsedData[0]?.type === 'n') {
+				storeNotice(parsedData.shift());
+			}
+			setChatList(parsedData);
 		},
 		[setChatList],
 	);
@@ -64,5 +70,6 @@ export default function useChatSocket() {
 		onReceiveChatList: handleIncomingChatHistory,
 		onSendMessage: handleSendMessage,
 		messages: chatList,
+		notice: storedNotice
 	};
 }

@@ -11,7 +11,7 @@ export default function useSocket() {
 	const chatSocket = useChatSocket();
 	const racingSocket = useRacingSocket();
 
-	const { onReceiveMessage, onReceiveChatList, onReceiveBlock, ...chatSocketProps } = chatSocket;
+	const { onReceiveMessage, onReceiveChatList, ...chatSocketProps } = chatSocket;
 	const { onReceiveStatus, ...racingSocketProps } = racingSocket;
 
 	const isSocketInitialized = useRef(false);
@@ -24,14 +24,13 @@ export default function useSocket() {
 					onReceiveChatList,
 					onReceiveMessage,
 					onReceiveStatus,
-					onReceiveBlock,
 				});
 				isSocketInitialized.current = true;
 			}
 		};
 
 		connetSocket();
-	}, [token, onReceiveMessage, onReceiveStatus, onReceiveBlock]);
+	}, [token, onReceiveMessage, onReceiveChatList, onReceiveStatus]);
 
 	return { chatSocket: chatSocketProps, racingSocket: racingSocketProps };
 }

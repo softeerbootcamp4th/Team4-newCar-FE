@@ -8,8 +8,6 @@ class SocketManager {
 
 	private onReceiveMessage: SocketSubscribeCallbackType | null = null;
 
-	private onReceiveBlock: SocketSubscribeCallbackType | null = null;
-
 	private onReceiveChatList: SocketSubscribeCallbackType | null = null;
 
 	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
@@ -25,13 +23,11 @@ class SocketManager {
 	async connectSocketClient({
 		token,
 		onReceiveMessage,
-		onReceiveBlock,
 		onReceiveStatus,
 		onReceiveChatList,
 	}: {
 		token: string | null | undefined;
 		onReceiveMessage: SocketSubscribeCallbackType;
-		onReceiveBlock: SocketSubscribeCallbackType;
 		onReceiveStatus: SocketSubscribeCallbackType;
 		onReceiveChatList: SocketSubscribeCallbackType;
 	}) {
@@ -39,7 +35,6 @@ class SocketManager {
 
 		this.onReceiveChatList = onReceiveChatList;
 		this.onReceiveMessage = onReceiveMessage;
-		this.onReceiveBlock = onReceiveBlock;
 		this.onReceiveStatus = onReceiveStatus;
 
 		try {
@@ -60,7 +55,6 @@ class SocketManager {
 	async reconnectSocketClient(token?: string | null) {
 		await this.connectSocketClient({
 			token,
-			onReceiveBlock: this.onReceiveBlock!,
 			onReceiveMessage: this.onReceiveMessage!,
 			onReceiveStatus: this.onReceiveStatus!,
 			onReceiveChatList: this.onReceiveChatList!,
@@ -91,12 +85,13 @@ class SocketManager {
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE,
 					callback: this.onReceiveMessage,
 				});
-			}
-
-			if (this.onReceiveBlock) {
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_NOTICE,
+					callback: this.onReceiveMessage,
+				});
 				this.socketClient.subscribe({
 					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_BLOCK,
-					callback: this.onReceiveBlock,
+					callback: this.onReceiveMessage,
 				});
 			}
 

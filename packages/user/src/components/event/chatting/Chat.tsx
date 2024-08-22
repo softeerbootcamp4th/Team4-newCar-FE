@@ -22,5 +22,5 @@ export default function Chat({ type, team, sender, content }: ChatProps) {
 		}
 	}, [type, sender, content]);
 
-	return <InViewLoadSection className="min-h-[30px]" component={render} />;
+	return <InViewLoadSection className="h-[30px]" component={render} />;
 }

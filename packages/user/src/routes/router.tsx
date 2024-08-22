@@ -23,7 +23,7 @@ const routes: RouteObject[] = [
 		path: RoutePaths.Index,
 		loader: rootLoader,
 		errorElement: (
-			<Suspense fallback={<GlobalFallback />}>
+			<Suspense>
 				<NotStartedEventPage />
 			</Suspense>
 		),
@@ -48,7 +48,7 @@ const routes: RouteObject[] = [
 					</Suspense>
 				),
 				errorElement: (
-					<Suspense fallback={<GlobalFallback />}>
+					<Suspense>
 						<ErrorPage />
 					</Suspense>
 				),

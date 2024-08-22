@@ -23,15 +23,17 @@ export default function HomePage() {
 	return (
 		<>
 			<EventHero />
-			<InViewLoadSection<HTMLDivElement> component={EventPrizes} />
-			<InViewLoadSection<HTMLDivElement> component={EventSteps} />
+			<InViewLoadSection<HTMLDivElement> component={EventPrizes} className="h-[570px]" />
+			<InViewLoadSection<HTMLDivElement> component={EventSteps} className="h-[2650px]" />
 			{/* 배너 바로가기 기능 동작을 위해 view port load 하지 않음 */}
-			<Suspense>
-				<FastestQuiz />
-			</Suspense>
-			<InViewLoadSection<HTMLDivElement> component={QuizHint} />
-			<InViewLoadSection<HTMLDivElement> component={TeamsDescriptions} />
-			<InViewLoadSection<HTMLDivElement> component={EventGuidelines} />
+			<div className="h-[1000px]">
+				<Suspense>
+					<FastestQuiz />
+				</Suspense>
+			</div>
+			<InViewLoadSection<HTMLDivElement> component={QuizHint} className="h-[1320px]" />
+			<InViewLoadSection<HTMLDivElement> component={TeamsDescriptions} className="h-[1000px]" />
+			<InViewLoadSection<HTMLDivElement> component={EventGuidelines} className="h-[730px]" />
 		</>
 	);
 }

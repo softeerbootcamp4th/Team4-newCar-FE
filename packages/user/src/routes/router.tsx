@@ -87,7 +87,7 @@ const routes: RouteObject[] = [
 	{
 		path: '*',
 		element: (
-			<Suspense fallback={<GlobalFallback />}>
+			<Suspense>
 				<NotFoundErrorPage />
 			</Suspense>
 		),

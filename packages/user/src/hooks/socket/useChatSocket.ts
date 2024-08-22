@@ -5,9 +5,8 @@ import { useCallback, useState } from 'react';
 import { useToast } from 'src/hooks/useToast.ts';
 import socketManager from 'src/services/socket.ts';
 
-export type UseChatSocketReturnType = ReturnType<typeof useChatSocket>;
-
 const INIT_NOTICE = { content: '오늘의 공지사항이 없습니다.' };
+
 export default function useChatSocket() {
 	const { toast } = useToast();
 

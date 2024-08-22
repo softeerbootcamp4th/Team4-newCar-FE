@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import InViewLoadSection from 'src/components/common/InViewLoadSection.tsx';
 import useInitialize from 'src/hooks/useInitialize.ts';
 import Banner from './banner/index.tsx';
 import BodyContainer from './BodyContainer.tsx';
@@ -20,7 +21,7 @@ export default function Layout() {
 				<div className="flex-grow">
 					<Outlet />
 				</div>
-				<Footer />
+				<InViewLoadSection component={Footer} className="h-[270px]" />
 			</BodyContainer>
 			<FCFSFloatingButtonController />
 		</div>

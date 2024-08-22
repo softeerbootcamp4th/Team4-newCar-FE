@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
-import GlobalFallback from 'src/components/layout/GlobalFallback.tsx';
-import LayoutFallback from 'src/components/layout/LayoutFallback.tsx';
+import GlobalFallback from 'src/components/layout/fallback/GlobalFallback.tsx';
+import LayoutFallback from 'src/components/layout/fallback/LayoutFallback.tsx';
+import PageFallback from 'src/components/layout/fallback/PageFallback.tsx';
 import RoutePaths from 'src/constants/routePath.ts';
 import {
 	kakaoRedirectLoader,
@@ -23,7 +24,7 @@ const routes: RouteObject[] = [
 		path: RoutePaths.Index,
 		loader: rootLoader,
 		errorElement: (
-			<Suspense fallback={<GlobalFallback />}>
+			<Suspense>
 				<NotStartedEventPage />
 			</Suspense>
 		),
@@ -48,7 +49,7 @@ const routes: RouteObject[] = [
 					</Suspense>
 				),
 				errorElement: (
-					<Suspense fallback={<GlobalFallback />}>
+					<Suspense>
 						<ErrorPage />
 					</Suspense>
 				),
@@ -56,7 +57,7 @@ const routes: RouteObject[] = [
 					{
 						index: true,
 						element: (
-							<Suspense fallback={<LayoutFallback />}>
+							<Suspense fallback={<PageFallback />}>
 								<HomePage />
 							</Suspense>
 						),
@@ -64,7 +65,7 @@ const routes: RouteObject[] = [
 					{
 						path: RoutePaths.Event,
 						element: (
-							<Suspense fallback={<LayoutFallback />}>
+							<Suspense fallback={<PageFallback />}>
 								<EventPage />
 							</Suspense>
 						),

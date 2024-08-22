@@ -1,6 +1,9 @@
 export default function PendingContainer({ message }: { message: string }) {
 	return (
-		<div role="status" className="flex h-screen w-screen flex-col items-center justify-center">
+		<div
+			role="status"
+			className="m-auto flex h-screen w-screen flex-col items-center justify-center"
+		>
 			<img
 				src="/images/fcfs/result/correct.webp"
 				alt="로딩 중 이미지"

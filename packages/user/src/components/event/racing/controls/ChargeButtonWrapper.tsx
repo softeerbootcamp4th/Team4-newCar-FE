@@ -3,10 +3,10 @@ import { PropsWithChildren } from 'react';
 import GradientBorderWrapper from 'src/components/common/GradientBorderWrapper.tsx';
 
 const imageUrls: Record<Category, string> = {
-	travel: '/images/racing/side/travel.png',
-	leisure: '/images/racing/side/leisure.png',
-	place: '/images/racing/side/place.png',
-	pet: '/images/racing/side/pet.png',
+	travel: '/images/racing/side/travel.webp',
+	leisure: '/images/racing/side/leisure.webp',
+	place: '/images/racing/side/place.webp',
+	pet: '/images/racing/side/pet.webp',
 };
 
 interface ChargeButtonWrapperProps {

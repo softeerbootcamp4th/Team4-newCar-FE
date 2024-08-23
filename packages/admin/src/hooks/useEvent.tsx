@@ -1,5 +1,7 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { API, METHOD } from 'src/constants/api.ts';
+import RoutePaths from 'src/constants/routePath.ts';
 import {
 	CommonEvent,
 	PersonalityTest,
@@ -12,8 +14,9 @@ import fetchData from 'src/utils/fetchData.ts';
 
 const useEvent = () => {
 	const { openAlert } = useAlert();
+	const navigate = useNavigate();
 
-	const commonEventQuery = useQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
+	const commonEventQuery = useSuspenseQuery<Response[API.COMMON_EVENT][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.COMMON_EVENT,
@@ -42,7 +45,7 @@ const useEvent = () => {
 		commonEventMutation.mutate(commonEvent);
 	};
 
-	const quizEventQuery = useQuery<Response[API.QUIZ_LIST][METHOD.GET]>({
+	const quizEventQuery = useSuspenseQuery<Response[API.QUIZ_LIST][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.QUIZ_LIST,
@@ -53,7 +56,7 @@ const useEvent = () => {
 		queryKey: [API.QUIZ_LIST],
 	});
 
-	const quizWinnerQuery = useQuery<Response[API.QUIZ_WINNER][METHOD.GET]>({
+	const quizWinnerQuery = useSuspenseQuery<Response[API.QUIZ_WINNER][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.QUIZ_WINNER,
@@ -88,7 +91,7 @@ const useEvent = () => {
 		quizEventMutation.mutate(quizEvent);
 	};
 
-	const racingWinnerQuery = useQuery<Response[API.RACING_WINNERS][METHOD.GET]>({
+	const racingWinnerQuery = useSuspenseQuery<Response[API.RACING_WINNERS][METHOD.GET]>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.RACING_WINNERS,
@@ -100,14 +103,16 @@ const useEvent = () => {
 	});
 
 	const racingWinnerMutation = useMutation({
-		mutationFn: async (winnerSettings: WinnerSetting[]) =>
-			fetchData({
+		mutationFn: async (winnerSettings: WinnerSetting[]) => {
+			const response = await fetchData({
 				path: API.RACING_WINNERS,
 				method: METHOD.POST,
 				payload: winnerSettings,
-			}),
-		onSuccess: () => {
-			racingWinnerQuery.refetch();
+			});
+			return response;
+		},
+		onSettled: () => {
+			navigate(RoutePaths.WINNER_RESULT);
 		},
 		onError: async (error) => {
 			if (error.name !== 'SyntaxError') {
@@ -120,7 +125,9 @@ const useEvent = () => {
 		racingWinnerMutation.mutate(winnerSettings);
 	};
 
-	const personalityTestListQuery = useQuery<Response[API.PERSONALITY_TEST_LIST][METHOD.GET]>({
+	const personalityTestListQuery = useSuspenseQuery<
+		Response[API.PERSONALITY_TEST_LIST][METHOD.GET]
+	>({
 		queryFn: async () => {
 			const response = await fetchData({
 				path: API.PERSONALITY_TEST_LIST,

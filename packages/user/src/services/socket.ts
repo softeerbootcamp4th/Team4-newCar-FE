@@ -1,22 +1,10 @@
-import {
-	ACCESS_TOKEN_KEY,
-	CHAT_SOCKET_ENDPOINTS,
-	RACING_SOCKET_ENDPOINTS,
-} from '@softeer/common/constants';
-import { Cookie, Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
+import { CHAT_SOCKET_ENDPOINTS, RACING_SOCKET_ENDPOINTS } from '@softeer/common/constants';
+import { Socket, SocketSubscribeCallbackType } from '@softeer/common/utils';
 import { SOCKET_BASE_URL } from 'src/constants/environments.ts';
-import CustomError from 'src/utils/error.ts';
+import { toast } from 'src/hooks/useToast.ts';
 
 class SocketManager {
 	private socketClient: Socket | null = null;
-
-	private onReceiveMessage: SocketSubscribeCallbackType | null = null;
-
-	private onReceiveStatus: SocketSubscribeCallbackType | null = null;
-
-	constructor(token: string | null) {
-		this.initializeSocketClient(token);
-	}
 
 	private initializeSocketClient(token?: string | null) {
 		this.socketClient = new Socket(SOCKET_BASE_URL, token);
@@ -26,59 +14,89 @@ class SocketManager {
 		return this.socketClient!;
 	}
 
-	connectSocketClient({
+	public async connectSocketClient({
 		token,
 		onReceiveMessage,
 		onReceiveStatus,
+		onReceiveChatList,
 	}: {
 		token: string | null | undefined;
 		onReceiveMessage: SocketSubscribeCallbackType;
 		onReceiveStatus: SocketSubscribeCallbackType;
+		onReceiveChatList: SocketSubscribeCallbackType;
 	}) {
-		this.initializeSocketClient(token);
-
-		this.onReceiveMessage = onReceiveMessage;
-		this.onReceiveStatus = onReceiveStatus;
-
-		this.socketClient!.connect((isConnected) => {
-			if (isConnected) {
-				this.subscribeToTopics();
-			} else {
-				throw new CustomError('서버에서 데이터를 불러오는 데 실패했습니다.', 500);
-			}
-		});
-	}
-
-	reconnectSocketClient(token?: string | null) {
-		if (this.socketClient) {
+		if (this.socketClient?.client.connected) {
 			this.socketClient.disconnect();
 		}
 
-		this.connectSocketClient({
-			token,
-			onReceiveMessage: this.onReceiveMessage!,
-			onReceiveStatus: this.onReceiveStatus!,
-		});
+		this.initializeSocketClient(token);
+
+		try {
+			await this.socketClient!.connect();
+		} catch (error) {
+			toast({ description: '새로고침 후 다시 시도해주세요.' });
+			console.error('[Socket Connection Error]', error);
+		}
+
+		try {
+			await this.subscribeToTopics({ onReceiveMessage, onReceiveStatus, onReceiveChatList });
+		} catch (error) {
+			toast({ description: '새로고침 후 다시 시도해주세요.' });
+			console.error('[Socket Subscribe Error]', error);
+		}
 	}
 
-	private subscribeToTopics() {
-		if (this.socketClient) {
-			if (this.onReceiveMessage) {
-				this.socketClient.subscribe({
-					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE,
-					callback: this.onReceiveMessage,
+	private async subscribeToTopics({
+		onReceiveMessage,
+		onReceiveStatus,
+		onReceiveChatList,
+	}: {
+		onReceiveMessage: SocketSubscribeCallbackType;
+		onReceiveStatus: SocketSubscribeCallbackType;
+		onReceiveChatList: SocketSubscribeCallbackType;
+	}) {
+		if (this.socketClient && this.socketClient.client.connected) {
+			this.socketClient.subscribe({
+				destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_ERROR,
+				callback: (errorMessage) => console.error(errorMessage),
+			});
+
+			if (onReceiveChatList) {
+				await this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIB_HISTORY,
+					callback: onReceiveChatList,
+				});
+				this.socketClient.sendMessages({
+					destination: CHAT_SOCKET_ENDPOINTS.PUBLISH_HISTORY,
+					body: {},
+					requiresAuth: false,
 				});
 			}
 
-			if (this.onReceiveStatus) {
+			if (onReceiveMessage) {
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_MESSAGE,
+					callback: onReceiveMessage,
+				});
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_NOTICE,
+					callback: onReceiveMessage,
+				});
+				this.socketClient.subscribe({
+					destination: CHAT_SOCKET_ENDPOINTS.SUBSCRIBE_BLOCK,
+					callback: onReceiveMessage,
+				});
+			}
+
+			if (onReceiveStatus) {
 				this.socketClient.subscribe({
 					destination: RACING_SOCKET_ENDPOINTS.SUBSCRIBE,
-					callback: this.onReceiveStatus,
+					callback: onReceiveStatus,
 				});
 			}
 		}
 	}
 }
 
-const socketManager = new SocketManager(Cookie.getCookie(ACCESS_TOKEN_KEY));
+const socketManager = new SocketManager();
 export default socketManager;

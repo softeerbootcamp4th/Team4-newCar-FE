@@ -30,7 +30,7 @@ function Subtitle({ children }: PropsWithChildren) {
 		<div className="text-heading-12 relative text-center font-medium">
 			<img
 				className="absolute -left-6 top-1 w-[85px]"
-				src="/images/hero/highlight.png"
+				src="/images/hero/highlight.webp"
 				alt="서브 타이틀 강조"
 			/>
 			{children}

@@ -7,7 +7,9 @@ export default function AppProviders({ children }: PropsWithChildren) {
 	return (
 		<AlertProvider>
 			<ModalProvider>
-				<QueryProvider>{children}</QueryProvider>
+					<QueryProvider>
+						{children}
+					</QueryProvider>
 			</ModalProvider>
 		</AlertProvider>
 	);

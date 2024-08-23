@@ -1,4 +1,3 @@
-import { cn } from '@softeer/common/utils';
 import React, { FunctionComponent, Suspense } from 'react';
 import useIntersectionObserver from 'src/hooks/useIntersectionObserver.ts';
 
@@ -14,7 +13,7 @@ function InViewLoadSection<T extends HTMLElement>({
 	const [ref, isIntersecting] = useIntersectionObserver<T>();
 
 	return (
-		<div ref={ref as React.RefObject<HTMLDivElement>} className={cn('min-h-[500px]', className)}>
+		<div ref={ref as React.RefObject<HTMLDivElement>} className={className}>
 			{isIntersecting && (
 				<Suspense fallback={null}>
 					<Component />

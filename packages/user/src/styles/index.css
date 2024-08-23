@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* font */
+/* font face */
 
 @font-face {
 	font-family: 'Tenada';
@@ -10,6 +10,7 @@
 		format('woff2');
 	font-weight: 800;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -17,6 +18,7 @@
 	src: url('/fonts/HyundaiSansHeadKRBold.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -24,6 +26,7 @@
 	src: url('/fonts/HyundaiSansHeadKRMedium.woff2') format('woff2');
 	font-weight: 500;
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
@@ -31,124 +34,114 @@
 	src: url('/fonts/HyundaiSansHeadKR.woff2') format('woff2');
 	font-weight: 400;
 	font-style: normal;
+	font-display: swap;
 }
-
-/** default typography */
-
-body {
-	@apply font-normal;
-}
-
-h1 {
-	@apply text-heading-1 font-extrabold;
-}
-
-h2 {
-	@apply text-heading-2 font-extrabold;
-}
-
-h3 {
-	@apply text-heading-3 font-extrabold;
-}
-
-h4 {
-	@apply text-heading-4 font-extrabold;
-}
-
-h5 {
-	@apply text-heading-5 font-extrabold;
-}
-
-h6 {
-	@apply text-heading-6 font-extrabold;
-}
-
-p {
-	@apply text-body-1 font-normal;
-}
-
-h1 > strong,
-h2 > strong,
-h3 > strong,
-h4 > strong,
-h5 > strong,
-h6 > strong,
-p > strong {
-	@apply text-primary;
-}
-
-/* scroll snap */
-
-main {
-	@apply scroll-my-15 snap-y snap-mandatory snap-normal overflow-auto;
-}
-
-/* 팀 소개 카드 리스트 */
-
-.group-description:hover > *:not(:hover),
-.group-description:focus-within > *:not(:focus) {
-	@apply scale-100 opacity-40 transition-all duration-150;
-}
-
-.group-description > *:hover,
-.group-description > *:focus {
-	@apply z-10 scale-110 opacity-100 transition-all duration-150;
-}
-
-/* 레이싱 unassigned 유형 카드 */
-
-.gradient-border {
-	@apply bg-gradient-border relative overflow-hidden p-1;
-}
-
-.gradient-border::before {
-	@apply bg-gradient-border absolute bottom-0 left-0 right-0 top-0 -z-10;
-	content: '';
-	background-size: 200% 200%;
-	z-index: -1;
-}
-
-/* shadcn ui */
 
 @layer base {
+	/** default typography */
+
+	body {
+		@apply font-normal;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-extrabold;
+	}
+
+	h1 {
+		@apply text-heading-1;
+	}
+
+	h2 {
+		@apply text-heading-2;
+	}
+
+	h3 {
+		@apply text-heading-3;
+	}
+
+	h4 {
+		@apply text-heading-4;
+	}
+
+	h5 {
+		@apply text-heading-5;
+	}
+
+	h6 {
+		@apply text-heading-6;
+	}
+
+	p {
+		@apply text-body-1 font-normal;
+	}
+
+	h1 > strong,
+	h2 > strong,
+	h3 > strong,
+	h4 > strong,
+	h5 > strong,
+	h6 > strong,
+	p > strong {
+		@apply text-primary;
+	}
+
+	/* 기본 레이아웃 */
+
 	body {
 		@apply bg-background text-foreground font-normal;
 	}
+
+	/* 스크롤 스타일 */
+
+	main {
+		@apply scroll-my-15 snap-y snap-mandatory snap-normal overflow-auto;
+	}
+
+	/* 커서 스타일링 */
 
 	* {
 		cursor: none;
 	}
 
-	/* hover 상태에서 커서 스타일 */
-	*:hover {
-		cursor: none;
+	/* 스크롤바 숨김 */
+
+	*::-webkit-scrollbar {
+		display: none;
 	}
 
-	/* active 상태에서 커서 스타일 */
-	*:active {
-		cursor: none;
-	}
-
-	/* focus 상태에서 커서 스타일 */
-	*:focus {
-		cursor: none;
-	}
-
-	/* disabled 상태에서 커서 스타일 */
-	*:disabled {
-		cursor: none;
-	}
-
-	/* selection 상태에서 커서 스타일 */
-	::selection {
-		cursor: none;
+	* {
+		scrollbar-width: none;
 	}
 }
 
-*::-webkit-scrollbar {
-	display: none;
+@layer components {
+	/* 팀 소개 카드 리스트 */
+	.group-description:hover > *:not(:hover),
+	.group-description:focus-within > *:not(:focus) {
+		@apply scale-100 opacity-40 transition-all duration-150;
+	}
+
+	.group-description > *:hover,
+	.group-description > *:focus {
+		@apply z-10 scale-110 opacity-100 transition-all duration-150;
+	}
 }
 
-* {
-	scrollbar-width: none;
+@layer utilities {
+	.gradient-border {
+		@apply bg-gradient-border relative overflow-hidden p-1;
+	}
+
+	.gradient-border::before {
+		@apply bg-gradient-border absolute inset-0 -z-10;
+		content: '';
+		background-size: 200% 200%;
+		z-index: -1;
+	}
 }

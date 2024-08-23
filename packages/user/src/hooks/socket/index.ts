@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import useAuth from 'src/hooks/useAuth.ts';
 import socketManager from 'src/services/socket.ts';
 import useChatSocket from './useChatSocket.ts';
@@ -9,14 +9,22 @@ export type UseSocketReturnType = ReturnType<typeof useSocket>;
 export default function useSocket() {
 	const { token } = useAuth();
 	const chatSocket = useChatSocket();
-
-	const { onReceiveMessage, ...chatSocketProps } = chatSocket;
-
 	const racingSocket = useRacingSocket();
+
+	const { onReceiveMessage, onReceiveChatList, ...chatSocketProps } = chatSocket;
 	const { onReceiveStatus, ...racingSocketProps } = racingSocket;
 
-	useEffect(() => {
-		socketManager.connectSocketClient({ token, onReceiveMessage, onReceiveStatus });
+	useLayoutEffect(() => {
+		const connetSocket = async () => {
+			await socketManager.connectSocketClient({
+				token,
+				onReceiveChatList,
+				onReceiveMessage,
+				onReceiveStatus,
+			});
+		};
+
+		connetSocket();
 	}, [socketManager, token]);
 
 	return { chatSocket: chatSocketProps, racingSocket: racingSocketProps };

@@ -11,8 +11,8 @@ function Tab({ selectedTabName, setSelectedTabName, tabNames }: CommonTabProps) 
 		setSelectedTabName(tabname);
 	};
 	return (
-		<div className="flex flex-row mb-4" >
-			<div className="border-cream-900 flex-0 bg-khaki-500 flex flex-row gap-2 border-2 rounded-4 p-3">
+		<div className="mb-4 flex flex-row">
+			<div className="border-cream-900 flex-0 bg-khaki-500 rounded-4 flex flex-row gap-2 border-2 p-3">
 				{tabNames.map((tabName) => (
 					<Button
 						key={tabName}

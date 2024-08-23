@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
 import Chip from 'src/components/common/Chip.tsx';
 import OptionButton from 'src/components/common/OptionButton.tsx';
+import PendingStep from 'src/components/shared/modal/PendingStep.tsx';
 import useGetFCFSQuiz from 'src/hooks/query/useGetFCFSQuiz.ts';
 import useSubmitFCFSQuiz, { SubmitFCFSQuizResponse } from 'src/hooks/query/useSubmitFCFSQuiz.ts';
+import CustomError from 'src/utils/error.ts';
 
 export type ResultStepType = ReturnType<typeof getResultStepFromStatus>;
 interface QuizStepProps {
-	onStepChange: (step: ResultStepType | 'pending') => void;
+	onStepChange: (step: ResultStepType | '') => void;
 }
 
 export default function QuizStep({ onStepChange }: QuizStepProps) {
@@ -16,15 +17,20 @@ export default function QuizStep({ onStepChange }: QuizStepProps) {
 
 	const { isPending, mutate: submitAnswer } = useSubmitFCFSQuiz();
 
-	useEffect(() => {
-		if (isPending) onStepChange('pending');
-	}, [isPending]);
-
 	const handleSubmit = (answer: number) =>
 		submitAnswer(
 			{ answer },
-			{ onSuccess: (response) => onStepChange(getResultStepFromStatus(response)) },
+			{
+				onSuccess: (response) => onStepChange(getResultStepFromStatus(response)),
+				onError: (error) => {
+					throw new CustomError(error.message, 1234);
+				},
+			},
 		);
+
+	if (isPending) {
+		return <PendingStep>선착순 퀴즈 결과 불러오는 중...</PendingStep>;
+	}
 
 	return (
 		<div className="flex h-full w-full max-w-[400px] flex-col justify-between gap-9 sm:max-w-[500px] md:max-w-[650px] lg:max-w-[800px]">
@@ -34,7 +40,7 @@ export default function QuizStep({ onStepChange }: QuizStepProps) {
 			</div>
 			<div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
 				{choices.map(({ num, text }) => (
-					<OptionButton key={num} onClick={() => handleSubmit(num)}>
+					<OptionButton key={num} disabled={isPending} onClick={() => handleSubmit(num)}>
 						{text}
 					</OptionButton>
 				))}

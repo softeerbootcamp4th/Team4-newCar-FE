@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
+import CustomError from 'src/utils/api/error.ts';
 import fetchWithInterceptors from 'src/utils/api/fetchInterceptors.ts';
 import getCookie from 'src/utils/storage/cookie/getCookie.ts';
 
@@ -27,15 +28,13 @@ export default class FetchWrapper {
 		this.baseUrl = baseUrl;
 		this.interceptors = {
 			response: async <T>(response: Response): Promise<T> => {
-				const textResult = await response.text();
 				if (!response.ok) {
-					throw new Error(textResult);
+					const errorMessage = await response.text();
+					return Promise.reject(
+						new CustomError(errorMessage || '서버에 문제가 발생하였습니다.', response.status),
+					);
 				}
-				try {
-					return JSON.parse(textResult);
-				} catch (err) {
-					throw new Error(textResult);
-				}
+				return response.json();
 			},
 		};
 	}

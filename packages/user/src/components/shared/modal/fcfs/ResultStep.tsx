@@ -14,19 +14,18 @@ export default function ResultStep({ step }: ResultStepProps) {
 			<img src={imageUrl} alt={`${step} 캐스퍼 캐릭터`} className="h-[230px] object-contain" />
 			<p className="text-heading-7 mb-9 font-bold">{title}</p>
 			<p className="text-body-1 mb-4 whitespace-pre-line text-center font-medium">{subTitle}</p>
-			<caption className="text-body-4 text-neutral-100">{details}</caption>
+			<p className="text-body-4 text-neutral-100">{details}</p>
 		</div>
 	);
 }
 
 const IMAGE_URLS: Record<ResultStepType, string> = {
-	'already-done': '/images/fcfs/result/already-done.png',
-	'correct-answer': '/images/fcfs/result/correct.png',
-	'wrong-answer': '/images/fcfs/result/wrong.png',
-	end: '/images/fcfs/result/already-done.png',
+	'already-done': '/images/fcfs/result/already-done.webp',
+	'correct-answer': '/images/fcfs/result/correct.webp',
+	'wrong-answer': '/images/fcfs/result/wrong.webp',
+	end: '/images/fcfs/result/end.webp',
 };
 
-/** TODO: 이벤트 마지막 날에는 '내일 퀴즈' 관련 문구 제거 */
 const DESCRIPTIONS: Record<
 	ResultStepType,
 	{
@@ -60,7 +59,7 @@ const DESCRIPTIONS: Record<
 			</>
 		),
 		subTitle: '오답이지만 선착순 마감 전까지 재시도할 수 있어요.\n끝날 때까진 끝난 게 아니죠!',
-		details: '선착순 퀴즈 이벤트는 매일 오후 3시 15분에 오픈합니다.',
+		details: '새로고침 후 다시 시도해주세요!',
 	},
 	end: {
 		title: (

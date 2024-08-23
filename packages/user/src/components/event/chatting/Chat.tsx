@@ -15,12 +15,12 @@ export default function Chat({ type, team, sender, content }: ChatProps) {
 			case 'm':
 			default:
 				return (
-					<Message sender={sender} team={team} isMyMessage={me?.id === sender.toString()}>
+					<Message sender={sender} team={team} isMyMessage={me?.id === sender}>
 						{content}
 					</Message>
 				);
 		}
 	}, [type, sender, content]);
 
-	return <InViewLoadSection className="min-h-[30px]" component={render} />;
+	return <InViewLoadSection className="h-[30px]" component={render} />;
 }

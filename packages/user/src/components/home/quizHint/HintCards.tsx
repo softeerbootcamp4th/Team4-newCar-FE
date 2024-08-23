@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import TalkingOrangeCasper from 'src/assets/icons/quiz-hint-casper.svg?react';
 import HintCard from './HintCard.tsx';
 import InfoBox from './InfoBox.tsx';
 import InfoTitle from './infoTitle.tsx';
@@ -33,7 +32,11 @@ const HINT_CARDS = [
 export default function HintCards() {
 	return (
 		<div className="relative flex flex-col items-center gap-10">
-			<TalkingOrangeCasper className="animate-casper-float absolute -top-[120px] right-[40px]" />
+			<img
+				src="images/quiz/quiz-hint-casper.webp"
+				alt="내용을 읽고 스피드 퀴즈를 준비해보세요!"
+				className="animate-casper-float absolute -top-[120px] right-[40px] w-[280px]"
+			/>
 			{HINT_CARDS.map((hint, index) => {
 				const [left, right] = determinePositions(getHintElements)(hint, index);
 				return <HintCard key={hint.details} left={left} right={right} />;
@@ -71,6 +74,10 @@ function createInfoBox({ title, subTitle, details }: Hint): ReactElement {
 
 function createImage(index: number): ReactElement {
 	return (
-		<img src={`images/hint/${index + 1}.png`} className="h-full w-full object-cover" alt="힌트" />
+		<img
+			src={`images/hint/${index + 1}.webp`}
+			className="h-full w-full object-cover"
+			alt="퀴즈 힌트 썸네일 사진"
+		/>
 	);
 }

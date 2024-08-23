@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/naming-convention */
 import { useMutation } from '@tanstack/react-query';
 import http from 'src/services/api/index.ts';
 

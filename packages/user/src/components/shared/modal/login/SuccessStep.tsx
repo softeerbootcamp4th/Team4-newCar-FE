@@ -7,7 +7,7 @@ export default function SuccessStep() {
 	return (
 		<div className="flex h-full flex-col items-center justify-center p-[20px]">
 			<img
-				src="/images/fcfs/result/correct.png"
+				src="/images/fcfs/result/correct.webp"
 				alt="로그인 성공 캐스퍼 캐릭터"
 				className="h-[300px] object-contain"
 			/>

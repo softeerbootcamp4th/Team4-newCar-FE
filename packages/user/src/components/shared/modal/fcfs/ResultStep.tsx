@@ -59,7 +59,7 @@ const DESCRIPTIONS: Record<
 			</>
 		),
 		subTitle: '오답이지만 선착순 마감 전까지 재시도할 수 있어요.\n끝날 때까진 끝난 게 아니죠!',
-		details: '선착순 퀴즈 이벤트는 매일 오후 3시 15분에 오픈합니다.',
+		details: '새로고침 후 다시 시도해주세요!',
 	},
 	end: {
 		title: (

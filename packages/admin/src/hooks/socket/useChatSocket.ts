@@ -58,8 +58,10 @@ export default function useChatSocket() {
 	const handleIncomingHistory: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const parsedDataList = data as Omit<ChatProps, 'id'>[];
-			const tmpNotice = parsedDataList.pop();
-			setNotice(tmpNotice?.content ?? '');
+			if (parsedDataList.length > 0 && !parsedDataList.at(-1)?.sender) {
+				const tmpNotice = parsedDataList.pop();
+				setNotice(tmpNotice?.content ?? '');
+			}
 			setChatMessages((prevMessages) => [...parsedDataList, ...prevMessages] as ChatProps[]);
 		},
 		[chatMessages],

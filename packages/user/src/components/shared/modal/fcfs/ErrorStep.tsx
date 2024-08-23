@@ -31,6 +31,12 @@ export default function ErrorStep({ error, resetErrorBoundary }: FallbackProps) 
 					</p>
 				</InfoStep>
 			);
+		case 1234:
+			return (
+				<InfoStep>
+					<p className="text-heading-10 font-medium">퀴즈 제출 중 오류가 발생했어요</p>
+				</InfoStep>
+			);
 		default:
 			return (
 				<InfoStep>

@@ -1,4 +1,5 @@
 import { ACCESS_TOKEN_KEY } from 'src/constants/api.ts';
+import CustomError from 'src/utils/api/error.ts';
 import fetchWithInterceptors from 'src/utils/api/fetchInterceptors.ts';
 import getCookie from 'src/utils/storage/cookie/getCookie.ts';
 
@@ -28,7 +29,10 @@ export default class FetchWrapper {
 		this.interceptors = {
 			response: async <T>(response: Response): Promise<T> => {
 				if (!response.ok) {
-					throw new Error('네트워크에 문제가 발생하였습니다.');
+					const errorMessage = await response.text();
+					return Promise.reject(
+						new CustomError(errorMessage || '서버에 문제가 발생하였습니다.', response.status),
+					);
 				}
 				return response.json();
 			},

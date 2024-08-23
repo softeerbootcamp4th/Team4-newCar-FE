@@ -5,8 +5,8 @@ import TriggerButtonLike from './TriggerButtonLike.tsx';
 
 const FCFSModal = lazy(() => import('src/components/shared/modal/fcfs/index.tsx'));
 
-const EVENT_OPEN_HOUR = 11;
-const EVENT_OPEN_MINUTE = 58;
+const EVENT_OPEN_HOUR = 14;
+const EVENT_OPEN_MINUTE = 15;
 
 const ProtectedFCFSButton = withAuth(() => (
 	<FCFSModal

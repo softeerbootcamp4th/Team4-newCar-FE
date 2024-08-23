@@ -12,7 +12,7 @@ export default function ContentsContainer({
 	const contents = Children.toArray(children);
 
 	return (
-		<div className={`flex items-center p-1 gap-${gap}`}>
+		<div className={`flex items-center p-1 gap-${gap} h-[542px]`}>
 			{contents.map((content, index) => (
 				// eslint-disable-next-line react/no-array-index-key
 				<Fragment key={index}>

@@ -26,7 +26,7 @@ export default function RealTimeChatting({
 			<Notice>{notice.content}</Notice>
 			<div
 				ref={chatListRef}
-				className="h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10 mt-5"
+				className="mt-5 h-[1000px] w-full overflow-y-auto rounded-[10px] bg-neutral-800 py-10"
 			>
 				<ChatList>
 					{messages.map((message) => (

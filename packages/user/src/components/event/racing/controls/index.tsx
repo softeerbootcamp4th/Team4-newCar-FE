@@ -1,5 +1,6 @@
 import { CATEGORIES } from '@softeer/common/constants';
-import { useMemo } from 'react';
+import { Category } from '@softeer/common/types';
+import { memo, useMemo } from 'react';
 import type { UseRacingSocketReturnType } from 'src/hooks/socket/useRacingSocket.ts';
 import type { VoteStatus } from 'src/types/racing.d.ts';
 import ControlButton from './ControlButton.tsx';
@@ -7,48 +8,46 @@ import ControlButton from './ControlButton.tsx';
 interface RacingRankingDisplayProps extends Pick<UseRacingSocketReturnType, 'ranks' | 'votes'> {
 	isActive: boolean;
 }
-export default function RacingRankingDisplay({
-	isActive,
-	ranks,
-	votes,
-}: RacingRankingDisplayProps) {
-	const percentage = useMemo(() => calculatePercentage(votes), [votes]);
+
+const RacingRankingDisplay = memo(({ isActive, ranks, votes }: RacingRankingDisplayProps) => {
+	const percentage = usePercentage(votes);
+
+	const getData = (type: Category) => ({
+		rank: ranks[type],
+		percentage: percentage[type],
+		vote: votes[type],
+	});
 
 	return (
 		<div className="relative h-[150px] w-full">
 			{CATEGORIES.map((type) => (
-				<ControlButton
-					key={type}
-					type={type}
-					isActive={isActive}
-					data={{
-						rank: ranks[type],
-						percentage: percentage[type],
-						vote: votes[type],
-					}}
-				/>
+				<ControlButton key={type} type={type} isActive={isActive} data={getData(type)} />
 			))}
 		</div>
 	);
-}
+});
 
-/** Helper Function */
-function calculatePercentage(voteStatus: VoteStatus): VoteStatus {
-	const totalVotes = Object.values(voteStatus).reduce((sum, value) => sum + value, 0);
+export default RacingRankingDisplay;
 
-	if (totalVotes === 0) {
-		return {
-			pet: 0,
-			place: 0,
-			travel: 0,
-			leisure: 0,
-		};
-	}
+/** Custom Hook */
 
-	return {
-		pet: (voteStatus.pet / totalVotes) * 100,
-		place: (voteStatus.place / totalVotes) * 100,
-		travel: (voteStatus.travel / totalVotes) * 100,
-		leisure: (voteStatus.leisure / totalVotes) * 100,
-	};
+function usePercentage(voteStatus: VoteStatus): VoteStatus {
+	const totalVotes = useMemo(
+		() => Object.values(voteStatus).reduce((sum, value) => sum + value, 0),
+		[voteStatus],
+	);
+
+	return useMemo(() => {
+		if (totalVotes === 0) {
+			return CATEGORIES.reduce((acc, category) => {
+				acc[category] = 0;
+				return acc;
+			}, {} as VoteStatus);
+		}
+
+		return CATEGORIES.reduce((acc, category) => {
+			acc[category] = Number(((voteStatus[category] / totalVotes) * 100).toFixed(1));
+			return acc;
+		}, {} as VoteStatus);
+	}, [totalVotes, voteStatus]);
 }

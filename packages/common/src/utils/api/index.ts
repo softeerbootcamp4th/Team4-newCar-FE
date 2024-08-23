@@ -27,15 +27,10 @@ export default class FetchWrapper {
 		this.baseUrl = baseUrl;
 		this.interceptors = {
 			response: async <T>(response: Response): Promise<T> => {
-				const textResult = await response.text();
 				if (!response.ok) {
-					throw new Error(textResult);
+					throw new Error('네트워크에 문제가 발생하였습니다.');
 				}
-				try {
-					return JSON.parse(textResult);
-				} catch (err) {
-					throw new Error(textResult);
-				}
+				return response.json();
 			},
 		};
 	}

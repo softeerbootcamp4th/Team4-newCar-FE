@@ -1,4 +1,4 @@
-import { PropsWithChildren, useMemo } from 'react';
+import { memo, PropsWithChildren, useMemo } from 'react';
 import type { Rank } from 'src/types/racing.d.ts';
 
 interface ControllButtonWrapperProps {
@@ -6,22 +6,21 @@ interface ControllButtonWrapperProps {
 	isMyCasper: boolean;
 }
 
-export default function ControllButtonWrapper({
-	rank,
-	isMyCasper,
-	children,
-}: PropsWithChildren<ControllButtonWrapperProps>) {
-	const rankStyle = useMemo(() => styles[rank], [rank]);
+const ControllButtonWrapper = memo(
+	({ rank, isMyCasper, children }: PropsWithChildren<ControllButtonWrapperProps>) => {
+		const rankStyle = useMemo(() => styles[rank], [rank]);
 
-	return (
-		<div
-			className={`${isMyCasper ? 'scale-100' : 'scale-75 opacity-60'} absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${rankStyle}`}
-		>
-			{children}
-		</div>
-	);
-}
+		return (
+			<div
+				className={`${isMyCasper ? 'scale-100' : 'scale-75 opacity-60'} absolute flex transform flex-col gap-3 transition-all duration-500 ease-in-out ${rankStyle}`}
+			>
+				{children}
+			</div>
+		);
+	},
+);
 
+export default ControllButtonWrapper;
 const styles: Record<Rank, string> = {
 	1: 'left-[40px] z-40',
 	2: 'left-[310px] z-30',

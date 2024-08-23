@@ -9,6 +9,7 @@ export default function useGetFCFSQuiz() {
 	const { data: quiz } = useSuspenseQuery<FCFSQuiz>({
 		queryKey: [QUERY_KEYS.FCFS_QUIZ],
 		queryFn: () => http.get('/quiz'),
+		staleTime: 0,
 	});
 
 	return { quiz };

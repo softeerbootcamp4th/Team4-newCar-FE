@@ -25,26 +25,23 @@ export default function useRacingSocket() {
 
 	const ranks = useMemo(() => calculateRank(votes), [votes]);
 
-	useEffect(() => storeVote(votes), [votes]);
+	useEffect(() => storeVote(votes), [votes, storeVote]);
 
 	const handleStatusChange: SocketSubscribeCallbackType = useCallback(
 		(data: unknown) => {
 			const newVoteStatus = parseSocketVoteData(data as SocketData);
-			const isVotesChanged = Object.keys(newVoteStatus).some(
-				(category) => newVoteStatus[category as Category] !== votes[category as Category],
-			);
-
-			if (isVotesChanged) setVotes(newVoteStatus);
+			if (!isEqualVoteStatus(newVoteStatus, votes)) {
+				setVotes(newVoteStatus);
+			}
 		},
 		[votes],
 	);
 
-	const socketClient = socketManager.getSocketClient();
-
 	const handleCarFullyCharged = useCallback(() => {
 		try {
+			const socketClient = socketManager.getSocketClient();
 			const category = user?.type as Category;
-			const completeChargeData = prepareChargeData(category, categoryToSocketCategory);
+			const completeChargeData = prepareChargeData(category);
 
 			socketClient.sendMessages({
 				destination: RACING_SOCKET_ENDPOINTS.PUBLISH,
@@ -54,19 +51,17 @@ export default function useRacingSocket() {
 			const errorMessage = (error as Error).message || '문제가 발생했습니다.';
 			toast({ description: errorMessage });
 		}
-	}, [user?.type, socketClient]);
+	}, [user?.type, toast]);
 
 	return {
-		votes,
+		votes: storedVote,
 		ranks,
 		onReceiveStatus: handleStatusChange,
 		onCarFullyCharged: handleCarFullyCharged,
 	};
 }
 
-/**
- * Helper Functions
- */
+/* Helper Functions */
 
 function calculateRank(vote: VoteStatus): RankStatus {
 	const sortedCategories = (Object.keys(vote) as Category[]).sort(
@@ -82,6 +77,12 @@ function calculateRank(vote: VoteStatus): RankStatus {
 	);
 }
 
+function isEqualVoteStatus(newVoteStatus: VoteStatus, currentVoteStatus: VoteStatus): boolean {
+	return Object.keys(newVoteStatus).every(
+		(category) => newVoteStatus[category as Category] === currentVoteStatus[category as Category],
+	);
+}
+
 function parseSocketVoteData(data: SocketData): VoteStatus {
 	return Object.entries(data).reduce<VoteStatus>((acc, [socketCategory, value]) => {
 		const category = socketCategoryToCategory[socketCategory.toLowerCase() as SocketCategory];
@@ -90,15 +91,12 @@ function parseSocketVoteData(data: SocketData): VoteStatus {
 	}, {} as VoteStatus);
 }
 
-function prepareChargeData(
-	category: Category,
-	categoryMap: Record<Category, SocketCategory>,
-): Record<SocketCategory, number> {
+function prepareChargeData(category: Category): Record<SocketCategory, number> {
 	const chargeData = {
-		[categoryMap[category].toLowerCase()]: 1,
+		[categoryToSocketCategory[category].toLowerCase()]: 1,
 	};
 
-	return Object.entries(categoryMap).reduce(
+	return Object.entries(categoryToSocketCategory).reduce(
 		(acc, [, socketCategory]) => {
 			acc[socketCategory] = chargeData[socketCategory.toLowerCase()] ?? 0;
 			return acc;

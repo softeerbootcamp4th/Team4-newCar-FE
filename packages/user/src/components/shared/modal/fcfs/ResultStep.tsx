@@ -14,7 +14,7 @@ export default function ResultStep({ step }: ResultStepProps) {
 			<img src={imageUrl} alt={`${step} 캐스퍼 캐릭터`} className="h-[230px] object-contain" />
 			<p className="text-heading-7 mb-9 font-bold">{title}</p>
 			<p className="text-body-1 mb-4 whitespace-pre-line text-center font-medium">{subTitle}</p>
-			<caption className="text-body-4 text-neutral-100">{details}</caption>
+			<p className="text-body-4 text-neutral-100">{details}</p>
 		</div>
 	);
 }

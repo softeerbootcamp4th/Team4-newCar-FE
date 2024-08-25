@@ -6,6 +6,7 @@ import { Button } from 'src/components/ui/button.tsx';
 import useEvent from 'src/hooks/useEvent.tsx';
 import { QuizWinner, RacingWinner } from 'src/services/api/types/apiType.ts';
 import { useAlert } from 'src/store/provider/AlertProvider.tsx';
+import { transformQuizWinnersToExcel, transformRaceWinnersToExcel } from 'src/utils/adaptor.ts';
 import excelDownload from 'src/utils/xlsx.ts';
 
 const TabName = {
@@ -86,13 +87,13 @@ function WinnerResult() {
 			if (quizWinner === undefined) {
 				return openAlert('데이터가 없습니다.', 'alert');
 			}
-			excelDownload(quizWinner, '퀴즈 위너');
+			excelDownload(transformQuizWinnersToExcel(quizWinner), '퀴즈 위너');
 		}
 		if (tabName === TabName.RACE) {
 			if (racingWinners === undefined) {
 				return openAlert('데이터가 없습니다.', 'alert');
 			}
-			excelDownload(racingWinners, '레이싱 위너');
+			excelDownload(transformRaceWinnersToExcel(racingWinners), '레이싱 위너');
 		}
 	};
 

@@ -3,9 +3,17 @@
   
 # Softeer Team-4 Final Project FE - 신차... 이정도면 설명이 됐으려나?
 
-***DemoLink : https://www.batro.org***  
-<img width="1710" alt="image" src="https://github.com/user-attachments/assets/47a1bdbf-b7c4-49b6-931f-47aa7af4d1ef">
-  <br />  <br />
+
+서비스 바로가기
+<br />
+[![SERVICE](https://img.shields.io/badge/Service-55A7BA.svg?style=for-the-badge)](https://www.batro.org/) 
+[![ADMIN](https://img.shields.io/badge/Admin-C0C7C9.svg?style=for-the-badge)](https://admin.batro.org/) 
+<br />
+***시연 영상 : [https://youtu.be/73tDKewWj6I?feature=shared](https://youtu.be/73tDKewWj6I?feature=shared)***  
+<br />
+<img width="1725" alt="image" src="https://github.com/user-attachments/assets/9ba83f8a-2415-4dd8-8e16-53806cb3b749">
+
+ <br />
 
 ## 기술 스택
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=Tailwind%20CSS&logoColor=white">

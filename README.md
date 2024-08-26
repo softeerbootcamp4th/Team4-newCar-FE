@@ -8,28 +8,33 @@
   <br />  <br />
 
 ## 기술 스택
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
-<img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=Tailwind%20CSS&logoColor=white">
- <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"> <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=Tailwind%20CSS&logoColor=white">
+<br />
+<img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white"> <img src="https://img.shields.io/badge/shadcnui-4B32C3?style=for-the-badge&logo=shadcnui&logoColor=black"> <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white">
+ 
+ 
+
+ 
+   <br />
+
+## 멤버
+  | 직책 | 담당 | 이름 | github id  | 취미 | |
+|--|--|--|--|--|--|
+| 팀장 | FE | 김보민 |  [@nimod7890](https://github.com/nimod7890)| 코딩 | <img src="https://github.com/user-attachments/assets/f2a2d74e-6c39-48ea-ab20-7665eae9be12" alt="김보민" width="100"/> |
+| 팀원 | FE | 성락현 | [@racgoo](https://github.com/racgoo) | 명상 | <img src="https://github.com/user-attachments/assets/27a3d5e6-4a37-42e4-9393-d8e353d5b11f" alt="성락현" width="100"/> |
+| 팀원 | BE | 장준하 | [@jun-ha](https://github.com/jun-ha) | 코딩 | <img src="https://github.com/user-attachments/assets/42377928-87ab-42a1-8bf0-c09d5952bc47" alt="장준하" width="100"/> |
+| 팀원 | BE | 배진환 | [@bjh3311](https://github.com/bjh3311) | 서브웨이 | <img src="https://github.com/user-attachments/assets/4e55c61e-48a0-47c4-be22-9ac97b6c9f1a" alt="배진환" width="100"/>  |
 
 
 ## 링크
 ***이벤트 초대 링크 (OG태그)***
-> 동물:  https://pet.batro.org
-> 
-> <img width="344" alt="image" src="https://github.com/user-attachments/assets/ead78c42-dda6-45f6-a771-58ee3c4e9b01">
 
-> 공간:  https://place.batro.org
-> 
-> <img width="349" alt="image" src="https://github.com/user-attachments/assets/cf7c0b4b-e47e-4be2-9d7a-4239150c8b7f">
-
-> 여행:  https://travel.batro.org
-> 
-> <img width="341" alt="image" src="https://github.com/user-attachments/assets/17ffb819-28cf-41f1-8b93-0dbcfeb6e0c0">
-
->  레저:  https://leisure.batro.org
->  
->  <img width="344" alt="image" src="https://github.com/user-attachments/assets/0a19d47b-4b67-4c27-9194-f9f53bed7702">
+| 카테고리 | 링크 | 이미지 |
+|----------|------|--------|
+| 동물     | [https://pet.batro.org](https://pet.batro.org) | <img width="344" alt="image" src="https://github.com/user-attachments/assets/ead78c42-dda6-45f6-a771-58ee3c4e9b01"> |
+| 공간     | [https://place.batro.org](https://place.batro.org) | <img width="349" alt="image" src="https://github.com/user-attachments/assets/cf7c0b4b-e47e-4be2-9d7a-4239150c8b7f"> |
+| 여행     | [https://travel.batro.org](https://travel.batro.org) | <img width="341" alt="image" src="https://github.com/user-attachments/assets/17ffb819-28cf-41f1-8b93-0dbcfeb6e0c0"> |
+| 레저     | [https://leisure.batro.org](https://leisure.batro.org) | <img width="344" alt="image" src="https://github.com/user-attachments/assets/0a19d47b-4b67-4c27-9194-f9f53bed7702"> |
 
   <br />
 
@@ -39,18 +44,12 @@
 > 
 > BE: https://github.com/softeerbootcamp4th/Team4-newCar-BE
 
-   <br />
-
-## 멤버
-  | 직책 | 담당 | 이름 | github id  | 취미 | |
-|--|--|--|--|--|--|
-| 팀장 | FE | 김보민 |  [@nimod7890](https://github.com/nimod7890)| 코딩 | <img src="https://github.com/user-attachments/assets/f2a2d74e-6c39-48ea-ab20-7665eae9be12" alt="김보민" width="100"/> |
-| 팀원 | FE | 성락현 | [@racgoo](https://github.com/racgoo) | 명상 | <img src="https://github.com/user-attachments/assets/27a3d5e6-4a37-42e4-9393-d8e353d5b11f" alt="성락현" width="100"/> |
-| 팀원 | BE | 장준하 | [@jun-ha](https://github.com/jun-ha) | 코딩 | <img src="https://github.com/user-attachments/assets/27a3d5e6-4a37-42e4-9393-d8e353d5b11f" alt="장준하" width="100"/> |
-| 팀원 | BE | 배진환 | [@bjh3311](https://github.com/bjh3311) | 서브웨이 | <img src="https://github.com/user-attachments/assets/4e55c61e-48a0-47c4-be22-9ac97b6c9f1a" alt="배진환" width="100"/>  |
-
   
   <br />
+
+## 번들 구조
+  <img width="1063" alt="image" src="https://github.com/user-attachments/assets/d39a55f8-1d01-4bc4-b2b1-5919caa8f7f4">
+
   
   
 
